@@ -164,7 +164,7 @@ function updateMusic(isMuted) {
     }
 
     if (muteIcon) {
-        muteIcon.src = isMuted ? '/images/mute2.png' : '/images/speaker.png';
+        muteIcon.src = isMuted ? '../images/mute2.png' : '../images/speaker.png';
     }
 
     if (musicToggle) {

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Tic Tac Toe</title>
+	<title>Memory</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="memory.css" />
-	<link rel="icon" type="image/png" href="/images/logo3.png">
+	<link rel="icon" type="image/png" href="../images/logo3.png">
 	<script src="memory.js" defer></script>
 </head>
 <body>
@@ -12,9 +12,9 @@
 		<div class="container">
 			<div class="header-top">
 				<div class="header-logo">
-					<a href="/spielhenne.html">
-						<img class="logo" src="/images/logo_schrift.png"> 
-						<img class="logo2" src="/images/logo_huhn.png"> 
+					<a href="../index.html">
+						<img class="logo" src="../images/logo_schrift.png"> 
+						<img class="logo2" src="../images/logo_huhn.png"> 
 					</a>
 				</div>
 				
@@ -23,7 +23,7 @@
 						<input type="text" id="searchInput" placeholder="Search Game..." oninput="showLiveSearch()" onkeydown="handleSearchEnter(event)">
 						
 						<span>
-							<img onclick="toggleSearch()" class="nav-link lupe" src="/images/lupe.png">
+							<img onclick="toggleSearch()" class="nav-link lupe" src="../images/lupe.png">
 						</span>
 						
 						<div id="searchSuggestions" class="search-suggestions"></div>
@@ -31,7 +31,7 @@
 					
 					<span class="divider">|</span>
 
-					<a href="/spielhenne.html" class="alogin">
+					<a href="../index.html" class="alogin">
 						<span class="nav-login">LogIn</span> 
 					</a>
 
@@ -41,7 +41,7 @@
 						<span onclick="toggleSettings()" class="nav-settings">Settings</span>
 
 						<div id="settingsDropdown" class="dropdown-content">
-							<a href="/spielhenne.html">Profile</a>
+							<a href="../index.html">Profile</a>
 
 							<div class="menu-item-flex">
 								<span>Music</span>
@@ -67,16 +67,16 @@
 			
 			<nav class="main-navigation">
 				<ul>
-					<li><a href="/spielhenne.html?filter=all">All Games</a></li>
-					<li><a href="/spielhenne.html?filter=2">2 Player Games</a></li>
-					<li><a href="/spielhenne.html?filter=1">Solo Games</a></li>
-					<li><a href="/spielhenne.html?filter=multy">Online Games</a></li>
+					<li><a href="../index.html?filter=all">All Games</a></li>
+					<li><a href="../index.html?filter=2">2 Player Games</a></li>
+					<li><a href="../index.html?filter=1">Solo Games</a></li>
+					<li><a href="../index.html?filter=multy">Online Games</a></li>
 				</ul>
 			</nav>
 		</div>
 	</header>
     
-    <audio id="bgMusic" src="/music/Spielmusik.mp3" loop autoplay></audio>
+    <audio id="bgMusic" src="../music/Spielmusik.mp3" loop autoplay></audio>
 
     <div class="main">
          <div class="head">
@@ -85,7 +85,7 @@
              <div class="header">Memory</div>
 
              <div class="muteBtn" id="muteBtn">
-                 <img id="muteIcon" src="/images/speaker.png" alt="Mute">
+                 <img id="muteIcon" src="../images/speaker.png" alt="Mute">
              </div>
         </div>
 

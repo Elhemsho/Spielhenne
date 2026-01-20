@@ -3,10 +3,8 @@ function toggleSearch() {
     const input = document.getElementById("searchInput");
     const settings = document.getElementById("settingsDropdown");
 
-    // 1. Zuerst das andere Menü (Settings) schließen
     settings.classList.remove("show");
 
-    // 2. Suche umschalten
     if (!input.classList.contains("show")) {
         input.classList.add("show");
         input.focus();
@@ -33,14 +31,14 @@ function searchGames() {
         }
     });
 
-    // Hier kannst du die Nachricht anpassen (z.B. "Kein Spiel gefunden")
-    if (visibleCount === 0) {
-        noGamesMessage.style.display = 'block';
-        // Optional: Text ändern für die Suche
-        noGamesMessage.querySelector('h2').textContent = "No games found...";
-    } else {
-        noGamesMessage.style.display = 'none';
-        noGamesMessage.querySelector('h2').textContent = "Coming Soon...";
+    if (noGamesMessage) {
+        if (visibleCount === 0) {
+            noGamesMessage.style.display = 'block';
+            noGamesMessage.querySelector('h2').textContent = "No games found...";
+        } else {
+            noGamesMessage.style.display = 'none';
+            noGamesMessage.querySelector('h2').textContent = "Coming Soon...";
+        }
     }
 }
 
@@ -48,35 +46,38 @@ function searchGames() {
 const allGames = [
     { 
         name: "Tic Tac Toe", 
-        // Der Pfad ist: Hauptordner -> Ordner tictactoe -> datei.html
-        url: "/tictactoe/tictactoe.html", 
-        img: "/images/ttt.png" 
+        url: "../tictactoe/tictactoe.html", 
+        img: "../images/ttt.png" 
     },
     { 
         name: "Connect Four", 
-        // Der Pfad ist: Hauptordner -> Ordner connectfour -> datei.html
-        url: "/connectfour/connectfour.html", 
-        img: "/images/chip_rot2.png" 
+        url: "../connectfour/connectfour.html", 
+        img: "../images/chip_rot2.png" 
     },
     { 
         name: "Yazy", 
-        url: "/yazy/yazy.html", 
-        img: "/images/würfel.png" 
+        url: "../yazy/yazy.html", 
+        img: "../images/würfel.png" 
     },
     { 
         name: "Solitaire", 
-        url: "/solitaire/solitaire.html", 
-        img: "/images/ass2.png" 
+        url: "../solitaire/solitaire.html", 
+        img: "../images/ass2.png" 
     },
     { 
         name: "2048", 
-        url: "/2048/2048.html", 
-        img: "/images/2048logo.png" 
+        url: "../2048/2048.html", 
+        img: "../images/2048logo.png" 
     },
     { 
         name: "Dots and Boxes", 
-        url: "/dotsandboxes/dotsandboxes.html", 
-        img: "/images/kklogo.png" 
+        url: "../dotsandboxes/dotsandboxes.html", 
+        img: "../images/kklogo.png" 
+    },
+    { 
+        name: "Memory", 
+        url: "../memory/memory.html", 
+        img: "../images/memorylogo.png" 
     }
 ];
 
@@ -95,7 +96,6 @@ function showLiveSearch() {
         return;
     }
 
-    // Durchsucht dein allGames Array
     const filtered = allGames.filter(game => 
         game.name.toLowerCase().includes(query)
     );
@@ -119,21 +119,12 @@ function showLiveSearch() {
     }
 }
 
-/* ------------------ Navbar - Suchvorschläge schließen bei Klick ------------------ */
-window.addEventListener("click", (e) => {
-    if (!e.target.closest('.search-container')) {
-        document.getElementById("searchSuggestions").style.display = "none";
-    }
-});
-
 /* ------------------ Navbar - Suche Enter -> Weiterleitung ------------------ */
 function handleSearchEnter(event) {
-    // Prüfen, ob die gedrückte Taste "Enter" ist
     if (event.key === "Enter") {
         const query = event.target.value.trim();
         if (query !== "") {
-            // Weiterleitung zur Hauptseite mit dem Suchbegriff als Parameter
-            window.location.href = `/spielhenne.html?search=${encodeURIComponent(query)}`;
+            window.location.href = `../spielhenne.html?search=${encodeURIComponent(query)}`;
         }
     }
 }
@@ -143,12 +134,9 @@ function toggleSettings() {
     const input = document.getElementById("searchInput");
     const settings = document.getElementById("settingsDropdown");
 
-    // 1. Zuerst die Suche schließen (falls sie leer ist)
     if (input.value === "") {
         input.classList.remove("show");
     }
-
-    // 2. Settings umschalten
     settings.classList.toggle("show");
 }
 
@@ -156,18 +144,23 @@ function toggleSettings() {
 window.onclick = function(event) {
     const settings = document.getElementById("settingsDropdown");
     const input = document.getElementById("searchInput");
-    const settingsBtn = document.querySelector(".nav-settings"); // Dein Button/Link
+    const suggestionsBox = document.getElementById("searchSuggestions");
 
-    // Logik: Wenn der Klick NICHT auf dem Button und NICHT innerhalb des Dropdowns war
+    // Settings schließen
     if (!event.target.closest('.nav-settings') && !event.target.closest('#settingsDropdown')) {
-        if (settings.classList.contains('show')) {
+        if (settings && settings.classList.contains('show')) {
             settings.classList.remove('show');
         }
     }
 
-    // Suchfeld Logik: Schließen wenn leer und Klick außerhalb
-    if (!event.target.closest('.search-container') && input.value === "") {
-        input.classList.remove('show');
+    // Suchfeld & Vorschläge schließen
+    if (!event.target.closest('.search-container')) {
+        if (input && input.value === "") {
+            input.classList.remove('show');
+        }
+        if (suggestionsBox) {
+            suggestionsBox.style.display = "none";
+        }
     }
 }
 
@@ -175,33 +168,20 @@ window.onclick = function(event) {
 const audio = document.getElementById('bgMusic');
 const muteBtn = document.getElementById('muteBtn'); 
 const muteIcon = document.getElementById('muteIcon'); 
-const musicToggle = document.getElementById('musicToggle'); // Der Regler (Checkbox)
+const musicToggle = document.getElementById('musicToggle'); 
 const dropdown = document.getElementById('settingsDropdown');
 
-// Eine einzige, zentrale Funktion zum Synchronisieren aller Elemente
 function updateMusic(isMuted) {
-    if (audio) {
-        audio.muted = isMuted;
-    }
-
-    if (muteIcon) {
-        muteIcon.src = isMuted ? '/images/mute2.png' : '/images/speaker.png';
-    }
-
-    if (musicToggle) {
-        musicToggle.checked = !isMuted;
-    }
-
+    if (audio) audio.muted = isMuted;
+    if (muteIcon) muteIcon.src = isMuted ? '../images/mute2.png' : '../images/speaker.png';
+    if (musicToggle) musicToggle.checked = !isMuted;
     localStorage.setItem('muted', isMuted);
 }
 
-// --- INITIALISIERUNG BEIM LADEN ---
+// Initialisierung
 const initialMutedState = localStorage.getItem('muted') === 'true';
 updateMusic(initialMutedState);
 
-// --- EVENT LISTENER ---
-
-// Klick auf Lautsprecher-Icon
 if (muteBtn) {
     muteBtn.onclick = () => {
         const currentMuted = localStorage.getItem('muted') === 'true';
@@ -209,25 +189,20 @@ if (muteBtn) {
     };
 }
 
-// Betätigen des Reglers im Dropdown
 if (musicToggle) {
     musicToggle.onchange = () => {
         updateMusic(!musicToggle.checked);
     };
 }
 
-// Verhindert, dass das Dropdown schließt, wenn man auf den Regler klickt
 if (dropdown) {
     dropdown.addEventListener('click', (event) => {
         event.stopPropagation();
     });
 }
 
-// Autoplay-Fix: Musik startet beim ersten Klick des Nutzers auf der Seite
 document.addEventListener('click', () => {
-    if (audio) {
-        audio.play().catch(() => {});
-    }
+    if (audio) audio.play().catch(() => {});
 }, { once: true });
 
 /* ------------------------------------ Tic Tac Toe Logik ------------------------------------ */

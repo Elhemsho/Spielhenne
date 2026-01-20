@@ -46,33 +46,38 @@ function searchGames() {
 const allGames = [
     { 
         name: "Tic Tac Toe", 
-        url: "/tictactoe/tictactoe.html", 
-        img: "/images/ttt.png" 
+        url: "../tictactoe/tictactoe.html", 
+        img: "../images/ttt.png" 
     },
     { 
         name: "Connect Four", 
-        url: "/connectfour/connectfour.html", 
-        img: "/images/chip_rot2.png" 
+        url: "../connectfour/connectfour.html", 
+        img: "../images/chip_rot2.png" 
     },
     { 
         name: "Yazy", 
-        url: "/yazy/yazy.html", 
-        img: "/images/würfel.png" 
+        url: "../yazy/yazy.html", 
+        img: "../images/würfel.png" 
     },
     { 
         name: "Solitaire", 
-        url: "/solitaire/solitaire.html", 
-        img: "/images/ass2.png" 
+        url: "../solitaire/solitaire.html", 
+        img: "../images/ass2.png" 
     },
     { 
         name: "2048", 
-        url: "/2048/2048.html", 
-        img: "/images/2048logo.png" 
+        url: "../2048/2048.html", 
+        img: "../images/2048logo.png" 
     },
     { 
         name: "Dots and Boxes", 
-        url: "/dotsandboxes/dotsandboxes.html", 
-        img: "/images/kklogo.png" 
+        url: "../dotsandboxes/dotsandboxes.html", 
+        img: "../images/kklogo.png" 
+    },
+    { 
+        name: "Memory", 
+        url: "../memory/memory.html", 
+        img: "../images/memorylogo.png" 
     }
 ];
 
@@ -119,7 +124,7 @@ function handleSearchEnter(event) {
     if (event.key === "Enter") {
         const query = event.target.value.trim();
         if (query !== "") {
-            window.location.href = `/spielhenne.html?search=${encodeURIComponent(query)}`;
+            window.location.href = `../spielhenne.html?search=${encodeURIComponent(query)}`;
         }
     }
 }
@@ -168,7 +173,7 @@ const dropdown = document.getElementById('settingsDropdown');
 
 function updateMusic(isMuted) {
     if (audio) audio.muted = isMuted;
-    if (muteIcon) muteIcon.src = isMuted ? '/images/mute2.png' : '/images/speaker.png';
+    if (muteIcon) muteIcon.src = isMuted ? '../images/mute2.png' : '../images/speaker.png';
     if (musicToggle) musicToggle.checked = !isMuted;
     localStorage.setItem('muted', isMuted);
 }
@@ -444,7 +449,7 @@ function createCardElement(cardData, origin) {
 
     if (cardData.faceUp) {
         const fileName = getFileName(cardData);
-        cardDiv.style.backgroundImage = `url('/images/cards/${fileName}')`;
+        cardDiv.style.backgroundImage = `url('../images/cards/${fileName}')`;
 
         cardDiv.addEventListener("dragstart", (e) => {
             dragProxy.innerHTML = "";
@@ -463,7 +468,7 @@ function createCardElement(cardData, origin) {
             dragData.stack.forEach((c, i) => {
                 const clone = document.createElement("div");
                 clone.classList.add("card");
-                clone.style.backgroundImage = `url('/images/cards/${getFileName(c)}')`;
+                clone.style.backgroundImage = `url('../images/cards/${getFileName(c)}')`;
                 clone.style.top = (i * 30) + "px";
                 clone.style.position = "absolute"; 
                 dragProxy.appendChild(clone);
@@ -519,7 +524,7 @@ function createCardElement(cardData, origin) {
 
     } else {
         cardDiv.classList.add("card-back");
-        cardDiv.style.backgroundImage = `url('/images/cards/1B.svg')`;
+        cardDiv.style.backgroundImage = `url('../images/cards/1B.svg')`;
         cardDiv.style.backgroundSize = "cover";
     }
 
