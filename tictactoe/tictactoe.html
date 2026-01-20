@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tic Tac Toe</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="tictactoe.css" />
+	<link rel="icon" type="image/png" href="/images/logo3.png">
+	<script src="tictactoe.js" defer></script>
+</head>
+<body>
+	<header class="site-header">
+		<div class="container">
+			<div class="header-top">
+				<div class="header-logo">
+					<a href="/spielhenne.html">
+						<img class="logo" src="/images/logo_schrift.png"> 
+						<img class="logo2" src="/images/logo_huhn.png"> 
+					</a>
+				</div>
+				
+				<nav class="header-meta-nav">
+					<div class="nav-item search-container">
+						<input type="text" id="searchInput" placeholder="Search Game..." oninput="showLiveSearch()" onkeydown="handleSearchEnter(event)">
+						
+						<span>
+							<img onclick="toggleSearch()" class="nav-link lupe" src="/images/lupe.png">
+						</span>
+						
+						<div id="searchSuggestions" class="search-suggestions"></div>
+					</div>
+					
+					<span class="divider">|</span>
+
+					<a href="/spielhenne.html" class="alogin">
+						<span class="nav-login">LogIn</span> 
+					</a>
+
+					<span class="divider">|</span>
+					
+					<div class="nav-item settings-container">
+						<span onclick="toggleSettings()" class="nav-settings">Settings</span>
+
+						<div id="settingsDropdown" class="dropdown-content">
+							<a href="/spielhenne.html">Profile</a>
+
+							<div class="menu-item-flex">
+								<span>Music</span>
+
+								<label class="switch">
+									<input type="checkbox" id="musicToggle">
+									<span class="slider round"></span>
+								</label>
+							</div>
+
+							<div class="menu-item-flex">
+								<span>Dark Mode</span>
+
+								<label class="switch">
+									<input type="checkbox" id="darkToggle">
+									<span class="slider round"></span>
+								</label>
+							</div>
+						</div>
+					</div>
+				</nav>
+			</div>
+			
+			<nav class="main-navigation">
+				<ul>
+					<li><a href="/spielhenne.html?filter=all">All Games</a></li>
+					<li><a href="/spielhenne.html?filter=2">2 Player Games</a></li>
+					<li><a href="/spielhenne.html?filter=1">Solo Games</a></li>
+					<li><a href="/spielhenne.html?filter=multy">Online Games</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<audio id="bgMusic" src="/music/Spielmusik.mp3" loop autoplay></audio>
+
+	<div class="main">
+		<div class="head">
+			<div class="reset" id="playAgainSymbol">⟳</div>
+			
+			<div class="header">Tic Tac Toe</div>
+
+			<div class="muteBtn" id="muteBtn">
+				<img id="muteIcon" src="/images/speaker.png" alt="Mute">
+			</div>
+		</div>
+		
+		<div class="game-field">
+		
+			<div class="box1">
+				<div class="p1">Player 1</div>
+				<div class="x">x</div>
+				<div class="pp1">0</div>
+				<div class="t1" id="turnP1">It's your turn!</div>
+			</div>
+
+			<section class="spiel">
+				<div class="feld" data-index="0"></div>
+				<div class="feld" data-index="1"></div>
+				<div class="feld" data-index="2"></div>
+				<div class="feld" data-index="3"></div>
+				<div class="feld" data-index="4"></div>
+				<div class="feld" data-index="5"></div>
+				<div class="feld" data-index="6"></div>
+				<div class="feld" data-index="7"></div>
+				<div class="feld" data-index="8"></div>
+				<div class="reset-overlay" id="resetOverlay">⟳</div>
+			</section>
+
+			<div class="box2">
+				<div class="p2">Player 2</div>
+				<div class="o">⭘</div>
+				<div class="pp2">0</div>
+				<div class="t2" id="turnP2">It's your turn!</div>
+			</div>	
+
+			<div id="winnerOverlay" class="overlay hidden">
+				<div class="winnerBox">
+					<span id="closeOverlay" class="closeBtn">✖</span>
+					<h1 id="winnerText"></h1>
+					<button id="resetBtn">Reset Game</button>
+				</div>
+			</div>
+
+			<div id="championOverlay" class="overlay hidden">
+				<div class="winnerBox">
+					<h1 id="championText"></h1>
+					<button id="playAgainBtn" class="playAgainBtn">Play again</button>
+					<canvas id="confettiCanvas"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer class="site-footer">
+        <div class="container">
+            <div class="footer-social-icons">
+                <span class="icon">in</span>
+                <span class="icon">ig</span>
+                <span class="icon">fb</span>
+            </div>
+
+            <nav class="footer-nav">
+                <a href="#">Kontakt</a> | 
+                <a href="#">Sitemap</a> | 
+                <a href="#">Impressum</a> | 
+                <a href="#">Datenschutz</a> 
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,532 @@
+body{
+	background: #f7f7f7;
+	margin: 0;
+	padding: 0;
+	user-select: none;
+  display: block;
+  min-width: 1200px;
+}
+
+a{
+	text-decoration: none;
+}
+
+/* ------------------ Header ------------------ */
+.header-meta-nav {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    color: #333;
+    padding-top: 10px;
+    padding-right: 80px;
+}
+
+.site-header {
+    width: 100%;
+    background: #ffffff;
+    border-top: 12px solid #a0ecf6;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 100px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.header-logo a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+    margin-right: 20px;
+}
+
+.logo { 
+    height: 50px; 
+    width: 200px; 
+}
+
+.logo2 { 
+    height: 50px; 
+    width: 60px; 
+}
+
+.divider {
+    margin: 0 10px;
+    color: #ccc;
+}
+
+.lupe{
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+#searchInput {
+    display: block; /* Immer im DOM, aber unsichtbar skaliert */
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #a0ecf6;
+    padding: 5px 0;
+    margin-right: 10px;
+    outline: none;
+    font-size: 15px;
+    color: #333;
+    cursor: pointer;
+    
+    /* Animationseinstellungen */
+    width: 200px;
+    transform: scaleX(0); /* Startet bei Größe 0 */
+    transform-origin: right; /* Animation startet links */
+    transition: transform 0.2s ease-in-out; 
+}
+
+#searchInput.show {
+    transform: scaleX(1); /* Wächst auf volle Größe */
+    display: inline-block;
+    width: 200px;
+}
+
+#searchInput::placeholder {
+    color: #bbb;
+    font-style: italic;
+}
+
+.search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 0 0 8px 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none; /* Am Anfang unsichtbar */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f8ff;
+}
+
+.suggestion-item img {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.nav-login {
+    cursor: pointer;
+    color: #333;
+    white-space: nowrap;
+    transition: color 0.15s;
+}
+
+.nav-login:hover {
+    color: rgb(144, 213, 223); /* Nutzt dein Hellblau als Hover-Effekt */
+}
+
+.nav-settings{
+    cursor: pointer;
+    color: #333;
+    white-space: nowrap;
+    transition: color 0.15s;
+}
+
+.nav-settings:hover {
+    color: rgb(144, 213, 223); /* Nutzt dein Hellblau als Hover-Effekt */
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 25px; /* Direkt unter dem Text */
+    right: -20px;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    z-index: 100;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #eee;
+
+    transform: scaleY(0);      /* Auf 0 zusammengepfercht */
+    transform-origin: top;     /* Fixpunkt oben */
+    opacity: 0;                /* Unsichtbar */
+    pointer-events: none;      /* Klicks gehen "durch" das Menü hindurch */
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.2s ease-in-out;
+}
+
+.dropdown-content a {
+    color: #444;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+}
+
+.dropdown-content a:hover {
+    background-color: #f7f7f7;
+}
+
+.dropdown-content.show {
+    transform: scaleY(1);      /* Auf volle Größe ausfahren */
+    opacity: 1;                /* Sichtbar machen */
+    pointer-events: auto;      /* Klicks wieder empfangen */
+}
+
+.show { 
+    display: block !important; 
+}
+
+.menu-item-flex {
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #444;
+    font-size: 14px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+}
+
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #a0ecf6;
+}
+
+input:checked + .slider:before {
+    transform: translateX(14px);
+}
+
+.slider.round {
+    border-radius: 20px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.main-navigation ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    padding-left: 100px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin: 0;
+    border-top: 1px solid #eee;
+    font-weight: bold;
+    color: #444;
+}
+
+.main-navigation li a{ 
+	color: #333;
+    cursor: pointer;
+    transition: color 0.15s; 
+}
+.main-navigation li a:hover { 
+    color: rgb(144, 213, 223); 
+}
+/* ------------------ Header-End ------------------ */
+
+
+
+/* ------------------ Main ------------------ */
+.head {
+    display: flex;
+    padding-top: 25px;
+    justify-content: space-between; /* verteilt die drei Divs gleichmäßig auf die Breite */
+    align-items: flex-start;        /* oben ausrichten */
+    padding-left: 23px;             /* etwas Abstand zum Rand */
+    padding-right: 23px;
+}
+
+.header{
+	font-size: 38px;
+	text-align: center;
+	font-family: sans-serif;
+	font-weight: 500;
+	padding-top: 20px;
+	display: inline-block;
+}
+
+.reset{
+	display: inline-block;
+	font-size: 38px;
+	cursor: pointer;
+}
+
+.muteBtn img{
+    cursor: pointer;
+	width: 40px;
+    height: 40px;
+}
+
+.game-field{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 200px;
+  max-width: 90%;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.spiel {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(7, 60px);
+  grid-template-rows: repeat(6, 60px);
+  gap: 5px;
+  background-color: rgba(160, 236, 246, 0.4); 
+  padding: 10px;
+  
+  border-radius: 10px;
+}
+
+.cell {
+    position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%; /* runde Löcher */
+  background-color: white; /* Start leer */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.stone {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: absolute;
+  top: -170px; /* für Fallanimation */
+  left: 5px;
+  transition: top 0.4s ease;
+  z-index: 20;
+}
+
+.box1, .box2 {
+  width: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box1 img,
+.box2 img {
+  width: 200px;
+  height: 200px;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+/* ausgegraut */
+.inactive {
+  filter: grayscale(100%);
+  opacity: 0.3;
+}
+
+.popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Das ist der weiße Kasten im Popup */
+.popup-content {
+    background-color: white;
+    padding-top: 0px;  
+    padding-bottom: 25px;  
+    padding-left: 40px;  
+    padding-right: 40px;  
+              /* Mehr Abstand nach innen macht das Feld größer */
+    border-radius: 20px;
+    
+    /* Hier stellst du die Größe ein */
+    width: 90%;               /* Nutzt 90% des Bildschirms auf dem Handy */
+    max-width: 160px;         /* Maximale Breite am PC (vorher war es bestimmt ca. 400px) */
+    
+    min-height: 100px;        /* Garantiert eine Mindesthöhe */
+    
+    /* Zentrierung */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    /* Animation und Schatten */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    animation: popIn 0.3s ease-out;
+}
+
+#winText {
+    font-size: 30px;     
+    margin-bottom: 10px;
+}
+
+.win-coin {
+  width: 80px;
+  height: 80px;
+  margin: 20px 0;
+  border-radius: 50%;
+  background-size: cover;
+  animation: pulse 1s infinite alternate;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.7); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.popup-content.draw {
+    min-height: auto;      /* Hebt die Mindesthöhe auf */
+    max-width: 280px;      /* Macht es schmaler */
+    padding: 20px;         /* Weniger Innenabstand macht es flacher */
+    height: fit-content;   /* Das Fenster zieht sich eng um den Text */
+}
+
+.popup-content .emoji {
+  font-size: 36px;
+  margin-top: 5px;
+}
+
+.close-btn {
+    position: relative;
+    top: 20px; 
+    left: 85px;     /* Abstand von rechts */
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    line-height: 1; /* Verhindert, dass das X nach unten rutscht */
+}
+
+
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to   { transform: scale(1.1); }
+}
+/* ------------------ Main-End ------------------ */
+
+
+
+/* ------------------ Footer ------------------ */
+.site-footer {
+    width: 100%;
+    background-color: #a0ecf6; 
+    color: white;
+    padding: 30px 0;
+    margin-top: 50px;
+}
+
+.footer-social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.icon {
+    background: white;
+    color: #a0ecf6;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.footer-nav {
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+.footer-nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.footer-nav a:hover {
+    text-decoration: underline;
+}
+/* ------------------ Footer-End ------------------ */

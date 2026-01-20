@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tic Tac Toe</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="solitaire.css" />
+	<link rel="icon" type="image/png" href="/images/logo3.png">
+	<script src="solitaire.js" defer></script>
+</head>
+<body>
+	<header class="site-header">
+		<div class="container">
+			<div class="header-top">
+				<div class="header-logo">
+					<a href="/spielhenne.html">
+						<img class="logo" src="/images/logo_schrift.png"> 
+						<img class="logo2" src="/images/logo_huhn.png"> 
+					</a>
+				</div>
+				
+				<nav class="header-meta-nav">
+					<div class="nav-item search-container">
+						<input type="text" id="searchInput" placeholder="Search Game..." oninput="showLiveSearch()" onkeydown="handleSearchEnter(event)">
+						
+						<span>
+							<img onclick="toggleSearch()" class="nav-link lupe" src="/images/lupe.png">
+						</span>
+						
+						<div id="searchSuggestions" class="search-suggestions"></div>
+					</div>
+					
+					<span class="divider">|</span>
+
+					<a href="/spielhenne.html" class="alogin">
+						<span class="nav-login">LogIn</span> 
+					</a>
+
+					<span class="divider">|</span>
+					
+					<div class="nav-item settings-container">
+						<span onclick="toggleSettings()" class="nav-settings">Settings</span>
+
+						<div id="settingsDropdown" class="dropdown-content">
+							<a href="/spielhenne.html">Profile</a>
+
+							<div class="menu-item-flex">
+								<span>Music</span>
+
+								<label class="switch">
+									<input type="checkbox" id="musicToggle">
+									<span class="slider round"></span>
+								</label>
+							</div>
+
+							<div class="menu-item-flex">
+								<span>Dark Mode</span>
+
+								<label class="switch">
+									<input type="checkbox" id="darkToggle">
+									<span class="slider round"></span>
+								</label>
+							</div>
+						</div>
+					</div>
+				</nav>
+			</div>
+			
+			<nav class="main-navigation">
+				<ul>
+					<li><a href="/spielhenne.html?filter=all">All Games</a></li>
+					<li><a href="/spielhenne.html?filter=2">2 Player Games</a></li>
+					<li><a href="/spielhenne.html?filter=1">Solo Games</a></li>
+					<li><a href="/spielhenne.html?filter=multy">Online Games</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+    
+    <audio id="bgMusic" src="/music/Spielmusik.mp3" loop autoplay></audio>
+
+    <div class="main">
+         <div class="head">
+              <div class="reset" id="playAgainBtn">⟳</div>
+                
+             <div class="header">Solitaire</div>
+
+             <div class="muteBtn" id="muteBtn">
+                 <img id="muteIcon" src="/images/speaker.png" alt="Mute">
+             </div>
+        </div>
+
+        <div class="game-field">
+            <div class="top-row">
+                <div id="deck-container">
+                    <div id="stock" class="card-slot"></div>
+                    <div id="waste" class="card-slot"></div>
+                </div>
+
+                <div id="foundations">
+                    <div class="card-slot"></div>
+                    <div class="card-slot"></div>
+                    <div class="card-slot"></div>
+                    <div class="card-slot"></div>
+                </div>
+            </div>
+
+            <div id="tableau"></div>
+        </div>
+
+        <button id="undoButton" class="control-button">Undo (5)</button>
+
+        <div id="victoryPopup" class="victory-overlay">
+            <div class="victory-content">
+                <h2>🎉 Congratulations! 🎉</h2>
+                <p>Number of stack cycles: 0</p>
+                <button id="showMeButton">Play Again</button>
+            </div>
+        </div>
+    </div>
+
+	<footer class="site-footer">
+        <div class="container">
+            <div class="footer-social-icons">
+                <span class="icon">in</span>
+                <span class="icon">ig</span>
+                <span class="icon">fb</span>
+            </div>
+
+            <nav class="footer-nav">
+                <a href="#">Kontakt</a> | 
+                <a href="#">Sitemap</a> | 
+                <a href="#">Impressum</a> | 
+                <a href="#">Datenschutz</a> 
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,675 @@
+body{
+	background: #f7f7f7;
+	margin: 0;
+	padding: 0;
+	user-select: none;
+    
+  display: block;
+  min-width: 1000px;
+}
+
+a{
+	text-decoration: none;
+}
+
+/* ------------------ Header ------------------ */
+.header-meta-nav {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    color: #333;
+    padding-top: 10px;
+    padding-right: 80px;
+}
+
+.site-header {
+    width: 100%;
+    background: #ffffff;
+    border-top: 12px solid #a0ecf6;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 100px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.header-logo a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+    margin-right: 20px;
+}
+
+.logo { 
+    height: 50px; 
+    width: 200px; 
+}
+
+.logo2 { 
+    height: 50px; 
+    width: 60px; 
+}
+
+.divider {
+    margin: 0 10px;
+    color: #ccc;
+}
+
+.lupe{
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+#searchInput {
+    display: block; /* Immer im DOM, aber unsichtbar skaliert */
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #a0ecf6;
+    padding: 5px 0;
+    margin-right: 10px;
+    outline: none;
+    font-size: 15px;
+    color: #333;
+    cursor: pointer;
+    
+    /* Animationseinstellungen */
+    width: 200px;
+    transform: scaleX(0); /* Startet bei Größe 0 */
+    transform-origin: right; /* Animation startet links */
+    transition: transform 0.2s ease-in-out; 
+}
+
+#searchInput.show {
+    transform: scaleX(1); /* Wächst auf volle Größe */
+    display: inline-block;
+    width: 200px;
+}
+
+#searchInput::placeholder {
+    color: #bbb;
+    font-style: italic;
+}
+
+.search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 0 0 8px 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none; /* Am Anfang unsichtbar */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f8ff;
+}
+
+.suggestion-item img {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.nav-login {
+    cursor: pointer;
+    color: #333;
+    white-space: nowrap;
+    transition: color 0.15s;
+}
+
+.nav-login:hover {
+    color: rgb(144, 213, 223); /* Nutzt dein Hellblau als Hover-Effekt */
+}
+
+.nav-settings{
+    cursor: pointer;
+    color: #333;
+    white-space: nowrap;
+    transition: color 0.15s;
+}
+
+.nav-settings:hover {
+    color: rgb(144, 213, 223); /* Nutzt dein Hellblau als Hover-Effekt */
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 25px; /* Direkt unter dem Text */
+    right: -20px;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    z-index: 100;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #eee;
+
+    transform: scaleY(0);      /* Auf 0 zusammengepfercht */
+    transform-origin: top;     /* Fixpunkt oben */
+    opacity: 0;                /* Unsichtbar */
+    pointer-events: none;      /* Klicks gehen "durch" das Menü hindurch */
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.2s ease-in-out;
+}
+
+.dropdown-content a {
+    color: #444;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+}
+
+.dropdown-content a:hover {
+    background-color: #f7f7f7;
+}
+
+.dropdown-content.show {
+    transform: scaleY(1);      /* Auf volle Größe ausfahren */
+    opacity: 1;                /* Sichtbar machen */
+    pointer-events: auto;      /* Klicks wieder empfangen */
+}
+
+.show { 
+    display: block !important; 
+}
+
+.menu-item-flex {
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #444;
+    font-size: 14px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+}
+
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #a0ecf6;
+}
+
+input:checked + .slider:before {
+    transform: translateX(14px);
+}
+
+.slider.round {
+    border-radius: 20px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.main-navigation ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    padding-left: 100px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin: 0;
+    border-top: 1px solid #eee;
+    font-weight: bold;
+    color: #444;
+}
+
+.main-navigation li a{ 
+	color: #333;
+    cursor: pointer;
+    transition: color 0.15s; 
+}
+.main-navigation li a:hover { 
+    color: rgb(144, 213, 223); 
+}
+/* ------------------ Header-End ------------------ */
+
+
+
+/* ------------------ Main ------------------ */
+
+.head {
+    display: flex;
+    padding: 25px 23px 30px;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px #444 solid;
+}
+
+.header {
+    font-size: 38px;
+    text-align: center;
+    font-family: sans-serif;
+    font-weight: 500;
+    padding-top: 20px;
+}
+
+.reset {
+    font-size: 38px;
+    cursor: pointer;
+}
+
+.muteBtn img {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+}
+
+/* Das Haupt-Spielfeld */
+.game-field {
+    display: flex;
+    flex-direction: column;
+    gap: 40px; 
+    padding: 20px;
+    padding-bottom: 20px;
+    /* 7 Spalten à 100px + 6 Abstände à 20px = 820px */
+    width: 820px; 
+    margin: 0 auto;
+    box-sizing: content-box;
+}
+
+
+/* Obere Reihe: Stock, Waste und Foundations */
+.top-row {
+    display: grid;
+    grid-template-columns: repeat(7, 100px);
+    gap: 20px;
+    width: 100%;
+}
+
+#deck-container {
+    grid-column: span 2;
+    display: flex;
+    gap: 20px;
+}
+
+#foundations {
+    grid-column: 4 / 8;
+    display: flex;
+    gap: 20px;
+}
+
+/* Stelle sicher, dass das Tableau keine feste Mindesthöhe hat */
+#tableau {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    height: auto; /* Erlaubt dem Tableau zu schrumpfen */
+    min-height: 120px; /* Nur ein kleiner Puffer */
+}
+
+/* Basis-Klasse für alle Karten und Platzhalter */
+.card, .card-slot, .column, .column::before{
+    width: 100px !important;
+    height: 140px;
+    box-sizing: border-box; 
+    border-radius: 6px;
+}
+
+/* Karten-Design */
+.card {
+    position: absolute;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+    z-index: 1;
+    transition: transform 0.1s;
+}
+
+/* KORREKTUR: Karten in den oberen Slots (Waste & Foundations) exakt ausrichten */
+/* Damit sie nicht 2px zu weit rechts/unten liegen wegen des Slot-Borders */
+#foundations .card, #stock .card {
+    top: -2px !important;
+    left: -2px !important;
+}
+
+/* Platzhalter-Slots (Dashed Umrisse) */
+.card-slot {
+    border: 2px dashed rgba(166, 213, 222, 0.9);
+    background-color: #fff;
+    position: relative;
+}
+
+.card-slot.drag-over {
+    background-color: rgba(160, 236, 246, 0.3);
+    border: 2px solid #a0ecf6;
+}
+
+/* Tableau-Spalten */
+.column {
+    position: relative;
+    min-height: 500px;
+}
+
+.column::before {
+    content: "";
+    position: absolute;
+    border: 2px dashed rgba(166, 213, 222, 0.5);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Spezial-Zustände */
+/* Der Ziehstapel (Stock) */
+/* Der Ziehstapel (Stock) */
+#stock {
+    position: relative;
+    /* Wir entfernen das Hintergrundbild vom Container selbst */
+    background-image: none !important; 
+    border: none;
+    cursor: pointer;
+}
+
+/* Der leere Zustand (Dashed Box) */
+#stock.empty {
+    border: 2px dashed rgba(166, 213, 222, 0.9);
+    background-color: #fff;
+    border-radius: 6px;
+}
+
+/* Die Karte, die im Stock liegt */
+#stock .card {
+    top: -2px !important;
+    left: -2px !important;
+    /* Falls die Rückseite anders aussieht: */
+    background-size: cover;
+    border-radius: 6px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+}
+
+
+/* Animationen & Dragging */
+.card.dragging {
+    opacity: 0 !important; /* Versteckt Original während des Ziehens */
+}
+
+.card.dragging-hidden {
+    opacity: 0 !important;
+    pointer-events: none; /* Verhindert Interaktionen während sie "weg" ist */
+}
+
+#drag-proxy {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    display: none;
+}
+
+#drag-proxy .card {
+    position: absolute;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
+}
+
+/* Counter & Texte */
+#move-counter {
+    color: #444;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 25px;
+    padding-top: 20px;
+}
+
+.control-button {
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.control-button:hover {
+    background: #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.control-button:active {
+    transform: translateY(1px);
+}
+
+/* Die Karten im Waste-Stapel auffächern */
+#waste .card {
+    /* Die Karten werden anhand ihrer Position im Stapel verschoben */
+    /* Wir nutzen inline-styles im JS für den exakten Versatz, 
+       aber hier definieren wir die Basis-Regeln */
+    transition: left 0.2s ease; 
+    left: 2px;
+    top: -2px !important;
+}
+
+/* Der Container für die Zahl im Stapel-Slot */
+.stock-cycle-counter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: sans-serif;
+    font-size: 48px;
+    font-weight: bold;
+    color: rgba(166, 213, 222, 0.4); /* Sehr helles/verblasstes Blau */
+    pointer-events: none; /* Man kann durch die Zahl hindurchklicken */
+    user-select: none;
+}
+
+/* Optional: Damit der Slot bei 0 Durchgängen auch die Zahl zeigt */
+#stock.empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Diese Klasse wird nur während der End-Animation vergeben */
+.card.auto-flying {
+    transition: all 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+/* Victory Popup Styling */
+/* Das dunkle Overlay */
+.victory-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+    
+    /* Animation-Fix: */
+    display: flex;         /* Immer flex, aber... */
+    visibility: hidden;    /* ...unsichtbar für Maus und Augen */
+    opacity: 0;           /* ...voll transparent */
+    transition: opacity 0.4s ease, visibility 0.4s;
+}
+
+.victory-overlay.is-visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Das weiße Fenster in der Mitte */
+.victory-content {
+    background: white;
+    padding: 50px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+    transform: translateY(-20px);
+    transition: transform 0.4s ease;
+}
+
+.victory-overlay.is-visible .victory-content {
+    transform: translateY(0);
+}
+
+.victory-content h2 {
+    color: #333;
+    font-size: 2.5rem;
+    margin: 0 0 15px 0;
+}
+
+.victory-content p {
+    color: #666;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+#showMeButton {
+    background: #a0ecf6;
+    color: #333;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+}
+
+#showMeButton:hover {
+    background: #87dce8;
+    transform: scale(1.05);
+}
+
+#undoButton {
+    display: block;
+    position: relative;
+    /* Zentriert den Button und sorgt für 20px Abstand zu den Karten */
+    margin: 20px auto 10px auto; 
+    
+    /* Dein Styling */
+    padding: 10px 25px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+/* Kleiner Bonus: Ein Hover-Effekt, damit er sich beim Drüberfahren abhebt */
+#undoButton:hover {
+    background-color: #f0f0f0;
+    border-color: #a0ecf6;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+
+/* ------------------ Main-End ------------------ */
+
+
+
+/* ------------------ Footer ------------------ */
+.site-footer {
+    width: 100%;
+    background-color: #a0ecf6; 
+    color: white;
+    padding: 30px 0;
+    margin-top: 50px;
+}
+
+.footer-social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.icon {
+    background: white;
+    color: #a0ecf6;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.footer-nav {
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+.footer-nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.footer-nav a:hover {
+    text-decoration: underline;
+}
+/* ------------------ Footer-End ------------------ */
