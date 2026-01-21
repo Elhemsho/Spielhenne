@@ -36,8 +36,8 @@ function handleClick(col) {
             const stone = document.createElement('div');
             stone.classList.add('stone');
             stone.style.backgroundImage = currentPlayer === 'red' 
-                ? "url('../images/chip_rot2.png')" 
-                : "url('../images/chip_blau2.png')";
+                ? "url('../assets/images/chip_rot2.png')" 
+                : "url('../assets/images/chip_blau2.png')";
             stone.style.backgroundSize = "cover";
             const cell = document.querySelector(`.cell[data-row='${r}'][data-col='${col}']`);
             cell.appendChild(stone);
@@ -107,8 +107,8 @@ function showWinPopup(player) {
     content.classList.replace("draw", "win");
     winText.textContent = player === "red" ? "Red wins!" : "Blue wins!";
     winCoin.style.backgroundImage = player === "red" 
-        ? "url('../images/chip_rot2.png')" 
-        : "url('../images/chip_blau2.png')";
+        ? "url('../assets/images/chip_rot2.png')" 
+        : "url('../assets/images/chip_blau2.png')";
     winPopup.classList.remove("hidden");
 }
 

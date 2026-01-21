@@ -47,37 +47,37 @@ const allGames = [
     { 
         name: "Tic Tac Toe", 
         url: "../pages/tictactoe.html", 
-        img: "../images/ttt.png" 
+        img: "../assets/images/ttt.png" 
     },
     { 
         name: "Connect Four", 
         url: "../pages/connectfour.html", 
-        img: "../images/chip_rot2.png" 
+        img: "../assets/images/chip_rot2.png" 
     },
     { 
         name: "Yazy", 
         url: "../pages/yazy.html", 
-        img: "../images/würfel.png" 
+        img: "../assets/images/würfel.png" 
     },
     { 
         name: "Solitaire", 
         url: "../pages/solitaire.html", 
-        img: "../images/ass2.png" 
+        img: "../assets/images/ass2.png" 
     },
     { 
         name: "2048", 
         url: "../pages/2048.html", 
-        img: "../images/2048logo.png" 
+        img: "../assets/images/2048logo.png" 
     },
     { 
         name: "Dots and Boxes", 
         url: "../pages/dotsandboxes.html", 
-        img: "../images/kklogo.png" 
+        img: "../assets/images/kklogo.png" 
     },
     { 
         name: "Memory", 
         url: "../pages/memory.html", 
-        img: "../images/memorylogo.png" 
+        img: "../assets/images/memorylogo.png" 
     }
 ];
 
@@ -173,7 +173,7 @@ const dropdown = document.getElementById('settingsDropdown');
 
 function updateMusic(isMuted) {
     if (audio) audio.muted = isMuted;
-    if (muteIcon) muteIcon.src = isMuted ? '../images/mute2.png' : '../images/speaker.png';
+    if (muteIcon) muteIcon.src = isMuted ? '../assets/images/mute2.png' : '../assets/images/speaker.png';
     if (musicToggle) musicToggle.checked = !isMuted;
     localStorage.setItem('muted', isMuted);
 }

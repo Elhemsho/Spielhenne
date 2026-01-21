@@ -242,7 +242,7 @@ function createCardElement(cardData, origin) {
 
     if (cardData.faceUp) {
         const fileName = getFileName(cardData);
-        cardDiv.style.backgroundImage = `url('../images/cards/${fileName}')`;
+        cardDiv.style.backgroundImage = `url('../assets/images/cards/${fileName}')`;
 
         cardDiv.addEventListener("dragstart", (e) => {
             dragProxy.innerHTML = "";
@@ -261,7 +261,7 @@ function createCardElement(cardData, origin) {
             dragData.stack.forEach((c, i) => {
                 const clone = document.createElement("div");
                 clone.classList.add("card");
-                clone.style.backgroundImage = `url('../images/cards/${getFileName(c)}')`;
+                clone.style.backgroundImage = `url('../assets/images/cards/${getFileName(c)}')`;
                 clone.style.top = (i * 30) + "px";
                 clone.style.position = "absolute"; 
                 dragProxy.appendChild(clone);
@@ -317,7 +317,7 @@ function createCardElement(cardData, origin) {
 
     } else {
         cardDiv.classList.add("card-back");
-        cardDiv.style.backgroundImage = `url('../images/cards/1B.svg')`;
+        cardDiv.style.backgroundImage = `url('../assets/images/cards/1B.svg')`;
         cardDiv.style.backgroundSize = "cover";
     }
 
