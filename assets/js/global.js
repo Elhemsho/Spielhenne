@@ -124,7 +124,7 @@ function handleSearchEnter(event) {
     if (event.key === "Enter") {
         const query = event.target.value.trim();
         if (query !== "") {
-            window.location.href = `../spielhenne.html?search=${encodeURIComponent(query)}`;
+            window.location.href = `../index.html?search=${encodeURIComponent(query)}`;
         }
     }
 }
