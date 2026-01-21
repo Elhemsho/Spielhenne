@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Connecr Four</title>
+	<title>2048</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../assets/css/connectfour.css" />
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/2048.css">
+    <script src="../assets/js/global.js" defer></script>
+    <script src="../assets/js/2048.js" defer></script>
 	<link rel="icon" type="image/png" href="../images/favicon.png">
-	<script src="../assets/js/connectfour.js" defer></script>
 </head>
 <body>
 	<header class="site-header">
@@ -82,35 +84,40 @@
          <div class="head">
               <div class="reset" id="playAgainBtn">⟳</div>
                 
-             <div class="header">Connect Four</div>
+             <div class="header">2048</div>
 
              <div class="muteBtn" id="muteBtn">
                  <img id="muteIcon" src="../images/speaker.png" alt="Mute">
              </div>
         </div>
+		
+		<div class="score-container">
+			<div class="score-box">
+				<div class="score-label">SCORE</div>
+				<div id="score">0</div>
+			</div>
+			<div class="score-box">
+				<div class="score-label">BEST</div>
+				<div id="high-score">0</div>
+			</div>
+		</div>
 
-        <div class="game-field">
-            <div class="box1">
-                <img id="redIndicator" src="../images/chip_rot2.png">
-            </div>
+		<div class="game-field">
+			<div id="grid-container"></div>
 
-            <div class="spiel" id="board-container">
-                <div class="board" id="board"></div>
-            </div>
+			<div class="controls-bottom">
+				<button id="undoBtn" class="undo-button">Undo (<span id="undoCount">5</span>)</button>
+			</div>
+		</div>
 
-            <div class="box2">
-                <img id="blueIndicator" src="../images/chip_blau2.png">
-            </div>
-
-            <div id="winPopup" class="popup hidden">
-                <div class="popup-content">
-                    <span class="close-btn" id="closePopup">✕</span>
-                    <h2 id="winText"></h2>
-                    <div class="win-coin" id="winCoin"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+		<div id="game-modal" class="modal">
+			<div class="modal-content">
+				<h2 id="modal-text">Game Over!</h2>
+				<p id="modal-score-display">Your Score: 0</p> 
+				<button id="modal-button">Show me</button>
+			</div>
+		</div>
+	</div>
 
 	<footer class="site-footer">
         <div class="container">

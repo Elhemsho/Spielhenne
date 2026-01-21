@@ -46,37 +46,37 @@ function searchGames() {
 const allGames = [
     { 
         name: "Tic Tac Toe", 
-        url: "../tictactoe/tictactoe.html", 
+        url: "../pages/tictactoe.html", 
         img: "../images/ttt.png" 
     },
     { 
         name: "Connect Four", 
-        url: "../connectfour/connectfour.html", 
+        url: "../pages/connectfour.html", 
         img: "../images/chip_rot2.png" 
     },
     { 
         name: "Yazy", 
-        url: "../yazy/yazy.html", 
+        url: "../pages/yazy.html", 
         img: "../images/würfel.png" 
     },
     { 
         name: "Solitaire", 
-        url: "../solitaire/solitaire.html", 
+        url: "../pages/solitaire.html", 
         img: "../images/ass2.png" 
     },
     { 
         name: "2048", 
-        url: "../2048/2048.html", 
+        url: "../pages/2048.html", 
         img: "../images/2048logo.png" 
     },
     { 
         name: "Dots and Boxes", 
-        url: "../dotsandboxes/dotsandboxes.html", 
+        url: "../pages/dotsandboxes.html", 
         img: "../images/kklogo.png" 
     },
     { 
         name: "Memory", 
-        url: "../memory/memory.html", 
+        url: "../pages/memory.html", 
         img: "../images/memorylogo.png" 
     }
 ];
