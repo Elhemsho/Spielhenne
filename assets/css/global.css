@@ -1,14 +1,26 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body{
 	background: #f7f7f7;
 	margin: 0;
 	padding: 0;
 	user-select: none;
-  display: block;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   min-width: 823px;
 }
 
 a{
 	text-decoration: none;
+}
+
+.main-wrapper, .main, .auswahl-container {
+    flex: 1 0 auto; /* Drückt den Footer nach unten */
 }
 
 /* ------------------ Header ------------------ */
@@ -329,6 +341,7 @@ input:checked + .slider:before {
     color: white;
     padding: 30px 0;
     margin-top: 50px;
+    flex-shrink: 0;
 }
 
 .footer-social-icons {

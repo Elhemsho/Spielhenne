@@ -78,6 +78,11 @@ const allGames = [
         name: "Memory", 
         url: "../pages/memory.html", 
         img: "../assets/images/memorylogo.png" 
+    },
+    { 
+        name: "Math Quiz", 
+        url: "../pages/mathquiz.html", 
+        img: "../assets/images/mathlogo.png" 
     }
 ];
 

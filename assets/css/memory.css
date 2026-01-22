@@ -1,8 +1,12 @@
 /* ------------------ Main ------------------ */
+* {
+    box-sizing: border-box;
+}
+
 /* --- Game Field Layout --- */
 .game-field {
     display: grid !important; 
-    grid-template-columns: repeat(6, 80px); 
+    grid-template-columns: repeat(6, 92px); 
     gap: 20px; 
     justify-content: center;
     perspective: 1000px;
@@ -13,8 +17,8 @@
 
 /* --- Card Styles --- */
 .memory-card {
-    width: 80px;
-    height: 110px;
+    width: 100px;
+    height: 100px;
     cursor: pointer;
     position: relative;
 }
@@ -43,21 +47,38 @@
     font-size: 1.5rem;
     border-radius: 6px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    font-family: 'Arial Narrow', Arial, sans-serif;
+    font-weight: 600;
 }
 
-/* Card Back (Hidden) */
+/* Die Vorderseite der Karte (dein helles Blau) */
 .card-front {
     background-color: #e0f7fa; 
-    color: #a0ecf6;
     border: 2px solid #a0ecf6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Falls das Bild zu groß ist */
+    font-family: 'Press Start 2P', system-ui;
 }
 
-/* Card Front (Revealed) */
+/* Styling für das Logo auf der Karte */
+.card-logo {
+    width: 60%;      /* Das Logo füllt 70% der Kartenbreite aus */
+    height: auto;    /* Behält die Proportionen bei */
+    object-fit: contain;
+    opacity: 0.9;    /* Leicht transparent, wirkt oft edler */
+}
+
+/* Die Rückseite (aufgedeckte Karte) */
 .card-back {
     background-color: white;
     color: #333;
     transform: rotateY(180deg);
     border: 2px solid #a0ecf6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Faded effect for matches */

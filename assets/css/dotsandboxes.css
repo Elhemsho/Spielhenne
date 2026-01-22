@@ -7,8 +7,8 @@
     --p1-light: rgba(77, 124, 255, 0.3);
     --p2-color: rgb(255, 77, 77);       /* Rot */
     --p2-light: rgba(255, 77, 77, 0.3);
-    --line-gray: #c2c2c2;
-    --dot-color: #444;
+    --line-gray: #d2d2d2;
+    --dot-color: #696969;
 }
 
 .board {

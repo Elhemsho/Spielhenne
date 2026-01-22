@@ -29,20 +29,22 @@ document.addEventListener('DOMContentLoaded', () => {
         cards.sort(() => Math.random() - 0.5);
 
         cards.forEach((symbol, index) => {
-            const card = document.createElement('div');
-            card.classList.add('memory-card');
-            card.dataset.symbol = symbol;
-            
-            card.innerHTML = `
-                <div class="card-inner">
-                    <div class="card-front">?</div>
-                    <div class="card-back">${symbol}</div>
+        const card = document.createElement('div');
+        card.classList.add('memory-card');
+        card.dataset.symbol = symbol;
+        
+        card.innerHTML = `
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="../assets/images/favicon.png" alt="Logo" class="card-logo">
                 </div>
-            `;
-            
-            card.addEventListener('click', flipCard);
-            gameField.appendChild(card);
-        });
+                <div class="card-back">${symbol}</div>
+            </div>
+        `;
+        
+        card.addEventListener('click', flipCard);
+        gameField.appendChild(card);
+    });
     }
 
     function flipCard() {

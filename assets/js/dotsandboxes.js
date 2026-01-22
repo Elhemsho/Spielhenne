@@ -255,3 +255,4 @@ function resetGame() {
 }
 
 initBoard();
+updateUI();

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Dots and Boxes</title>
+	<title>Math Quiz</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/dotsandboxes.css">
+    <link rel="stylesheet" href="../assets/css/mathquiz.css">
     <script src="../assets/js/global.js" defer></script>
-    <script src="../assets/js/dotsandboxes.js" defer></script>
+    <script src="../assets/js/mathquiz.js" defer></script>
 	<link rel="icon" type="image/png" href="../assets/images/favicon.png">
 </head>
 <body>
@@ -81,34 +81,58 @@
     <audio id="bgMusic" src="../assets/music/Spielmusik.mp3" loop autoplay></audio>
 
     <div class="main">
-         <div class="head">
-              <div class="reset" id="playAgainBtn" onclick="resetGame()">⟳</div>
-                
-             <div class="header">Dots and Boxes</div>
-
-             <div class="muteBtn" id="muteBtn">
-                 <img id="muteIcon" src="../assets/images/speaker.png" alt="Mute">
-             </div>
+        <div class="head">
+            <div class="reset" id="playAgainBtn">⟳</div>
+            <div class="header">Math Quiz</div>
+            <div class="muteBtn" id="muteBtn">
+                <img id="muteIcon" src="../assets/images/speaker.png" alt="Mute">
+            </div>
         </div>
 
-		<div class="game-container">
-            <div class="score-board">
-                <div class="player-score p1">Player 1: <span id="p1-score">0</span></div>
-                <div class="player-score p2">Player 2: <span id="p2-score">0</span></div>
+        <div class="quiz-container">
+            <div class="stats-bar">
+                <div class="stat-item">Time: <b id="timer">60</b>s</div>
+
+                <div class="stat-item">
+                    <div class="quiz-settings-wrapper" style="display: inline-block; vertical-align: middle; position: relative;">
+                        <div class="settings-icon" onclick="toggleQuizSettings()" style="display: inline-block; margin-right: 5px;">⚙️</div>
+                        
+                        <div id="quizSettingsDropdown" class="quiz-dropdown">
+                            <p onclick="changeMode('easy')">Easy (Mix +-)</p>
+                            <p onclick="changeMode('medium')">Normal (* & -)</p>
+                            <p onclick="changeMode('hard')">Hard (Extreme)</p>
+                        </div>
+                    </div>
+                    
+                    <span id="mode-label">Mode: <b id="current-mode-name">Easy</b></span>
+                </div>
+
+                <div class="stat-item">Highscore: <b id="highscore-val">0</b></div>
             </div>
             
-            <div id="board" class="board"></div>
-
-            <div id="status">Player 1's turn</div>
-        </div>
-
-        <div id="game-modal" class="modal">
-            <div class="modal-content">
-                <h2 id="modal-text">Winner!</h2>
-                <button id="show-me-btn" onclick="closeModal()" >Show me</button>
+            <div class="question-box">
+                <h1 id="question">? + ?</h1>
+                <input type="number" id="answerInput" placeholder="Type Result..." autocomplete="off">
+                <div id="score-display">Score: <b id="current-score">0</b></div>
+                <p id="streak-info"></p>
             </div>
         </div>
-	</div>
+
+        <div id="result-modal" class="modal">
+            <div class="modal-content">
+                <h2 id="result-title">Time Over!</h2>
+                
+                <div class="result-stats">
+                    <div class="result-item">
+                        <span class="label">Your Score</span>
+                        <span class="value" id="final-score-display">0</span>
+                    </div>
+                </div>
+
+                <button onclick="resetGame()" class="retry-btn">Play Again</button>
+            </div>
+        </div>
+    </div>
 
 	<footer class="site-footer">
         <div class="container">
