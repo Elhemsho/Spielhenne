@@ -1,132 +1,124 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>2048</title>
+    <title>2048</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/2048.css">
     <script src="../assets/js/global.js" defer></script>
     <script src="../assets/js/2048.js" defer></script>
-	<link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
 </head>
 <body>
-	<header class="site-header">
-		<div class="container">
-			<div class="header-top">
-				<div class="header-logo">
-					<a href="../index.html">
-						<img class="logo" src="../assets/images/logo_schrift.png"> 
-						<img class="logo2" src="../assets/images/logo_huhn.png"> 
-					</a>
-				</div>
-				
-				<nav class="header-meta-nav">
-					<div class="nav-item search-container">
-						<input type="text" id="searchInput" placeholder="Search Game..." oninput="showLiveSearch()" onkeydown="handleSearchEnter(event)">
-						
-						<span>
-							<img onclick="toggleSearch()" class="nav-link lupe" src="../assets/images/lupe.png">
-						</span>
-						
-						<div id="searchSuggestions" class="search-suggestions"></div>
-					</div>
-					
-					<span class="divider">|</span>
-
-					<a href="../index.html" class="alogin">
-						<span class="nav-login">LogIn</span> 
-					</a>
-
-					<span class="divider">|</span>
-					
-					<div class="nav-item settings-container">
-						<span onclick="toggleSettings()" class="nav-settings">Settings</span>
-
-						<div id="settingsDropdown" class="dropdown-content">
-							<a href="../index.html">Profile</a>
-
-							<div class="menu-item-flex">
-								<span>Music</span>
-
-								<label class="switch">
-									<input type="checkbox" id="musicToggle">
-									<span class="slider round"></span>
-								</label>
-							</div>
-
-							<div class="menu-item-flex">
-								<span>Dark Mode</span>
-
-								<label class="switch">
-									<input type="checkbox" id="darkToggle">
-									<span class="slider round"></span>
-								</label>
-							</div>
-						</div>
-					</div>
-				</nav>
-			</div>
-			
-			<nav class="main-navigation">
-				<ul>
-					<li><a href="../index.html?filter=all">All Games</a></li>
-					<li><a href="../index.html?filter=2">2 Player Games</a></li>
-					<li><a href="../index.html?filter=1">Solo Games</a></li>
-					<li><a href="../index.html?filter=multy">Online Games</a></li>
-				</ul>
-			</nav>
-		</div>
-	</header>
+    <header class="site-header">
+        <div class="container">
+            <div class="header-top">
+                <div class="header-logo">
+                    <a href="../index.html">
+                        <img class="logo" src="../assets/images/logo_schrift.png"> 
+                        <img class="logo2" src="../assets/images/logo_huhn.png"> 
+                    </a>
+                </div>
+                
+                <nav class="header-meta-nav">
+                    <div class="nav-item search-container">
+                        <input type="text" id="searchInput" placeholder="Search Game..." oninput="showLiveSearch()" onkeydown="handleSearchEnter(event)">
+                        <span>
+                            <img onclick="toggleSearch()" class="nav-link lupe" src="../assets/images/lupe.png">
+                        </span>
+                        <div id="searchSuggestions" class="search-suggestions"></div>
+                    </div>
+                    <span class="divider">|</span>
+                    <a href="../index.html" class="alogin">
+                        <span class="nav-login">LogIn</span> 
+                    </a>
+                    <span class="divider">|</span>
+                    <div class="nav-item settings-container">
+                        <span onclick="toggleSettings()" class="nav-settings">Settings</span>
+                        <div id="settingsDropdown" class="dropdown-content">
+                            <a href="../index.html">Profile</a>
+                            <div class="menu-item-flex">
+                                <span>Music</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="musicToggle">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <div class="menu-item-flex">
+                                <span>Dark Mode</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="darkToggle">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            
+            <nav class="main-navigation">
+                <ul>
+                    <li><a href="../index.html?filter=all">All Games</a></li>
+                    <li><a href="../index.html?filter=2">2 Player Games</a></li>
+                    <li><a href="../index.html?filter=1">Solo Games</a></li>
+                    <li><a href="../index.html?filter=multy">Online Games</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
     
     <audio id="bgMusic" src="../assets/music/Spielmusik.mp3" loop autoplay></audio>
 
     <div class="main">
-         <div class="head">
-              <div class="reset" id="playAgainBtn">⟳</div>
-                
-             <div class="header">2048</div>
-
-             <div class="muteBtn" id="muteBtn">
-                 <img id="muteIcon" src="../assets/images/speaker.png" alt="Mute">
-             </div>
+        <div class="head">
+            <div class="reset" id="playAgainBtn">⟳</div>
+            <div class="header">2048</div>
+            <div class="muteBtn" id="muteBtn">
+                <img id="muteIcon" src="../assets/images/speaker.png" alt="Mute">
+            </div>
         </div>
-		
-		<div class="score-container">
-			<div class="score-box">
-				<div class="score-label">SCORE</div>
-				<div id="score">0</div>
-			</div>
-			<div class="score-box">
-				<div class="score-label">BEST</div>
-				<div id="high-score">0</div>
-			</div>
-		</div>
+        
+        <div class="score-container">
+            <div class="score-box">
+                <div class="score-label">SCORE</div>
+                <div id="score">0</div>
+            </div>
+            <div class="score-box">
+                <div class="score-label">BEST (<span id="size-label-highscore">4x4</span>)</div>
+                <div id="high-score">0</div>
+            </div>
+        </div>
 
-		<div class="game-field">
-			<div id="grid-container"></div>
+        <div class="game-field">
+            <div class="game-size-controls">
+                <button id="prevSize" class="size-arrow">◀</button>
+                <div id="board-viewport">
+                    <div id="grid-container"></div>
+                </div>
+                <button id="nextSize" class="size-arrow">▶</button>
+            </div>
 
-			<div class="controls-bottom">
-				<button id="undoBtn" class="undo-button">Undo (<span id="undoCount">5</span>)</button>
-			</div>
-		</div>
+            <div class="controls-bottom">
+                <button id="undoBtn" class="undo-button">Undo (<span id="undoCount">5</span>)</button>
+            </div>
+        </div>
 
-		<div id="game-modal" class="modal">
-			<div class="modal-content">
-				<h2 id="modal-text">Game Over!</h2>
-				<p id="modal-score-display">Your Score: 0</p> 
-				<button id="modal-button">Show me</button>
-			</div>
-		</div>
-	</div>
+        <div id="game-modal" class="modal">
+            <div class="modal-content">
+                <h2 id="modal-text">Game Over!</h2>
+                <p id="modal-score-display">Your Score: 0</p> 
+                <button id="modal-button">Show me</button>
+            </div>
+        </div>
+    </div>
 
-	<footer class="site-footer">
+    <footer class="site-footer">
         <div class="container">
             <div class="footer-social-icons">
                 <span class="icon">in</span>
                 <span class="icon">ig</span>
                 <span class="icon">fb</span>
             </div>
-
             <nav class="footer-nav">
                 <a href="#">Kontakt</a> | 
                 <a href="#">Sitemap</a> | 

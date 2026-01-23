@@ -1,38 +1,27 @@
 /* ------------------------------------ 2048 Logik ------------------------------------ */
-let board;
-let history = []; 
-let undoAttempts = 5;
-let isGameOverState = false; // Sperrt das Spiel nach Sieg/Niederlage
-let score = 0;
-let highScore = localStorage.getItem("2048-highscore") || 0;
-const rows = 4;
-const columns = 4;
+let board, history = [], undoAttempts = 5, isGameOverState = false;
+let score = 0, highScore = 0;
+let rows = 4, columns = 4;
 
-window.onload = function() {
-    setGame();
-};
+window.onload = () => setGame();
+
+function getHighScoreKey() { return `2048-highscore-${rows}x${columns}`; }
 
 function setGame() {
-    score = 0; // Score zurücksetzen
+    score = 0;
     document.getElementById("score").innerText = score;
+    highScore = localStorage.getItem(getHighScoreKey()) || 0;
     document.getElementById("high-score").innerText = highScore;
+    document.getElementById("size-label-highscore").innerText = `${rows}x${columns}`;
 
-    board = [
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0]
-    ];
-    history = []; 
-    undoAttempts = 5; 
-    isGameOverState = false;
+    board = Array(rows).fill().map(() => Array(columns).fill(0));
+    history = []; undoAttempts = 5; isGameOverState = false;
     
-    // UI zurücksetzen
     const container = document.getElementById("grid-container");
-    if (!container) return;
     container.innerHTML = ''; 
+    container.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+    container.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
 
-    // Raster erstellen
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < columns; c++) {
             let tile = document.createElement("div");
@@ -41,235 +30,148 @@ function setGame() {
             container.append(tile);
         }
     }
+    spawnTile(); spawnTile();
+    updateUndoDisplay(); updateArrowButtons();
+    document.getElementById("game-modal").style.display = "none";
+}
+
+function changeSize(delta) {
+    if ((rows + delta) < 3 || (rows + delta) > 5) return;
+    const container = document.getElementById("grid-container");
+    const outClass = delta > 0 ? "slide-out-left" : "slide-out-right";
+
+    container.style.transition = "transform 0.12s ease-in";
+    container.classList.add(outClass);
     
-    // Erste Kacheln spawnen
-    spawnTile();
-    spawnTile();
-    updateUndoDisplay(); 
-    
-    // Modal verstecken, falls offen
-    const modal = document.getElementById("game-modal");
-    if (modal) modal.style.display = "none";
+    setTimeout(() => {
+        rows += delta; columns += delta;
+        setGame();
+        
+        container.style.transition = "none";
+        container.classList.remove("slide-out-left", "slide-out-right");
+        container.style.transform = delta > 0 ? "translateX(105%)" : "translateX(-105%)";
+        
+        requestAnimationFrame(() => {
+            setTimeout(() => {
+                container.style.transition = "transform 0.12s ease-out";
+                container.style.transform = "translateX(0)";
+            }, 10);
+        });
+    }, 125);
+}
+
+function updateArrowButtons() {
+    document.getElementById("prevSize").disabled = (rows <= 3);
+    document.getElementById("nextSize").disabled = (rows >= 5);
 }
 
 function updateTile(tile, num) {
-    // Klassen-Zuweisung für Farben aus dem CSS
-    tile.className = num > 0 ? "tile tile-" + num : "tile";
+    tile.className = num > 0 ? `tile tile-${num}` : "tile";
     tile.innerText = num > 0 ? num : "";
-    
-    // Schriftgrößen-Anpassung direkt im Style für flüssige Übergänge
-    if (num >= 1024) {
-        tile.style.fontSize = "25px";
-    } else if (num >= 128) {
-        tile.style.fontSize = "30px";
-    } else {
-        tile.style.fontSize = "35px";
-    }
+    let baseSize = rows === 5 ? 22 : (rows === 3 ? 45 : 35);
+    tile.style.fontSize = (num >= 1024) ? (baseSize - 8) + "px" : baseSize + "px";
 }
 
 function spawnTile() {
-    if (!hasEmptyTile()) return;
-    let emptyTiles = [];
-    for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < columns; c++) {
-            if (board[r][c] === 0) emptyTiles.push({r, c});
-        }
-    }
-    let {r, c} = emptyTiles[Math.floor(Math.random() * emptyTiles.length)];
+    let empty = [];
+    for (let r = 0; r < rows; r++) 
+        for (let c = 0; c < columns; c++) 
+            if (board[r][c] === 0) empty.push({r, c});
+    if (!empty.length) return;
+    let {r, c} = empty[Math.floor(Math.random() * empty.length)];
     board[r][c] = Math.random() < 0.9 ? 2 : 4;
-    updateTile(document.getElementById(r + "-" + c), board[r][c]);
-}
-
-function hasEmptyTile() {
-    return board.flat().includes(0);
+    updateTile(document.getElementById(`${r}-${c}`), board[r][c]);
 }
 
 function slide(row) {
-    row = row.filter(num => num !== 0); 
+    row = row.filter(n => n !== 0);
     for (let i = 0; i < row.length - 1; i++) {
         if (row[i] === row[i+1]) {
-            row[i] *= 2;      // Die Verschmelzung
-            row[i+1] = 0;
-            
-            // SCORE LOGIK HIER:
-            updateScore(row[i]); 
+            row[i] *= 2; row[i+1] = 0;
+            updateScore(row[i]);
         }
     }
-    row = row.filter(num => num !== 0);
+    row = row.filter(n => n !== 0);
     while (row.length < columns) row.push(0);
     return row;
 }
 
-function updateScore(points) {
-    score += points;
+function updateScore(p) {
+    score += p;
     document.getElementById("score").innerText = score;
-
     if (score > highScore) {
         highScore = score;
-        localStorage.setItem("2048-highscore", highScore);
+        localStorage.setItem(getHighScoreKey(), highScore);
         document.getElementById("high-score").innerText = highScore;
     }
 }
 
-// Tastatur-Steuerung
 document.addEventListener('keyup', (e) => {
-    // Falls das Spiel beendet wurde (Sieg oder Niederlage), keine Züge mehr zulassen
     if (isGameOverState) return;
-
-    // Aktuellen Zustand speichern, um zu prüfen, ob sich durch den Zug etwas verändert hat
-    let boardBeforeMove = JSON.stringify(board);
-    let scoreBeforeMove = score; 
-
-    // Bewegung ausführen - Jetzt mit WASD Unterstützung
-    if (e.code == "ArrowLeft" || e.code == "KeyA") {
-        for (let r = 0; r < rows; r++) board[r] = slide(board[r]);
-    } else if (e.code == "ArrowRight" || e.code == "KeyD") {
-        for (let r = 0; r < rows; r++) board[r] = slide([...board[r]].reverse()).reverse();
-    } else if (e.code == "ArrowUp" || e.code == "KeyW") {
+    let old = JSON.stringify(board), oldS = score;
+    if (e.code == "ArrowLeft" || e.code == "KeyA") for (let r = 0; r < rows; r++) board[r] = slide(board[r]);
+    else if (e.code == "ArrowRight" || e.code == "KeyD") for (let r = 0; r < rows; r++) board[r] = slide([...board[r]].reverse()).reverse();
+    else if (e.code == "ArrowUp" || e.code == "KeyW") {
         for (let c = 0; c < columns; c++) {
-            let row = [];
-            for (let r = 0; r < rows; r++) row.push(board[r][c]);
-            row = slide(row);
-            for (let r = 0; r < rows; r++) board[r][c] = row[r];
+            let col = []; for (let r = 0; r < rows; r++) col.push(board[r][c]);
+            col = slide(col); for (let r = 0; r < rows; r++) board[r][c] = col[r];
         }
     } else if (e.code == "ArrowDown" || e.code == "KeyS") {
         for (let c = 0; c < columns; c++) {
-            let row = [];
-            for (let r = 0; r < rows; r++) row.push(board[r][c]);
-            row.reverse();
-            row = slide(row);
-            row.reverse();
-            for (let r = 0; r < rows; r++) board[r][c] = row[r];
+            let col = []; for (let r = 0; r < rows; r++) col.push(board[r][c]);
+            col.reverse(); col = slide(col); col.reverse();
+            for (let r = 0; r < rows; r++) board[r][c] = col[r];
         }
-    } else {
-        return; // Andere Tasten ignorieren
-    }
+    } else return;
 
-    // Nur fortfahren, wenn der Zug gültig war
-    if (boardBeforeMove !== JSON.stringify(board)) {
-        history.push({
-            board: boardBeforeMove,
-            score: scoreBeforeMove
-        });
-
+    if (old !== JSON.stringify(board)) {
+        history.push({ b: old, s: oldS });
         if (history.length > 5) history.shift();
-
-        renderBoard();
-        spawnTile();
-        updateUndoDisplay();
-        checkGameStatus();
+        renderBoard(); spawnTile(); updateUndoDisplay();
+        if (isGameOver()) { isGameOverState = true; setTimeout(() => showModal(), 500); }
     }
 });
 
-function checkGameStatus() {
-    // Die Abfrage auf board.flat().includes(2048) haben wir entfernt.
-    // Das Spiel läuft jetzt einfach weiter, auch wenn du 2048 erreichst.
-
-    // Wir prüfen nur noch, ob das Spielfeld komplett voll ist und kein Zug mehr geht:
-    if (isGameOver()) {
-        isGameOverState = true; // Sperrt Züge
-        updateUndoDisplay();    // Sperrt Undo
-        
-        setTimeout(() => {
-            showModal("Game Over!"); // Zeigt das finale Score-Pop-up
-        }, 500);
-    }
-}
-
 function renderBoard() {
-    for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < columns; c++) {
-            let tile = document.getElementById(r + "-" + c);
-            if (tile) updateTile(tile, board[r][c]);
-        }
-    }
+    for (let r = 0; r < rows; r++) 
+        for (let c = 0; c < columns; c++) 
+            updateTile(document.getElementById(`${r}-${c}`), board[r][c]);
 }
 
-function showModal(text) {
-    const modal = document.getElementById("game-modal");
-    const modalText = document.getElementById("modal-text");
-    const modalScore = document.getElementById("modal-score-display"); // Das neue Feld
-    const modalBtn = document.getElementById("modal-button");
-    
-    if (modal && modalText) {
-        modalText.innerText = text;
-        
-        // Hier wird der aktuelle Score in das Pop-up geschrieben
-        if (modalScore) {
-            modalScore.innerText = "Your Score: " + score;
-        }
-        
-        modal.style.display = "flex";
-        
-        modalBtn.onclick = function() {
-            modal.style.display = "none";
-            isGameOverState = true; 
-            updateUndoDisplay();
-        };
-    }
+function showModal() {
+    const m = document.getElementById("game-modal");
+    document.getElementById("modal-score-display").innerText = "Your Score: " + score;
+    m.style.display = "flex";
+    document.getElementById("modal-button").onclick = () => m.style.display = "none";
 }
 
 function undo() {
     if (undoAttempts > 0 && history.length > 0 && !isGameOverState) {
-        // Hol das letzte Objekt aus der History
-        let lastState = history.pop();
-        
-        // Board zurücksetzen
-        board = JSON.parse(lastState.board);
-        
-        // Score zurücksetzen
-        score = lastState.score;
+        let last = history.pop(); board = JSON.parse(last.b); score = last.s;
         document.getElementById("score").innerText = score;
-        
-        undoAttempts--;
-        renderBoard();
-        updateUndoDisplay();
+        undoAttempts--; renderBoard(); updateUndoDisplay();
     }
 }
 
 function updateUndoDisplay() {
-    const undoBtn = document.getElementById("undoBtn");
-    const undoCount = document.getElementById("undoCount");
-    if (undoCount) undoCount.innerText = undoAttempts;
-    
-    if (undoBtn) {
-        // Button deaktivieren wenn Versuche leer, History leer oder Spiel vorbei
-        if (undoAttempts > 0 && history.length > 0 && !isGameOverState) {
-            undoBtn.disabled = false;
-            undoBtn.style.opacity = "1";
-        } else {
-            undoBtn.disabled = true;
-            undoBtn.style.opacity = "0.5";
-        }
-    }
+    const btn = document.getElementById("undoBtn");
+    document.getElementById("undoCount").innerText = undoAttempts;
+    btn.disabled = !(undoAttempts > 0 && history.length > 0 && !isGameOverState);
 }
 
 function isGameOver() {
-    if (hasEmptyTile()) return false;
-    for (let r = 0; r < rows; r++) {
+    if (board.flat().includes(0)) return false;
+    for (let r = 0; r < rows; r++) 
         for (let c = 0; c < columns; c++) {
-            if (c < 3 && board[r][c] === board[r][c+1]) return false;
-            if (r < 3 && board[r][c] === board[r+1][c]) return false;
+            if (c < columns - 1 && board[r][c] === board[r][c+1]) return false;
+            if (r < rows - 1 && board[r][c] === board[r+1][c]) return false;
         }
-    }
     return true;
 }
 
-// Event-Listener für Buttons (Reset und Undo)
 document.addEventListener('click', (e) => {
     if (e.target.id === "undoBtn") undo();
-    if (e.target.id === "playAgainSymbol" || e.target.closest(".reset")) setGame();
+    if (e.target.id === "playAgainBtn" || e.target.classList.contains("reset")) setGame();
+    if (e.target.id === "prevSize") changeSize(-1);
+    if (e.target.id === "nextSize") changeSize(1);
 });
-
-// Verhindert das Scrollen der Seite bei Verwendung der Pfeiltasten und der Leertaste
-window.addEventListener("keydown", function(e) {
-    // Wenn das Spiel vorbei ist, erlauben wir das Scrollen wieder
-    if (isGameOverState) {
-        return; 
-    }
-
-    // Wenn das Spiel aktiv ist, blockieren wir die Scroll-Tasten
-    if(["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(e.code) > -1) {
-        e.preventDefault();
-    }
-}, false);
