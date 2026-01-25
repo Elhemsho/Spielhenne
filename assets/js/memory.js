@@ -1,10 +1,25 @@
-/* ------------------------------------ Memory Logik ------------------------------------ */
+/* ------------------------------------ Memory Logik mit Früchten ------------------------------------ */
 document.addEventListener('DOMContentLoaded', () => {
     const gameField = document.querySelector('.game-field');
     const playAgainBtn = document.getElementById('playAgainBtn');
     
-    // Config
-    const symbols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L']; 
+    // Config: Mapping der Buchstaben zu deinen Bilddateien
+    const fruitImages = {
+        'A': 'apfel.png',
+        'B': 'banane.png',
+        'C': 'erdbeere.png',
+        'D': 'ananas.png',
+        'E': 'wassermelone.png',
+        'F': 'kirschen.png',
+        'G': 'himbeere.png',
+        'H': 'blaubeere.png',
+        'I': 'pfirsich.png',
+        'J': 'zitrone.png',
+        'K': 'orange.png',
+        'L': 'trauben.png'
+    };
+
+    const symbols = Object.keys(fruitImages); 
     let cards = [...symbols, ...symbols];
     let flippedCards = [];
     let matchedPairs = 0;
@@ -26,25 +41,29 @@ document.addEventListener('DOMContentLoaded', () => {
         lockBoard = false;
         
         updateScoreDisplay();
+        // Karten mischen
         cards.sort(() => Math.random() - 0.5);
 
-        cards.forEach((symbol, index) => {
-        const card = document.createElement('div');
-        card.classList.add('memory-card');
-        card.dataset.symbol = symbol;
-        
-        card.innerHTML = `
-            <div class="card-inner">
-                <div class="card-front">
-                    <img src="../assets/images/favicon.png" alt="Logo" class="card-logo">
+        cards.forEach((symbol) => {
+            const card = document.createElement('div');
+            card.classList.add('memory-card');
+            card.dataset.symbol = symbol;
+            
+            // Hier nutzen wir fruitImages[symbol], um den Dateinamen zu bekommen
+            card.innerHTML = `
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="../assets/images/favicon.png" alt="Logo" class="card-logo">
+                    </div>
+                    <div class="card-back">
+                        <img src="../assets/images/${fruitImages[symbol]}" alt="${symbol}" class="fruit-img">
+                    </div>
                 </div>
-                <div class="card-back">${symbol}</div>
-            </div>
-        `;
-        
-        card.addEventListener('click', flipCard);
-        gameField.appendChild(card);
-    });
+            `;
+            
+            card.addEventListener('click', flipCard);
+            gameField.appendChild(card);
+        });
     }
 
     function flipCard() {
@@ -72,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 card2.classList.add('matched');
                 resetTurn(true);
                 
-                // Delay before popup if game is won
                 if (matchedPairs === symbols.length) {
                     setTimeout(showWinPopup, 500);
                 }

@@ -6,11 +6,12 @@
 /* --- Game Field Layout --- */
 .game-field {
     display: grid !important; 
-    grid-template-columns: repeat(6, 92px); 
+    /* 6 Spalten passend zu den 100px breiten Karten */
+    grid-template-columns: repeat(6, 100px); 
     gap: 20px; 
     justify-content: center;
     perspective: 1000px;
-    padding: 40px 20px; 
+    padding: 20px 20px; 
     margin: 0 auto;
     width: fit-content; 
 }
@@ -44,44 +45,41 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
     border-radius: 6px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    font-family: 'Arial Narrow', Arial, sans-serif;
-    font-weight: 600;
 }
 
-/* Die Vorderseite der Karte (dein helles Blau) */
+/* Vorderseite (verdeckt) */
 .card-front {
     background-color: #e0f7fa; 
     border: 2px solid #a0ecf6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden; /* Falls das Bild zu groß ist */
-    font-family: 'Press Start 2P', system-ui;
+    overflow: hidden;
 }
 
-/* Styling für das Logo auf der Karte */
+/* Logo auf der Rückseite der verdeckten Karte */
 .card-logo {
-    width: 60%;      /* Das Logo füllt 70% der Kartenbreite aus */
-    height: auto;    /* Behält die Proportionen bei */
+    width: 60%;
+    height: auto;
     object-fit: contain;
-    opacity: 0.9;    /* Leicht transparent, wirkt oft edler */
+    opacity: 0.9;
 }
 
-/* Die Rückseite (aufgedeckte Karte) */
+/* Rückseite (aufgedeckte Karte mit Frucht) */
 .card-back {
     background-color: white;
-    color: #333;
     transform: rotateY(180deg);
     border: 2px solid #a0ecf6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-/* Faded effect for matches */
+/* Das Frucht-Bild */
+/* Hinweis: Im JS nutzen wir 'fruit-img', hier also angepasst */
+.fruit-img {
+    width: 80%;      
+    height: 80%;
+    object-fit: contain; 
+}
+
+/* Effekt für gefundene Paare */
 .memory-card.matched {
     opacity: 0.4;
     cursor: default;
@@ -94,7 +92,7 @@
     display: flex;
     justify-content: center;
     gap: 30px;
-    padding-top: 10px;
+    padding: 20px 0;
     font-family: sans-serif;
 }
 
@@ -103,13 +101,15 @@
     border-radius: 15px;
     background: #f0f0f0;
     transition: all 0.3s;
-    min-width: 100px;
+    min-width: 120px;
     text-align: center;
+    font-weight: bold;
+    color: #555;
 }
 
 .player-score.active {
     background: #a0ecf6;
-    color: white;
+    color: #007c91; /* Dunklerer Ton für bessere Lesbarkeit */
     transform: translateY(-3px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
@@ -134,6 +134,7 @@
     border-radius: 15px;
     text-align: center;
     border: 4px solid #a0ecf6;
+    font-family: sans-serif;
     animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -142,13 +143,24 @@
     to { transform: scale(1); opacity: 1; }
 }
 
+.win-popup h2 {
+    margin-top: 0;
+    color: #007c91;
+}
+
 .win-popup button {
     background-color: #a0ecf6;
-    color: white;
+    color: #007c91;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 25px;
     border-radius: 20px;
     cursor: pointer;
     font-weight: bold;
+    margin-top: 15px;
+    transition: background 0.2s;
+}
+
+.win-popup button:hover {
+    background-color: #82dae6;
 }
 /* ------------------ Main-End ------------------ */
