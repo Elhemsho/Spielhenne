@@ -106,9 +106,29 @@ function updateScore(p) {
     }
 }
 
+/* --- Verhindert das Scrollen während des Spiels --- */
+document.addEventListener('keydown', (e) => {
+    // Liste der Tasten, die das Scrollen verhindern sollen
+    const keysToBlock = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "KeyW", "KeyS", "KeyA", "KeyD"];
+    
+    if (keysToBlock.includes(e.code) && !isGameOverState) {
+        e.preventDefault();
+    }
+});
+
+/* --- Deine bestehende Logik (angepasst) --- */
 document.addEventListener('keyup', (e) => {
     if (isGameOverState) return;
+    
+    // Wir fügen hier e.preventDefault() zur Sicherheit auch hinzu, 
+    // falls der Browser Keydown ignoriert
+    if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.code)) {
+        e.preventDefault();
+    }
+
     let old = JSON.stringify(board), oldS = score;
+    
+    // ... (Hier bleibt dein restlicher Code für die Bewegungen gleich) ...
     if (e.code == "ArrowLeft" || e.code == "KeyA") for (let r = 0; r < rows; r++) board[r] = slide(board[r]);
     else if (e.code == "ArrowRight" || e.code == "KeyD") for (let r = 0; r < rows; r++) board[r] = slide([...board[r]].reverse()).reverse();
     else if (e.code == "ArrowUp" || e.code == "KeyW") {
@@ -128,7 +148,12 @@ document.addEventListener('keyup', (e) => {
         history.push({ b: old, s: oldS });
         if (history.length > 5) history.shift();
         renderBoard(); spawnTile(); updateUndoDisplay();
-        if (isGameOver()) { isGameOverState = true; setTimeout(() => showModal(), 500); }
+        if (isGameOver()) { 
+            isGameOverState = true; 
+            setTimeout(() => showModal(), 500); 
+            // Sobald GameOver ist, greift !isGameOverState oben nicht mehr 
+            // und die Tasten scrollen wieder ganz normal.
+        }
     }
 });
 

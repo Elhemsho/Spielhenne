@@ -144,8 +144,30 @@
 
 .modal-content {
     background-color: white;
-    padding: 30px;
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-bottom: 30px;
+    padding-top: 20px;
     border-radius: 15px;
     text-align: center;
+}
+
+/* Den Button im Modal und den Reset-Button stylen */
+#modal-button {
+    background-color: rgba(160, 236, 246, 0.726); /* Ein schönes Erdbeer-Rot */
+    color: white;
+    font-family: 'Arial Black', sans-serif; /* Kräftige Schrift */
+    font-size: 16px;
+    padding: 12px 25px;
+    border: 1px solid #ffffff; /* Dicke Comic-Outline */
+    border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+    outline: none;
+}
+
+/* Hover-Effekt (Maus drüber) */
+#modal-button:hover {
+    background-color: rgba(191, 246, 253, 0.726);
 }
 /* ------------------ Main-End ------------------ */
