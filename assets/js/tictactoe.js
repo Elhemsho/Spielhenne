@@ -14,6 +14,7 @@ const resetOverlay = document.getElementById("resetOverlay");
 const championOverlay = document.getElementById("championOverlay");
 const championText = document.getElementById("championText");
 const playAgainBtn = document.getElementById("playAgainBtn");
+const playAgainBtnChampion = document.getElementById("playAgainBtnChampion");
 const playAgainSymbol = document.getElementById("playAgainSymbol")
 const confettiCanvas = document.getElementById("confettiCanvas");
 
@@ -58,8 +59,9 @@ closeOverlay.addEventListener("click", () => {
 });
 
 resetBtn.addEventListener("click", resetGame);
+playAgainBtn.addEventListener("click", resetGame);
 resetOverlay.addEventListener("click", resetGame);
-playAgainBtn.addEventListener("click", resetEverything);
+playAgainBtnChampion.addEventListener("click", resetEverything);
 playAgainSymbol.addEventListener("click", resetEverything);
 
 function handleClick(field) {
@@ -117,36 +119,37 @@ function checkWin() {
 }
 
 function handleWin(winFields) {
-	gameOver = true;
-	resetOverlay.classList.add("armed");
-	
-	// Gewinnerfelder animieren
-	winFields.forEach(i => {
-		fields[i].classList.add("win");
-	});
+    gameOver = true;
+    resetOverlay.classList.add("armed");
+    
+    // Gewinnerfelder markieren
+    winFields.forEach(i => {
+        fields[i].classList.add("win");
+    });
 
-	startingPlayer = currentPlayer === "X" ? "O" : "X";
-
-	setTimeout(() => {
-		winnerText.textContent =
-		currentPlayer === "X" ? "Player 1 wins!" : "Player 2 wins!";
-		overlay.classList.remove("hidden");
-	}, 800);
-
+    // Score sofort erhöhen (nicht im Timeout!)
     if (currentPlayer === "X") {
         scoreP1.textContent = Number(scoreP1.textContent) + 1;
     } else {
         scoreP2.textContent = Number(scoreP2.textContent) + 1;
     }
 
-    setTimeout(() => {
-        const p1Score = Number(scoreP1.textContent);
-        const p2Score = Number(scoreP2.textContent);
+    const p1Score = Number(scoreP1.textContent);
+    const p2Score = Number(scoreP2.textContent);
 
+    // Entscheidung: Champion oder normaler Rundensieg?
+    setTimeout(() => {
         if (p1Score === 3 || p2Score === 3) {
-            championPending = true;
+            // Wenn jemand 3 Punkte hat, zeige SOFORT den Champion
+            showChampion();
+        } else {
+            // Sonst zeige das normale Runden-Overlay
+            winnerText.textContent = currentPlayer === "X" ? "Player 1 wins!" : "Player 2 wins!";
+            overlay.classList.remove("hidden");
         }
-    }, 900);
+    }, 800);
+
+    startingPlayer = currentPlayer === "X" ? "O" : "X";
 }
 
 function resetGame() {

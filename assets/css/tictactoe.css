@@ -135,8 +135,8 @@
     position: absolute;
     top: 0px;
     left: 0px;
-    right: 5px;
-    bottom: 5px;
+    right: 0px;
+    bottom: 0px;
 
     background: rgba(117, 115, 115, 0.35);
     color: white;
