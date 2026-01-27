@@ -1,4 +1,13 @@
+.site-header, 
+.site-footer {
+    position: relative;    /* Erlaubt die Nutzung von z-index */
+    z-index: 10001;        /* Höher als das pause-overlay (10000) */
+}
 /* ------------------ Main ------------------ */
+.main {
+    position: relative;
+}
+
 /* Das Haupt-Spielfeld */
 .game-field {
     display: flex;
@@ -304,5 +313,147 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+/* Steuerungsleiste über dem Spiel */
+.control-bar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: rgba(200, 234, 240, 0.5);
+    padding: 10px;
+    margin: 10px auto;
+    width: 820px;
+    border-radius: 10px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
 
+.setting-toggle {
+    padding: 5px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #fff;
+    margin: 0 5px;
+}
+
+.setting-toggle.disabled {
+    background: #f0f0f0;
+    cursor: not-allowed;
+    color: #888;
+}
+
+#timerDisplay {
+    font-family: monospace;
+    font-size: 1.2rem;
+    margin-right: 10px;
+}
+
+/* --- Pause & Blur Styles --- */
+#pauseBtn {
+    /* Gleicher Hintergrund und Rahmen wie .setting-toggle */
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    
+    /* Größe anpassen, damit er harmonisch in der Reihe wirkt */
+    width: 40px; 
+    height: 32px; /* Höhe an .setting-toggle anpassen */
+    
+    /* Zentrierung der Striche */
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Korrektur für das "zu weit unten"-Gefühl */
+    padding: 0;
+    line-height: 0; 
+    font-size: 1.1rem; /* Größe der Striche */
+    
+    transition: all 0.2s;
+}
+
+#pauseBtn:hover {
+    background: #f0f0f0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+
+/* Die Klasse für den Weichzeichner */
+.blurred {
+    /* Wir nutzen die Klasse nur noch, um Klicks zu sperren, nicht mehr zum Blurring */
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Das Overlay selbst */
+.pause-overlay {
+    position: absolute; 
+    top: 0;
+    left: 0;
+    right: 0;  /* Deckt die volle Breite ab */
+    bottom: 0; /* Zwingt das Overlay bis ganz nach unten zum Footer */
+    
+    /* Falls der Content innerhalb der Pause beim Scrollen verschwindet: */
+    display: none;
+    justify-content: center;
+    align-items: center; 
+    
+    z-index: 500; 
+    
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.pause-overlay.active {
+    display: flex;
+}
+
+.pause-content {
+    /* WICHTIG: Fixed, damit die Box beim Scrollen im Sichtfeld bleibt */
+    position: fixed; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    background: white;
+    padding: 50px 100px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    border: 3px solid #a0ecf6;
+    z-index: 501;
+}
+
+.pause-content h1 {
+    font-size: 3rem;
+    color: #333;
+    margin-bottom: 25px;
+    font-family: sans-serif;
+}
+
+/* --- Neuer Style für den "Weiter" Button (und ähnliche) --- */
+.control-button.blue-btn {
+    /* Dein existierendes Styling für den blauen Button */
+    background-color: #a0ecf6;
+    color: #333;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.control-button.blue-btn:hover {
+    background-color: #87dce8; /* Etwas dunkleres Blau beim Hover */
+    transform: translateY(-2px); /* Leichter 3D-Effekt nach oben */
+    box-shadow: 0 6px 15px rgba(160, 236, 246, 0.7);
+}
+
+.control-button.blue-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 5px rgba(160, 236, 246, 0.4);
+}
 /* ------------------ Main-End ------------------ */

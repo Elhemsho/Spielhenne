@@ -8,6 +8,13 @@ let undoLimit = 5;
 let foundationData = [[], [], [], []]; // Für die 4 Stapel oben rechts
 let stackCycles = 0;
 
+let timerInterval = null;
+let seconds = 0;
+let gameStarted = false;
+let isPaused = false;
+let undosAllowed = true;
+let cardsToDrawCount = 3;
+
 const suits = ["hearts", "diamonds", "spades", "clubs"];
 const valuesOrder = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
 
@@ -67,6 +74,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const winBtn = document.getElementById("showMeButton");
     if (winBtn) winBtn.onclick = hideVictoryPopup;
 
+    document.getElementById("pauseBtn").onclick = togglePause;
+    document.getElementById("continueBtn").onclick = togglePause;
+    
+    document.getElementById("toggleUndoBtn").onclick = toggleUndoSetting;
+    document.getElementById("toggleDrawBtn").onclick = toggleDrawSetting;
+
+    updateHighscoreDisplay();
     initGame();
 });
 
@@ -91,6 +105,13 @@ function saveState() {
     
     gameStateHistory.push(state);
     if (gameStateHistory.length > 40) gameStateHistory.shift(); 
+}
+
+const originalSaveState = saveState;
+saveState = function() {
+    startTimer();
+    if (!undosAllowed) return; // Falls Undo aus, speichern wir nichts
+    originalSaveState();
 }
 
 function undo() {
@@ -593,14 +614,25 @@ function checkWinCondition() {
 
 function showVictoryPopup() {
     const popup = document.getElementById("victoryPopup");
-    if (popup) {
-        // Text im Popup anpassen
-        const pTag = popup.querySelector("p");
-        if (pTag) {
-            pTag.innerText = `Number of stack cycles: ${stackCycles}`;
-        }
-        popup.classList.add("is-visible");
+    if (!popup) return;
+
+    // 1. Aktuelle Werte holen
+    const currentTimeStr = document.getElementById("timerDisplay").innerText;
+    const currentCycles = stackCycles;
+
+    // 2. Highscore in LocalStorage speichern
+    saveHighscore(currentCycles, currentTimeStr);
+
+    // 3. Anzeige im Popup
+    const pTag = popup.querySelector("p");
+    if (pTag) {
+        pTag.innerText = `Cycles: ${currentCycles} | Time: ${currentTimeStr}`;
     }
+    
+    // 4. Die Anzeige in der Control-Bar oben sofort aktualisieren
+    updateHighscoreDisplay();
+
+    popup.classList.add("is-visible");
 }
 
 function hideVictoryPopup() {
@@ -612,16 +644,143 @@ function hideVictoryPopup() {
 }
 
 function resetGame() {
-    stackCycles = 0;
-    undoLimit = 5; // Zähler zurücksetzen
-    gameStateHistory = []; // History leeren
+    // Timer und Status komplett zurücksetzen
+    clearInterval(timerInterval);
+    timerInterval = null;
+    seconds = 0;
+    gameStarted = false; // Wichtig: Ermöglicht das Ändern der Settings
+    isPaused = false;
     
-    updateUndoButton(); // Button-Text wieder auf "Rückgängig (5)" setzen
+    // UI-Elemente bereinigen
+    updateTimerDisplay();
+    document.getElementById("pauseBtn").innerText = "⏸";
+    document.getElementById("gameField").classList.remove("blurred");
+    document.getElementById("pauseOverlay").classList.remove("active");
+    
+    // Buttons für Einstellungen wieder aktiv schalten
+    document.getElementById("toggleUndoBtn").classList.remove("disabled");
+    document.getElementById("toggleDrawBtn").classList.remove("disabled");
+
+    // Ursprüngliche Reset-Logik
+    stackCycles = 0;
+    undoLimit = 5; 
+    gameStateHistory = []; 
+    updateUndoButton();
     
     const counter = document.getElementById("move-counter");
     if (counter) counter.innerText = "Stapel-Klicks: 0";
     
     document.getElementById("waste").innerHTML = "";
     document.querySelectorAll("#foundations .card-slot").forEach(slot => slot.innerHTML = "");
+    
     initGame();
+}
+
+// Timer Funktionen
+function startTimer() {
+    if (!gameStarted) {
+        gameStarted = true;
+        // Einstellungen sperren
+        document.getElementById("toggleUndoBtn").classList.add("disabled");
+        document.getElementById("toggleDrawBtn").classList.add("disabled");
+        
+        timerInterval = setInterval(() => {
+            if (!isPaused) {
+                seconds++;
+                updateTimerDisplay();
+            }
+        }, 1000);
+    }
+}
+
+function updateTimerDisplay() {
+    const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
+    const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+    const s = (seconds % 60).toString().padStart(2, '0');
+    document.getElementById("timerDisplay").innerText = `${h}:${m}:${s}`;
+}
+
+// Pause Logik
+function togglePause() {
+    if (!gameStarted) return;
+    
+    isPaused = !isPaused;
+    const overlay = document.getElementById("pauseOverlay");
+    const wrapper = document.getElementById("gameContentWrapper");
+
+    if (isPaused) {
+        overlay.classList.add("active");
+        wrapper.classList.add("blurred");
+        // KEIN overflow: hidden mehr, damit man scrollen kann!
+    } else {
+        overlay.classList.remove("active");
+        wrapper.classList.remove("blurred");
+    }
+}
+
+// Einstellungen
+function toggleUndoSetting() {
+    if (gameStarted) return;
+    undosAllowed = !undosAllowed;
+    document.getElementById("toggleUndoBtn").innerText = `Undo: ${undosAllowed ? "ON" : "OFF"}`;
+    document.getElementById("undoButton").style.display = undosAllowed ? "block" : "none";
+    updateHighscoreDisplay();
+}
+
+function toggleDrawSetting() {
+    if (gameStarted) return;
+    // Erhöht auf maximal 3, dann zurück auf 1
+    cardsToDrawCount = (cardsToDrawCount % 3) + 1; 
+    document.getElementById("toggleDrawBtn").innerText = `Draw: ${cardsToDrawCount}`;
+    updateHighscoreDisplay();
+}
+
+// Modifizierte existierende Funktionen
+function drawThreeCards() {
+    startTimer(); // Timer bei Aktion starten
+    if (deck.length === 0) {
+        if (wastePile.length === 0) return;
+        deck = wastePile.map(c => ({...c, faceUp: false})).reverse();
+        wastePile = [];
+    } else {
+        // Nutzt jetzt die cardsToDrawCount Variable
+        const count = Math.min(deck.length, cardsToDrawCount); 
+        for (let i = 0; i < count; i++) {
+            let card = deck.pop();
+            card.faceUp = true;
+            wastePile.push(card);
+        }
+    }
+    renderAll();
+}
+
+// Highscore System
+function updateHighscoreDisplay() {
+    const key = `highscore_undo${undosAllowed}_draw${cardsToDrawCount}`;
+    const score = JSON.parse(localStorage.getItem(key));
+    const display = document.getElementById("highscoreDisplay");
+    
+    if (display) {
+        if (score) {
+            display.innerText = `${score.cycles} | ${score.timeStr}`;
+        } else {
+            display.innerText = "None";
+        }
+    }
+}
+
+function saveHighscore(cycles, timeStr) {
+    // Eindeutiger Key basierend auf den Einstellungen (Draw 1/3, Undo ON/OFF)
+    const key = `highscore_undo${undosAllowed}_draw${cardsToDrawCount}`;
+    const savedScore = JSON.parse(localStorage.getItem(key));
+
+    // Logik: Weniger Cycles sind besser. Bei Gleichstand ist weniger Zeit besser.
+    const isBetter = !savedScore || 
+                     cycles < savedScore.cycles || 
+                     (cycles === savedScore.cycles && timeStr < savedScore.timeStr);
+
+    if (isBetter) {
+        const newScore = { cycles: cycles, timeStr: timeStr };
+        localStorage.setItem(key, JSON.stringify(newScore));
+    }
 }

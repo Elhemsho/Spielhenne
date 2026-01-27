@@ -2,6 +2,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    
 }
 
 body{
@@ -31,6 +32,7 @@ a{
     color: #333;
     padding-top: 10px;
     padding-right: 80px;
+    font-family: cursive;
 }
 
 .site-header {
@@ -101,6 +103,8 @@ a{
     transform: scaleX(0); /* Startet bei Größe 0 */
     transform-origin: right; /* Animation startet links */
     transition: transform 0.2s ease-in-out; 
+    
+    font-family: cursive;
 }
 
 #searchInput.show {
@@ -127,6 +131,8 @@ a{
     z-index: 1000;
     display: none; /* Am Anfang unsichtbar */
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    
+    font-family: cursive;
 }
 
 .suggestion-item {
@@ -287,6 +293,8 @@ input:checked + .slider:before {
     border-top: 1px solid #eee;
     font-weight: bold;
     color: #444;
+    
+    font-family: cursive;
 }
 
 .main-navigation li a{ 
@@ -319,6 +327,8 @@ input:checked + .slider:before {
 	padding-top: 20px;
 	display: inline-block;
     margin-bottom: 20px;
+    
+    font-family: cursive;
 }
 
 .reset{

@@ -41,9 +41,27 @@ function loadHighscore() {
     }
 }
 
-function toggleQuizSettings() {
-    document.getElementById('quizSettingsDropdown').classList.toggle('show');
+function toggleQuizSettings(event) {
+    // Verhindert, dass der Klick sofort zum window.onclick weiterwandert
+    if (event) {
+        event.stopPropagation();
+    }
+    const dropdown = document.getElementById('quizSettingsDropdown');
+    dropdown.classList.toggle('show');
 }
+
+// 2. Den Klick-außerhalb-Schutz verbessern
+window.addEventListener('click', function(event) {
+    const dropdown = document.getElementById('quizSettingsDropdown');
+    
+    // Wir prüfen: Ist das Dropdown offen UND ist der Klick NICHT das Dropdown selbst?
+    if (dropdown.classList.contains('show')) {
+        // Falls der Klick nicht auf das Menü oder ein Kind des Menüs ging:
+        if (!dropdown.contains(event.target)) {
+            dropdown.classList.remove('show');
+        }
+    }
+});
 
 function changeMode(mode) {
     currentMode = mode;

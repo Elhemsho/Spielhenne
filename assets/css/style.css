@@ -9,6 +9,8 @@
     max-width: 90%;
     margin-left: auto;  /* links automatisch */
     margin-right: auto; /* rechts automatisch */
+    
+    font-family: cursive;
 }
 
 .game {
@@ -36,7 +38,6 @@
     color: #222;
     text-align: center;
     padding-bottom: 4px;
-    font-family: 'Press Start 2P', system-ui;
 }
 
 .ticimg{
@@ -49,7 +50,6 @@
     color: #222;
     text-align: center;
     padding-bottom: 4px;
-    font-family: 'Press Start 2P', system-ui;
 }
 
 .conimg{
@@ -63,7 +63,6 @@
     color: #222;
     text-align: center;
     padding-bottom: 4px;
-    font-family: 'Press Start 2P', system-ui;
 }
 
 .zwei{
@@ -71,7 +70,6 @@
     color: #222;
     text-align: center;
     padding-bottom: 4px;
-    font-family: 'Press Start 2P', system-ui;
 }
 .zweimg{
     border: 1px #333 solid;
@@ -83,7 +81,6 @@
     color: #222;
     text-align: center;
     padding-bottom: 4px;
-    font-family: 'Press Start 2P', system-ui;
 }
 
 .solimg{
@@ -98,7 +95,6 @@
     color: #222;
     text-align: center;
     padding-bottom: 4px;
-    font-family: 'Press Start 2P', system-ui;
 }
 
 .kniimg{
@@ -111,7 +107,6 @@
     color: #222;
     text-align: center;
     padding-bottom: 4px;
-    font-family: 'Press Start 2P', system-ui;
     
 }
 
@@ -133,7 +128,6 @@
     color: #222;
     text-align: center;
     padding-bottom: 4px;
-    font-family: 'Press Start 2P', system-ui;
 }
 
 .memimg{
@@ -154,7 +148,6 @@
     color: #222;
     text-align: center;
     padding-bottom: 4px;
-    font-family: 'Press Start 2P', system-ui;
 }
 
 .mathimg{

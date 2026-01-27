@@ -81,44 +81,72 @@
     <audio id="bgMusic" src="../assets/music/Spielmusik.mp3" loop autoplay></audio>
 
     <div class="main">
-         <div class="head">
-              <div class="reset" id="playAgainBtn">⟳</div>
-                
-             <div class="header">Solitaire</div>
+		<div id="gameContentWrapper">
+			<div class="head">
+				<div class="reset" id="playAgainBtn">⟳</div>
+					
+				<div class="header">Solitaire</div>
 
-             <div class="muteBtn" id="muteBtn">
-                 <img id="muteIcon" src="../assets/images/speaker.png" alt="Mute">
-             </div>
-        </div>
+				<div class="muteBtn" id="muteBtn">
+					<img id="muteIcon" src="../assets/images/speaker.png" alt="Mute">
+				</div>
+			</div>
 
-        <div class="game-field">
-            <div class="top-row">
-                <div id="deck-container">
-                    <div id="stock" class="card-slot"></div>
-                    <div id="waste" class="card-slot"></div>
-                </div>
+			<div class="control-bar">
+				<div class="timer-section">
+					<span id="timerDisplay">00:00:00</span>
+					<button id="pauseBtn" class="icon-button">⏸</button>
+				</div>
 
-                <div id="foundations">
-                    <div class="card-slot"></div>
-                    <div class="card-slot"></div>
-                    <div class="card-slot"></div>
-                    <div class="card-slot"></div>
-                </div>
-            </div>
+				<div class="settings-section">
+					<button id="toggleUndoBtn" class="setting-toggle">Undo: ON</button>
+					<button id="toggleDrawBtn" class="setting-toggle">Draw: 3</button>
+				</div>
 
-            <div id="tableau"></div>
-        </div>
+				<div class="highscore-section">
+					Highscore: <span id="highscoreDisplay">None</span>
+				</div>
+			</div>
 
-        <button id="undoButton" class="control-button">Undo (5)</button>
+			<div class="game-container" id="gameContainer">
+				<div class="game-field" id="gameField">
+					<div class="top-row">
+						<div id="deck-container">
+							<div id="stock" class="card-slot"></div>
+							<div id="waste" class="card-slot"></div>
+						</div>
 
-        <div id="victoryPopup" class="victory-overlay">
-            <div class="victory-content">
-                <h2>🎉 Congratulations! 🎉</h2>
-                <p>Number of stack cycles: 0</p>
-                <button id="showMeButton">Play Again</button>
-            </div>
-        </div>
-    </div>
+						<div id="foundations">
+							<div class="card-slot"></div>
+							<div class="card-slot"></div>
+							<div class="card-slot"></div>
+							<div class="card-slot"></div>
+						</div>
+					</div>
+
+					<div id="tableau"></div>
+				</div>
+			</div>
+
+			<button id="undoButton" class="control-button">Undo (5)</button>
+
+			<div id="victoryPopup" class="victory-overlay">
+				<div class="victory-content">
+					<h2>🎉 Congratulations! 🎉</h2>
+					<p>Number of stack cycles: 0</p>
+					<button id="showMeButton">Play Again</button>
+				</div>
+			</div>
+		</div>
+
+		<div id="pauseOverlay" class="pause-overlay">
+			<div class="pause-content">
+				<h1>PAUSE</h1>
+				<button id="continueBtn" class="control-button">Continue</button>
+			</div>
+		</div>
+
+	</div>
 
 	<footer class="site-footer">
         <div class="container">
