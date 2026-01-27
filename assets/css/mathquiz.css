@@ -1,4 +1,6 @@
-
+body{
+    min-width: 850px;
+}
 
 .quiz-container {
     background: rgba(230, 252, 255, 0.5);

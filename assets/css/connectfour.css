@@ -1,3 +1,7 @@
+body{
+    min-width: 1200px;
+}
+
 /* ------------------ Main ------------------ */
 .game-field{
     display: flex;

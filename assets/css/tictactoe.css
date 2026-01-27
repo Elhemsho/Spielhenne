@@ -1,3 +1,6 @@
+body{
+    min-width: 880px;
+}
 
 /* ------------------ Header-End ------------------ */
 .game-field {
