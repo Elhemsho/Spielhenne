@@ -167,11 +167,26 @@ function initGame() {
     wastePile = [];
     tableauData = [[], [], [], [], [], [], []];
     foundationData = [[], [], [], []];
-    gameStateHistory = []; // History beim Neustart leeren
+    gameStateHistory = [];
 
     for (let i = 0; i < 7; i++) {
         for (let j = 0; j <= i; j++) {
-            let card = deck.pop();
+            let cardIndex = deck.length - 1;
+            let card = deck[cardIndex];
+
+            // LOGIK FÜR BESSERE LÖSBARKEIT:
+            // Wenn es die unterste Karte eines Stapels ist (j === 0)
+            // und es ein Ass oder ein König ist, schieben wir sie nach oben ins Deck
+            if (j === 0 && (card.value === "A" || card.value === "K")) {
+                // Karte rausnehmen und an den Anfang des Decks schieben (wird später gezogen)
+                let specialCard = deck.pop();
+                deck.unshift(specialCard);
+                // Neue Karte für diese Position nehmen
+                card = deck.pop();
+            } else {
+                card = deck.pop();
+            }
+
             if (j === i) card.faceUp = true;
             tableauData[i].push(card);
         }

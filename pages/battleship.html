@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Battleship</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/battleship.css">
+    <script src="../assets/js/global.js" defer></script>
+    <script src="../assets/js/battleship.js" defer></script>
+	<link rel="icon" type="image/png" href="../assets/images/favicon.png">
+</head>
+<body>
+	<header class="site-header">
+		<div class="container">
+			<div class="header-top">
+				<div class="header-logo">
+					<a href="../index.html">
+						<img class="logo" src="../assets/images/logo_schrift.png"> 
+						<img class="logo2" src="../assets/images/logo_huhn.png"> 
+					</a>
+				</div>
+				
+				<nav class="header-meta-nav">
+					<div class="nav-item search-container">
+						<input type="text" id="searchInput" placeholder="Search Game..." oninput="showLiveSearch()" onkeydown="handleSearchEnter(event)">
+						
+						<span>
+							<img onclick="toggleSearch()" class="nav-link lupe" src="../assets/images/lupe.png">
+						</span>
+						
+						<div id="searchSuggestions" class="search-suggestions"></div>
+					</div>
+					
+					<span class="divider">|</span>
+
+					<a href="../index.html" class="alogin">
+						<span class="nav-login">LogIn</span> 
+					</a>
+
+					<span class="divider">|</span>
+					
+					<div class="nav-item settings-container">
+						<span onclick="toggleSettings()" class="nav-settings">Settings</span>
+
+						<div id="settingsDropdown" class="dropdown-content">
+							<a href="../index.html">Profile</a>
+
+							<div class="menu-item-flex">
+								<span>Music</span>
+
+								<label class="switch">
+									<input type="checkbox" id="musicToggle">
+									<span class="slider round"></span>
+								</label>
+							</div>
+
+							<div class="menu-item-flex">
+								<span>Dark Mode</span>
+
+								<label class="switch">
+									<input type="checkbox" id="darkToggle">
+									<span class="slider round"></span>
+								</label>
+							</div>
+						</div>
+					</div>
+				</nav>
+			</div>
+			
+			<nav class="main-navigation">
+				<ul>
+					<li><a href="../index.html?filter=all">All Games</a></li>
+					<li><a href="../index.html?filter=2">2 Player Games</a></li>
+					<li><a href="../index.html?filter=1">Solo Games</a></li>
+					<li><a href="../index.html?filter=multy">Online Games</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+    
+    <audio id="bgMusic" src="../assets/music/Spielmusik.mp3" loop autoplay></audio>
+
+    <div class="main">
+        <div class="head">
+            <div class="reset" id="playAgainBtn">⟳</div>
+            <div class="header">Battleship</div>
+            <div class="muteBtn" id="muteBtn">
+                <img id="muteIcon" src="../assets/images/speaker.png" alt="Mute">
+            </div>
+        </div>
+
+        <div class="game-container">
+            <div class="player-area" id="area-p1">
+                <h3 class="player-label" style="color: rgb(255, 77, 77);">Player 1</h3>
+                <div class="grid" id="grid-p1"></div>
+            </div>
+
+            <div class="center-panel">
+                <div class="overviews-row">
+                    <div class="ship-overview p1-style" id="ships-p1">
+                        <h4>P1 Fleet</h4>
+                        <div class="ship-list" id="list-p1">
+                            </div>
+                    </div>
+    
+                    <div class="ship-overview p2-style" id="ships-p2">
+                        <h4>P2 Fleet</h4>
+                        <div class="ship-list" id="list-p2">
+                             </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="player-area" id="area-p2">
+                <h3 class="player-label" style="color: rgb(77, 124, 255);">Player 2</h3>
+                <div class="grid" id="grid-p2"></div>
+            </div>
+		</div>
+
+        <div class="controls-bottom">
+            <button id="main-action-btn" class="action-btn" disabled>NEXT PLAYER</button>
+        </div>
+
+        <div id="winner-popup">
+            <div class="popup-content" id="popup-box">
+                <h2 id="winner-text">Plyer 1 wins!</h2>
+                <button id="show-me-btn">Show me</button>
+            </div>
+        </div>
+    </div>
+
+	<footer class="site-footer">
+        <div class="container">
+            <div class="footer-social-icons">
+                <span class="icon">in</span>
+                <span class="icon">ig</span>
+                <span class="icon">fb</span>
+            </div>
+
+            <nav class="footer-nav">
+                <a href="#">Kontakt</a> | 
+                <a href="#">Sitemap</a> | 
+                <a href="#">Impressum</a> | 
+                <a href="#">Datenschutz</a> 
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>
