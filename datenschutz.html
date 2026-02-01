@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Datenschutzerklärung</title>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/datenschutz.css">
+
+    <script src="assets/js/global.js" defer></script>
+
+	<link rel="icon" type="image/png" href="assets/images/favicon.png">
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="header-top">
+                <div class="header-logo">
+                    <a href="index.html">
+                        <img class="logo" src="assets/images/logo_schrift.png"> 
+                        <img class="logo2" src="assets/images/logo_huhn.png"> 
+                    </a>
+                </div>
+                
+                <nav class="header-meta-nav">
+                    <div class="nav-item search-container">
+                        <input type="text" id="searchInput" placeholder="Search Game..." oninput="searchGames()">
+
+                        <span>
+                            <img onclick="toggleSearch()" class="nav-link lupe" src="assets/images/lupe.png">
+                        </span>
+                    </div>
+                    
+                    <span class="divider">|</span>
+
+                    <a href="index.html">
+                        <span class="nav-login">LogIn</span> 
+                    </a>
+
+                    <span class="divider">|</span>
+                    
+                    <div class="nav-item settings-container">
+                        <span onclick="toggleSettings()" class="nav-settings">Settings</span>
+
+                        <div id="settingsDropdown" class="dropdown-content">
+                            <a href="index.html">Profile</a>
+
+                            <div class="menu-item-flex">
+                                <span>Music</span>
+
+                                <label class="switch">
+                                    <input type="checkbox" id="musicToggle">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+                            <div class="menu-item-flex">
+                                <span>Dark Mode</span>
+
+                                <label class="switch">
+                                    <input type="checkbox" id="darkToggle">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            
+            <nav clasas="main-navigation">
+                <ul>
+                    <li><a href="index.html?filter=all">All Games</a></li>
+					<li><a href="index.html?filter=2">2 Player Games</a></li>
+					<li><a href="index.html?filter=1">Solo Games</a></li>
+					<li><a href="index.html?filter=multy">Online Games</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+        <div class="bg">
+            <div class="header">Datenschutzerklärung</div>
+
+            <div class="text">
+                Diese Website wird über GitHub Pages gehostet. Anbieter ist GitHub Inc., 
+                88 Colin P Kelly Jr St, San Francisco, CA 94107, USA.<br>
+                <br>
+                Beim Aufruf der Website werden durch GitHub automatisch Informationen 
+                in sogenannten Server-Log-Dateien erhoben und gespeichert. <br>
+                Diese Informationen beinhalten:<br>
+                - IP-Adresse<br>
+                - Browsertyp und Browserversion<br>
+                - Betriebssystem<br>
+                - Uhrzeit der Serveranfrage<br>
+                <br>
+                Diese Daten sind technisch erforderlich, um die Website auszuliefern, 
+                und werden nicht von mir ausgewertet.<br>
+                <br>
+                Es werden keine Cookies gesetzt.<br>
+                Es findet kein Tracking und keine Analyse des Nutzerverhaltens statt.<br>
+                <br>
+                Grafiken auf dieser Website wurden teilweise mit KI-Systemen 
+                (ChatGPT / Google Gemini) generiert.<br>
+            </div>
+        </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-social-icons">
+                <span class="icon">in</span>
+                <span class="icon">ig</span>
+                <span class="icon">fb</span>
+            </div>
+
+            <nav class="footer-nav">
+                <a href="impressum.html">Impressum</a> | 
+                <a href="datenschutz.html">Datenschutz</a> |  
+                <a href="changelogs.html">Change Logs</a> |
+                <a href="sitemap.html">Sitemap</a> 
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>

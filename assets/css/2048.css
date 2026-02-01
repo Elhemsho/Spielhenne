@@ -160,7 +160,7 @@ body{
 #modal-button {
     background-color: rgba(160, 236, 246, 0.726); /* Ein schönes Erdbeer-Rot */
     color: white;
-    font-family: 'Arial Black', sans-serif; /* Kräftige Schrift */
+    font-family: sans-serif; /* Kräftige Schrift */
     font-size: 16px;
     padding: 12px 25px;
     border: 1px solid #ffffff; /* Dicke Comic-Outline */

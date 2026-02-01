@@ -30,7 +30,7 @@ a{
     font-size: 15px;
     color: #333;
     padding-top: 10px;
-    padding-right: 80px;
+    padding-right: 90px;
     font-family: cursive;
 }
 
@@ -45,7 +45,7 @@ a{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 100px;
+    padding-left: 90px;
     padding-top: 20px;
     padding-bottom: 10px;
 }
