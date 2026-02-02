@@ -387,4 +387,10 @@ input:checked + .slider:before {
 .footer-nav a:hover {
     text-decoration: underline;
 }
+
+.license{
+    margin-top: 20px;
+    text-align: center;
+    font-size: 12px;
+}
 /* ------------------ Footer-End ------------------ */
