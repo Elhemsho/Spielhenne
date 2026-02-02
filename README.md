@@ -8,13 +8,13 @@ All games run directly in the browser and can be played **solo or locally with t
 ## 🎮 Available Games
 
 - **Tic Tac Toe** – Classic 3×3 strategy game  
-- **Connect 3 (3 Gewinnt)** – Line up three pieces to win  
-- **Battleship (Schiffe versenken)** – Sink your opponent’s fleet  
+- **Connect 4** – Line up three pieces to win  
+- **Battleship** – Sink your opponent’s fleet  
 - **2048** – Combine tiles to reach 2048  
 - **Memory** – Card-matching game for one or two players  
 - **Solitaire** – Classic single-player card game  
-- **Yahtzee (Yatzy)** – Dice game based on combinations  
-- **Dots and Boxes (Käsekästchen)** – Strategic two-player grid game  
+- **Yazy** – Dice game based on combinations  
+- **Dots and Boxes** – Strategic two-player grid game  
 - **Math Quiz** – Improve your mental math skills  
 
 ---
@@ -23,9 +23,8 @@ All games run directly in the browser and can be played **solo or locally with t
 
 - 🎮 **Singleplayer & Local Multiplayer**  
 - 💾 **Local Highscores** (saved via `localStorage`)  
-- 📱 **Responsive Design** (desktop, tablet, mobile)  
 - ⚙️ **Settings Menu**  
-  - Dark Mode toggle  
+  <!-- - Dark Mode toggle  -->
   - Music on/off  
 - 🚫 **No Server Required**
 
