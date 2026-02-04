@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Root-Seiten -->
+  <url>
+    <loc>https://elhemsho.github.io/Spielhenne/</loc>
+    <lastmod>2026-02-04</lastmod>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://elhemsho.github.io/Spielhenne/datenschutz.html</loc>
+    <lastmod>2026-02-04</lastmod>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://elhemsho.github.io/Spielhenne/impressum.html</loc>
+    <lastmod>2026-02-04</lastmod>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://elhemsho.github.io/Spielhenne/changelogs.html</loc>
+    <lastmod>2026-02-04</lastmod>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://elhemsho.github.io/Spielhenne/sitemap.html</loc>
+    <lastmod>2026-02-04</lastmod>
+    <priority>0.2</priority>
+  </url>
+
+  <!-- Spieleseiten im Unterordner /pages -->
+  <url>
+    <loc>https://elhemsho.github.io/Spielhenne/pages/tictactoe.html</loc>
+    <lastmod>2026-02-04</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://elhemsho.github.io/Spielhenne/pages/connectfour.html</loc>
+    <lastmod>2026-02-04</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://elhemsho.github.io/Spielhenne/pages/battleship.html</loc>
+    <lastmod>2026-02-04</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://elhemsho.github.io/Spielhenne/pages/yazy.html</loc>
+    <lastmod>2026-02-04</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://elhemsho.github.io/Spielhenne/pages/solitaire.html</loc>
+    <lastmod>2026-02-04</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://elhemsho.github.io/Spielhenne/pages/dotsandboxes.html</loc>
+    <lastmod>2026-02-04</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://elhemsho.github.io/Spielhenne/pages/memory.html</loc>
+    <lastmod>2026-02-04</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://elhemsho.github.io/Spielhenne/pages/2048.html</loc>
+    <lastmod>2026-02-04</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://elhemsho.github.io/Spielhenne/pages/mathquiz.html</loc>
+    <lastmod>2026-02-04</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>
