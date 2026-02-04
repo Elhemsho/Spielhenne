@@ -162,7 +162,7 @@ body{
 /* Counter & Texte */
 #move-counter {
     color: #444;
-    font-family: sans-serif;
+    font-family: 'Comic Neue2', cursive;
     font-weight: bold;
     font-size: 25px;
     padding-top: 20px;
@@ -203,7 +203,7 @@ body{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-family: sans-serif;
+    font-family: 'Comic Neue2', cursive;
     font-size: 48px;
     font-weight: bold;
     color: rgba(166, 213, 222, 0.4); /* Sehr helles/verblasstes Blau */
@@ -327,7 +327,7 @@ body{
     margin: 10px auto;
     width: 820px;
     border-radius: 10px;
-    font-family: sans-serif;
+    font-family: 'Comic Neue2', cursive;
     font-weight: bold;
 }
 
@@ -347,7 +347,7 @@ body{
 }
 
 #timerDisplay {
-    font-family: sans-serif;
+    font-family: 'Comic Neue2', cursive;
     font-size: 1.2rem;
     margin-right: 10px;
 }
@@ -433,7 +433,7 @@ body{
     font-size: 3rem;
     color: #333;
     margin-bottom: 25px;
-    font-family: sans-serif;
+    font-family: 'Comic Neue2', cursive;
 }
 
 /* --- Neuer Style für den "Weiter" Button (und ähnliche) --- */

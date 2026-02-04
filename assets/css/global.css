@@ -52,7 +52,7 @@ a{
     color: #333;
     padding-top: 10px;
     padding-right: 90px;
-    font-family: cursive;
+    font-family: 'Comic Neue2', cursive;
 }
 
 .site-header {
@@ -124,7 +124,7 @@ a{
     transform-origin: right; /* Animation startet links */
     transition: transform 0.2s ease-in-out; 
     
-    font-family: cursive;
+    font-family: 'Comic Neue2', cursive;
 }
 
 #searchInput.show {
@@ -152,7 +152,7 @@ a{
     display: none; /* Am Anfang unsichtbar */
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     
-    font-family: cursive;
+    font-family: 'Comic Neue2', cursive;
 }
 
 .suggestion-item {
@@ -314,7 +314,7 @@ input:checked + .slider:before {
     font-weight: bold;
     color: #444;
     
-    font-family: cursive;
+    font-family: 'Comic Neue2', cursive;
 }
 
 .main-navigation li a{ 
@@ -342,13 +342,13 @@ input:checked + .slider:before {
 .header{
 	font-size: 38px;
 	text-align: center;
-	font-family: sans-serif;
+	font-family: 'Comic Neue2', cursive;
 	font-weight: 500;
 	padding-top: 20px;
 	display: inline-block;
     margin-bottom: 20px;
     
-    font-family: cursive;
+    font-family: 'Comic Neue2', cursive;
 }
 
 .reset{

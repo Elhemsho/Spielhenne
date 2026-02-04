@@ -52,21 +52,21 @@ body{
 .p1{
 	font-size: 30px;
 	text-align: center;
-	font-family: sans-serif;
+	font-family: 'Comic Neue2', cursive;
 	color: rgb(255, 77, 77);
 }
 
 .p2{
 	font-size: 30px;
 	text-align: center;
-	font-family: sans-serif;
+	font-family: 'Comic Neue2', cursive;
 	color: rgb(77, 124, 255);
 }
 
 .x{
 	font-size: 35px;
 	text-align: center;
-	font-family: sans-serif;
+	font-family: 'Comic Neue2', cursive;
 	color: #424242;
 	padding-top: 30px;
 	text-decoration: underline;
@@ -75,7 +75,7 @@ body{
 .o{
 	font-size: 35px;
 	text-align: center;
-	font-family: sans-serif;
+	font-family: 'Comic Neue2', cursive;
 	color: #424242;
 	padding-top: 30px;
 	text-decoration: underline;
@@ -85,7 +85,7 @@ body{
 .pp1{
 	font-size: 40px;
 	text-align: center;
-	font-family: sans-serif;
+	font-family: 'Comic Neue2', cursive;
 	color: #424242;
 	padding-top: 40px;
 }
@@ -93,7 +93,7 @@ body{
 .pp2{
 	font-size: 40px;
 	text-align: center;
-	font-family: sans-serif;
+	font-family: 'Comic Neue2', cursive;
 	color: #424242;
 	padding-top: 40px;
 }
@@ -101,7 +101,7 @@ body{
 .t1{
 	font-size: 20px;
 	text-align: center;
-	font-family: sans-serif;
+	font-family: 'Comic Neue2', cursive;
 	color: #424242;
 	padding-top: 40px;
 }
@@ -109,7 +109,7 @@ body{
 .t2{
 	font-size: 20px;
 	text-align: center;
-	font-family: sans-serif;
+	font-family: 'Comic Neue2', cursive;
 	color: #424242;
 	padding-top: 40px;
 	opacity: 0.12;
@@ -185,7 +185,7 @@ body{
     border: 1px solid #585858;
     cursor: pointer;
     background-color: rgba(213, 247, 252, 0.962);
-    font-family: sans-serif;
+    font-family: 'Comic Neue2', cursive;
     box-sizing: border-box;  /* Padding und Border zählen in Höhe/Breite */
     padding: 0;              /* wichtig! kein extra Platz */
 }
@@ -251,7 +251,7 @@ body{
 	border-radius: 10px;
 	text-align: center;
 	position: relative;
-	font-family: sans-serif;
+	font-family: 'Comic Neue2', cursive;
 }
 
 .closeBtn {

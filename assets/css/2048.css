@@ -87,7 +87,7 @@ body{
     font-weight: bold;
     margin: 10px 0;
     color: #333;
-    font-family: sans-serif;
+    font-family: 'Comic Neue2', cursive;
 }
 
 .slide-out-left { transform: translateX(-100%); }
@@ -160,7 +160,7 @@ body{
 #modal-button {
     background-color: rgba(160, 236, 246, 0.726); /* Ein schönes Erdbeer-Rot */
     color: white;
-    font-family: sans-serif; /* Kräftige Schrift */
+    font-family: 'Comic Neue2', cursive; /* Kräftige Schrift */
     font-size: 16px;
     padding: 12px 25px;
     border: 1px solid #ffffff; /* Dicke Comic-Outline */

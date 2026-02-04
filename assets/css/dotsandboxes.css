@@ -92,7 +92,7 @@ body{
     display: flex; 
     gap: 30px; 
     justify-content: center; 
-    font-family: sans-serif;
+    font-family: 'Comic Neue2', cursive;
     margin-bottom: 10px;
 }
 
@@ -105,7 +105,7 @@ body{
 
 #status {
     text-align: center;
-    font-family: sans-serif;
+    font-family: 'Comic Neue2', cursive;
     font-size: 20px;
     margin: 15px 0;
     padding-top: 10px;
@@ -131,7 +131,7 @@ body{
 /* Die Schrift im Modal */
 #modal-text {
     margin: 0 0 30px 0; /* 40px Abstand nach unten zum Button */
-    font-family: sans-serif;
+    font-family: 'Comic Neue2', cursive;
     font-size: 24px;
     color: #333;
 }
