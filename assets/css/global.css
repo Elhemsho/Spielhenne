@@ -18,14 +18,16 @@ body{
 /* Comic Neue lokal einbinden */
 @font-face {
     font-family: 'Comic Neue';
-    src: url('assets/fonts/ComicNeue-Regular.woff2') format('woff2');
+    src: url('../fonts/ComicNeue-Regular.woff2') format('woff2'),
+         url('../fonts/ComicNeue-Regular.woff') format('woff');
     font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Comic Neue';
-    src: url('assets/fonts/ComicNeue-Bold.woff2') format('woff2');
+    src: url('../fonts/ComicNeue-Bold.woff2') format('woff2'),
+         url('../fonts/ComicNeue-Bold.woff') format('woff');
     font-weight: 700;
     font-style: normal;
 }
