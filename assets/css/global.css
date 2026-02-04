@@ -12,6 +12,26 @@ body{
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    font-family: 'Comic Neue', cursive;
+}
+
+/* Comic Neue lokal einbinden */
+@font-face {
+    font-family: 'Comic Neue';
+    src: url('assets/fonts/ComicNeue-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Comic Neue';
+    src: url('assets/fonts/ComicNeue-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+h1, h2, h3, h4, h5, h6, .button, nav {
+    font-family: 'Comic Neue', cursive;
 }
 
 a{
