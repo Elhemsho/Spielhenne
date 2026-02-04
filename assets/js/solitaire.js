@@ -411,7 +411,7 @@ function renderStock() {
         cycleDisplay.style.transform = "translate(-50%, -50%)";
         cycleDisplay.style.fontSize = "40px";
         cycleDisplay.style.fontWeight = "bold";
-        cycleDisplay.style.fontFamily = "sans-serif";
+        cycleDisplay.style.fontFamily = 'Comic Neue2', cursive;
         cycleDisplay.style.color = "rgba(166, 213, 222, 0.5)"; // Dein Hellblau, verblasst
         cycleDisplay.style.pointerEvents = "none"; // Klicks gehen durch die Zahl zum Stapel
         cycleDisplay.style.zIndex = "1";

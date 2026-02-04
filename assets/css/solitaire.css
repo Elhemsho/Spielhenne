@@ -12,6 +12,10 @@ body{
     position: relative;
 }
 
+.header{
+    margin-bottom: 20px;
+}
+
 /* Das Haupt-Spielfeld */
 .game-field {
     display: flex;

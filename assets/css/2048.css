@@ -17,6 +17,7 @@ body{
     gap: 40px;
     justify-content: center;
     margin-bottom: 10px;
+    margin-top: 20px;
 }
 
 .score-box {

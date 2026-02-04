@@ -25,15 +25,15 @@ body{
 }
 
 @font-face {
-    font-family: 'Comic Neue';
+    font-family: 'Comic Neue2';
     src: url('../fonts/ComicNeue-Bold.woff2') format('woff2'),
          url('../fonts/ComicNeue-Bold.woff') format('woff');
     font-weight: 700;
     font-style: normal;
 }
 
-h1, h2, h3, h4, h5, h6, .button, nav {
-    font-family: 'Comic Neue', cursive;
+h1, h2, h3, h4, h5, h6, .button, nav, a, .header, div, button{
+    font-family: 'Comic Neue2', cursive !important;
 }
 
 a{
@@ -135,7 +135,7 @@ a{
 
 #searchInput::placeholder {
     color: #bbb;
-    font-style: italic;
+    font-family: 'Comic Neue2', cursive;
 }
 
 .search-suggestions {
@@ -312,6 +312,7 @@ input:checked + .slider:before {
     margin: 0;
     border-top: 1px solid #eee;
     font-weight: bold;
+    font-size: 18px;
     color: #444;
     
     font-family: 'Comic Neue2', cursive;
@@ -342,11 +343,9 @@ input:checked + .slider:before {
 .header{
 	font-size: 38px;
 	text-align: center;
-	font-family: 'Comic Neue2', cursive;
 	font-weight: 500;
 	padding-top: 20px;
 	display: inline-block;
-    margin-bottom: 20px;
     
     font-family: 'Comic Neue2', cursive;
 }

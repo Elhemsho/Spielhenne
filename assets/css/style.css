@@ -27,6 +27,7 @@ body{
     gap: 30px 100px;              /* Abstand zwischen Boxen und Spielfeld */
     margin-top: 40px;
     max-width: 90%;
+    font-size: 18px;
     margin-left: auto;  /* links automatisch */
     margin-right: auto; /* rechts automatisch */
     
