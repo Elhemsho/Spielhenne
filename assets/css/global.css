@@ -32,6 +32,14 @@ body{
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Comic Neue3';
+    src: url('../fonts/ComicNeue-Bold.woff2') format('woff2'),
+         url('../fonts/ComicNeue-Bold.woff') format('woff');
+    font-weight: 1200;
+    font-style: normal;
+}
+
 h1, h2, h3, h4, h5, h6, .button, nav, a, .header, div, button{
     font-family: 'Comic Neue2', cursive !important;
 }
@@ -45,6 +53,11 @@ a{
 }
 
 /* ------------------ Header ------------------ */
+.resetImg{
+    height: 40px;
+    width: 40px;
+}
+
 .header-meta-nav {
     display: flex;
     align-items: center;

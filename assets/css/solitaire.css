@@ -333,6 +333,7 @@ body{
     border-radius: 10px;
     font-family: 'Comic Neue2', cursive;
     font-weight: bold;
+    font-size: 1.1rem;
 }
 
 .setting-toggle {
@@ -350,10 +351,34 @@ body{
     color: #888;
 }
 
+.timer-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 #timerDisplay {
     font-family: 'Comic Neue2', cursive;
-    font-size: 1.2rem;
-    margin-right: 10px;
+    font-size: 1.1rem;
+
+    /* 🔑 DAS hier löst das Wackeln */
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+
+    /* Feste Breite für HH:MM:SS */
+    display: inline-block;
+    width: 8ch;
+    text-align: center;
+    line-height: 32px; /* exakt wie Pause-Button */
+    height: 32px;
+}
+
+.pauseImg {
+    width: 13px;
+    height: 13px;
+
+    display: block; /* verhindert Mini-Offsets */
+    pointer-events: none; /* Klick geht immer auf den Button */
 }
 
 /* --- Pause & Blur Styles --- */
@@ -365,8 +390,8 @@ body{
     cursor: pointer;
     
     /* Größe anpassen, damit er harmonisch in der Reihe wirkt */
-    width: 40px; 
-    height: 32px; /* Höhe an .setting-toggle anpassen */
+    width: 34px; 
+    height: 30px; /* Höhe an .setting-toggle anpassen */
     
     /* Zentrierung der Striche */
     display: inline-flex;
@@ -376,7 +401,7 @@ body{
     /* Korrektur für das "zu weit unten"-Gefühl */
     padding: 0;
     line-height: 0; 
-    font-size: 1.1rem; /* Größe der Striche */
+    font-size: 0.9rem; /* Größe der Striche */
     
     transition: all 0.2s;
 }

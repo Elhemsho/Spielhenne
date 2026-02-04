@@ -200,3 +200,5 @@ document.addEventListener('click', (e) => {
     if (e.target.id === "prevSize") changeSize(-1);
     if (e.target.id === "nextSize") changeSize(1);
 });
+
+document.getElementById("playAgainBtn").addEventListener("click", setGame);

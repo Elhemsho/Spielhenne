@@ -152,6 +152,7 @@ body{
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s ease;
+	cursor: pointer;
 }
 
 /* Reset ist erlaubt, aber noch unsichtbar */

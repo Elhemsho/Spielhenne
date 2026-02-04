@@ -27,6 +27,11 @@ body{
     padding-bottom: 15px;
 }
 
+.einImg{
+    height: 16px;
+    width: 16px;
+}
+
 /* Ersetze oder ergänze diese Teile in deiner mathquiz.css */
 
 .stat-item {
