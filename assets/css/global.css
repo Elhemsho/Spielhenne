@@ -9,7 +9,6 @@ body{
 	background: #f7f7f7;
 	margin: 0;
 	padding: 0;
-	user-select: none;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
