@@ -121,7 +121,12 @@ function showDrawPopup() {
     content.classList.replace("win", "draw");
 
     // Text setzen
-    winText.innerHTML = `<strong>Draw!</strong><div class="emoji">🤝</div>`;
+    winText.innerHTML = `
+    <strong>Draw!</strong>
+    <div class="icon">
+        <img src="../assets/images/draw.png" alt="Unentschieden">
+    </div>
+    `;
 
     // Münze komplett aus dem Layout entfernen, damit sie keinen Platz wegnimmt
     if (winCoin) {

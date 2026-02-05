@@ -312,4 +312,13 @@ body {
     background: #aef1fa;
 }
 
+.icon img {
+  width: 45px;
+  height: 40px;
+  display: block;
+  margin-left: 40px;
+  margin-top: 28px;
+  padding-bottom: 20px;
+}
+
 /* ------------------ Main-End ------------------ */

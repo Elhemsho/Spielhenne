@@ -179,6 +179,14 @@ body {
   /* Verhindert, dass das X nach unten rutscht */
 }
 
+.icon img {
+  width: 45px;
+  height: 40px;
+  display: block;
+  margin-left: 40px;
+  margin-top: 28px;
+  padding-bottom: 20px;
+}
 
 
 @keyframes pulse {

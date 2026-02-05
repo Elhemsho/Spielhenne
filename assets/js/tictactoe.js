@@ -190,8 +190,8 @@ function showChampion() {
 
 	championText.textContent =
 		scoreP1.textContent === "3"
-			? "🏆 Player 1 is the Champion!"
-			: "🏆 Player 2 is the Champion!";
+			? "☆ Player 1 is the Champion!"
+			: "☆ Player 2 is the Champion!";
 
 	championOverlay.classList.remove("hidden");
 	startConfetti();

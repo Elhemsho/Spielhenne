@@ -257,15 +257,20 @@ function showWinner() {
     const winnerContent = document.querySelector('.winner-content');
 
     if (score1 > score2) {
-        winnerText.innerText = "Player 1 wins! 🎉";
+        winnerText.innerText = "Player 1 wins! ☆";
         winnerScore.innerText = "Difference: " + diff + " Points";
         if (winnerContent) winnerContent.style.width = "380px"; // Zurück auf Standard 
     } else if (score2 > score1) {
-        winnerText.innerText = "Player 2 wins! 🎉";
+        winnerText.innerText = "Player 2 wins! ☆";
         winnerScore.innerText = "Difference: " + diff + " Points";
         if (winnerContent) winnerContent.style.width = "380px"; // Zurück auf Standard
     } else {
-        winnerText.innerText = "Draw! 🤝";
+        winText.innerHTML = `
+        <strong>Draw!</strong>
+        <div class="icon">
+            <img src="../assets/images/draw.png" alt="Unentschieden">
+        </div>
+        `;
         winnerScore.innerText = "Both of you got " + score1 + " Points.";
         if (winnerContent) winnerContent.style.width = "260px"; // Breiter bei Unentschieden
     }
