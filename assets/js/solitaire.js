@@ -1,6 +1,6 @@
 /* ------------------------------------ Solitär Logik ------------------------------------ */
 let deck = [];
-let wastePile = []; 
+let wastePile = [];
 let tableauData = [[], [], [], [], [], [], []];
 let deckClickCount = 0;
 let gameStateHistory = []; // Speicher für die Undo-Funktion
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (playAgainBtn) playAgainBtn.onclick = resetGame;
     if (undoBtn) undoBtn.onclick = undo;
-    
+
     if (stockElement) {
         stockElement.onclick = () => {
             saveState(); // Zustand speichern VOR dem Klick
@@ -47,11 +47,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (stockElement) {
         stockElement.onclick = () => {
             // Zuerst speichern für Undo
-            saveState(); 
+            saveState();
 
             if (deck.length === 0 && wastePile.length > 0) {
                 // Stapel leer -> Neu mischen und Zähler hoch!
-                stackCycles++; 
+                stackCycles++;
                 deck = wastePile.reverse();
                 wastePile = [];
                 renderAll();
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("pauseBtn").onclick = togglePause;
     document.getElementById("continueBtn").onclick = togglePause;
-    
+
     document.getElementById("toggleUndoBtn").onclick = toggleUndoSetting;
     document.getElementById("toggleDrawBtn").onclick = toggleDrawSetting;
 
@@ -102,13 +102,13 @@ function saveState() {
         deckClickCount: deckClickCount,
         stackCycles: stackCycles // NEU: Merkt sich die Stapel-Durchgänge
     };
-    
+
     gameStateHistory.push(state);
-    if (gameStateHistory.length > 40) gameStateHistory.shift(); 
+    if (gameStateHistory.length > 40) gameStateHistory.shift();
 }
 
 const originalSaveState = saveState;
-saveState = function() {
+saveState = function () {
     startTimer();
     if (!undosAllowed) return; // Falls Undo aus, speichern wir nichts
     originalSaveState();
@@ -213,7 +213,7 @@ function shuffle(array) {
 
 function getFileName(cardData) {
     const suitMap = { "hearts": "H", "diamonds": "D", "spades": "S", "clubs": "C" };
-    const valueMap = { "10": "T" }; 
+    const valueMap = { "10": "T" };
     const val = valueMap[cardData.value] || cardData.value;
     const suit = suitMap[cardData.suit];
     return `${val}${suit}.svg`;
@@ -223,7 +223,7 @@ function renderAll() {
     const tableau = document.getElementById("tableau");
     if (!tableau) return;
     tableau.innerHTML = "";
-    
+
     // --- TABLEAU RENDERN ---
     tableauData.forEach((colCards, i) => {
         const column = document.createElement("div");
@@ -231,17 +231,17 @@ function renderAll() {
         column.id = `col-${i}`;
         column.addEventListener("dragover", (e) => e.preventDefault());
         column.addEventListener("drop", handleTableauDrop);
-        
+
         // Berechnet die exakte Höhe des Stapels
-        const verticalOffset = 30; 
+        const verticalOffset = 30;
         const cardHeight = 140;
         // Die Spalte ist genau so hoch wie die Karten, mindestens aber 140px
-        const calculatedHeight = colCards.length > 0 
-            ? (colCards.length - 1) * verticalOffset + cardHeight 
+        const calculatedHeight = colCards.length > 0
+            ? (colCards.length - 1) * verticalOffset + cardHeight
             : cardHeight;
-        
+
         column.style.height = calculatedHeight + "px";
-        column.style.position = "relative"; 
+        column.style.position = "relative";
 
         colCards.forEach((card, j) => {
             const cardDiv = createCardElement(card, i);
@@ -250,13 +250,13 @@ function renderAll() {
         });
         tableau.appendChild(column);
     });
-    
+
     // --- FOUNDATIONS RENDERN ---
     const slots = document.querySelectorAll("#foundations .card-slot");
     slots.forEach((slot, i) => {
-        slot.innerHTML = ""; 
+        slot.innerHTML = "";
         foundationData[i].forEach(card => {
-            const cardEl = createCardElement({...card, faceUp: true}, `foundation-${i}`);
+            const cardEl = createCardElement({ ...card, faceUp: true }, `foundation-${i}`);
             cardEl.style.top = "-2px";
             cardEl.style.left = "-2px";
             slot.appendChild(cardEl);
@@ -299,13 +299,13 @@ function createCardElement(cardData, origin) {
                 clone.classList.add("card");
                 clone.style.backgroundImage = `url('../assets/images/cards/${getFileName(c)}')`;
                 clone.style.top = (i * 30) + "px";
-                clone.style.position = "absolute"; 
+                clone.style.position = "absolute";
                 dragProxy.appendChild(clone);
             });
 
             dragProxy.style.display = "block";
             const img = new Image();
-            img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; 
+            img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
             e.dataTransfer.setDragImage(img, 0, 0);
 
             requestAnimationFrame(() => {
@@ -327,26 +327,26 @@ function createCardElement(cardData, origin) {
 
         cardDiv.addEventListener("dblclick", () => {
             const foundations = document.querySelectorAll("#foundations .card-slot");
-            
+
             for (let i = 0; i < foundations.length; i++) {
                 const slot = foundations[i];
-                
+
                 if (canMoveToFoundation(cardData, slot)) {
                     saveState(); // Zustand für Undo speichern
-                    
+
                     // 1. Karte in die Foundation-Daten eintragen
                     foundationData[i].push(cardData);
-                    
+
                     // 2. Karte vom Ursprung (Tableau/Waste) entfernen
-                    removeFromOrigin({ 
-                        card: cardData, 
-                        origin: origin, 
-                        stack: [cardData] 
+                    removeFromOrigin({
+                        card: cardData,
+                        origin: origin,
+                        stack: [cardData]
                     });
-                    
+
                     // 3. Alles neu zeichnen (rendert die Karte nun auch in der Foundation)
                     renderAll();
-                    break; 
+                    break;
                 }
             }
         });
@@ -376,15 +376,15 @@ function renderWaste() {
     visibleCards.forEach((cardData, index) => {
         const isTopCard = (index === visibleCards.length - 1);
         const cardEl = createCardElement(cardData, "waste");
-        
+
         if (!isTopCard) {
             cardEl.draggable = false;
-            cardEl.style.pointerEvents = "none"; 
+            cardEl.style.pointerEvents = "none";
         } else {
             cardEl.style.pointerEvents = "auto";
         }
 
-        cardEl.style.left = (index * 20 - 2) + "px"; 
+        cardEl.style.left = (index * 20 - 2) + "px";
         cardEl.style.position = "absolute";
         wasteContainer.appendChild(cardEl);
     });
@@ -403,7 +403,7 @@ function renderStock() {
 
         const cycleDisplay = document.createElement("div");
         cycleDisplay.className = "stock-cycle-counter";
-        
+
         // Direkte Styles für maximale Sicherheit:
         cycleDisplay.style.position = "absolute";
         cycleDisplay.style.top = "50%";
@@ -415,21 +415,21 @@ function renderStock() {
         cycleDisplay.style.color = "rgba(166, 213, 222, 0.5)"; // Dein Hellblau, verblasst
         cycleDisplay.style.pointerEvents = "none"; // Klicks gehen durch die Zahl zum Stapel
         cycleDisplay.style.zIndex = "1";
-        
+
         cycleDisplay.innerText = stackCycles;
         stockElement.appendChild(cycleDisplay);
     } else {
         // FALL: Karten sind noch da -> Zeige Rückseite
         stockElement.classList.remove("empty");
-        
+
         // Nutze deine existierende Karten-Erstellung
         const cardBack = createCardElement({ faceUp: false }, "stock");
-        
+
         // Sicherstellen, dass die Karte im Slot richtig sitzt
         cardBack.style.top = "-2px";
         cardBack.style.left = "-2px";
         cardBack.style.position = "absolute";
-        
+
         stockElement.appendChild(cardBack);
     }
 }
@@ -437,7 +437,7 @@ function renderStock() {
 function drawThreeCards() {
     if (deck.length === 0) {
         if (wastePile.length === 0) return;
-        deck = wastePile.map(c => ({...c, faceUp: false})).reverse();
+        deck = wastePile.map(c => ({ ...c, faceUp: false })).reverse();
         wastePile = [];
     } else {
         const count = Math.min(deck.length, 2); //Anzahl an Karten die umgedreht werden sollen
@@ -470,14 +470,14 @@ function handleTableauDrop(e) {
 function canMoveToTableau(cardData, colIndex) {
     const col = tableauData[colIndex];
     if (col.length === 0) return cardData.value === "K";
-    
+
     const target = col[col.length - 1];
     const targetColor = (target.suit === "hearts" || target.suit === "diamonds") ? "red" : "black";
     const cardColor = (cardData.suit === "hearts" || cardData.suit === "diamonds") ? "red" : "black";
-    
+
     const targetValIdx = valuesOrder.indexOf(target.value);
     const cardValIdx = valuesOrder.indexOf(cardData.value);
-    
+
     return (cardColor !== targetColor) && (cardValIdx === targetValIdx - 1);
 }
 
@@ -486,7 +486,7 @@ function handleFoundationDrop(e) {
     const dragDataString = e.dataTransfer.getData("text/plain");
     if (!dragDataString) return;
     const dragData = JSON.parse(dragDataString);
-    
+
     if (dragData.stack && dragData.stack.length > 1) return;
 
     const slot = e.currentTarget;
@@ -495,11 +495,11 @@ function handleFoundationDrop(e) {
     const cardData = dragData.card;
 
     if (canMoveToFoundation(cardData, slot)) {
-        saveState(); 
-        
+        saveState();
+
         // NEU: In den Daten speichern statt nur im HTML hängen
         foundationData[slotIndex].push(cardData);
-        
+
         removeFromOrigin(dragData);
         renderAll(); // Jetzt zeichnet renderAll die Karte korrekt mit
     }
@@ -527,7 +527,7 @@ function canMoveToFoundation(cardData, slot) {
 function removeFromOrigin(dragData) {
     if (dragData.origin === "waste") {
         wastePile.pop();
-    } 
+    }
     // NEU: Prüfung auf Foundation-Origin
     else if (typeof dragData.origin === 'string' && dragData.origin.startsWith("foundation")) {
         const parts = dragData.origin.split("-");
@@ -535,7 +535,7 @@ function removeFromOrigin(dragData) {
         if (!isNaN(slotIndex)) {
             foundationData[slotIndex].pop(); // Entfernt die Karte aus den Daten
         }
-    } 
+    }
     else if (typeof dragData.origin === 'number') {
         const col = tableauData[dragData.origin];
         const mainCard = dragData.stack[0];
@@ -550,7 +550,7 @@ function removeFromOrigin(dragData) {
 
 async function autoSortToFoundations() {
     if (window.isAutoSorting) return;
-    window.isAutoSorting = true; 
+    window.isAutoSorting = true;
     let cardsMoved = true;
 
     while (cardsMoved) {
@@ -562,20 +562,20 @@ async function autoSortToFoundations() {
             if (column.length > 0) {
                 const card = column[column.length - 1];
                 const foundations = document.querySelectorAll("#foundations .card-slot");
-                
+
                 for (let i = 0; i < foundations.length; i++) {
                     if (canMoveToFoundation(card, foundations[i])) {
                         foundationData[i].push(card);
                         column.pop();
                         renderAll();
                         // Warte auf die Animation, bevor die nächste Karte gesucht wird
-                        await new Promise(r => setTimeout(r, 150)); 
+                        await new Promise(r => setTimeout(r, 150));
                         cardsMoved = true;
-                        break; 
+                        break;
                     }
                 }
             }
-            if (cardsMoved) break; 
+            if (cardsMoved) break;
         }
 
         // Falls im Tableau nichts ging, Waste prüfen
@@ -596,10 +596,10 @@ async function autoSortToFoundations() {
     }
 
     window.isAutoSorting = false;
-    
+
     // WICHTIG: Wenn die Schleife fertig ist, rufen wir checkWinCondition auf,
     // die jetzt erkennt, dass alle 52 Karten liegen und das Popup anzeigt.
-    checkWinCondition(); 
+    checkWinCondition();
 }
 
 function checkWinCondition() {
@@ -608,7 +608,7 @@ function checkWinCondition() {
 
     const stockEmpty = deck.length === 0;
     const wasteEmpty = wastePile.length === 0;
-    const allTableauFaceUp = tableauData.every(column => 
+    const allTableauFaceUp = tableauData.every(column =>
         column.every(card => card.faceUp === true)
     );
 
@@ -616,7 +616,7 @@ function checkWinCondition() {
     if (stockEmpty && wasteEmpty && allTableauFaceUp) {
         // Prüfen, ob schon alle 52 Karten in den Foundations liegen
         const totalInFoundations = foundationData.reduce((sum, stack) => sum + stack.length, 0);
-        
+
         if (totalInFoundations === 52) {
             // Erst wenn wirklich alle Karten oben liegen, zeige das Popup
             showVictoryPopup();
@@ -643,7 +643,7 @@ function showVictoryPopup() {
     if (pTag) {
         pTag.innerText = `Cycles: ${currentCycles} | Time: ${currentTimeStr}`;
     }
-    
+
     // 4. Die Anzeige in der Control-Bar oben sofort aktualisieren
     updateHighscoreDisplay();
 
@@ -665,29 +665,29 @@ function resetGame() {
     seconds = 0;
     gameStarted = false; // Wichtig: Ermöglicht das Ändern der Settings
     isPaused = false;
-    
+
     // UI-Elemente bereinigen
     updateTimerDisplay();
     document.getElementById("pauseBtn").innerText = "⏸";
     document.getElementById("gameField").classList.remove("blurred");
     document.getElementById("pauseOverlay").classList.remove("active");
-    
+
     // Buttons für Einstellungen wieder aktiv schalten
     document.getElementById("toggleUndoBtn").classList.remove("disabled");
     document.getElementById("toggleDrawBtn").classList.remove("disabled");
 
     // Ursprüngliche Reset-Logik
     stackCycles = 0;
-    undoLimit = 5; 
-    gameStateHistory = []; 
+    undoLimit = 5;
+    gameStateHistory = [];
     updateUndoButton();
-    
+
     const counter = document.getElementById("move-counter");
     if (counter) counter.innerText = "Stapel-Klicks: 0";
-    
+
     document.getElementById("waste").innerHTML = "";
     document.querySelectorAll("#foundations .card-slot").forEach(slot => slot.innerHTML = "");
-    
+
     initGame();
 }
 
@@ -698,7 +698,7 @@ function startTimer() {
         // Einstellungen sperren
         document.getElementById("toggleUndoBtn").classList.add("disabled");
         document.getElementById("toggleDrawBtn").classList.add("disabled");
-        
+
         timerInterval = setInterval(() => {
             if (!isPaused) {
                 seconds++;
@@ -718,7 +718,7 @@ function updateTimerDisplay() {
 // Pause Logik
 function togglePause() {
     if (!gameStarted) return;
-    
+
     isPaused = !isPaused;
     const overlay = document.getElementById("pauseOverlay");
     const wrapper = document.getElementById("gameContentWrapper");
@@ -745,7 +745,7 @@ function toggleUndoSetting() {
 function toggleDrawSetting() {
     if (gameStarted) return;
     // Erhöht auf maximal 3, dann zurück auf 1
-    cardsToDrawCount = (cardsToDrawCount % 3) + 1; 
+    cardsToDrawCount = (cardsToDrawCount % 3) + 1;
     document.getElementById("toggleDrawBtn").innerText = `Draw: ${cardsToDrawCount}`;
     updateHighscoreDisplay();
 }
@@ -755,11 +755,11 @@ function drawThreeCards() {
     startTimer(); // Timer bei Aktion starten
     if (deck.length === 0) {
         if (wastePile.length === 0) return;
-        deck = wastePile.map(c => ({...c, faceUp: false})).reverse();
+        deck = wastePile.map(c => ({ ...c, faceUp: false })).reverse();
         wastePile = [];
     } else {
         // Nutzt jetzt die cardsToDrawCount Variable
-        const count = Math.min(deck.length, cardsToDrawCount); 
+        const count = Math.min(deck.length, cardsToDrawCount);
         for (let i = 0; i < count; i++) {
             let card = deck.pop();
             card.faceUp = true;
@@ -774,7 +774,7 @@ function updateHighscoreDisplay() {
     const key = `highscore_undo${undosAllowed}_draw${cardsToDrawCount}`;
     const score = JSON.parse(localStorage.getItem(key));
     const display = document.getElementById("highscoreDisplay");
-    
+
     if (display) {
         if (score) {
             display.innerText = `${score.cycles} | ${score.timeStr}`;
@@ -790,9 +790,9 @@ function saveHighscore(cycles, timeStr) {
     const savedScore = JSON.parse(localStorage.getItem(key));
 
     // Logik: Weniger Cycles sind besser. Bei Gleichstand ist weniger Zeit besser.
-    const isBetter = !savedScore || 
-                     cycles < savedScore.cycles || 
-                     (cycles === savedScore.cycles && timeStr < savedScore.timeStr);
+    const isBetter = !savedScore ||
+        cycles < savedScore.cycles ||
+        (cycles === savedScore.cycles && timeStr < savedScore.timeStr);
 
     if (isBetter) {
         const newScore = { cycles: cycles, timeStr: timeStr };

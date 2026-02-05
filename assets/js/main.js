@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (searchTerm) {
         const decodedSearch = decodeURIComponent(searchTerm);
         const searchInput = document.getElementById("searchInput");
-        
+
         if (searchInput) {
             searchInput.value = decodedSearch;
             searchInput.classList.add("show"); // Suchfeld anzeigen

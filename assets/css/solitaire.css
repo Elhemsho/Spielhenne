@@ -1,18 +1,21 @@
-body{
+body {
     min-width: 1000px;
 }
 
-.site-header, 
+.site-header,
 .site-footer {
-    position: relative;    /* Erlaubt die Nutzung von z-index */
-    z-index: 10001;        /* Höher als das pause-overlay (10000) */
+    position: relative;
+    /* Erlaubt die Nutzung von z-index */
+    z-index: 10001;
+    /* Höher als das pause-overlay (10000) */
 }
+
 /* ------------------ Main ------------------ */
 .main {
     position: relative;
 }
 
-.header{
+.header {
     margin-bottom: 20px;
 }
 
@@ -20,11 +23,11 @@ body{
 .game-field {
     display: flex;
     flex-direction: column;
-    gap: 40px; 
+    gap: 40px;
     padding: 20px;
     padding-bottom: 20px;
     /* 7 Spalten à 100px + 6 Abstände à 20px = 820px */
-    width: 820px; 
+    width: 820px;
     margin: 0 auto;
     box-sizing: content-box;
 }
@@ -55,15 +58,20 @@ body{
     display: flex;
     justify-content: center;
     gap: 20px;
-    height: auto; /* Erlaubt dem Tableau zu schrumpfen */
-    min-height: 120px; /* Nur ein kleiner Puffer */
+    height: auto;
+    /* Erlaubt dem Tableau zu schrumpfen */
+    min-height: 120px;
+    /* Nur ein kleiner Puffer */
 }
 
 /* Basis-Klasse für alle Karten und Platzhalter */
-.card, .card-slot, .column, .column::before{
+.card,
+.card-slot,
+.column,
+.column::before {
     width: 100px !important;
     height: 140px;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     border-radius: 6px;
 }
 
@@ -75,14 +83,15 @@ body{
     background-position: center;
     background-color: white;
     border: 1px solid #ccc;
-    box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
     z-index: 1;
     transition: transform 0.1s;
 }
 
 /* KORREKTUR: Karten in den oberen Slots (Waste & Foundations) exakt ausrichten */
 /* Damit sie nicht 2px zu weit rechts/unten liegen wegen des Slot-Borders */
-#foundations .card, #stock .card {
+#foundations .card,
+#stock .card {
     top: -2px !important;
     left: -2px !important;
 }
@@ -118,7 +127,7 @@ body{
 #stock {
     position: relative;
     /* Wir entfernen das Hintergrundbild vom Container selbst */
-    background-image: none !important; 
+    background-image: none !important;
     border: none;
     cursor: pointer;
 }
@@ -137,18 +146,20 @@ body{
     /* Falls die Rückseite anders aussieht: */
     background-size: cover;
     border-radius: 6px;
-    box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 
 /* Animationen & Dragging */
 .card.dragging {
-    opacity: 0 !important; /* Versteckt Original während des Ziehens */
+    opacity: 0 !important;
+    /* Versteckt Original während des Ziehens */
 }
 
 .card.dragging-hidden {
     opacity: 0 !important;
-    pointer-events: none; /* Verhindert Interaktionen während sie "weg" ist */
+    pointer-events: none;
+    /* Verhindert Interaktionen während sie "weg" ist */
 }
 
 #drag-proxy {
@@ -160,7 +171,7 @@ body{
 
 #drag-proxy .card {
     position: absolute;
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
 }
 
 /* Counter & Texte */
@@ -184,7 +195,7 @@ body{
 
 .control-button:hover {
     background: #e0e0e0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .control-button:active {
@@ -196,7 +207,7 @@ body{
     /* Die Karten werden anhand ihrer Position im Stapel verschoben */
     /* Wir nutzen inline-styles im JS für den exakten Versatz, 
        aber hier definieren wir die Basis-Regeln */
-    transition: left 0.2s ease; 
+    transition: left 0.2s ease;
     left: 2px;
     top: -2px !important;
 }
@@ -210,8 +221,10 @@ body{
     font-family: 'Comic Neue2', cursive;
     font-size: 48px;
     font-weight: bold;
-    color: rgba(166, 213, 222, 0.4); /* Sehr helles/verblasstes Blau */
-    pointer-events: none; /* Man kann durch die Zahl hindurchklicken */
+    color: rgba(166, 213, 222, 0.4);
+    /* Sehr helles/verblasstes Blau */
+    pointer-events: none;
+    /* Man kann durch die Zahl hindurchklicken */
     user-select: none;
 }
 
@@ -240,11 +253,14 @@ body{
     z-index: 10000;
     justify-content: center;
     align-items: center;
-    
+
     /* Animation-Fix: */
-    display: flex;         /* Immer flex, aber... */
-    visibility: hidden;    /* ...unsichtbar für Maus und Augen */
-    opacity: 0;           /* ...voll transparent */
+    display: flex;
+    /* Immer flex, aber... */
+    visibility: hidden;
+    /* ...unsichtbar für Maus und Augen */
+    opacity: 0;
+    /* ...voll transparent */
     transition: opacity 0.4s ease, visibility 0.4s;
 }
 
@@ -301,8 +317,8 @@ body{
     display: block;
     position: relative;
     /* Zentriert den Button und sorgt für 20px Abstand zu den Karten */
-    margin: 20px auto 10px auto; 
-    
+    margin: 20px auto 10px auto;
+
     /* Dein Styling */
     padding: 10px 25px;
     background-color: #ffffff;
@@ -318,7 +334,7 @@ body{
 #undoButton:hover {
     background-color: #f0f0f0;
     border-color: #a0ecf6;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* Steuerungsleiste über dem Spiel */
@@ -369,7 +385,8 @@ body{
     display: inline-block;
     width: 8ch;
     text-align: center;
-    line-height: 32px; /* exakt wie Pause-Button */
+    line-height: 32px;
+    /* exakt wie Pause-Button */
     height: 32px;
 }
 
@@ -377,8 +394,10 @@ body{
     width: 13px;
     height: 13px;
 
-    display: block; /* verhindert Mini-Offsets */
-    pointer-events: none; /* Klick geht immer auf den Button */
+    display: block;
+    /* verhindert Mini-Offsets */
+    pointer-events: none;
+    /* Klick geht immer auf den Button */
 }
 
 /* --- Pause & Blur Styles --- */
@@ -388,27 +407,29 @@ body{
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
-    
+
     /* Größe anpassen, damit er harmonisch in der Reihe wirkt */
-    width: 34px; 
-    height: 30px; /* Höhe an .setting-toggle anpassen */
-    
+    width: 34px;
+    height: 30px;
+    /* Höhe an .setting-toggle anpassen */
+
     /* Zentrierung der Striche */
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    
+
     /* Korrektur für das "zu weit unten"-Gefühl */
     padding: 0;
-    line-height: 0; 
-    font-size: 0.9rem; /* Größe der Striche */
-    
+    line-height: 0;
+    font-size: 0.9rem;
+    /* Größe der Striche */
+
     transition: all 0.2s;
 }
 
 #pauseBtn:hover {
     background: #f0f0f0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -421,19 +442,21 @@ body{
 
 /* Das Overlay selbst */
 .pause-overlay {
-    position: absolute; 
+    position: absolute;
     top: 0;
     left: 0;
-    right: 0;  /* Deckt die volle Breite ab */
-    bottom: 0; /* Zwingt das Overlay bis ganz nach unten zum Footer */
-    
+    right: 0;
+    /* Deckt die volle Breite ab */
+    bottom: 0;
+    /* Zwingt das Overlay bis ganz nach unten zum Footer */
+
     /* Falls der Content innerhalb der Pause beim Scrollen verschwindet: */
     display: none;
     justify-content: center;
-    align-items: center; 
-    
-    z-index: 500; 
-    
+    align-items: center;
+
+    z-index: 500;
+
     backdrop-filter: blur(10px);
     background-color: rgba(255, 255, 255, 0.1);
 }
@@ -444,11 +467,11 @@ body{
 
 .pause-content {
     /* WICHTIG: Fixed, damit die Box beim Scrollen im Sichtfeld bleibt */
-    position: fixed; 
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    
+
     background: white;
     padding: 50px 100px;
     border-radius: 25px;
@@ -480,8 +503,10 @@ body{
 }
 
 .control-button.blue-btn:hover {
-    background-color: #87dce8; /* Etwas dunkleres Blau beim Hover */
-    transform: translateY(-2px); /* Leichter 3D-Effekt nach oben */
+    background-color: #87dce8;
+    /* Etwas dunkleres Blau beim Hover */
+    transform: translateY(-2px);
+    /* Leichter 3D-Effekt nach oben */
     box-shadow: 0 6px 15px rgba(160, 236, 246, 0.7);
 }
 
@@ -489,4 +514,5 @@ body{
     transform: translateY(1px);
     box-shadow: 0 2px 5px rgba(160, 236, 246, 0.4);
 }
+
 /* ------------------ Main-End ------------------ */

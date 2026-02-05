@@ -11,7 +11,7 @@ function rollDice() {
                 die.classList.add('shaking');
             }
         });
-        
+
         setTimeout(() => {
             diceElements.forEach((die, index) => {
                 if (!die.classList.contains('held')) {
@@ -37,7 +37,7 @@ function rollDice() {
 
 // Event Listener für Würfel (nur einmal definieren!)
 document.querySelectorAll('.die').forEach(die => {
-    die.addEventListener('click', function() {
+    die.addEventListener('click', function () {
         if (rollsLeft < 3) {
             this.classList.toggle('held');
         }
@@ -45,20 +45,20 @@ document.querySelectorAll('.die').forEach(die => {
 });
 
 function resetTurn() {
-    rollsLeft = 3; 
+    rollsLeft = 3;
     const btn = document.getElementById('rollBtn');
-    if(btn) btn.disabled = false; 
+    if (btn) btn.disabled = false;
 
     document.getElementById('rollCount').innerText = "0";
-    
+
     document.querySelectorAll('.die').forEach(die => {
         die.classList.remove('held');
         die.innerText = "?";
     });
-    
+
     currentDice = [0, 0, 0, 0, 0];
     const field = document.querySelector('.game-field');
-    if(field) field.classList.remove('can-score');
+    if (field) field.classList.remove('can-score');
 }
 
 function writeScore(id, value) {
@@ -67,7 +67,7 @@ function writeScore(id, value) {
         alert("Spieler " + (currentPlayer === 1 ? "1" : "2") + " ist gerade dran! Du hast in das falsche Feld geklickt.");
         return;
     }
-    
+
     if (rollsLeft === 3) return;
 
     const target = document.getElementById(id);
@@ -79,7 +79,7 @@ function writeScore(id, value) {
 
         target.innerText = points;
         target.classList.add("filled");
-        
+
         checkGameOver();
         nextPlayer(); // Hier wird currentPlayer von 1 auf 2 (oder umgekehrt) gewechselt
     }
@@ -108,13 +108,13 @@ function writeSpecial(id, type) {
         case '3pasch': if (values.some(v => v >= 3)) points = sumAll; break;
         case '4pasch': if (values.some(v => v >= 4)) points = sumAll; break;
         case 'fullhouse': if (values.includes(3) && values.includes(2)) points = 25; break;
-        case 'klstr': 
+        case 'klstr':
             const strKl = uniqueDice.join("");
-            if (/1234|2345|3456/.test(strKl)) points = 30; 
+            if (/1234|2345|3456/.test(strKl)) points = 30;
             break;
-        case 'grstr': 
+        case 'grstr':
             const strGr = uniqueDice.join("");
-            if (strGr === "12345" || strGr === "23456") points = 40; 
+            if (strGr === "12345" || strGr === "23456") points = 40;
             break;
         case 'kniffel': if (values.includes(5)) points = 50; break;
         case 'chance': points = sumAll; break;
@@ -122,9 +122,9 @@ function writeSpecial(id, type) {
 
     target.innerText = points;
     target.classList.add("filled");
-    
+
     checkGameOver();
-    nextPlayer(); 
+    nextPlayer();
 }
 
 function updateTotalScore() {
@@ -132,7 +132,7 @@ function updateTotalScore() {
     // Oben: 1er bis 6er
     const upperFields = ['ones', 'twos', 'threes', 'fours', 'fives', 'sixs'];
     let upperSum = 0;
-    
+
     upperFields.forEach(field => {
         const val = document.getElementById('p' + p + '-' + field);
         if (val && val.classList.contains('filled')) {
@@ -145,7 +145,7 @@ function updateTotalScore() {
     let bonus = 0;
     if (upperSum >= 63) {
         bonus = 35;
-        if(bonusField) bonusField.innerText = "35";
+        if (bonusField) bonusField.innerText = "35";
     } else if (bonusField) {
         bonusField.innerText = "0";
     }
@@ -156,9 +156,9 @@ function updateTotalScore() {
     allFilled.forEach(s => {
         total += parseInt(s.innerText) || 0;
     });
-    
+
     const totalDisplay = document.getElementById('p' + p + '-total');
-    if(totalDisplay) totalDisplay.innerText = total + bonus;
+    if (totalDisplay) totalDisplay.innerText = total + bonus;
 }
 
 function nextPlayer() {
@@ -167,7 +167,7 @@ function nextPlayer() {
 
     // Wechsel: 1 -> 2 oder 2 -> 1
     currentPlayer = (currentPlayer === 1) ? 2 : 1;
-    
+
     const p1Table = document.querySelector('.player1');
     const p2Table = document.querySelector('.player2');
 
@@ -213,7 +213,7 @@ function resetGame() {
     currentPlayer = 1;
     document.querySelector('.player1').classList.add('active-player');
     document.querySelector('.player2').classList.remove('active-player');
-    
+
     // 6. can-score vom game-field entfernen (Sperrt das Klicken in die Tabelle)
     document.querySelector('.game-field').classList.remove('can-score');
 
@@ -226,7 +226,7 @@ document.getElementById('playAgainBtn').addEventListener('click', resetGame);
 function checkGameOver() {
     // Wir holen uns alle Felder, in denen Punkte stehen können
     const allScoreFields = document.querySelectorAll('.score-val');
-    
+
     // Wir filtern die Bonus-Felder heraus, da dort ja nie ein "-" steht (sondern 0 oder 35)
     // Und wir schauen, ob es noch IRGENDEIN Feld gibt, das noch ein "-" hat
     let emptyFields = 0;
@@ -248,26 +248,26 @@ function showWinner() {
     const score1 = parseInt(document.getElementById('p1-total').innerText) || 0;
     const score2 = parseInt(document.getElementById('p2-total').innerText) || 0;
     const diff = Math.abs(score1 - score2); // Berechnet immer den positiven Unterschied
-    
+
     const winnerText = document.getElementById('winner-text');
     const winnerScore = document.getElementById('winner-score');
     const popup = document.getElementById('winner-popup');
-    
+
     // WICHTIG: Nutze querySelector, falls es eine Klasse ist, oder stelle sicher, dass die ID im HTML existiert
     const winnerContent = document.querySelector('.winner-content');
 
     if (score1 > score2) {
         winnerText.innerText = "Player 1 wins! 🎉";
         winnerScore.innerText = "Difference: " + diff + " Points";
-        if(winnerContent) winnerContent.style.width = "380px"; // Zurück auf Standard 
+        if (winnerContent) winnerContent.style.width = "380px"; // Zurück auf Standard 
     } else if (score2 > score1) {
         winnerText.innerText = "Player 2 wins! 🎉";
         winnerScore.innerText = "Difference: " + diff + " Points";
-        if(winnerContent) winnerContent.style.width = "380px"; // Zurück auf Standard
+        if (winnerContent) winnerContent.style.width = "380px"; // Zurück auf Standard
     } else {
         winnerText.innerText = "Draw! 🤝";
         winnerScore.innerText = "Both of you got " + score1 + " Points.";
-        if(winnerContent) winnerContent.style.width = "260px"; // Breiter bei Unentschieden
+        if (winnerContent) winnerContent.style.width = "260px"; // Breiter bei Unentschieden
     }
 
     if (popup) {

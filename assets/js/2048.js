@@ -16,9 +16,9 @@ function setGame() {
 
     board = Array(rows).fill().map(() => Array(columns).fill(0));
     history = []; undoAttempts = 5; isGameOverState = false;
-    
+
     const container = document.getElementById("grid-container");
-    container.innerHTML = ''; 
+    container.innerHTML = '';
     container.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
     container.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
 
@@ -42,15 +42,15 @@ function changeSize(delta) {
 
     container.style.transition = "transform 0.12s ease-in";
     container.classList.add(outClass);
-    
+
     setTimeout(() => {
         rows += delta; columns += delta;
         setGame();
-        
+
         container.style.transition = "none";
         container.classList.remove("slide-out-left", "slide-out-right");
         container.style.transform = delta > 0 ? "translateX(105%)" : "translateX(-105%)";
-        
+
         requestAnimationFrame(() => {
             setTimeout(() => {
                 container.style.transition = "transform 0.12s ease-out";
@@ -74,11 +74,11 @@ function updateTile(tile, num) {
 
 function spawnTile() {
     let empty = [];
-    for (let r = 0; r < rows; r++) 
-        for (let c = 0; c < columns; c++) 
-            if (board[r][c] === 0) empty.push({r, c});
+    for (let r = 0; r < rows; r++)
+        for (let c = 0; c < columns; c++)
+            if (board[r][c] === 0) empty.push({ r, c });
     if (!empty.length) return;
-    let {r, c} = empty[Math.floor(Math.random() * empty.length)];
+    let { r, c } = empty[Math.floor(Math.random() * empty.length)];
     board[r][c] = Math.random() < 0.9 ? 2 : 4;
     updateTile(document.getElementById(`${r}-${c}`), board[r][c]);
 }
@@ -86,8 +86,8 @@ function spawnTile() {
 function slide(row) {
     row = row.filter(n => n !== 0);
     for (let i = 0; i < row.length - 1; i++) {
-        if (row[i] === row[i+1]) {
-            row[i] *= 2; row[i+1] = 0;
+        if (row[i] === row[i + 1]) {
+            row[i] *= 2; row[i + 1] = 0;
             updateScore(row[i]);
         }
     }
@@ -110,7 +110,7 @@ function updateScore(p) {
 document.addEventListener('keydown', (e) => {
     // Liste der Tasten, die das Scrollen verhindern sollen
     const keysToBlock = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "KeyW", "KeyS", "KeyA", "KeyD"];
-    
+
     if (keysToBlock.includes(e.code) && !isGameOverState) {
         e.preventDefault();
     }
@@ -119,7 +119,7 @@ document.addEventListener('keydown', (e) => {
 /* --- Deine bestehende Logik (angepasst) --- */
 document.addEventListener('keyup', (e) => {
     if (isGameOverState) return;
-    
+
     // Wir fügen hier e.preventDefault() zur Sicherheit auch hinzu, 
     // falls der Browser Keydown ignoriert
     if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.code)) {
@@ -127,7 +127,7 @@ document.addEventListener('keyup', (e) => {
     }
 
     let old = JSON.stringify(board), oldS = score;
-    
+
     // ... (Hier bleibt dein restlicher Code für die Bewegungen gleich) ...
     if (e.code == "ArrowLeft" || e.code == "KeyA") for (let r = 0; r < rows; r++) board[r] = slide(board[r]);
     else if (e.code == "ArrowRight" || e.code == "KeyD") for (let r = 0; r < rows; r++) board[r] = slide([...board[r]].reverse()).reverse();
@@ -148,9 +148,9 @@ document.addEventListener('keyup', (e) => {
         history.push({ b: old, s: oldS });
         if (history.length > 5) history.shift();
         renderBoard(); spawnTile(); updateUndoDisplay();
-        if (isGameOver()) { 
-            isGameOverState = true; 
-            setTimeout(() => showModal(), 500); 
+        if (isGameOver()) {
+            isGameOverState = true;
+            setTimeout(() => showModal(), 500);
             // Sobald GameOver ist, greift !isGameOverState oben nicht mehr 
             // und die Tasten scrollen wieder ganz normal.
         }
@@ -158,8 +158,8 @@ document.addEventListener('keyup', (e) => {
 });
 
 function renderBoard() {
-    for (let r = 0; r < rows; r++) 
-        for (let c = 0; c < columns; c++) 
+    for (let r = 0; r < rows; r++)
+        for (let c = 0; c < columns; c++)
             updateTile(document.getElementById(`${r}-${c}`), board[r][c]);
 }
 
@@ -186,10 +186,10 @@ function updateUndoDisplay() {
 
 function isGameOver() {
     if (board.flat().includes(0)) return false;
-    for (let r = 0; r < rows; r++) 
+    for (let r = 0; r < rows; r++)
         for (let c = 0; c < columns; c++) {
-            if (c < columns - 1 && board[r][c] === board[r][c+1]) return false;
-            if (r < rows - 1 && board[r][c] === board[r+1][c]) return false;
+            if (c < columns - 1 && board[r][c] === board[r][c + 1]) return false;
+            if (r < rows - 1 && board[r][c] === board[r + 1][c]) return false;
         }
     return true;
 }

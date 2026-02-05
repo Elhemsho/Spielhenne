@@ -9,7 +9,7 @@ let currentMode = 'easy';
 const playAgainBtn = document.getElementById('playAgainBtn');
 
 if (playAgainBtn) {
-    playAgainBtn.onclick = function() {
+    playAgainBtn.onclick = function () {
         resetGame();
     };
 }
@@ -17,7 +17,7 @@ if (playAgainBtn) {
 window.onload = () => {
     loadHighscore();
     nextQuestion();
-    
+
     // Initial "Easy" im Dropdown fett markieren
     const options = document.querySelectorAll('.quiz-dropdown p');
     options.forEach(opt => {
@@ -30,10 +30,10 @@ window.onload = () => {
 function loadHighscore() {
     const hs = localStorage.getItem(`mathHS_${currentMode}`) || 0;
     document.getElementById('highscore-val').innerText = hs;
-    
+
     // Namen für die Anzeige definieren
     const modeNames = { 'easy': 'Easy', 'medium': 'Normal', 'hard': 'Hard' };
-    
+
     // Nur den Text innerhalb des <b> Tags ändern
     const modeDisplay = document.getElementById('current-mode-name');
     if (modeDisplay) {
@@ -51,9 +51,9 @@ function toggleQuizSettings(event) {
 }
 
 // 2. Den Klick-außerhalb-Schutz verbessern
-window.addEventListener('click', function(event) {
+window.addEventListener('click', function (event) {
     const dropdown = document.getElementById('quizSettingsDropdown');
-    
+
     // Wir prüfen: Ist das Dropdown offen UND ist der Klick NICHT das Dropdown selbst?
     if (dropdown.classList.contains('show')) {
         // Falls der Klick nicht auf das Menü oder ein Kind des Menüs ging:
@@ -65,7 +65,7 @@ window.addEventListener('click', function(event) {
 
 function changeMode(mode) {
     currentMode = mode;
-    
+
     // 1. Alle "fett"-Markierungen im Dropdown entfernen
     const options = document.querySelectorAll('.quiz-dropdown p');
     options.forEach(opt => opt.classList.remove('active-mode'));
@@ -98,7 +98,7 @@ function nextQuestion() {
         currentAnswer = a * b;
     } else if (currentMode === 'hard') {
         // Neues Schwer -> 3-Stellige Zahlen oder 2-Stellig mal 1-Stellig
-        if(Math.random() > 0.4) {
+        if (Math.random() > 0.4) {
             a = Math.floor(Math.random() * 200) + 50;
             b = Math.floor(Math.random() * 150) + 20;
             op = Math.random() > 0.5 ? '+' : '-';
@@ -121,14 +121,14 @@ document.getElementById('answerInput').addEventListener('keydown', (e) => {
             firstInput = false;
             gameActive = true;
         }
-        
+
         if (!gameActive) return;
 
         let val = parseInt(e.target.value);
         if (val === currentAnswer) {
             streak++;
             score += (10 + (streak > 1 ? streak - 1 : 0));
-            document.getElementById('streak-info').innerText = streak > 1 ? `Streak: ${streak} (+${streak-1} Bonus!)` : "Correct!";
+            document.getElementById('streak-info').innerText = streak > 1 ? `Streak: ${streak} (+${streak - 1} Bonus!)` : "Correct!";
         } else {
             streak = 0;
             score -= 5;
@@ -157,7 +157,7 @@ function endGame() {
     // 1. Werte aus dem Speicher holen
     const hs = parseInt(localStorage.getItem(`mathHS_${currentMode}`)) || 0;
     const isNewHighscore = score > hs;
-    
+
     console.log("Aktueller Score:", score);
     console.log("Alter Highscore:", hs);
     console.log("Neuer Rekord?:", isNewHighscore);
@@ -172,35 +172,35 @@ function endGame() {
     // 3. Highscore speichern, wenn er neu ist
     if (isNewHighscore) {
         localStorage.setItem(`mathHS_${currentMode}`, score);
-        
+
         // GOLD DESIGN
-        if(resultStatsBox) {
-            resultStatsBox.style.backgroundColor = "#fff9e6"; 
+        if (resultStatsBox) {
+            resultStatsBox.style.backgroundColor = "#fff9e6";
             resultStatsBox.style.borderColor = "#ffcc00";
             resultStatsBox.style.boxShadow = "0 0 15px rgba(255, 204, 0, 0.4)";
         }
-        if(labelText) {
+        if (labelText) {
             labelText.innerText = "New Highscore";
             labelText.style.color = "#b8860b";
         }
-        if(modalIcon) modalIcon.innerText = "⭐";
+        if (modalIcon) modalIcon.innerText = "⭐";
     } else {
         // NORMALES BLAU DESIGN
-        if(resultStatsBox) {
+        if (resultStatsBox) {
             resultStatsBox.style.backgroundColor = "#f0fbfc";
             resultStatsBox.style.borderColor = "#a0ecf6";
             resultStatsBox.style.boxShadow = "none";
         }
-        if(labelText) {
+        if (labelText) {
             labelText.innerText = "Your Score";
             labelText.style.color = "#666";
         }
-        if(modalIcon) modalIcon.innerText = "🏆";
+        if (modalIcon) modalIcon.innerText = "🏆";
     }
 
     // 4. Score im Modal anzeigen und Modal öffnen
-    if(finalScoreDisplay) finalScoreDisplay.innerText = score;
-    if(modal) modal.classList.add('active');
+    if (finalScoreDisplay) finalScoreDisplay.innerText = score;
+    if (modal) modal.classList.add('active');
 }
 
 function resetGame() {
@@ -219,7 +219,7 @@ function resetGame() {
     document.getElementById('timer').innerText = "60";
     document.getElementById('current-score').innerText = "0";
     document.getElementById('streak-info').innerText = "";
-    
+
     // 4. UI aufräumen
     document.getElementById('result-modal').classList.remove('active');
     document.getElementById('result-modal').style.display = 'none'; // Sicherheitshalber beides
@@ -229,7 +229,7 @@ function resetGame() {
 
     // 5. Neue Aufgabe generieren
     nextQuestion();
-    
+
     // Highscore für den aktuellen Modus sicherheitshalber neu laden
     loadHighscore();
 }

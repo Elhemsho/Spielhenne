@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const gameField = document.querySelector('.game-field');
     const playAgainBtn = document.getElementById('playAgainBtn');
-    
+
     // Config: Mapping der Buchstaben zu deinen Bilddateien
     const fruitImages = {
         'A': 'apfel.png',
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'L': 'trauben.png'
     };
 
-    const symbols = Object.keys(fruitImages); 
+    const symbols = Object.keys(fruitImages);
     let cards = [...symbols, ...symbols];
     let flippedCards = [];
     let matchedPairs = 0;
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         scores = { player1: 0, player2: 0 };
         currentPlayer = 1;
         lockBoard = false;
-        
+
         updateScoreDisplay();
         // Karten mischen
         cards.sort(() => Math.random() - 0.5);
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement('div');
             card.classList.add('memory-card');
             card.dataset.symbol = symbol;
-            
+
             // Hier nutzen wir fruitImages[symbol], um den Dateinamen zu bekommen
             card.innerHTML = `
                 <div class="card-inner">
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
             `;
-            
+
             card.addEventListener('click', flipCard);
             gameField.appendChild(card);
         });
@@ -85,12 +85,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isMatch) {
             scores[`player${currentPlayer}`]++;
             matchedPairs++;
-            
+
             setTimeout(() => {
                 card1.classList.add('matched');
                 card2.classList.add('matched');
                 resetTurn(true);
-                
+
                 if (matchedPairs === symbols.length) {
                     setTimeout(showWinPopup, 500);
                 }

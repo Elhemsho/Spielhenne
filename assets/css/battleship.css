@@ -1,9 +1,13 @@
 /* --- 1. VARIABLEN & GRUNDSTELLUNGEN --- */
 :root {
-    --p1-color: rgb(255, 77, 77);   /* Spieler 1: Rot */
-    --p2-color: rgb(77, 124, 255);  /* Spieler 2: Blau */
-    --main-blue: #a0ecf6;           /* Hintergrundfarbe Gitter */
-    --miss-gray: #d3d3d3;           /* Farbe für Fehlschüsse */
+    --p1-color: rgb(255, 77, 77);
+    /* Spieler 1: Rot */
+    --p2-color: rgb(77, 124, 255);
+    /* Spieler 2: Blau */
+    --main-blue: #a0ecf6;
+    /* Hintergrundfarbe Gitter */
+    --miss-gray: #d3d3d3;
+    /* Farbe für Fehlschüsse */
 }
 
 /* --- 2. LAYOUT-STRUKTUR --- */
@@ -34,16 +38,24 @@
     background: #fff;
     padding: 15px;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     min-width: 80px;
     min-height: 400px;
     text-align: center;
     transition: opacity 0.3s;
 }
 
-.ship-overview h4 { margin-top: 0; }
-.p1-style h4 { color: var(--p1-color); }
-.p2-style h4 { color: var(--p2-color); }
+.ship-overview h4 {
+    margin-top: 0;
+}
+
+.p1-style h4 {
+    color: var(--p1-color);
+}
+
+.p2-style h4 {
+    color: var(--p2-color);
+}
 
 /* Ausgrauen, wenn der Spieler nicht am Zug ist (Setup-Phase) */
 .ship-overview.inactive {
@@ -64,7 +76,8 @@
 .draggable-ship {
     display: flex;
     flex-direction: column;
-    cursor: grab; /* Zeigt die Hand zum Greifen */
+    cursor: grab;
+    /* Zeigt die Hand zum Greifen */
     transition: transform 0.2s;
     position: relative;
 }
@@ -74,22 +87,24 @@
 }
 
 .ship-part {
-    width: 12px; /* Breite der Schiffsteile */
-    height: 12px; /* Höhe der Schiffsteile */
-    border: 1px solid rgba(0,0,0,0.2);
+    width: 12px;
+    /* Breite der Schiffsteile */
+    height: 12px;
+    /* Höhe der Schiffsteile */
+    border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 /* --- 4. FARBEN (SPIELER-TRENNUNG) --- */
 /* Spieler 1: Rot (Liste und Gitter) */
-#list-p1 .ship-part, 
-#grid-p1 .cell.ship-present { 
-    background-color: var(--p1-color) !important; 
+#list-p1 .ship-part,
+#grid-p1 .cell.ship-present {
+    background-color: var(--p1-color) !important;
 }
 
 /* Spieler 2: Blau (Liste und Gitter) */
-#list-p2 .ship-part, 
-#grid-p2 .cell.ship-present { 
-    background-color: var(--p2-color) !important; 
+#list-p2 .ship-part,
+#grid-p2 .cell.ship-present {
+    background-color: var(--p2-color) !important;
 }
 
 /* --- 5. SPIELFELD & ZELLEN-LOGIK --- */
@@ -118,8 +133,10 @@
 /* --- 5. SPIELFELD & ZELLEN-LOGIK (Update) --- */
 
 /* Gemeinsame Regeln für das Kreuz (bei Treffer UND Fehlschuss) */
-.cell.hit::before, .cell.hit::after,
-.cell.miss::before, .cell.miss::after {
+.cell.hit::before,
+.cell.hit::after,
+.cell.miss::before,
+.cell.miss::after {
     content: '';
     position: absolute;
     width: 80%;
@@ -128,11 +145,19 @@
 }
 
 /* Die Drehung für beide */
-.cell.hit::before, .cell.miss::before { transform: rotate(45deg); }
-.cell.hit::after, .cell.miss::after { transform: rotate(-45deg); }
+.cell.hit::before,
+.cell.miss::before {
+    transform: rotate(45deg);
+}
+
+.cell.hit::after,
+.cell.miss::after {
+    transform: rotate(-45deg);
+}
 
 /* --- TREFFER: Weißes Kreuz --- */
-.cell.hit::before, .cell.hit::after {
+.cell.hit::before,
+.cell.hit::after {
     background-color: white;
 }
 
@@ -141,14 +166,19 @@
     background-color: var(--miss-gray) !important;
 }
 
-.cell.miss::before, .cell.miss::after {
-    background-color: #888; /* Dunkleres Grau für das Kreuz auf hellem Grund */
-    width: 60%; /* Etwas kleineres Kreuz für Fehlschüsse, falls gewünscht */
+.cell.miss::before,
+.cell.miss::after {
+    background-color: #888;
+    /* Dunkleres Grau für das Kreuz auf hellem Grund */
+    width: 60%;
+    /* Etwas kleineres Kreuz für Fehlschüsse, falls gewünscht */
 }
 
 /* --- 6. DRAG & DROP & CURSOR FEEDBACK --- */
 /* Cursor-Logik: Greifen nur im Setup, danach normaler Pfeil */
-.cell[draggable="true"] { cursor: grab; }
+.cell[draggable="true"] {
+    cursor: grab;
+}
 
 /* Wenn die Klasse .BATTLE aktiv ist, Grab-Effekt entfernen */
 .BATTLE .draggable-ship,
@@ -158,18 +188,31 @@
 
 /* Vorschau-Farben beim Ziehen der Schiffe */
 .cell.drag-hover-group {
-    background-color: rgba(46, 204, 113, 0.5) !important; /* Grün bei gültiger Position */
+    background-color: rgba(46, 204, 113, 0.5) !important;
+    /* Grün bei gültiger Position */
 }
 
 .cell.invalid-drag-group {
-    background-color: rgba(231, 76, 60, 0.5) !important; /* Rot bei Kollision/Rand */
+    background-color: rgba(231, 76, 60, 0.5) !important;
+    /* Rot bei Kollision/Rand */
 }
 
 /* --- 7. ANIMATIONEN & VERSENKT-STATUS --- */
 @keyframes sink-glow {
-    0% { box-shadow: 0 0 0px #fff; filter: brightness(1); }
-    50% { box-shadow: 0 0 20px #ff0000; filter: brightness(1.5); }
-    100% { box-shadow: 0 0 0px #fff; filter: brightness(1); }
+    0% {
+        box-shadow: 0 0 0px #fff;
+        filter: brightness(1);
+    }
+
+    50% {
+        box-shadow: 0 0 20px #ff0000;
+        filter: brightness(1.5);
+    }
+
+    100% {
+        box-shadow: 0 0 0px #fff;
+        filter: brightness(1);
+    }
 }
 
 .cell.sunken-animation {
@@ -180,15 +223,19 @@
 
 /* Grundzustand für Schiffe im Inventar während des Kampfes */
 .BATTLE .draggable-ship {
-    opacity: 0.3;      /* Stark ausgebleicht */
-    filter: grayscale(1); /* Graustufen-Effekt */
+    opacity: 0.3;
+    /* Stark ausgebleicht */
+    filter: grayscale(1);
+    /* Graustufen-Effekt */
     transition: opacity 0.5s ease;
 }
 
 /* Der rote Strich durch das versenkte Schiff */
 .draggable-ship.sunken {
-    opacity: 0.6 !important; /* Wieder etwas deutlicher sichtbar */
-    filter: grayscale(0.5) !important; /* Farbe schimmert leicht durch */
+    opacity: 0.6 !important;
+    /* Wieder etwas deutlicher sichtbar */
+    filter: grayscale(0.5) !important;
+    /* Farbe schimmert leicht durch */
     position: relative;
 }
 
@@ -197,14 +244,21 @@
     content: "";
     position: absolute;
     top: 45%;
-    left: -60%;       /* Startet 20% außerhalb des Schiffs links */
-    width: 240%;      /* Geht 20% über das Schiff rechts hinaus (insgesamt 140%) */
-    height: 5px;      /* Schön dick und deutlich */
-    background-color: #ff0000; /* Knalliges Rot */
-    transform: rotate(-15deg); /* Leichte Schräglage für den "X-Effekt" */
+    left: -60%;
+    /* Startet 20% außerhalb des Schiffs links */
+    width: 240%;
+    /* Geht 20% über das Schiff rechts hinaus (insgesamt 140%) */
+    height: 5px;
+    /* Schön dick und deutlich */
+    background-color: #ff0000;
+    /* Knalliges Rot */
+    transform: rotate(-15deg);
+    /* Leichte Schräglage für den "X-Effekt" */
     border-radius: 5px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4); /* Leichter Schatten für Tiefe */
-    z-index: 10;      /* Immer ganz oben */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+    /* Leichter Schatten für Tiefe */
+    z-index: 10;
+    /* Immer ganz oben */
     pointer-events: none;
 }
 
@@ -268,7 +322,8 @@
 .drag-ghost .ship-part {
     width: 30px;
     height: 30px;
-    background-color: #555; /* Eine neutrale Farbe während des Ziehens */
+    background-color: #555;
+    /* Eine neutrale Farbe während des Ziehens */
     border: 1px solid #000;
     opacity: 0.8;
 }
@@ -276,11 +331,15 @@
 
 /* --- Gewinner Popup (Modal) --- */
 #winner-popup {
-    display: none; /* Standardmäßig unsichtbar */
+    display: none;
+    /* Standardmäßig unsichtbar */
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(234, 234, 234, 0.7); /* Dunkler Hintergrund */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(234, 234, 234, 0.7);
+    /* Dunkler Hintergrund */
     z-index: 1000;
     justify-content: center;
     align-items: center;
@@ -293,7 +352,8 @@
     text-align: center;
     box-shadow: 0 0 30px rgba(228, 105, 105, 0.5);
     max-width: 400px;
-    border: 0px solid; /* Farbe wird per JS gesetzt */
+    border: 0px solid;
+    /* Farbe wird per JS gesetzt */
 }
 
 .popup-content h2 {
@@ -321,12 +381,13 @@
 }
 
 /* Verhindert, dass das Spielfeld des Verlierers verblasst bleibt */
-.player-area, .ship-overview {
+.player-area,
+.ship-overview {
     transition: opacity 0.3s ease;
 }
 
 /* Wenn das Spiel vorbei ist, wird alles hell angezeigt */
-.GAME_OVER .ship-overview, 
+.GAME_OVER .ship-overview,
 .GAME_OVER .player-area,
 .GAME_OVER .draggable-ship {
     opacity: 1 !important;

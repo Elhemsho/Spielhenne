@@ -1,18 +1,18 @@
-body{
+body {
     min-width: 1350px;
 }
 
 /* ------------------ Main ------------------ */
-.game-field{
+.game-field {
     display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 75px;
-  max-width: 90%;
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 60px;
+    justify-content: center;
+    align-items: center;
+    gap: 75px;
+    max-width: 90%;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 60px;
 }
 
 /* --- Neue, saubere Tabellen-Logik --- */
@@ -21,7 +21,7 @@ body{
     background: white;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     min-width: 380px;
     transition: all 0.3s ease;
     /* Grundzustand: Inaktiv und leicht transparent */
@@ -31,7 +31,8 @@ body{
 
 /* Nur die Tabelle des Spielers, der dran ist, wird hervorgehoben */
 .player-table.active-player {
-    opacity: 0.7; /* Noch nicht ganz da, erst nach dem Würfeln voll sichtbar */
+    opacity: 0.7;
+    /* Noch nicht ganz da, erst nach dem Würfeln voll sichtbar */
     transform: scale(1.0);
 }
 
@@ -54,9 +55,11 @@ body{
 
 .score-row {
     display: flex;
-    justify-content: space-between; /* Drückt Name nach links, Punkte nach rechts */
+    justify-content: space-between;
+    /* Drückt Name nach links, Punkte nach rechts */
     align-items: center;
-    padding: 8px 10px; /* Etwas mehr Platz für die Klickfläche */
+    padding: 8px 10px;
+    /* Etwas mehr Platz für die Klickfläche */
     border-bottom: 1px solid #eee;
     cursor: pointer;
     transition: background 0.2s;
@@ -66,7 +69,8 @@ body{
 .score-group {
     display: flex;
     justify-content: space-between;
-    width: 100%; /* Nutzt die volle Breite der Zeile */
+    width: 100%;
+    /* Nutzt die volle Breite der Zeile */
     align-items: center;
 }
 
@@ -74,8 +78,10 @@ body{
     font-weight: bold;
     color: #a0ecf6;
     opacity: 1;
-    min-width: 30px; /* Reserviert Platz, damit Zahlen nicht springen */
-    text-align: right; /* Richtet die Zahl innerhalb ihres Bereichs rechts aus */
+    min-width: 30px;
+    /* Reserviert Platz, damit Zahlen nicht springen */
+    text-align: right;
+    /* Richtet die Zahl innerhalb ihres Bereichs rechts aus */
 }
 
 .score-row:hover {
@@ -113,10 +119,13 @@ body{
 
 #dice-container {
     display: flex;
-    flex-wrap: wrap;       /* Erlaubt den Umbruch */
+    flex-wrap: wrap;
+    /* Erlaubt den Umbruch */
     justify-content: center;
-    gap: 15px;             /* Abstand zwischen den Würfeln */
-    max-width: 150px;      /* Schmaler, damit nur 2 Würfel in eine Zeile passen */
+    gap: 15px;
+    /* Abstand zwischen den Würfeln */
+    max-width: 150px;
+    /* Schmaler, damit nur 2 Würfel in eine Zeile passen */
     margin-bottom: 10px;
 }
 
@@ -138,9 +147,11 @@ body{
 }
 
 .dice-row {
-    display: flex;          /* Würfel nebeneinander */
+    display: flex;
+    /* Würfel nebeneinander */
     justify-content: center;
-    gap: 15px;              /* Abstand zwischen den einzelnen Würfeln */
+    gap: 15px;
+    /* Abstand zwischen den einzelnen Würfeln */
 }
 
 /* Wenn ein Würfel ausgewählt ist */
@@ -157,10 +168,13 @@ body{
 
 .rollBtn {
     appearance: none;
-    background-color: rgba(160, 236, 246, 0.4); ; /* Dein Hauptblau */
+    background-color: rgba(160, 236, 246, 0.4);
+    ;
+    /* Dein Hauptblau */
     border: 3px solid #333;
     border-radius: 15px;
-    box-shadow: 0 6px 0 #333; /* Starker 3D-Schatten */
+    box-shadow: 0 6px 0 #333;
+    /* Starker 3D-Schatten */
     color: #333;
     cursor: pointer;
     display: inline-block;
@@ -170,13 +184,15 @@ body{
     text-align: center;
     text-transform: uppercase;
     transition: all 0.1s;
-    width: 210px; /* Passt genau unter die 3er-Reihe der Würfel */
+    width: 210px;
+    /* Passt genau unter die 3er-Reihe der Würfel */
     margin-top: 10px;
 }
 
 /* Hover-Effekt: Der Button hebt sich leicht ab */
 .rollBtn:hover {
-    background-color: rgba(144, 241, 254, 0.532); ;
+    background-color: rgba(144, 241, 254, 0.532);
+    ;
 }
 
 /* Klick-Effekt: Der Button drückt sich nach unten */
@@ -203,19 +219,36 @@ body{
 
 /* Die Wackel-Animation */
 @keyframes shake {
-    0% { transform: translate(1px, 1px) rotate(0deg); }
-    20% { transform: translate(-1px, -2px) rotate(-1deg); }
-    40% { transform: translate(-3px, 0px) rotate(1deg); }
-    60% { transform: translate(3px, 2px) rotate(0deg); }
-    80% { transform: translate(1px, -1px) rotate(1deg); }
-    100% { transform: translate(-1px, 2px) rotate(-1deg); }
+    0% {
+        transform: translate(1px, 1px) rotate(0deg);
+    }
+
+    20% {
+        transform: translate(-1px, -2px) rotate(-1deg);
+    }
+
+    40% {
+        transform: translate(-3px, 0px) rotate(1deg);
+    }
+
+    60% {
+        transform: translate(3px, 2px) rotate(0deg);
+    }
+
+    80% {
+        transform: translate(1px, -1px) rotate(1deg);
+    }
+
+    100% {
+        transform: translate(-1px, 2px) rotate(-1deg);
+    }
 }
 
 .shaking {
     animation: shake 0.2s linear infinite;
 }
 
-.rollCount{
+.rollCount {
     color: #333;
     font-size: 20px;
     font-weight: bold;
@@ -224,10 +257,13 @@ body{
 /* Das dunkle Overlay */
 .winner-overlay {
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: rgba(255, 255, 255, 0.3);
-    display: none; /* Standardmäßig unsichtbar */
+    display: none;
+    /* Standardmäßig unsichtbar */
     justify-content: center;
     align-items: center;
     z-index: 2000;
@@ -246,7 +282,8 @@ body{
 }
 
 .winner-overlay.show {
-    display: flex !important; /* Erzwingt das Anzeigen */
+    display: flex !important;
+    /* Erzwingt das Anzeigen */
 }
 
 .winner-overlay.show .winner-content {
@@ -274,4 +311,5 @@ body{
 .winner-content button:hover {
     background: #aef1fa;
 }
+
 /* ------------------ Main-End ------------------ */

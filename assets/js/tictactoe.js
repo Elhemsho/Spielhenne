@@ -26,14 +26,14 @@ let championPending = false;
 let gameOver = false;
 
 const winConditions = [
-	[0,1,2],
-    [3,4,5],
-    [6,7,8],
-	[0,3,6],
-    [1,4,7],
-    [2,5,8],
-	[0,4,8],
-    [2,4,6]
+	[0, 1, 2],
+	[3, 4, 5],
+	[6, 7, 8],
+	[0, 3, 6],
+	[1, 4, 7],
+	[2, 5, 8],
+	[0, 4, 8],
+	[2, 4, 6]
 ];
 
 resetOverlay.classList.remove("active");
@@ -45,17 +45,17 @@ fields.forEach(field => {
 
 // Overlay Buttons
 closeOverlay.addEventListener("click", () => {
-    overlay.classList.add("hidden");
+	overlay.classList.add("hidden");
 
-    if (championPending) {
-        showChampion();
-        championPending = false;
-        return;
-    }
+	if (championPending) {
+		showChampion();
+		championPending = false;
+		return;
+	}
 
-    if (gameOver) {
-        resetOverlay.classList.add("armed");
-    }
+	if (gameOver) {
+		resetOverlay.classList.add("armed");
+	}
 });
 
 resetBtn.addEventListener("click", resetGame);
@@ -83,16 +83,16 @@ function handleClick(field) {
 	}
 
 	if (board.every(cell => cell !== "")) {
-	gameActive = false;
-	gameOver = true;
+		gameActive = false;
+		gameOver = true;
 
-	winnerText.textContent = "Draw!";
-	overlay.classList.remove("hidden");
+		winnerText.textContent = "Draw!";
+		overlay.classList.remove("hidden");
 
-	startingPlayer = startingPlayer === "X" ? "O" : "X";
+		startingPlayer = startingPlayer === "X" ? "O" : "X";
 
-	return;
-}
+		return;
+	}
 
 	switchPlayer();
 }
@@ -119,37 +119,37 @@ function checkWin() {
 }
 
 function handleWin(winFields) {
-    gameOver = true;
-    resetOverlay.classList.add("armed");
-    
-    // Gewinnerfelder markieren
-    winFields.forEach(i => {
-        fields[i].classList.add("win");
-    });
+	gameOver = true;
+	resetOverlay.classList.add("armed");
 
-    // Score sofort erhöhen (nicht im Timeout!)
-    if (currentPlayer === "X") {
-        scoreP1.textContent = Number(scoreP1.textContent) + 1;
-    } else {
-        scoreP2.textContent = Number(scoreP2.textContent) + 1;
-    }
+	// Gewinnerfelder markieren
+	winFields.forEach(i => {
+		fields[i].classList.add("win");
+	});
 
-    const p1Score = Number(scoreP1.textContent);
-    const p2Score = Number(scoreP2.textContent);
+	// Score sofort erhöhen (nicht im Timeout!)
+	if (currentPlayer === "X") {
+		scoreP1.textContent = Number(scoreP1.textContent) + 1;
+	} else {
+		scoreP2.textContent = Number(scoreP2.textContent) + 1;
+	}
 
-    // Entscheidung: Champion oder normaler Rundensieg?
-    setTimeout(() => {
-        if (p1Score === 3 || p2Score === 3) {
-            // Wenn jemand 3 Punkte hat, zeige SOFORT den Champion
-            showChampion();
-        } else {
-            // Sonst zeige das normale Runden-Overlay
-            winnerText.textContent = currentPlayer === "X" ? "Player 1 wins!" : "Player 2 wins!";
-            overlay.classList.remove("hidden");
-        }
-    }, 800);
+	const p1Score = Number(scoreP1.textContent);
+	const p2Score = Number(scoreP2.textContent);
 
-    startingPlayer = currentPlayer === "X" ? "O" : "X";
+	// Entscheidung: Champion oder normaler Rundensieg?
+	setTimeout(() => {
+		if (p1Score === 3 || p2Score === 3) {
+			// Wenn jemand 3 Punkte hat, zeige SOFORT den Champion
+			showChampion();
+		} else {
+			// Sonst zeige das normale Runden-Overlay
+			winnerText.textContent = currentPlayer === "X" ? "Player 1 wins!" : "Player 2 wins!";
+			overlay.classList.remove("hidden");
+		}
+	}, 800);
+
+	startingPlayer = currentPlayer === "X" ? "O" : "X";
 }
 
 function resetGame() {
@@ -166,22 +166,22 @@ function resetGame() {
 
 	currentPlayer = startingPlayer;
 
-    // Turn-Anzeige korrekt setzen
-    if (currentPlayer === "X") {
-        turnP1.style.opacity = "1";
-        turnP2.style.opacity = "0.12";
-    } else {
-        turnP1.style.opacity = "0.12";
-        turnP2.style.opacity = "1";
-    }
+	// Turn-Anzeige korrekt setzen
+	if (currentPlayer === "X") {
+		turnP1.style.opacity = "1";
+		turnP2.style.opacity = "0.12";
+	} else {
+		turnP1.style.opacity = "0.12";
+		turnP2.style.opacity = "1";
+	}
 
 	overlay.classList.add("hidden");
 
-    if (championPending) {
-	showChampion();
-	championPending = false;
-	return;
-}
+	if (championPending) {
+		showChampion();
+		championPending = false;
+		return;
+	}
 }
 
 function showChampion() {

@@ -16,14 +16,14 @@ let grid = Array.from({ length: rows }, () => Array(cols).fill(null));
 
 if (board) {
     for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        const cell = document.createElement('div');
-        cell.classList.add('cell');
-        cell.dataset.row = r;
-        cell.dataset.col = c;
-        cell.addEventListener('click', () => handleClick(c));
-        board.appendChild(cell);
-      }
+        for (let c = 0; c < cols; c++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.dataset.row = r;
+            cell.dataset.col = c;
+            cell.addEventListener('click', () => handleClick(c));
+            board.appendChild(cell);
+        }
     }
     updateTurnIndicator();
 }
@@ -35,8 +35,8 @@ function handleClick(col) {
             grid[r][col] = currentPlayer;
             const stone = document.createElement('div');
             stone.classList.add('stone');
-            stone.style.backgroundImage = currentPlayer === 'red' 
-                ? "url('../assets/images/chip_rot2.png')" 
+            stone.style.backgroundImage = currentPlayer === 'red'
+                ? "url('../assets/images/chip_rot2.png')"
                 : "url('../assets/images/chip_blau2.png')";
             stone.style.backgroundSize = "cover";
             const cell = document.querySelector(`.cell[data-row='${r}'][data-col='${col}']`);
@@ -86,7 +86,7 @@ if (resetBtn) {
         currentPlayer = 'red';
         gameOver = false;
         if (winPopup) winPopup.classList.add("hidden");
-        winCoin.style.display = "block"; 
+        winCoin.style.display = "block";
         updateTurnIndicator();
     };
 }
@@ -106,8 +106,8 @@ function showWinPopup(player) {
     const content = winPopup.querySelector(".popup-content");
     content.classList.replace("draw", "win");
     winText.textContent = player === "red" ? "Red wins!" : "Blue wins!";
-    winCoin.style.backgroundImage = player === "red" 
-        ? "url('../assets/images/chip_rot2.png')" 
+    winCoin.style.backgroundImage = player === "red"
+        ? "url('../assets/images/chip_rot2.png')"
         : "url('../assets/images/chip_blau2.png')";
     winPopup.classList.remove("hidden");
 }
@@ -119,15 +119,15 @@ if (closePopup) {
 function showDrawPopup() {
     const content = winPopup.querySelector(".popup-content");
     content.classList.replace("win", "draw");
-    
+
     // Text setzen
     winText.innerHTML = `<strong>Draw!</strong><div class="emoji">🤝</div>`;
-    
+
     // Münze komplett aus dem Layout entfernen, damit sie keinen Platz wegnimmt
     if (winCoin) {
-        winCoin.style.display = "none"; 
+        winCoin.style.display = "none";
     }
-    
+
     winPopup.classList.remove("hidden");
 }
 

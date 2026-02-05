@@ -22,7 +22,7 @@ function searchGames() {
     let visibleCount = 0;
 
     games.forEach(game => {
-        const gameName = game.innerText.toLowerCase(); 
+        const gameName = game.innerText.toLowerCase();
         if (gameName.includes(query)) {
             game.style.display = 'block';
             visibleCount++;
@@ -44,45 +44,45 @@ function searchGames() {
 
 /* ------------------ Spiele-Liste (für Suche) ------------------ */
 const allGames = [
-    { 
-        name: "Tic Tac Toe", 
-        url: "../pages/tictactoe.html", 
-        img: "../assets/images/ttt.png" 
+    {
+        name: "Tic Tac Toe",
+        url: "../pages/tictactoe.html",
+        img: "../assets/images/ttt.png"
     },
-    { 
-        name: "Connect Four", 
-        url: "../pages/connectfour.html", 
-        img: "../assets/images/chip_rot2.png" 
+    {
+        name: "Connect Four",
+        url: "../pages/connectfour.html",
+        img: "../assets/images/chip_rot2.png"
     },
-    { 
-        name: "Yazy", 
-        url: "../pages/yazy.html", 
-        img: "../assets/images/würfel.png" 
+    {
+        name: "Yazy",
+        url: "../pages/yazy.html",
+        img: "../assets/images/würfel.png"
     },
-    { 
-        name: "Solitaire", 
-        url: "../pages/solitaire.html", 
-        img: "../assets/images/ass2.png" 
+    {
+        name: "Solitaire",
+        url: "../pages/solitaire.html",
+        img: "../assets/images/ass2.png"
     },
-    { 
-        name: "2048", 
-        url: "../pages/2048.html", 
-        img: "../assets/images/2048logo.png" 
+    {
+        name: "2048",
+        url: "../pages/2048.html",
+        img: "../assets/images/2048logo.png"
     },
-    { 
-        name: "Dots and Boxes", 
-        url: "../pages/dotsandboxes.html", 
-        img: "../assets/images/kklogo.png" 
+    {
+        name: "Dots and Boxes",
+        url: "../pages/dotsandboxes.html",
+        img: "../assets/images/kklogo.png"
     },
-    { 
-        name: "Memory", 
-        url: "../pages/memory.html", 
-        img: "../assets/images/memorylogo.png" 
+    {
+        name: "Memory",
+        url: "../pages/memory.html",
+        img: "../assets/images/memorylogo.png"
     },
-    { 
-        name: "Math Quiz", 
-        url: "../pages/mathquiz.html", 
-        img: "../assets/images/mathlogo.png" 
+    {
+        name: "Math Quiz",
+        url: "../pages/mathquiz.html",
+        img: "../assets/images/mathlogo.png"
     }
 ];
 
@@ -90,18 +90,18 @@ const allGames = [
 function showLiveSearch() {
     const input = document.getElementById("searchInput");
     const suggestionsBox = document.getElementById("searchSuggestions");
-    
+
     if (!suggestionsBox) return;
 
     const query = input.value.toLowerCase().trim();
-    suggestionsBox.innerHTML = ""; 
+    suggestionsBox.innerHTML = "";
 
     if (query === "") {
         suggestionsBox.style.display = "none";
         return;
     }
 
-    const filtered = allGames.filter(game => 
+    const filtered = allGames.filter(game =>
         game.name.toLowerCase().includes(query)
     );
 
@@ -146,7 +146,7 @@ function toggleSettings() {
 }
 
 /* ------------------ Navbar - Pop-Ups schließen bei Klick daneben ------------------ */
-window.onclick = function(event) {
+window.onclick = function (event) {
     const settings = document.getElementById("settingsDropdown");
     const input = document.getElementById("searchInput");
     const suggestionsBox = document.getElementById("searchSuggestions");
@@ -171,9 +171,9 @@ window.onclick = function(event) {
 
 /* ------------------------------------ Musik ------------------------------------ */
 const audio = document.getElementById('bgMusic');
-const muteBtn = document.getElementById('muteBtn'); 
-const muteIcon = document.getElementById('muteIcon'); 
-const musicToggle = document.getElementById('musicToggle'); 
+const muteBtn = document.getElementById('muteBtn');
+const muteIcon = document.getElementById('muteIcon');
+const musicToggle = document.getElementById('musicToggle');
 const dropdown = document.getElementById('settingsDropdown');
 
 function updateMusic(isMuted) {
@@ -207,5 +207,5 @@ if (dropdown) {
 }
 
 document.addEventListener('click', () => {
-    if (audio) audio.play().catch(() => {});
+    if (audio) audio.play().catch(() => { });
 }, { once: true });

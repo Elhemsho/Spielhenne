@@ -6,27 +6,27 @@ const boardElement = document.getElementById('board');
 
 const layouts = [
     { r: 4, c: 4, holes: [] }, // Klassisch
-    { r: 5, c: 5, holes: ["1-1", "1-3", "1-5", "3-1", "3-3", "3-5", "5-1", "5-3", "5-5"] }, 
+    { r: 5, c: 5, holes: ["1-1", "1-3", "1-5", "3-1", "3-3", "3-5", "5-1", "5-3", "5-5"] },
     { r: 6, c: 6, holes: ["3-3", "3-5", "3-7", "3-9", "5-3", "7-3", "9-3"] },
 
     // Das "U" - Ein großer Tunnel
-    { r: 5, c: 5, holes: ["3-3", "3-5", "3-7", "5-3", "5-5", "5-7"] }, 
-    
+    { r: 5, c: 5, holes: ["3-3", "3-5", "3-7", "5-3", "5-5", "5-7"] },
+
     // Die "Sanduhr" - Engpass in der Mitte
     { r: 5, c: 5, holes: ["3-1", "3-3", "3-7", "3-9", "7-1", "7-3", "7-7", "7-9"] },
-    
+
     // "Tetris" - Ein Z-Shape Hindernis
     { r: 5, c: 6, holes: ["3-3", "3-5", "5-5", "5-7", "7-7", "7-9"] },
-    
+
     // "Inseln" - Vier getrennte Bereiche, die nur über Ecken verbunden sind
     { r: 6, c: 6, holes: ["5-5", "5-7", "7-5", "7-7", "1-5", "1-7", "9-5", "9-7", "5-1", "7-1", "5-11", "7-11"] },
-    
+
     // "Das Labyrinth" - Sehr verwinkelt
     { r: 5, c: 5, holes: ["1-3", "3-3", "5-3", "5-5", "5-7", "7-7", "9-7"] },
-    
+
     // "Plus-Zeichen" - Fokus auf die vier Quadranten
     { r: 5, c: 5, holes: ["1-5", "3-5", "7-5", "9-5", "5-1", "5-3", "5-7", "5-9"] },
-    
+
     // "Schlangenlinie"
     { r: 4, c: 6, holes: ["1-3", "1-5", "1-7", "5-5", "5-7", "5-9", "3-1", "7-11"] },
 
@@ -43,7 +43,7 @@ function initBoard() {
     do {
         randomIndex = Math.floor(Math.random() * layouts.length);
     } while (randomIndex === lastLayoutIndex);
-    
+
     lastLayoutIndex = randomIndex;
     const layout = layouts[randomIndex];
     currentRows = layout.r;
@@ -57,7 +57,7 @@ function initBoard() {
     for (let r = 0; r < currentRows * 2 + 1; r++) {
         for (let c = 0; c < currentCols * 2 + 1; c++) {
             const div = document.createElement('div');
-            
+
             if (r % 2 === 0 && c % 2 === 0) {
                 div.className = 'dot';
                 div.id = `dot-${r}-${c}`;
@@ -89,12 +89,12 @@ function cleanUpMap() {
     dots.forEach(dot => {
         const r = parseInt(dot.id.split('-')[1]);
         const c = parseInt(dot.id.split('-')[2]);
-        
+
         const hasVisibleLine = [
-            document.querySelector(`[data-row="${r-1}"][data-col="${c}"]`),
-            document.querySelector(`[data-row="${r+1}"][data-col="${c}"]`),
-            document.querySelector(`[data-row="${r}"][data-col="${c-1}"]`),
-            document.querySelector(`[data-row="${r}"][data-col="${c+1}"]`)
+            document.querySelector(`[data-row="${r - 1}"][data-col="${c}"]`),
+            document.querySelector(`[data-row="${r + 1}"][data-col="${c}"]`),
+            document.querySelector(`[data-row="${r}"][data-col="${c - 1}"]`),
+            document.querySelector(`[data-row="${r}"][data-col="${c + 1}"]`)
         ].some(line => line && line.style.visibility !== "hidden" && !line.classList.contains('is-disabled'));
 
         if (!hasVisibleLine) {
@@ -111,16 +111,16 @@ function disableHoleLines() {
         let isUseless = true;
 
         if (line.classList.contains('h-line')) {
-            const boxAbove = document.getElementById(`box-${r-1}-${c}`);
-            const boxBelow = document.getElementById(`box-${r+1}-${c}`);
-            if ((boxAbove && !boxAbove.classList.contains('is-hole')) || 
+            const boxAbove = document.getElementById(`box-${r - 1}-${c}`);
+            const boxBelow = document.getElementById(`box-${r + 1}-${c}`);
+            if ((boxAbove && !boxAbove.classList.contains('is-hole')) ||
                 (boxBelow && !boxBelow.classList.contains('is-hole'))) {
                 isUseless = false;
             }
         } else {
-            const boxLeft = document.getElementById(`box-${r}-${c-1}`);
-            const boxRight = document.getElementById(`box-${r}-${c+1}`);
-            if ((boxLeft && !boxLeft.classList.contains('is-hole')) || 
+            const boxLeft = document.getElementById(`box-${r}-${c - 1}`);
+            const boxRight = document.getElementById(`box-${r}-${c + 1}`);
+            if ((boxLeft && !boxLeft.classList.contains('is-hole')) ||
                 (boxRight && !boxRight.classList.contains('is-hole'))) {
                 isUseless = false;
             }
@@ -162,9 +162,9 @@ function checkBox(line) {
     const check = (boxR, boxC) => {
         const box = document.getElementById(`box-${boxR}-${boxC}`);
         if (!box || box.classList.contains('is-hole')) return false;
-        
-        if (isLineTaken(boxR-1, boxC) && isLineTaken(boxR+1, boxC) && 
-            isLineTaken(boxR, boxC-1) && isLineTaken(boxR, boxC+1)) {
+
+        if (isLineTaken(boxR - 1, boxC) && isLineTaken(boxR + 1, boxC) &&
+            isLineTaken(boxR, boxC - 1) && isLineTaken(boxR, boxC + 1)) {
             if (!box.classList.contains('taken')) {
                 box.classList.add('taken', `p${currentPlayer}`);
                 return true;
@@ -187,7 +187,7 @@ function updateUI() {
     document.getElementById('p1-score').innerText = scores[1];
     document.getElementById('p2-score').innerText = scores[2];
     const status = document.getElementById('status');
-    if(status) {
+    if (status) {
         status.innerText = `Player ${currentPlayer}'s turn`;
         status.className = `p${currentPlayer}`;
     }
@@ -196,11 +196,11 @@ function updateUI() {
 function checkGameOver() {
     const allPlayableBoxes = document.querySelectorAll('.box:not(.is-hole)').length;
     const takenBoxes = document.querySelectorAll('.box.taken').length;
-    
+
     if (takenBoxes === allPlayableBoxes && allPlayableBoxes > 0) {
         isGameOverState = true;
         let winnerText = "";
-        
+
         if (scores[1] > scores[2]) winnerText = `Blue wins ${scores[1]}:${scores[2]}!`;
         else if (scores[2] > scores[1]) winnerText = `Red wins ${scores[2]}:${scores[1]}!`;
         else winnerText = `Draw! ${scores[1]}:${scores[2]}`;
@@ -217,7 +217,7 @@ function showModal(text) {
     const modal = document.getElementById("game-modal");
     const modalContent = modal.querySelector('.modal-content');
     const modalText = document.getElementById("modal-text");
-    
+
     modalText.innerText = text;
 
     // Schattenfarbe basierend auf dem Gewinner setzen
@@ -246,10 +246,10 @@ function resetGame() {
     currentPlayer = 1;
     scores = { 1: 0, 2: 0 };
     isGameOverState = false;
-    
+
     // Modal schließen, falls es noch offen ist
     closeModal();
-    
+
     initBoard();
     updateUI();
 }

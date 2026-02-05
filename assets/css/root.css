@@ -1,14 +1,14 @@
-body{
+body {
     min-width: 850px;
 }
 
-.text{
+.text {
     font-size: 20px;
     margin-left: 30px;
     margin-top: 10px;
 }
 
-.bg{
+.bg {
     width: 85%;
     background-color: #fff;
     border-radius: 20px;

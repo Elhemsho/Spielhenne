@@ -1,10 +1,10 @@
-body{
-    min-width: 1200px;
+body {
+  min-width: 1200px;
 }
 
 /* ------------------ Main ------------------ */
-.game-field{
-    display: flex;
+.game-field {
+  display: flex;
   justify-content: center;
   align-items: center;
   gap: 200px;
@@ -25,18 +25,20 @@ body{
   grid-template-columns: repeat(7, 60px);
   grid-template-rows: repeat(6, 60px);
   gap: 5px;
-  background-color: rgba(160, 236, 246, 0.4); 
+  background-color: rgba(160, 236, 246, 0.4);
   padding: 10px;
-  
+
   border-radius: 10px;
 }
 
 .cell {
-    position: relative;
+  position: relative;
   width: 60px;
   height: 60px;
-  border-radius: 50%; /* runde Löcher */
-  background-color: white; /* Start leer */
+  border-radius: 50%;
+  /* runde Löcher */
+  background-color: white;
+  /* Start leer */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,13 +51,15 @@ body{
   height: 50px;
   border-radius: 50%;
   position: absolute;
-  top: -170px; /* für Fallanimation */
+  top: -170px;
+  /* für Fallanimation */
   left: 5px;
   transition: top 0.4s ease;
   z-index: 20;
 }
 
-.box1, .box2 {
+.box1,
+.box2 {
   width: 80px;
   display: flex;
   justify-content: center;
@@ -78,7 +82,7 @@ body{
 .popup {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,35 +95,38 @@ body{
 
 /* Das ist der weiße Kasten im Popup */
 .popup-content {
-    background-color: white;
-    padding-top: 0px;  
-    padding-bottom: 25px;  
-    padding-left: 40px;  
-    padding-right: 40px;  
-              /* Mehr Abstand nach innen macht das Feld größer */
-    border-radius: 20px;
-    
-    /* Hier stellst du die Größe ein */
-    width: 90%;               /* Nutzt 90% des Bildschirms auf dem Handy */
-    max-width: 160px;         /* Maximale Breite am PC (vorher war es bestimmt ca. 400px) */
-    
-    min-height: 100px;        /* Garantiert eine Mindesthöhe */
-    
-    /* Zentrierung */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    
-    /* Animation und Schatten */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    animation: popIn 0.3s ease-out;
+  background-color: white;
+  padding-top: 0px;
+  padding-bottom: 25px;
+  padding-left: 40px;
+  padding-right: 40px;
+  /* Mehr Abstand nach innen macht das Feld größer */
+  border-radius: 20px;
+
+  /* Hier stellst du die Größe ein */
+  width: 90%;
+  /* Nutzt 90% des Bildschirms auf dem Handy */
+  max-width: 160px;
+  /* Maximale Breite am PC (vorher war es bestimmt ca. 400px) */
+
+  min-height: 100px;
+  /* Garantiert eine Mindesthöhe */
+
+  /* Zentrierung */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  /* Animation und Schatten */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  animation: popIn 0.3s ease-out;
 }
 
 #winText {
-    font-size: 30px;     
-    margin-bottom: 10px;
+  font-size: 30px;
+  margin-bottom: 10px;
 }
 
 .win-coin {
@@ -132,15 +139,26 @@ body{
 }
 
 @keyframes popIn {
-  from { transform: scale(0.7); opacity: 0; }
-  to   { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .popup-content.draw {
-    min-height: auto;      /* Hebt die Mindesthöhe auf */
-    max-width: 280px;      /* Macht es schmaler */
-    padding: 20px;         /* Weniger Innenabstand macht es flacher */
-    height: fit-content;   /* Das Fenster zieht sich eng um den Text */
+  min-height: auto;
+  /* Hebt die Mindesthöhe auf */
+  max-width: 280px;
+  /* Macht es schmaler */
+  padding: 20px;
+  /* Weniger Innenabstand macht es flacher */
+  height: fit-content;
+  /* Das Fenster zieht sich eng um den Text */
 }
 
 .popup-content .emoji {
@@ -149,20 +167,28 @@ body{
 }
 
 .close-btn {
-    position: relative;
-    top: 20px; 
-    left: 85px;     /* Abstand von rechts */
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-    cursor: pointer;
-    line-height: 1; /* Verhindert, dass das X nach unten rutscht */
+  position: relative;
+  top: 20px;
+  left: 85px;
+  /* Abstand von rechts */
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  line-height: 1;
+  /* Verhindert, dass das X nach unten rutscht */
 }
 
 
 
 @keyframes pulse {
-  from { transform: scale(1); }
-  to   { transform: scale(1.1); }
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.1);
+  }
 }
+
 /* ------------------ Main-End ------------------ */

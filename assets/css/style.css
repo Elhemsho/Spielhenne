@@ -1,11 +1,11 @@
-body{
+body {
     min-width: 850px;
 }
 
 @font-face {
     font-family: 'Comic Neue';
     src: url('../fonts/ComicNeue-Regular.woff2') format('woff2'),
-         url('../fonts/ComicNeue-Regular.woff') format('woff');
+        url('../fonts/ComicNeue-Regular.woff') format('woff');
     font-weight: 400;
     font-style: normal;
 }
@@ -13,24 +13,29 @@ body{
 @font-face {
     font-family: 'Comic Neue2';
     src: url('../fonts/ComicNeue-Bold.woff2') format('woff2'),
-         url('../fonts/ComicNeue-Bold.woff') format('woff');
+        url('../fonts/ComicNeue-Bold.woff') format('woff');
     font-weight: 700;
     font-style: normal;
 }
 
 /* ------------------ Main ------------------ */
-.auswahl-container{
+.auswahl-container {
     display: flex;
-    flex-wrap: wrap;  
-    justify-content: center;  /* alles horizontal zentrieren */
-    align-items: flex-start;  /* oben ausrichten */
-    gap: 30px 100px;              /* Abstand zwischen Boxen und Spielfeld */
+    flex-wrap: wrap;
+    justify-content: center;
+    /* alles horizontal zentrieren */
+    align-items: flex-start;
+    /* oben ausrichten */
+    gap: 30px 100px;
+    /* Abstand zwischen Boxen und Spielfeld */
     margin-top: 40px;
     max-width: 90%;
     font-size: 18px;
-    margin-left: auto;  /* links automatisch */
-    margin-right: auto; /* rechts automatisch */
-    
+    margin-left: auto;
+    /* links automatisch */
+    margin-right: auto;
+    /* rechts automatisch */
+
     font-family: 'Comic Neue2', cursive;
 }
 
@@ -43,139 +48,146 @@ body{
 }
 
 #noGamesMessage {
-    display: none; /* Standardmäßig aus, JS schaltet es an */
+    display: none;
+    /* Standardmäßig aus, JS schaltet es an */
     width: 100%;
     text-align: center;
     margin-bottom: 200px;
 }
 
 #noGamesMessage h2 {
-    color: #555; 
+    color: #555;
     font-family: sans-serif;
 }
 
-.tictactoe{
+.tictactoe {
     text-decoration: none;
     color: #222;
     text-align: center;
     padding-bottom: 4px;
 }
 
-.ticimg{
+.ticimg {
     border: #333 1px solid;
     border-radius: 10px;
 }
 
-.connectfour{
+.connectfour {
     text-decoration: none;
     color: #222;
     text-align: center;
     padding-bottom: 4px;
 }
 
-.conimg{
+.conimg {
     margin-top: 15px;
     border: #333 1px solid;
     border-radius: 10px;
 }
 
-.battleship{
+.battleship {
     text-decoration: none;
     color: #222;
     text-align: center;
     padding-bottom: 4px;
 }
 
-.zwei{
+.zwei {
     text-decoration: none;
     color: #222;
     text-align: center;
     padding-bottom: 4px;
 }
-.zweimg{
+
+.zweimg {
     border: 1px #333 solid;
     border-radius: 10px;
 }
 
-.solitaire{
+.solitaire {
     text-decoration: none;
     color: #222;
     text-align: center;
     padding-bottom: 4px;
 }
 
-.solimg{
+.solimg {
     margin-top: 30px;
-    outline: #333 1px solid;   /* Äußerer Rahmen */
+    outline: #333 1px solid;
+    /* Äußerer Rahmen */
     outline-offset: 6px;
     border-radius: 5px;
 }
 
-.yazy{
+.yazy {
     text-decoration: none;
     color: #222;
     text-align: center;
     padding-bottom: 4px;
 }
 
-.kniimg{
+.kniimg {
     border: 1px #333 solid;
     border-radius: 10px;
 }
 
-.dotsandboxes{
+.dotsandboxes {
     text-decoration: none;
     color: #222;
     text-align: center;
     padding-bottom: 4px;
-    
+
 }
 
-.kkimg{
-    border-radius: 10px;        /* Abrundung für Bild und Border */
-    
+.kkimg {
+    border-radius: 10px;
+    /* Abrundung für Bild und Border */
+
     /* 1. Die "Offset-Farbe" (Innere Füllung) */
-    border: 3px solid rgba(211, 250, 255, 0.5);  /* Ersetze #ff0000 mit deiner Wunschfarbe */
-    
+    border: 3px solid rgba(211, 250, 255, 0.5);
+    /* Ersetze #ff0000 mit deiner Wunschfarbe */
+
     /* 2. Der äußere Rahmen */
     outline: #333 1px solid;
-    
+
     /* WICHTIG: Kein Offset nutzen, da der Border den Platz füllt */
     outline-offset: 0px;
 }
 
-.memory{
+.memory {
     text-decoration: none;
     color: #222;
     text-align: center;
     padding-bottom: 4px;
 }
 
-.memimg{
+.memimg {
     margin-top: 23px;
     /* 1. Die "Offset-Farbe" (Innere Füllung) */
-    border: 5px solid #f7f7f7;  /* Ersetze #ff0000 mit deiner Wunschfarbe */
-    
+    border: 5px solid #f7f7f7;
+    /* Ersetze #ff0000 mit deiner Wunschfarbe */
+
     /* 2. Der äußere Rahmen */
     outline: #333 1px solid;
-    
+
     /* WICHTIG: Kein Offset nutzen, da der Border den Platz füllt */
     outline-offset: 0px;
     border-radius: 10px;
 }
 
-.mathquiz{
+.mathquiz {
     text-decoration: none;
     color: #222;
     text-align: center;
     padding-bottom: 4px;
 }
 
-.mathimg{
+.mathimg {
     margin-top: 12px;
     border: 1px #333 solid;
     border-radius: 10px;
 }
+
 /* ------------------ Main-End ------------------ */
 
 
@@ -183,7 +195,7 @@ body{
 /* ------------------ Footer ------------------ */
 .site-footer {
     width: 100%;
-    background-color: #a0ecf6; 
+    background-color: #a0ecf6;
     color: white;
     padding: 30px 0;
     margin-top: 50px;
@@ -223,4 +235,5 @@ body{
 .footer-nav a:hover {
     text-decoration: underline;
 }
+
 /* ------------------ Footer-End ------------------ */

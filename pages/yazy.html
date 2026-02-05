@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Yazy</title>
+    <title>Yazy</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/yazy.css">
     <script src="../assets/js/global.js" defer></script>
     <script src="../assets/js/yazy.js" defer></script>
-	<link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
 
     <!-- Open Graph / Social Media Preview -->
     <meta property="og:title" content="Yazy">
@@ -16,86 +17,88 @@
     <meta property="og:url" content="https://elhemsho.github.io/Spielhenne/pages/yazy/">
     <meta property="og:image" content="https://elhemsho.github.io/Spielhenne/assets/images/ogimage3.png">
 </head>
+
 <body>
-	<header class="site-header">
-		<div class="container">
-			<div class="header-top">
-				<div class="header-logo">
-					<a href="../index.html">
-						<img class="logo" src="../assets/images/logo_schrift.png"> 
-						<img class="logo2" src="../assets/images/logo_huhn.png"> 
-					</a>
-				</div>
-				
-				<nav class="header-meta-nav">
-					<div class="nav-item search-container">
-						<input type="text" id="searchInput" placeholder="Search Game..." oninput="showLiveSearch()" onkeydown="handleSearchEnter(event)">
-						
-						<span>
-							<img onclick="toggleSearch()" class="nav-link lupe" src="../assets/images/lupe.png">
-						</span>
-						
-						<div id="searchSuggestions" class="search-suggestions"></div>
-					</div>
-					
-					<span class="divider">|</span>
+    <header class="site-header">
+        <div class="container">
+            <div class="header-top">
+                <div class="header-logo">
+                    <a href="../index.html">
+                        <img class="logo" src="../assets/images/logo_schrift.png">
+                        <img class="logo2" src="../assets/images/logo_huhn.png">
+                    </a>
+                </div>
 
-					<a href="../index.html" class="alogin">
-						<span class="nav-login">LogIn</span> 
-					</a>
+                <nav class="header-meta-nav">
+                    <div class="nav-item search-container">
+                        <input type="text" id="searchInput" placeholder="Search Game..." oninput="showLiveSearch()"
+                            onkeydown="handleSearchEnter(event)">
 
-					<span class="divider">|</span>
-					
-					<div class="nav-item settings-container">
-						<span onclick="toggleSettings()" class="nav-settings">Settings</span>
+                        <span>
+                            <img onclick="toggleSearch()" class="nav-link lupe" src="../assets/images/lupe.png">
+                        </span>
 
-						<div id="settingsDropdown" class="dropdown-content">
-							<a href="../index.html">Profile</a>
+                        <div id="searchSuggestions" class="search-suggestions"></div>
+                    </div>
 
-							<div class="menu-item-flex">
-								<span>Music</span>
+                    <span class="divider">|</span>
 
-								<label class="switch">
-									<input type="checkbox" id="musicToggle">
-									<span class="slider round"></span>
-								</label>
-							</div>
+                    <a href="../index.html" class="alogin">
+                        <span class="nav-login">LogIn</span>
+                    </a>
 
-							<div class="menu-item-flex">
-								<span>Dark Mode</span>
+                    <span class="divider">|</span>
 
-								<label class="switch">
-									<input type="checkbox" id="darkToggle">
-									<span class="slider round"></span>
-								</label>
-							</div>
-						</div>
-					</div>
-				</nav>
-			</div>
-			
-			<nav class="main-navigation">
-				<ul>
-					<li><a href="../index.html?filter=all">All Games</a></li>
-					<li><a href="../index.html?filter=2">2 Player Games</a></li>
-					<li><a href="../index.html?filter=1">Solo Games</a></li>
-					<li><a href="../index.html?filter=multy">Online Games</a></li>
-				</ul>
-			</nav>
-		</div>
-	</header>
-    
+                    <div class="nav-item settings-container">
+                        <span onclick="toggleSettings()" class="nav-settings">Settings</span>
+
+                        <div id="settingsDropdown" class="dropdown-content">
+                            <a href="../index.html">Profile</a>
+
+                            <div class="menu-item-flex">
+                                <span>Music</span>
+
+                                <label class="switch">
+                                    <input type="checkbox" id="musicToggle">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+                            <div class="menu-item-flex">
+                                <span>Dark Mode</span>
+
+                                <label class="switch">
+                                    <input type="checkbox" id="darkToggle">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <nav class="main-navigation">
+                <ul>
+                    <li><a href="../index.html?filter=all">All Games</a></li>
+                    <li><a href="../index.html?filter=2">2 Player Games</a></li>
+                    <li><a href="../index.html?filter=1">Solo Games</a></li>
+                    <li><a href="../index.html?filter=multy">Online Games</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
     <audio id="bgMusic" src="../assets/music/Spielmusik.mp3" loop autoplay></audio>
 
     <div class="main">
-         <div class="head">
-             <div class="reset" id="playAgainBtn"><img src="../assets/images/reset.png" class="resetImg"></div>
-                
-             <div class="header">Yazy</div>
+        <div class="head">
+            <div class="reset" id="playAgainBtn"><img src="../assets/images/reset.png" class="resetImg"></div>
 
-             <div class="muteBtn" id="muteBtn">
-                 <img id="muteIcon" src="../assets/images/speaker.png" alt="Mute">
-             </div>
+            <div class="header">Yazy</div>
+
+            <div class="muteBtn" id="muteBtn">
+                <img id="muteIcon" src="../assets/images/speaker.png" alt="Mute">
+            </div>
         </div>
 
         <div class="game-field">
@@ -104,49 +107,63 @@
                 <div class="table-columns">
                     <div class="column">
                         <div class="score-row" onclick="writeScore('p1-ones', 1)">
-                            <div class="score-group"><span>1s:</span> <span id="p1-ones" class="score-val">-</span></div>
+                            <div class="score-group"><span>1s:</span> <span id="p1-ones" class="score-val">-</span>
+                            </div>
                         </div>
                         <div class="score-row" onclick="writeScore('p1-twos', 2)">
-                            <div class="score-group"><span>2s:</span> <span id="p1-twos" class="score-val">-</span></div>
+                            <div class="score-group"><span>2s:</span> <span id="p1-twos" class="score-val">-</span>
+                            </div>
                         </div>
                         <div class="score-row" onclick="writeScore('p1-threes', 3)">
-                            <div class="score-group"><span>3s:</span> <span id="p1-threes" class="score-val">-</span></div>
+                            <div class="score-group"><span>3s:</span> <span id="p1-threes" class="score-val">-</span>
+                            </div>
                         </div>
                         <div class="score-row" onclick="writeScore('p1-fours', 4)">
-                            <div class="score-group"><span>4s:</span> <span id="p1-fours" class="score-val">-</span></div>
+                            <div class="score-group"><span>4s:</span> <span id="p1-fours" class="score-val">-</span>
+                            </div>
                         </div>
                         <div class="score-row" onclick="writeScore('p1-fives', 5)">
-                            <div class="score-group"><span>5s:</span> <span id="p1-fives" class="score-val">-</span></div>
+                            <div class="score-group"><span>5s:</span> <span id="p1-fives" class="score-val">-</span>
+                            </div>
                         </div>
                         <div class="score-row" onclick="writeScore('p1-sixs', 6)">
-                            <div class="score-group"><span>6s:</span> <span id="p1-sixs" class="score-val">-</span></div>
+                            <div class="score-group"><span>6s:</span> <span id="p1-sixs" class="score-val">-</span>
+                            </div>
                         </div>
                         <div class="score-row">
-                            <div class="score-group"><span>Bonus:</span> <span id="p1-bonus" class="score-val">0</span></div>
+                            <div class="score-group"><span>Bonus:</span> <span id="p1-bonus" class="score-val">0</span>
+                            </div>
                         </div>
                     </div>
 
                     <div class="column">
                         <div class="score-row" onclick="writeSpecial('p1-3pasch', '3pasch')">
-                            <div class="score-group"><span>3 of a Kind:</span> <span id="p1-3pasch" class="score-val">-</span></div>
+                            <div class="score-group"><span>3 of a Kind:</span> <span id="p1-3pasch"
+                                    class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p1-4pasch', '4pasch')">
-                            <div class="score-group"><span>4 of a Kind:</span> <span id="p1-4pasch" class="score-val">-</span></div>
+                            <div class="score-group"><span>4 of a Kind:</span> <span id="p1-4pasch"
+                                    class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p1-fullhouse', 'fullhouse')">
-                            <div class="score-group"><span>Full House:</span> <span id="p1-fullhouse" class="score-val">-</span></div>
+                            <div class="score-group"><span>Full House:</span> <span id="p1-fullhouse"
+                                    class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p1-klstr', 'klstr')">
-                            <div class="score-group"><span>S. Straight:</span> <span id="p1-klstr" class="score-val">-</span></div>
+                            <div class="score-group"><span>S. Straight:</span> <span id="p1-klstr"
+                                    class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p1-grstr', 'grstr')">
-                            <div class="score-group"><span>L. Straight:</span> <span id="p1-grstr" class="score-val">-</span></div>
+                            <div class="score-group"><span>L. Straight:</span> <span id="p1-grstr"
+                                    class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p1-kniffel', 'kniffel')">
-                            <div class="score-group"><span>Yazy:</span> <span id="p1-kniffel" class="score-val">-</span></div>
+                            <div class="score-group"><span>Yazy:</span> <span id="p1-kniffel" class="score-val">-</span>
+                            </div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p1-chance', 'chance')">
-                            <div class="score-group"><span>Chance:</span> <span id="p1-chance" class="score-val">-</span></div>
+                            <div class="score-group"><span>Chance:</span> <span id="p1-chance"
+                                    class="score-val">-</span></div>
                         </div>
                     </div>
                 </div>
@@ -156,14 +173,14 @@
             <div class="dice-area">
                 <div id="dice-container">
                     <div class="dice-row">
-                    <div class="die" id="die-0">?</div>
-                    <div class="die" id="die-1">?</div>
-                </div>
-                <div class="dice-row">
-                    <div class="die" id="die-2">?</div>
-                    <div class="die" id="die-3">?</div>
-                    <div class="die" id="die-4">?</div>
-                </div>
+                        <div class="die" id="die-0">?</div>
+                        <div class="die" id="die-1">?</div>
+                    </div>
+                    <div class="dice-row">
+                        <div class="die" id="die-2">?</div>
+                        <div class="die" id="die-3">?</div>
+                        <div class="die" id="die-4">?</div>
+                    </div>
                 </div>
                 <button class="rollBtn" id="rollBtn" onclick="rollDice()">Roll</button>
                 <p class="rollCount"><span id="rollCount">0</span>/3</p>
@@ -174,49 +191,63 @@
                 <div class="table-columns">
                     <div class="column">
                         <div class="score-row" onclick="writeScore('p2-ones', 1)">
-                            <div class="score-group"><span>1s:</span> <span id="p2-ones" class="score-val">-</span></div>
+                            <div class="score-group"><span>1s:</span> <span id="p2-ones" class="score-val">-</span>
+                            </div>
                         </div>
                         <div class="score-row" onclick="writeScore('p2-twos', 2)">
-                            <div class="score-group"><span>2s:</span> <span id="p2-twos" class="score-val">-</span></div>
+                            <div class="score-group"><span>2s:</span> <span id="p2-twos" class="score-val">-</span>
+                            </div>
                         </div>
                         <div class="score-row" onclick="writeScore('p2-threes', 3)">
-                            <div class="score-group"><span>3s:</span> <span id="p2-threes" class="score-val">-</span></div>
+                            <div class="score-group"><span>3s:</span> <span id="p2-threes" class="score-val">-</span>
+                            </div>
                         </div>
                         <div class="score-row" onclick="writeScore('p2-fours', 4)">
-                            <div class="score-group"><span>4s:</span> <span id="p2-fours" class="score-val">-</span></div>
+                            <div class="score-group"><span>4s:</span> <span id="p2-fours" class="score-val">-</span>
+                            </div>
                         </div>
                         <div class="score-row" onclick="writeScore('p2-fives', 5)">
-                            <div class="score-group"><span>5s:</span> <span id="p2-fives" class="score-val">-</span></div>
+                            <div class="score-group"><span>5s:</span> <span id="p2-fives" class="score-val">-</span>
+                            </div>
                         </div>
                         <div class="score-row" onclick="writeScore('p2-sixs', 6)">
-                            <div class="score-group"><span>6s:</span> <span id="p2-sixs" class="score-val">-</span></div>
+                            <div class="score-group"><span>6s:</span> <span id="p2-sixs" class="score-val">-</span>
+                            </div>
                         </div>
                         <div class="score-row">
-                            <div class="score-group"><span>Bonus:</span> <span id="p2-bonus" class="score-val">0</span></div>
+                            <div class="score-group"><span>Bonus:</span> <span id="p2-bonus" class="score-val">0</span>
+                            </div>
                         </div>
                     </div>
 
                     <div class="column">
                         <div class="score-row" onclick="writeSpecial('p2-3pasch', '3pasch')">
-                            <div class="score-group"><span>3 of a Kind:</span> <span id="p2-3pasch" class="score-val">-</span></div>
+                            <div class="score-group"><span>3 of a Kind:</span> <span id="p2-3pasch"
+                                    class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p2-4pasch', '4pasch')">
-                            <div class="score-group"><span>4 of a Kind:</span> <span id="p2-4pasch" class="score-val">-</span></div>
+                            <div class="score-group"><span>4 of a Kind:</span> <span id="p2-4pasch"
+                                    class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p2-fullhouse', 'fullhouse')">
-                            <div class="score-group"><span>Full House:</span> <span id="p2-fullhouse" class="score-val">-</span></div>
+                            <div class="score-group"><span>Full House:</span> <span id="p2-fullhouse"
+                                    class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p2-klstr', 'klstr')">
-                            <div class="score-group"><span>S. Straight:</span> <span id="p2-klstr" class="score-val">-</span></div>
+                            <div class="score-group"><span>S. Straight:</span> <span id="p2-klstr"
+                                    class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p2-grstr', 'grstr')">
-                            <div class="score-group"><span>L. Straight:</span> <span id="p2-grstr" class="score-val">-</span></div>
+                            <div class="score-group"><span>L. Straight:</span> <span id="p2-grstr"
+                                    class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p2-kniffel', 'kniffel')">
-                            <div class="score-group"><span>Yazy:</span> <span id="p2-kniffel" class="score-val">-</span></div>
+                            <div class="score-group"><span>Yazy:</span> <span id="p2-kniffel" class="score-val">-</span>
+                            </div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p2-chance', 'chance')">
-                            <div class="score-group"><span>Chance:</span> <span id="p2-chance" class="score-val">-</span></div>
+                            <div class="score-group"><span>Chance:</span> <span id="p2-chance"
+                                    class="score-val">-</span></div>
                         </div>
                     </div>
                 </div>
@@ -232,7 +263,7 @@
         </div>
     </div>
 
-	<footer class="site-footer">
+    <footer class="site-footer">
         <div class="container">
             <div class="footer-social-icons">
                 <span class="icon">in</span>
@@ -241,14 +272,15 @@
             </div>
 
             <nav class="footer-nav">
-                <a href="../impressum.html">Impressum</a> | 
-                <a href="../datenschutz.html">Datenschutzerklärung</a> |  
+                <a href="../impressum.html">Impressum</a> |
+                <a href="../datenschutz.html">Datenschutzerklärung</a> |
                 <a href="../changelogs.html">Change Logs</a> |
-                <a href="../sitemap.html">Sitemap</a> 
+                <a href="../sitemap.html">Sitemap</a>
             </nav>
 
             <div class="license">© 2026 Henrik Bernhard Seebach. Alle Rechte vorbehalten.</div>
         </div>
     </footer>
 </body>
+
 </html>

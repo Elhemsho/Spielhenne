@@ -1,4 +1,4 @@
-body{
+body {
     min-width: 900px;
 }
 
@@ -9,15 +9,15 @@ body{
 
 /* --- Game Field Layout --- */
 .game-field {
-    display: grid !important; 
+    display: grid !important;
     /* 6 Spalten passend zu den 100px breiten Karten */
-    grid-template-columns: repeat(6, 100px); 
-    gap: 20px; 
+    grid-template-columns: repeat(6, 100px);
+    gap: 20px;
     justify-content: center;
     perspective: 1000px;
-    padding: 20px 20px; 
+    padding: 20px 20px;
     margin: 0 auto;
-    width: fit-content; 
+    width: fit-content;
 }
 
 /* --- Card Styles --- */
@@ -41,7 +41,8 @@ body{
     transform: rotateY(180deg);
 }
 
-.card-front, .card-back {
+.card-front,
+.card-back {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -50,12 +51,12 @@ body{
     align-items: center;
     justify-content: center;
     border-radius: 6px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* Vorderseite (verdeckt) */
 .card-front {
-    background-color: #e0f7fa; 
+    background-color: #e0f7fa;
     border: 2px solid #a0ecf6;
     overflow: hidden;
 }
@@ -78,9 +79,9 @@ body{
 /* Das Frucht-Bild */
 /* Hinweis: Im JS nutzen wir 'fruit-img', hier also angepasst */
 .fruit-img {
-    width: 80%;      
+    width: 80%;
     height: 80%;
-    object-fit: contain; 
+    object-fit: contain;
 }
 
 /* Effekt für gefundene Paare */
@@ -114,9 +115,10 @@ body{
 
 .player-score.active {
     background: #a0ecf6;
-    color: #007c91; /* Dunklerer Ton für bessere Lesbarkeit */
+    color: #007c91;
+    /* Dunklerer Ton für bessere Lesbarkeit */
     transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* --- Win Popup Overlay --- */
@@ -144,8 +146,15 @@ body{
 }
 
 @keyframes popIn {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .win-popup h2 {
@@ -168,4 +177,5 @@ body{
 .win-popup button:hover {
     background-color: #82dae6;
 }
+
 /* ------------------ Main-End ------------------ */

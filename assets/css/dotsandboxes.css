@@ -1,18 +1,20 @@
-body{
+body {
     min-width: 850px;
 }
 
 /* ------------------ Main ------------------ */
-.header{
+.header {
     margin-bottom: 20px;
 }
 
 /* ------------------------------------ Variablen & Board ------------------------------------ */
 :root {
     --bg-color: rgba(160, 236, 246, 0.4);
-    --p1-color: rgb(77, 124, 255);      /* Blau */
+    --p1-color: rgb(77, 124, 255);
+    /* Blau */
     --p1-light: rgba(77, 124, 255, 0.3);
-    --p2-color: rgb(255, 77, 77);       /* Rot */
+    --p2-color: rgb(255, 77, 77);
+    /* Rot */
     --p2-light: rgba(255, 77, 77, 0.3);
     --line-gray: #d2d2d2;
     --dot-color: #696969;
@@ -27,7 +29,7 @@ body{
     background-color: rgba(211, 250, 255, 0.5);
     border-radius: 12px;
     max-width: fit-content;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 /* Sicherstellen, dass die Grid-Zellen immer die gleiche Größe haben */
@@ -36,10 +38,10 @@ body{
 }
 
 /* ------------------------------------ Punkte & Linien ------------------------------------ */
-.dot { 
-    background-color: var(--dot-color); 
-    border-radius: 50%; 
-    width: 10px; 
+.dot {
+    background-color: var(--dot-color);
+    border-radius: 50%;
+    width: 10px;
     height: 10px;
     z-index: 2;
 }
@@ -62,40 +64,58 @@ body{
     border-radius: 5px;
 }
 
-.h-line:hover, .v-line:hover { 
-    background-color: #ccc; 
+.h-line:hover,
+.v-line:hover {
+    background-color: #ccc;
 }
 
 /* Belegte Linien */
-.h-line.taken.p1, .v-line.taken.p1 { background-color: var(--p1-color) !important; cursor: default; }
-.h-line.taken.p2, .v-line.taken.p2 { background-color: var(--p2-color) !important; cursor: default; }
+.h-line.taken.p1,
+.v-line.taken.p1 {
+    background-color: var(--p1-color) !important;
+    cursor: default;
+}
+
+.h-line.taken.p2,
+.v-line.taken.p2 {
+    background-color: var(--p2-color) !important;
+    cursor: default;
+}
 
 /* ------------------------------------ Kästchen & Löcher ------------------------------------ */
 .box {
     width: 60px;
     height: 60px;
-    background-color: rgba(0, 0, 0, 0.02); /* Ganz dezente Rasterhilfe */
+    background-color: rgba(0, 0, 0, 0.02);
+    /* Ganz dezente Rasterhilfe */
     transition: background-color 0.4s ease;
     border-radius: 4px;
 }
 
 /* Eroberte Kästchen */
-.box.taken.p1 { background-color: var(--p1-light); }
-.box.taken.p2 { background-color: var(--p2-light); }
+.box.taken.p1 {
+    background-color: var(--p1-light);
+}
+
+.box.taken.p2 {
+    background-color: var(--p2-light);
+}
 
 /* Löcher & Deaktivierte Elemente */
 /* ÄNDERUNG: Elemente behalten ihren Platz im Grid, werden aber unsichtbar */
 .box.is-hole,
 .is-disabled {
-    visibility: hidden !important; /* Behält den Platz bei */
-    pointer-events: none;          /* Macht es unklickbar */
+    visibility: hidden !important;
+    /* Behält den Platz bei */
+    pointer-events: none;
+    /* Macht es unklickbar */
 }
 
 /* ------------------------------------ Score & Status ------------------------------------ */
-.score-board { 
-    display: flex; 
-    gap: 30px; 
-    justify-content: center; 
+.score-board {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
     font-family: 'Comic Neue2', cursive;
     margin-bottom: 10px;
 }
@@ -104,7 +124,7 @@ body{
     padding: 10px 20px;
     border-radius: 8px;
     background: rgba(211, 250, 255, 0.5);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 #status {
@@ -116,12 +136,17 @@ body{
     font-weight: bold;
 }
 
-.p1 { color: var(--p1-color); }
-.p2 { color: var(--p2-color); }
+.p1 {
+    color: var(--p1-color);
+}
+
+.p2 {
+    color: var(--p2-color);
+}
 
 /* Der abgedunkelte Hintergrund */
 .modal {
-    display: none; 
+    display: none;
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -134,7 +159,8 @@ body{
 
 /* Die Schrift im Modal */
 #modal-text {
-    margin: 0 0 30px 0; /* 40px Abstand nach unten zum Button */
+    margin: 0 0 30px 0;
+    /* 40px Abstand nach unten zum Button */
     font-family: 'Comic Neue2', cursive;
     font-size: 24px;
     color: #333;
@@ -151,17 +177,30 @@ body{
     padding: 50px;
     border-radius: 20px;
     text-align: center;
-    transition: box-shadow 0.5s ease; /* Sanfter Übergang für den Schatten */
+    transition: box-shadow 0.5s ease;
+    /* Sanfter Übergang für den Schatten */
 }
 
 /* Die verschiedenen Schattenfarben */
-.winner-p1 { box-shadow: 0 10px 50px rgba(77, 124, 255, 0.5); } /* Blau */
-.winner-p2 { box-shadow: 0 10px 50px rgba(255, 77, 77, 0.5); }  /* Rot */
-.winner-draw { box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2); }    /* Neutral */
+.winner-p1 {
+    box-shadow: 0 10px 50px rgba(77, 124, 255, 0.5);
+}
+
+/* Blau */
+.winner-p2 {
+    box-shadow: 0 10px 50px rgba(255, 77, 77, 0.5);
+}
+
+/* Rot */
+.winner-draw {
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+}
+
+/* Neutral */
 
 /* Der optimierte Show-Me Button */
 #show-me-btn {
-    margin: 0; 
+    margin: 0;
     background-color: #ffffff;
     color: #444;
     border: 1.5px solid #e0e0e0;
@@ -172,9 +211,9 @@ body{
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    
+
     /* WICHTIG: Sanfte Animation */
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     outline: none;
 }
 
@@ -188,4 +227,5 @@ body{
 #show-me-btn:active {
     transform: translateY(0);
 }
+
 /* ------------------ Main-End ------------------ */
