@@ -18,3 +18,18 @@ body {
     padding-left: 50px;
     padding-bottom: 30px;
 }
+
+a, a:visited{
+    text-decoration: none;
+    color: #5de5f7;
+}
+
+a:hover{
+    text-decoration: none;
+    color: #3cb0bf;
+}
+
+.footer-nav a, .footer-nav a:visited{
+    text-decoration: none;
+    color: #fff;
+}
