@@ -44,7 +44,7 @@ h1, h2, h3, h4, h5, h6, .button, nav, a, .header, div, button{
     font-family: 'Comic Neue2', cursive !important;
 }
 
-a{
+a, a:visited{
 	text-decoration: none;
 }
 

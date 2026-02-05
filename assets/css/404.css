@@ -1,0 +1,38 @@
+ body {
+     font-family: 'Comic Neue', cursive;
+     background: #f0f8ff;
+     text-align: center;
+    min-width: 850px;
+ }
+
+.überschrift{
+    margin-top: 50px;
+}
+
+.p{
+    margin-bottom: 30px;
+}
+
+.huhnImg{
+    height: 300px;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+}
+
+a.link:visited{
+    color: black;
+}
+
+.btn{
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f0f8ff;
+    transition: all 0.2s;
+}
+
+.btn:hover{
+    cursor: pointer;
+    background-color: #e1f0fd;
+}

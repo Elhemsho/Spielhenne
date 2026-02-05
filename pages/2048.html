@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>2048</title>
     <meta charset="utf-8" />
@@ -16,20 +17,22 @@
     <meta property="og:url" content="https://elhemsho.github.io/Spielhenne/pages/2048/">
     <meta property="og:image" content="https://elhemsho.github.io/Spielhenne/assets/images/ogimage3.png">
 </head>
+
 <body>
     <header class="site-header">
         <div class="container">
             <div class="header-top">
                 <div class="header-logo">
                     <a href="../index.html">
-                        <img class="logo" src="../assets/images/logo_schrift.png"> 
-                        <img class="logo2" src="../assets/images/logo_huhn.png"> 
+                        <img class="logo" src="../assets/images/logo_schrift.png">
+                        <img class="logo2" src="../assets/images/logo_huhn.png">
                     </a>
                 </div>
-                
+
                 <nav class="header-meta-nav">
                     <div class="nav-item search-container">
-                        <input type="text" id="searchInput" placeholder="Search Game..." oninput="showLiveSearch()" onkeydown="handleSearchEnter(event)">
+                        <input type="text" id="searchInput" placeholder="Search Game..." oninput="showLiveSearch()"
+                            onkeydown="handleSearchEnter(event)">
                         <span>
                             <img onclick="toggleSearch()" class="nav-link lupe" src="../assets/images/lupe.png">
                         </span>
@@ -37,7 +40,7 @@
                     </div>
                     <span class="divider">|</span>
                     <a href="../index.html" class="alogin">
-                        <span class="nav-login">LogIn</span> 
+                        <span class="nav-login">LogIn</span>
                     </a>
                     <span class="divider">|</span>
                     <div class="nav-item settings-container">
@@ -62,7 +65,7 @@
                     </div>
                 </nav>
             </div>
-            
+
             <nav class="main-navigation">
                 <ul>
                     <li><a href="../index.html?filter=all">All Games</a></li>
@@ -73,7 +76,7 @@
             </nav>
         </div>
     </header>
-    
+
     <audio id="bgMusic" src="../assets/music/Spielmusik.mp3" loop autoplay></audio>
 
     <div class="main">
@@ -84,7 +87,7 @@
                 <img id="muteIcon" src="../assets/images/speaker.png" alt="Mute">
             </div>
         </div>
-        
+
         <div class="score-container">
             <div class="score-box">
                 <div class="score-label">SCORE</div>
@@ -113,7 +116,7 @@
         <div id="game-modal" class="modal">
             <div class="modal-content">
                 <h2 id="modal-text">Game Over!</h2>
-                <p id="modal-score-display">Your Score: 0</p> 
+                <p id="modal-score-display">Your Score: 0</p>
                 <button id="modal-button">Show me</button>
             </div>
         </div>
@@ -127,14 +130,15 @@
                 <span class="icon">fb</span>
             </div>
             <nav class="footer-nav">
-                <a href="../impressum.html">Impressum</a> | 
-                <a href="../datenschutz.html">Datenschutzerklärung</a> |  
+                <a href="../impressum.html">Impressum</a> |
+                <a href="../datenschutz.html">Datenschutzerklärung</a> |
                 <a href="../changelogs.html">Change Logs</a> |
-                <a href="../sitemap.html">Sitemap</a> 
+                <a href="../sitemap.html">Sitemap</a>
             </nav>
 
             <div class="license">© 2026 Henrik Bernhard Seebach. Alle Rechte vorbehalten.</div>
         </div>
     </footer>
 </body>
+
 </html>

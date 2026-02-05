@@ -3,53 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <title>Seite nicht gefunden | Spielhenne</title>
-    <link rel="stylesheet" href="../assets/css/global.css"> <!-- optional -->
-    <link rel="stylesheet" href="../assets/css/404.css">    <!-- optional für eigenes Styling -->
-    <style>
-        body {
-            font-family: 'Comic Neue', cursive;
-            background: #f0f8ff;
-            text-align: center;
-            padding: 50px;
-        }
-
-        h1 {
-            font-size: 6rem;
-            color: #ff6f61;
-            margin-bottom: 20px;
-        }
-
-        p {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-        }
-
-        a {
-            text-decoration: none;
-            color: #1e88e5;
-            font-weight: bold;
-            border: 2px solid #1e88e5;
-            padding: 10px 20px;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-        }
-
-        a:hover {
-            background-color: #1e88e5;
-            color: #fff;
-        }
-
-        img {
-            max-width: 300px;
-            margin-top: 30px;
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/404.css">
+    <script src="../assets/js/global.js" defer></script>
+    <script src="../assets/js/404.js" defer></script>
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    
 </head>
 <body>
-    <h1>404</h1>
-    <p>Oops! Diese Seite existiert leider nicht.</p>
-    <a href="../index.html">Zurück zur Startseite</a>
-    <br>
-    <img src="../assets/images/404-huhn.png" alt="Huhn 404">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-top">
+                <div class="header-logo">
+                    <a href="../index.html">
+                        <img class="logo" src="../assets/images/logo_schrift.png">
+                        <img class="logo2" src="../assets/images/logo_huhn.png">
+                    </a>
+                </div>
+
+                <nav class="header-meta-nav">
+                    <div class="nav-item search-container">
+                        <input type="text" id="searchInput" placeholder="Search Game..." oninput="showLiveSearch()"
+                            onkeydown="handleSearchEnter(event)">
+                        <span>
+                            <img onclick="toggleSearch()" class="nav-link lupe" src="../assets/images/lupe.png">
+                        </span>
+                        <div id="searchSuggestions" class="search-suggestions"></div>
+                    </div>
+                    <span class="divider">|</span>
+                    <a href="../index.html" class="alogin">
+                        <span class="nav-login">LogIn</span>
+                    </a>
+                    <span class="divider">|</span>
+                    <div class="nav-item settings-container">
+                        <span onclick="toggleSettings()" class="nav-settings">Settings</span>
+                        <div id="settingsDropdown" class="dropdown-content">
+                            <a href="../index.html">Profile</a>
+                            <div class="menu-item-flex">
+                                <span>Music</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="musicToggle">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <div class="menu-item-flex">
+                                <span>Dark Mode</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="darkToggle">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <nav class="main-navigation">
+                <ul>
+                    <li><a href="../index.html?filter=all">All Games</a></li>
+                    <li><a href="../index.html?filter=2">2 Player Games</a></li>
+                    <li><a href="../index.html?filter=1">Solo Games</a></li>
+                    <li><a href="../index.html?filter=multy">Online Games</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <h1 class="überschrift">Henne 404</h1>
+    <div class="p">Oops! Diese Seite existiert leider nicht.</div>
+    <img src="../assets/images/huhn_sad.png" class="huhnImg">
+    <a class="link" href="../index.html"><button class="btn">Zurück zur Startseite</button></a>
+   
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-social-icons">
+                <span class="icon">in</span>
+                <span class="icon">ig</span>
+                <span class="icon">fb</span>
+            </div>
+            <nav class="footer-nav">
+                <a href="../impressum.html">Impressum</a> |
+                <a href="../datenschutz.html">Datenschutzerklärung</a> |
+                <a href="../changelogs.html">Change Logs</a> |
+                <a href="../sitemap.html">Sitemap</a>
+            </nav>
+
+            <div class="license">© 2026 Henrik Bernhard Seebach. Alle Rechte vorbehalten.</div>
+        </div>
+    </footer>
 </body>
 </html>
