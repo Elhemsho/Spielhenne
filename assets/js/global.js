@@ -1,3 +1,41 @@
+async function setupLayout() {
+    console.log("Versuche data.json zu laden...");
+    try {
+        const response = await fetch('data.json');
+        if (!response.ok) throw new Error("Datei nicht gefunden");
+        
+        const data = await response.json();
+        console.log("Daten erfolgreich geladen:", data);
+
+        // 1. Hauptnavigation (Nutzt jetzt data.header.main_nav)
+        const mainNavList = document.getElementById('main-nav-list');
+        if (mainNavList && data.header && data.header.main_nav) {
+            mainNavList.innerHTML = data.header.main_nav.map(item => 
+                `<li onclick="filterGames('${item.filter}')"><a>${item.name}</a></li>`
+            ).join('');
+        }
+
+        // 2. Footer-Links (Nutzt jetzt data.footer.nav_links)
+        const footerNav = document.querySelector('.footer-nav');
+        if (footerNav && data.footer && data.footer.nav_links) {
+            footerNav.innerHTML = data.footer.nav_links.map(link => 
+                `<a href="${link.url}">${link.name}</a>`
+            ).join(' | ');
+        }
+
+        // 3. Lizenztext (Nutzt jetzt data.footer.license_text)
+        const licenseDiv = document.getElementById('footer-license');
+        if (licenseDiv && data.footer) {
+            licenseDiv.innerText = data.footer.license_text;
+        }
+
+    } catch (error) {
+        console.error("Layout-Fehler:", error);
+    }
+}
+
+setupLayout();
+
 /* ------------------ Navbar - Suchfunktion erscheint durch Klick auf Lupe ------------------ */
 function toggleSearch() {
     const input = document.getElementById("searchInput");
