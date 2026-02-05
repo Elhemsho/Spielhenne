@@ -1,0 +1,11 @@
+{
+  "webseiten_info": {
+    "titel": "Mein GitHub Projekt",
+    "beschreibung": "Lerne gerade, wie JSON funktioniert",
+    "letztes_update": "2024-05-22"
+  },
+  "meine_links": [
+    { "name": "GitHub", "url": "https://github.com/deinname" },
+    { "name": "Portfolio", "url": "#" }
+  ]
+}
