@@ -86,11 +86,8 @@ function handleClick(field) {
 		gameActive = false;
 		gameOver = true;
 
-		winnerText.textContent = "Draw!";
-		overlay.classList.remove("hidden");
-
 		startingPlayer = startingPlayer === "X" ? "O" : "X";
-
+		handleWin(winData)
 		return;
 	}
 
@@ -143,9 +140,7 @@ function handleWin(winFields) {
 			// Wenn jemand 3 Punkte hat, zeige SOFORT den Champion
 			showChampion();
 		} else {
-			// Sonst zeige das normale Runden-Overlay
-			winnerText.textContent = currentPlayer === "X" ? "Player 1 wins!" : "Player 2 wins!";
-			overlay.classList.remove("hidden");
+			return;
 		}
 	}, 800);
 
@@ -190,8 +185,8 @@ function showChampion() {
 
 	championText.textContent =
 		scoreP1.textContent === "3"
-			? "☆ Player 1 is the Champion!"
-			: "☆ Player 2 is the Champion!";
+			? "☆ Player 1 wins! ☆"
+			: "☆ Player 2 wins! ☆";
 
 	championOverlay.classList.remove("hidden");
 	startConfetti();

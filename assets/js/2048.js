@@ -35,6 +35,11 @@ function setGame() {
     document.getElementById("game-modal").style.display = "none";
 }
 
+function isTypingInInput() {
+    const el = document.activeElement;
+    return el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA");
+}
+
 function changeSize(delta) {
     if ((rows + delta) < 3 || (rows + delta) > 5) return;
     const container = document.getElementById("grid-container");
@@ -108,6 +113,7 @@ function updateScore(p) {
 
 /* --- Verhindert das Scrollen während des Spiels --- */
 document.addEventListener('keydown', (e) => {
+    if (isTypingInInput()) return;
     // Liste der Tasten, die das Scrollen verhindern sollen
     const keysToBlock = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "KeyW", "KeyS", "KeyA", "KeyD"];
 
@@ -118,6 +124,7 @@ document.addEventListener('keydown', (e) => {
 
 /* --- Deine bestehende Logik (angepasst) --- */
 document.addEventListener('keyup', (e) => {
+    if (isTypingInInput()) return;
     if (isGameOverState) return;
 
     // Wir fügen hier e.preventDefault() zur Sicherheit auch hinzu, 

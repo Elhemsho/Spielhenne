@@ -5,8 +5,8 @@ const board = document.getElementById('board');
 const resetBtn = document.getElementById('playAgainBtn');
 const redIndicator = document.getElementById("redIndicator");
 const blueIndicator = document.getElementById("blueIndicator");
-const winPopup = document.getElementById("winPopup");
-const winText = document.getElementById("winText");
+const winPopup = document.getElementById("championOverlay");
+const winText = document.getElementById("championText");
 const winCoin = document.getElementById("winCoin");
 const closePopup = document.getElementById("closePopup");
 
@@ -103,7 +103,7 @@ function updateTurnIndicator() {
 }
 
 function showWinPopup(player) {
-    const content = winPopup.querySelector(".popup-content");
+    const content = winPopup.querySelector(".winnerBox");
     content.classList.replace("draw", "win");
     winText.textContent = player === "red" ? "Red wins!" : "Blue wins!";
     winCoin.style.backgroundImage = player === "red"
@@ -117,7 +117,7 @@ if (closePopup) {
 }
 
 function showDrawPopup() {
-    const content = winPopup.querySelector(".popup-content");
+    const content = winPopup.querySelector(".winnerBox");
     content.classList.replace("win", "draw");
 
     // Text setzen
