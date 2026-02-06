@@ -58,14 +58,14 @@ body {
 	font-size: 30px;
 	text-align: center;
 	font-family: 'Comic Neue2', cursive;
-	color: rgb(255, 77, 77);
+	color: var(--player1-color);
 }
 
 .p2 {
 	font-size: 30px;
 	text-align: center;
 	font-family: 'Comic Neue2', cursive;
-	color: rgb(77, 124, 255);
+	color: var(--player2-color);
 }
 
 .x {
@@ -203,14 +203,14 @@ body {
 
 
 .feld.x {
-	color: rgb(255, 77, 77);
+	color: var(--player1-color);
 	font-size: 32px;
 	text-decoration: none;
 	padding-top: 1px;
 }
 
 .feld.o {
-	color: rgb(77, 124, 255);
+	color: var(--player2-color);
 	font-size: 34px;
 	text-decoration: none;
 	padding-bottom: 4px;

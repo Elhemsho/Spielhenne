@@ -3,6 +3,7 @@ async function setupLayout() {
     const pathPrefix = isSubpage ? '../' : '';
 
     try {
+        // JSON laden
         const response = await fetch(pathPrefix + 'data.json');
         if (!response.ok) throw new Error("data.json nicht gefunden");
         const data = await response.json();
@@ -14,7 +15,18 @@ async function setupLayout() {
             return pathPrefix + cleanUrl;
         };
 
+        // ----------------------------
+        // 0. Spielerfarben setzen
+        // ----------------------------
+        if (data.playerColors) {
+            const colors = data.playerColors;
+            document.documentElement.style.setProperty('--player1-color', colors.player1);
+            document.documentElement.style.setProperty('--player2-color', colors.player2);
+        }
+
+        // ----------------------------
         // 1. Logos & Home-Link
+        // ----------------------------
         const logoSchrift = document.querySelector('.logo');
         const logoHuhn = document.querySelector('.logo2');
         if (logoSchrift) {
@@ -26,7 +38,9 @@ async function setupLayout() {
             if (logoHuhn.parentElement.tagName === 'A') logoHuhn.parentElement.href = fixPath("index.html");
         }
 
+        // ----------------------------
         // 2. Suche
+        // ----------------------------
         const lupeIcon = document.querySelector('.lupe');
         if (lupeIcon) lupeIcon.src = fixPath(data.header.search.icon_url);
 
@@ -37,7 +51,9 @@ async function setupLayout() {
             searchInput.addEventListener('keypress', handleSearchEnter);
         }
 
+        // ----------------------------
         // 3. Login & Settings
+        // ----------------------------
         const loginSpan = document.querySelector('.nav-login');
         if (loginSpan) {
             loginSpan.innerText = data.header.login.text;
@@ -59,7 +75,9 @@ async function setupLayout() {
             settingsLabels[1].innerText = data.header.settings.dark_mode_text;
         }
 
+        // ----------------------------
         // 4. Haupt-Navigation
+        // ----------------------------
         const mainNavList = document.getElementById('main-nav-list');
         if (mainNavList && data.header.main_nav) {
             mainNavList.innerHTML = data.header.main_nav.map(item => {
@@ -70,11 +88,12 @@ async function setupLayout() {
             }).join('');
         }
 
-        // 5. FOOTER SOCIAL ICONS (Angepasst an dein CSS)
+        // ----------------------------
+        // 5. Footer Social Icons
+        // ----------------------------
         const socialContainer = document.querySelector('.footer-social-icons');
         if (socialContainer && data.footer.social_icons) {
             socialContainer.innerHTML = data.footer.social_icons.map(icon => {
-                // Erzeugt runden Kreis mit Kürzel (z.B. "ig")
                 return `
                     <a href="${icon.url || '#'}" target="_blank" style="text-decoration: none;">
                         <span class="icon" title="${icon.label}">${icon.platform}</span>
@@ -83,7 +102,9 @@ async function setupLayout() {
             }).join('');
         }
 
+        // ----------------------------
         // 6. Footer Links & Lizenz
+        // ----------------------------
         const footerNav = document.querySelector('.footer-nav');
         if (footerNav) {
             footerNav.innerHTML = data.footer.nav_links.map(link => 
@@ -100,6 +121,7 @@ async function setupLayout() {
 }
 
 setupLayout();
+
 
 /* ------------------ Navbar - Suchfunktion erscheint durch Klick auf Lupe ------------------ */
 function toggleSearch() {

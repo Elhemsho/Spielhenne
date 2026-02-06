@@ -1,4 +1,8 @@
 {
+    "playerColors": {
+        "player1": "#fface3",
+        "player2": "#9ec48d"
+    },
     "meta": {
         "site_name": "Spielhenne",
         "description": "Spielhenne – Spiele alleine oder mit Freunden und hab Spaß!"

@@ -1,8 +1,8 @@
 /* --- 1. VARIABLEN & GRUNDSTELLUNGEN --- */
 :root {
-    --p1-color: rgb(255, 77, 77);
+    --p1-color: var(--player1-color);
     /* Spieler 1: Rot */
-    --p2-color: rgb(77, 124, 255);
+    --p2-color: var(--player2-color);
     /* Spieler 2: Blau */
     --main-blue: #a0ecf6;
     /* Hintergrundfarbe Gitter */
@@ -50,11 +50,11 @@
 }
 
 .p1-style h4 {
-    color: var(--p1-color);
+    color: var(--player1-color);
 }
 
 .p2-style h4 {
-    color: var(--p2-color);
+    color: var(--player2-color);
 }
 
 /* Ausgrauen, wenn der Spieler nicht am Zug ist (Setup-Phase) */
@@ -205,7 +205,7 @@
     }
 
     50% {
-        box-shadow: 0 0 20px #ff0000;
+        box-shadow: 0 0 20px var(--p1-color);
         filter: brightness(1.5);
     }
 
@@ -250,7 +250,7 @@
     /* Geht 20% über das Schiff rechts hinaus (insgesamt 140%) */
     height: 5px;
     /* Schön dick und deutlich */
-    background-color: #ff0000;
+    background-color: var(--player1-color);
     /* Knalliges Rot */
     transform: rotate(-15deg);
     /* Leichte Schräglage für den "X-Effekt" */
