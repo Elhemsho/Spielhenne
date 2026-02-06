@@ -4,10 +4,24 @@
     "description": "Spielhenne – Spiele alleine oder mit Freunden und hab Spaß!"
   },
   "header": {
-    "logo_text_url": "assets/images/logo_schrift.png",
-    "logo_huhn_url": "assets/images/logo_huhn.png",
-    "search_placeholder": "Search Game...",
-    "login_text": "LogIn",
+    "logos": {
+      "schrift": "assets/images/logo_schrift.png",
+      "huhn": "assets/images/logo_huhn.png"
+    },
+    "search": {
+      "placeholder": "Search Game...",
+      "icon_url": "assets/images/lupe.png"
+    },
+    "login": {
+      "text": "LogIn",
+      "url": "index.html"
+    },
+    "settings": {
+      "title": "Settings",
+      "profile_text": "Profile",
+      "music_text": "Music",
+      "dark_mode_text": "Dark Mode"
+    },
     "main_nav": [
       { "name": "All Games", "filter": "all" },
       { "name": "2 Player Games", "filter": "2" },
@@ -16,6 +30,11 @@
     ]
   },
   "footer": {
+    "social_icons": [
+      { "platform": "in", "label": "LinkedIn" },
+      { "platform": "ig", "label": "Instagram" },
+      { "platform": "fb", "label": "Facebook" }
+    ],
     "nav_links": [
       { "name": "Impressum", "url": "impressum.html" },
       { "name": "Datenschutzerklärung", "url": "datenschutz.html" },

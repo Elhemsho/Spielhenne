@@ -1,39 +1,115 @@
 async function setupLayout() {
-    console.log("Versuche data.json zu laden...");
-    try {
-        const response = await fetch('data.json');
-        if (!response.ok) throw new Error("Datei nicht gefunden");
-        
-        const data = await response.json();
-        console.log("Daten erfolgreich geladen:", data);
+    // 1. Pfad-Logik: Sind wir im Ordner /pages/?
+    const isSubpage = window.location.pathname.includes('/pages/');
+    const pathPrefix = isSubpage ? '../' : '';
 
-        // 1. Hauptnavigation (Nutzt jetzt data.header.main_nav)
-        const mainNavList = document.getElementById('main-nav-list');
-        if (mainNavList && data.header && data.header.main_nav) {
-            mainNavList.innerHTML = data.header.main_nav.map(item => 
-                `<li onclick="filterGames('${item.filter}')"><a>${item.name}</a></li>`
-            ).join('');
+    try {
+        const response = await fetch(pathPrefix + 'data.json');
+        if (!response.ok) throw new Error("data.json nicht gefunden");
+        const data = await response.json();
+
+        // --- HELPER FUNKTION ---
+        const fixPath = (url) => {
+            if (!url) return "";
+            if (url.startsWith('http') || url.startsWith('data:')) return url;
+            const cleanUrl = url.startsWith('/') ? url.substring(1) : url;
+            return pathPrefix + cleanUrl;
+        };
+
+        // 1. Logos & Home-Link (Korrektur für Klick auf Huhn/Schrift)
+        const logoSchrift = document.querySelector('.logo');
+        const logoHuhn = document.querySelector('.logo2');
+        
+        if (logoSchrift) {
+            logoSchrift.src = fixPath(data.header.logos.schrift);
+            if (logoSchrift.parentElement.tagName === 'A') {
+                logoSchrift.parentElement.href = fixPath("index.html");
+            }
+        }
+        if (logoHuhn) {
+            logoHuhn.src = fixPath(data.header.logos.huhn);
+            if (logoHuhn.parentElement.tagName === 'A') {
+                logoHuhn.parentElement.href = fixPath("index.html");
+            }
         }
 
-        // 2. Footer-Links (Nutzt jetzt data.footer.nav_links)
+        // 2. Suche & Lupe
+        const lupeIcon = document.querySelector('.lupe');
+        if (lupeIcon) {
+            lupeIcon.src = fixPath(data.header.search.icon_url);
+        }
+
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.placeholder = data.header.search.placeholder;
+            
+            // EVENT LISTENER FÜR DIE SUCHE AKTIVIEREN
+            // Live-Suche (Vorschläge)
+            searchInput.addEventListener('input', showLiveSearch);
+            // Enter-Taste (Weiterleitung)
+            searchInput.addEventListener('keypress', handleSearchEnter);
+        }
+
+        // 3. Login
+        const loginSpan = document.querySelector('.nav-login');
+        if (loginSpan) {
+            loginSpan.innerText = data.header.login.text;
+            if (loginSpan.parentElement.tagName === 'A') {
+                loginSpan.parentElement.href = fixPath(data.header.login.url);
+            }
+        }
+
+        // 4. Settings Texte
+        const settingsBtn = document.querySelector('.nav-settings');
+        if (settingsBtn) {
+            settingsBtn.innerText = data.header.settings.title;
+        }
+
+        const profileLink = document.querySelector('#settingsDropdown a');
+        if (profileLink) {
+            profileLink.innerText = data.header.settings.profile_text;
+            profileLink.href = fixPath("index.html"); 
+        }
+
+        const settingsLabels = document.querySelectorAll('.menu-item-flex > span');
+        if (settingsLabels.length >= 2) {
+            settingsLabels[0].innerText = data.header.settings.music_text;
+            settingsLabels[1].innerText = data.header.settings.dark_mode_text;
+        }
+
+        // 5. Haupt-Navigation (Nav Bar)
+        const mainNavList = document.getElementById('main-nav-list');
+        if (mainNavList && data.header.main_nav) {
+            mainNavList.innerHTML = data.header.main_nav.map(item => {
+                const clickAction = isSubpage 
+                    ? `window.location.href='${pathPrefix}index.html?filter=${item.filter}'`
+                    : `filterGames('${item.filter}')`;
+                
+                return `<li onclick="${clickAction}"><a>${item.name}</a></li>`;
+            }).join('');
+        }
+
+        // 6. Footer
         const footerNav = document.querySelector('.footer-nav');
-        if (footerNav && data.footer && data.footer.nav_links) {
+        if (footerNav) {
             footerNav.innerHTML = data.footer.nav_links.map(link => 
-                `<a href="${link.url}">${link.name}</a>`
+                `<a href="${fixPath(link.url)}">${link.name}</a>`
             ).join(' | ');
         }
 
-        // 3. Lizenztext (Nutzt jetzt data.footer.license_text)
         const licenseDiv = document.getElementById('footer-license');
-        if (licenseDiv && data.footer) {
+        if (licenseDiv) {
             licenseDiv.innerText = data.footer.license_text;
         }
+
+        console.log("Layout vollständig geladen. Prefix:", pathPrefix || "Root");
 
     } catch (error) {
         console.error("Layout-Fehler:", error);
     }
 }
 
+// Skript starten
 setupLayout();
 
 /* ------------------ Navbar - Suchfunktion erscheint durch Klick auf Lupe ------------------ */
@@ -129,36 +205,57 @@ function showLiveSearch() {
     const input = document.getElementById("searchInput");
     const suggestionsBox = document.getElementById("searchSuggestions");
 
-    if (!suggestionsBox) return;
+    // 1. Abbruch, falls die Elemente im HTML nicht existieren
+    if (!input || !suggestionsBox) return;
 
     const query = input.value.toLowerCase().trim();
-    suggestionsBox.innerHTML = "";
-
+    
+    // 2. Box leeren und verstecken, wenn das Suchfeld leer ist
     if (query === "") {
+        suggestionsBox.innerHTML = "";
         suggestionsBox.style.display = "none";
         return;
     }
 
+    // 3. SICHERHEIT: Prüfen, ob die Spiele-Daten (allGames) überhaupt da sind
+    // Auf Unterseiten ist allGames oft 'undefined', hier fangen wir das ab.
+    if (typeof allGames === 'undefined') {
+        console.warn("Suche: 'allGames' ist auf dieser Seite nicht definiert.");
+        return;
+    }
+
+    // 4. Filtern der Spiele basierend auf dem Namen
     const filtered = allGames.filter(game =>
         game.name.toLowerCase().includes(query)
     );
 
+    // 5. Ergebnisse anzeigen
     if (filtered.length > 0) {
+        suggestionsBox.innerHTML = ""; // Box säubern
+        
         filtered.forEach(game => {
             const div = document.createElement("div");
             div.className = "suggestion-item";
+            
+            // Aufbau der Vorschlags-Zeile (Bild + Name)
             div.innerHTML = `
-                <img src="${game.img}" style="width:30px; height:30px; margin-right:10px; border-radius:4px;">
+                <img src="${game.img}" alt="${game.name}" style="width:30px; height:30px; margin-right:10px; border-radius:4px; object-fit:cover;">
                 <span>${game.name}</span>
             `;
+            
+            // Klick auf einen Vorschlag leitet zum Spiel weiter
             div.onclick = () => {
                 window.location.href = game.url;
             };
+            
             suggestionsBox.appendChild(div);
         });
+        
         suggestionsBox.style.display = "block";
     } else {
-        suggestionsBox.style.display = "none";
+        // Wenn nichts gefunden wurde
+        suggestionsBox.innerHTML = '<div class="suggestion-item">Kein Spiel gefunden...</div>';
+        suggestionsBox.style.display = "block";
     }
 }
 

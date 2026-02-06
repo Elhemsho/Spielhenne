@@ -129,10 +129,27 @@ a:visited {
     cursor: pointer;
 }
 
+/* Der Container muss die Basis für die Positionierung sein */
 .search-container {
-    display: flex;
+    position: relative; 
+    display: flex;       /* Hält Input und Lupe in einer Reihe */
     align-items: center;
-    position: relative;
+}
+
+/* Die Vorschlags-Box muss absolut darunter positioniert werden */
+#searchSuggestions {
+    position: absolute;
+    top: 100%;          /* Startet exakt unter dem Container */
+    left: 0;
+    width: 100%;        /* Genauso breit wie das Suchfeld */
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 9999;      /* Ganz nach vorne schieben */
+    display: none;      /* Wird per JS auf 'block' gesetzt */
+    max-height: 250px;
+    overflow-y: auto;   /* Scrollen, falls zu viele Ergebnisse */
 }
 
 #searchInput {
@@ -296,6 +313,8 @@ a:visited {
     align-items: center;
     color: #444;
     font-size: 14px;
+    text-align: left; 
+    white-space: nowrap;
 }
 
 .switch {
