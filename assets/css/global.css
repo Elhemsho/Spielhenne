@@ -445,6 +445,7 @@ input:checked+.slider:before {
 	justify-content: center;
 	align-items: center;
 	z-index: 1000;
+    
 }
 
 #winnerText {
@@ -452,13 +453,14 @@ input:checked+.slider:before {
 }
 
 .winnerBox {
-	background: #F2F2F2;
-	padding: 40px 60px;
-	border-radius: 10px;
-	text-align: center;
-	position: relative;
-	font-family: 'Comic Neue2', cursive;
-	box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+    background: #F2F2F2;
+    padding: 40px 60px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    min-width: 200px;
+    font-family: 'Comic Neue2', cursive;
+    transition: box-shadow 0.3s ease;
 }
 
 @keyframes winFlash {
@@ -498,6 +500,26 @@ input:checked+.slider:before {
 	background-color: #e1e1e1;
 }
 
+.hidden {
+	display: none;
+}
+
+/* Die Bilder selbst stylen */
+.draw-container {
+    display: flex;
+    align-items: center; /* Hält die Grundlinie zentriert */
+    justify-content: center;
+    gap: 15px;
+}
+
+.draw-icon {
+    width: 50px;
+    height: 50px;
+    /* Verschiebt NUR das Bild nach unten. 
+       Ein positiver Wert (z.B. 8px) drückt es tiefer. */
+    
+    object-fit: contain;
+}
 /* ------------------ Head-Bar-End ------------------ */
 
 /* ------------------ Footer ------------------ */

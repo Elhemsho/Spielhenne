@@ -328,54 +328,6 @@
     opacity: 0.8;
 }
 
-
-/* --- Gewinner Popup (Modal) --- */
-#winner-popup {
-    display: none;
-    /* Standardmäßig unsichtbar */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(234, 234, 234, 0.7);
-    /* Dunkler Hintergrund */
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-}
-
-.popup-content {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 0 30px rgba(228, 105, 105, 0.5);
-    max-width: 400px;
-    border: 0px solid;
-    /* Farbe wird per JS gesetzt */
-}
-
-.popup-content h2 {
-    font-size: 2.1em;
-    margin-bottom: 20px;
-}
-
-/* Der "Show Me" Button im bekannten Blau-Stil */
-#show-me-btn {
-    background-color: var(--main-blue);
-    color: #333;
-    border: 2px solid #8ddbe6;
-    border-radius: 4px;
-    padding: 10px 25px;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 1.1em;
-    transition: all 0.2s;
-    margin-top: 15px;
-    margin-bottom: 10px;
-}
-
 #show-me-btn:hover {
     background-color: #8ddbe6;
 }

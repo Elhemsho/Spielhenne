@@ -239,24 +239,6 @@ body {
 	background: #212121;
 }
 
-.overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(119, 119, 119, 0.8);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	z-index: 1000;
-}
-
-.hidden {
-	display: none;
-}
-
-
 .closeBtn {
 	position: absolute;
 	right: 15px;
@@ -269,55 +251,4 @@ body {
 	padding: 10px 25px;
 	font-size: 18px;
 	cursor: pointer;
-}
-
-#winnerText {
-	margin-bottom: 10px;
-}
-
-.winnerBox {
-	background: #F2F2F2;
-	padding: 40px 60px;
-	border-radius: 10px;
-	text-align: center;
-	position: relative;
-	font-family: 'Comic Neue2', cursive;
-	box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
-}
-
-@keyframes winFlash {
-	from {
-		background-color: #F2F2F2;
-	}
-
-	to {
-		background-color: #A5D6A7;
-	}
-}
-
-.win {
-	animation: winFlash 0.6s alternate 6;
-}
-
-#confettiCanvas {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	pointer-events: none;
-}
-
-.playAgainBtn {
-	margin-top: 15px;
-	padding: 12px 30px;
-	font-size: 20px;
-	cursor: pointer;
-	margin-bottom: 10px;
-	border-radius: 10px;
-	transition: all 0.1s;
-}
-
-.playAgainBtn:hover{
-	background-color: #e1e1e1;
 }

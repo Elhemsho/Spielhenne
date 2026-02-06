@@ -13,9 +13,10 @@ const resetOverlay = document.getElementById("resetOverlay");
 
 const championOverlay = document.getElementById("championOverlay");
 const championText = document.getElementById("championText");
-const playAgainBtn = document.getElementById("playAgainBtn");
-const playAgainBtnChampion = document.getElementById("playAgainBtnChampion");
-const playAgainSymbol = document.getElementById("playAgainSymbol")
+
+// Die IDs für die Reset-Buttons
+const manualResetIcon = document.getElementById("playAgainBtn"); // Das Icon oben rechts
+const playAgainBtnChampion = document.getElementById("playAgainBtnChampion"); // Der Button im Overlay
 const confettiCanvas = document.getElementById("confettiCanvas");
 
 let board = ["", "", "", "", "", "", "", "", ""];
@@ -26,233 +27,177 @@ let championPending = false;
 let gameOver = false;
 
 const winConditions = [
-	[0, 1, 2],
-	[3, 4, 5],
-	[6, 7, 8],
-	[0, 3, 6],
-	[1, 4, 7],
-	[2, 5, 8],
-	[0, 4, 8],
-	[2, 4, 6]
+    [0, 1, 2], [3, 4, 5], [6, 7, 8], // Horizontal
+    [0, 3, 6], [1, 4, 7], [2, 5, 8], // Vertikal
+    [0, 4, 8], [2, 4, 6]             // Diagonal
 ];
-
-resetOverlay.classList.remove("active");
 
 // Spielfeld Klicks
 fields.forEach(field => {
-	field.addEventListener("click", () => handleClick(field));
+    field.addEventListener("click", () => handleClick(field));
 });
 
-// Overlay Buttons
-closeOverlay.addEventListener("click", () => {
-	overlay.classList.add("hidden");
-
-	if (championPending) {
-		showChampion();
-		championPending = false;
-		return;
-	}
-
-	if (gameOver) {
-		resetOverlay.classList.add("armed");
-	}
-});
-
-resetBtn.addEventListener("click", resetGame);
-playAgainBtn.addEventListener("click", resetGame);
+// Event Listener für Manuellen Reset (Oben Rechts)
+manualResetIcon.addEventListener("click", resetEverything);
 resetOverlay.addEventListener("click", resetGame);
-playAgainBtnChampion.addEventListener("click", resetEverything);
-playAgainSymbol.addEventListener("click", resetEverything);
+
+// Event Listener für Champion-Overlay Button (NUR SCHLIESSEN)
+playAgainBtnChampion.addEventListener("click", () => {
+    championOverlay.classList.add("hidden");
+    // Hier passiert kein Reset, damit man das Spielfeld sieht!
+});
 
 function handleClick(field) {
-	const index = field.dataset.index;
+    const index = field.dataset.index;
+    if (board[index] !== "" || !gameActive) return;
 
-	if (board[index] !== "" || !gameActive) return;
+    board[index] = currentPlayer;
+    field.textContent = currentPlayer === "X" ? "X" : "⭘";
+    field.classList.add(currentPlayer === "X" ? "x" : "o");
 
-	// Symbol setzen
-	board[index] = currentPlayer;
-	field.textContent = currentPlayer === "X" ? "X" : "⭘";
-	field.classList.add(currentPlayer === "X" ? "x" : "o");
+    const winData = checkWin();
+    if (winData) {
+        gameActive = false;
+        handleWin(winData);
+        return;
+    }
 
-	// WICHTIG: erst setzen, dann prüfen
-	const winData = checkWin();
-	if (winData) {
-		gameActive = false;
-		handleWin(winData);
-		return;
-	}
+    if (board.every(cell => cell !== "")) {
+        gameActive = false;
+        gameOver = true;
+        handleWin(null); // Unentschieden
+        return;
+    }
 
-	if (board.every(cell => cell !== "")) {
-		gameActive = false;
-		gameOver = true;
-
-		startingPlayer = startingPlayer === "X" ? "O" : "X";
-		handleWin(winData)
-		return;
-	}
-
-	switchPlayer();
+    switchPlayer();
 }
 
 function switchPlayer() {
-	currentPlayer = currentPlayer === "X" ? "O" : "X";
-
-	if (currentPlayer === "X") {
-		turnP1.style.opacity = "1";
-		turnP2.style.opacity = "0.12";
-	} else {
-		turnP1.style.opacity = "0.12";
-		turnP2.style.opacity = "1";
-	}
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
+    turnP1.style.opacity = currentPlayer === "X" ? "1" : "0.12";
+    turnP2.style.opacity = currentPlayer === "O" ? "1" : "0.12";
 }
 
 function checkWin() {
-	for (let condition of winConditions) {
-		if (condition.every(i => board[i] === currentPlayer)) {
-			return condition;
-		}
-	}
-	return null;
+    for (let condition of winConditions) {
+        if (condition.every(i => board[i] === currentPlayer)) {
+            return condition;
+        }
+    }
+    return null;
 }
 
 function handleWin(winFields) {
-	gameOver = true;
-	resetOverlay.classList.add("armed");
+    gameOver = true;
 
-	// Gewinnerfelder markieren
-	winFields.forEach(i => {
-		fields[i].classList.add("win");
-	});
+    // Gewinnerfelder markieren (Blinken)
+    if (winFields) {
+        winFields.forEach(i => {
+            fields[i].classList.add("win");
+        });
 
-	// Score sofort erhöhen (nicht im Timeout!)
-	if (currentPlayer === "X") {
-		scoreP1.textContent = Number(scoreP1.textContent) + 1;
-	} else {
-		scoreP2.textContent = Number(scoreP2.textContent) + 1;
-	}
+        // Score erhöhen
+        if (currentPlayer === "X") {
+            scoreP1.textContent = Number(scoreP1.textContent) + 1;
+        } else {
+            scoreP2.textContent = Number(scoreP2.textContent) + 1;
+        }
+    }
 
-	const p1Score = Number(scoreP1.textContent);
-	const p2Score = Number(scoreP2.textContent);
+    const p1Score = Number(scoreP1.textContent);
+    const p2Score = Number(scoreP2.textContent);
 
-	// Entscheidung: Champion oder normaler Rundensieg?
-	setTimeout(() => {
-		if (p1Score === 3 || p2Score === 3) {
-			// Wenn jemand 3 Punkte hat, zeige SOFORT den Champion
-			showChampion();
-		} else {
-			return;
-		}
-	}, 800);
+    // Entscheidung: Champion oder normale Runde?
+    setTimeout(() => {
+        if (p1Score === 3 || p2Score === 3) {
+            showChampion();
+        } else {
+            // WICHTIG: Kein automatisches resetGame() mehr!
+            // Stattdessen aktivieren wir nur das Overlay über dem Spielfeld
+            resetOverlay.classList.add("armed");
+        }
+    }, 800);
 
-	startingPlayer = currentPlayer === "X" ? "O" : "X";
+    startingPlayer = startingPlayer === "X" ? "O" : "X";
 }
 
 function resetGame() {
-	gameOver = false;
-	resetOverlay.classList.remove("armed");
+    // Falls das Champion-Overlay offen ist, verhindern wir den Runden-Reset
+    if (!championOverlay.classList.contains("hidden")) return;
 
-	board = ["", "", "", "", "", "", "", "", ""];
-	gameActive = true;
-
-	fields.forEach(field => {
-		field.textContent = "";
-		field.classList.remove("win", "x", "o");
-	});
-
-	currentPlayer = startingPlayer;
-
-	// Turn-Anzeige korrekt setzen
-	if (currentPlayer === "X") {
-		turnP1.style.opacity = "1";
-		turnP2.style.opacity = "0.12";
-	} else {
-		turnP1.style.opacity = "0.12";
-		turnP2.style.opacity = "1";
-	}
-
-	overlay.classList.add("hidden");
-
-	if (championPending) {
-		showChampion();
-		championPending = false;
-		return;
-	}
+    gameOver = false;
+    board = ["", "", "", "", "", "", "", "", ""];
+    gameActive = true;
+    fields.forEach(field => {
+        field.textContent = "";
+        field.classList.remove("win", "x", "o");
+    });
+    currentPlayer = startingPlayer;
+    turnP1.style.opacity = currentPlayer === "X" ? "1" : "0.12";
+    turnP2.style.opacity = currentPlayer === "O" ? "1" : "0.12";
+    
+    if (overlay) overlay.classList.add("hidden");
+    resetOverlay.classList.remove("armed");
 }
 
 function showChampion() {
-	overlay.classList.add("hidden");
-	resetOverlay.classList.remove("active");
+    if (overlay) overlay.classList.add("hidden"); 
+    championOverlay.classList.remove("hidden");
 
-	championText.textContent =
-		scoreP1.textContent === "3"
-			? "☆ Player 1 wins! ☆"
-			: "☆ Player 2 wins! ☆";
+    const championBox = championOverlay.querySelector('.winnerBox');
+    const isP1Win = scoreP1.textContent === "3";
 
-	championOverlay.classList.remove("hidden");
-	startConfetti();
-}
+    championText.textContent = isP1Win ? "☆ Player 1 wins! ☆" : "☆ Player 2 wins! ☆";
 
-function startConfetti() {
-	const ctx = confettiCanvas.getContext("2d");
-	confettiCanvas.width = window.innerWidth;
-	confettiCanvas.height = window.innerHeight;
+    const winColor = isP1Win ? "rgb(255, 77, 77)" : "rgb(77, 124, 255)"; 
+    if (championBox) {
+        championBox.style.boxShadow = `0 0 20px 10px ${winColor}`;
+    }
 
-	const colors = ["#E53935", "#1E88E5", "#43A047", "#FDD835"];
-
-	const confetti = Array.from({ length: 100 }, () => ({
-		x: Math.random() * confettiCanvas.width,
-		y: Math.random() * confettiCanvas.height,
-		size: Math.random() * 6 + 4,
-		speedY: Math.random() * 1.5 + 0.5,
-		rotation: Math.random() * Math.PI,
-		rotationSpeed: Math.random() * 0.02 - 0.01,
-		color: colors[Math.floor(Math.random() * colors.length)]
-	}));
-
-	function draw() {
-		ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-
-		confetti.forEach(c => {
-			ctx.save();
-			ctx.translate(c.x, c.y);
-			ctx.rotate(c.rotation);
-
-			ctx.fillStyle = c.color;
-			ctx.fillRect(-c.size / 2, -c.size / 2, c.size, c.size);
-
-			ctx.restore();
-
-			c.y += c.speedY;
-			c.rotation += c.rotationSpeed;
-
-			if (c.y > confettiCanvas.height) {
-				c.y = -10;
-				c.x = Math.random() * confettiCanvas.width;
-			}
-		});
-
-		requestAnimationFrame(draw);
-	}
-
-	draw();
+    startConfetti();
 }
 
 function resetEverything() {
-	// Scores zurücksetzen
-	scoreP1.textContent = "0";
-	scoreP2.textContent = "0";
+    scoreP1.textContent = "0";
+    scoreP2.textContent = "0";
+    startingPlayer = "X";
+    currentPlayer = "X";
+    championOverlay.classList.add("hidden");
+    resetGame();
+}
 
-	// Starter zurücksetzen
-	startingPlayer = "X";
-	currentPlayer = "X";
-
-	// Spielfeld reset
-	resetGame();
-
-	// Overlays schließen
-	championOverlay.classList.add("hidden");
-
-	// Turn UI
-	turnP1.style.opacity = "1";
-	turnP2.style.opacity = "0.12";
+// Hier deine startConfetti Funktion lassen...
+function startConfetti() {
+    const ctx = confettiCanvas.getContext("2d");
+    confettiCanvas.width = window.innerWidth;
+    confettiCanvas.height = window.innerHeight;
+    const colors = ["#E53935", "#1E88E5", "#43A047", "#FDD835"];
+    const confetti = Array.from({ length: 100 }, () => ({
+        x: Math.random() * confettiCanvas.width,
+        y: Math.random() * confettiCanvas.height,
+        size: Math.random() * 6 + 4,
+        speedY: Math.random() * 1.5 + 0.5,
+        rotation: Math.random() * Math.PI,
+        rotationSpeed: Math.random() * 0.02 - 0.01,
+        color: colors[Math.floor(Math.random() * colors.length)]
+    }));
+    function draw() {
+        ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+        confetti.forEach(c => {
+            ctx.save();
+            ctx.translate(c.x, c.y);
+            ctx.rotate(c.rotation);
+            ctx.fillStyle = c.color;
+            ctx.fillRect(-c.size / 2, -c.size / 2, c.size, c.size);
+            ctx.restore();
+            c.y += c.speedY;
+            c.rotation += c.rotationSpeed;
+            if (c.y > confettiCanvas.height) {
+                c.y = -10;
+                c.x = Math.random() * confettiCanvas.width;
+            }
+        });
+        requestAnimationFrame(draw);
+    }
+    draw();
 }

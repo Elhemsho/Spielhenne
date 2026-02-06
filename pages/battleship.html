@@ -124,12 +124,13 @@
             <button id="main-action-btn" class="action-btn" disabled>NEXT PLAYER</button>
         </div>
 
-        <div id="winner-popup">
-            <div class="popup-content" id="popup-box">
-                <h2 id="winner-text">Plyer 1 wins!</h2>
-                <button id="show-me-btn">Show me</button>
-            </div>
-        </div>
+        <div id="championOverlay" class="overlay hidden">
+				<div class="winnerBox">
+					<h1 id="championText"></h1>
+					<button id="playAgainBtnChampion" class="playAgainBtn">Show</button>
+					<canvas id="confettiCanvas"></canvas>
+				</div>
+			</div>
     </div>
 
     <footer class="site-footer">
