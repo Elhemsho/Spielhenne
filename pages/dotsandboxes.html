@@ -20,73 +20,66 @@
 
 <body>
 	<header class="site-header">
-		<div class="container">
-			<div class="header-top">
-				<div class="header-logo">
-					<a href="../index.html">
-						<img class="logo" src="../assets/images/logo_schrift.png">
-						<img class="logo2" src="../assets/images/logo_huhn.png">
-					</a>
-				</div>
+        <div class="container">
+            <div class="header-top">
+                <div class="header-logo">
+                    <a href="index.html">
+                        <img class="logo" src="assets/images/logo_schrift.png">
+                        <img class="logo2" src="assets/images/logo_huhn.png">
+                    </a>
+                </div>
 
-				<nav class="header-meta-nav">
-					<div class="nav-item search-container">
-						<input type="text" id="searchInput" placeholder="Search Game..." oninput="showLiveSearch()"
-							onkeydown="handleSearchEnter(event)">
+                <nav class="header-meta-nav">
+                    <div class="nav-item search-container">
+						<input type="text" id="searchInput" placeholder="...">
+						
+						<div id="searchSuggestions" class="suggestions-box" style="display:none;"></div>
 
 						<span>
-							<img onclick="toggleSearch()" class="nav-link lupe" src="../assets/images/lupe.png">
+							<img onclick="toggleSearch()" class="nav-link lupe" src="">
 						</span>
-
-						<div id="searchSuggestions" class="search-suggestions"></div>
 					</div>
 
-					<span class="divider">|</span>
+                    <span class="divider">|</span>
 
-					<a href="../index.html" class="alogin">
-						<span class="nav-login">LogIn</span>
-					</a>
+                    <a href="index.html">
+                        <span class="nav-login"></span>
+                    </a>
 
-					<span class="divider">|</span>
+                    <span class="divider">|</span>
 
-					<div class="nav-item settings-container">
-						<span onclick="toggleSettings()" class="nav-settings">Settings</span>
+                    <div class="nav-item settings-container">
+                        <span onclick="toggleSettings()" class="nav-settings"></span>
 
-						<div id="settingsDropdown" class="dropdown-content">
-							<a href="../index.html">Profile</a>
+                        <div id="settingsDropdown" class="dropdown-content">
+                            <a href="index.html"></a>
 
-							<div class="menu-item-flex">
-								<span>Music</span>
+                            <div class="menu-item-flex">
+                                <span></span>
+                                <label class="switch">
+                                    <input type="checkbox" id="musicToggle">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
 
-								<label class="switch">
-									<input type="checkbox" id="musicToggle">
-									<span class="slider round"></span>
-								</label>
-							</div>
+                            <div class="menu-item-flex">
+                                <span></span>
+                                <label class="switch">
+                                    <input type="checkbox" id="darkToggle">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
 
-							<div class="menu-item-flex">
-								<span>Dark Mode</span>
-
-								<label class="switch">
-									<input type="checkbox" id="darkToggle">
-									<span class="slider round"></span>
-								</label>
-							</div>
-						</div>
-					</div>
-				</nav>
-			</div>
-
-			<nav class="main-navigation">
-				<ul>
-					<li><a href="../index.html?filter=all">All Games</a></li>
-					<li><a href="../index.html?filter=2">2 Player Games</a></li>
-					<li><a href="../index.html?filter=1">Solo Games</a></li>
-					<li><a href="../index.html?filter=multy">Online Games</a></li>
-				</ul>
-			</nav>
-		</div>
-	</header>
+            <nav class="main-navigation">
+                <ul id="main-nav-list">
+                    </ul>
+            </nav>
+        </div>
+    </header>
 
 	<audio id="bgMusic" src="../assets/music/Spielmusik.mp3" loop autoplay></audio>
 
@@ -122,23 +115,14 @@
 	</div>
 
 	<footer class="site-footer">
-		<div class="container">
-			<div class="footer-social-icons">
-				<span class="icon">in</span>
-				<span class="icon">ig</span>
-				<span class="icon">fb</span>
-			</div>
+        <div class="container">
+            <div class="footer-social-icons"></div>
 
-			<nav class="footer-nav">
-				<a href="../impressum.html">Impressum</a> |
-				<a href="../datenschutz.html">Datenschutzerklärung</a> |
-				<a href="../changelogs.html">Change Logs</a> |
-				<a href="../sitemap.html">Sitemap</a>
-			</nav>
+            <nav class="footer-nav"></nav>
 
-			<div class="license">© 2026 Henrik Bernhard Seebach. Alle Rechte vorbehalten.</div>
-		</div>
-	</footer>
+            <div class="license" id="footer-license"></div>
+        </div>
+    </footer>
 </body>
 
 </html>

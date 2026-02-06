@@ -1,46 +1,82 @@
 {
-  "meta": {
-    "site_name": "Spielhenne",
-    "description": "Spielhenne – Spiele alleine oder mit Freunden und hab Spaß!"
-  },
-  "header": {
-    "logos": {
-      "schrift": "assets/images/logo_schrift.png",
-      "huhn": "assets/images/logo_huhn.png"
+    "meta": {
+        "site_name": "Spielhenne",
+        "description": "Spielhenne – Spiele alleine oder mit Freunden und hab Spaß!"
     },
-    "search": {
-      "placeholder": "Search Game...",
-      "icon_url": "assets/images/lupe.png"
+    "header": {
+        "logos": {
+            "schrift": "assets/images/logo_schrift.png",
+            "huhn": "assets/images/logo_huhn.png"
+        },
+        "search": {
+            "placeholder": "Search Game...",
+            "icon_url": "assets/images/lupe.png"
+        },
+        "login": {
+            "text": "LogIn",
+            "url": "index.html"
+        },
+        "settings": {
+            "title": "Settings",
+            "profile_text": "Profile",
+            "music_text": "Music",
+            "dark_mode_text": "Dark Mode"
+        },
+        "main_nav": [
+            {
+                "name": "All Games",
+                "filter": "all"
+            },
+            {
+                "name": "2 Player Games",
+                "filter": "2"
+            },
+            {
+                "name": "Solo Games",
+                "filter": "1"
+            },
+            {
+                "name": "Online Games",
+                "filter": "multy"
+            }
+        ]
     },
-    "login": {
-      "text": "LogIn",
-      "url": "index.html"
-    },
-    "settings": {
-      "title": "Settings",
-      "profile_text": "Profile",
-      "music_text": "Music",
-      "dark_mode_text": "Dark Mode"
-    },
-    "main_nav": [
-      { "name": "All Games", "filter": "all" },
-      { "name": "2 Player Games", "filter": "2" },
-      { "name": "Solo Games", "filter": "1" },
-      { "name": "Online Games", "filter": "multy" }
-    ]
-  },
-  "footer": {
-    "social_icons": [
-      { "platform": "in", "label": "LinkedIn" },
-      { "platform": "ig", "label": "Instagram" },
-      { "platform": "fb", "label": "Facebook" }
-    ],
-    "nav_links": [
-      { "name": "Impressum", "url": "impressum.html" },
-      { "name": "Datenschutzerklärung", "url": "datenschutz.html" },
-      { "name": "Change Logs", "url": "changelogs.html" },
-      { "name": "Sitemap", "url": "sitemap.html" }
-    ],
-    "license_text": "© 2026 Henrik Bernhard Seebach. Alle Rechte vorbehalten."
-  }
+    "footer": {
+        "social_icons": [
+            {
+                "platform": "in",
+                "label": "LinkedIn",
+                "url": "../index.html"
+            },
+            {
+                "platform": "ig",
+                "label": "Instagram",
+                "url": "../index.html"
+            },
+            {
+                "platform": "fb",
+                "label": "Facebook",
+                "url": "../index.html"
+            }
+        ],
+        "nav_links": [
+            {
+                "name": "Impressum",
+                "url": "impressum.html"
+            },
+            {
+                "name": "Datenschutzerklärung",
+                "url": "datenschutz.html"
+            },
+            {
+                "name": "Change Logs",
+                "url": "changelogs.html"
+            },
+            {
+                "name": "Sitemap",
+                "url": "sitemap.html"
+            }
+        ],
+        "license_text": "© 2026 Henrik Bernhard Seebach. Alle Rechte vorbehalten."
+    }
 }

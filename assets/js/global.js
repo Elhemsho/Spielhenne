@@ -1,5 +1,4 @@
 async function setupLayout() {
-    // 1. Pfad-Logik: Sind wir im Ordner /pages/?
     const isSubpage = window.location.pathname.includes('/pages/');
     const pathPrefix = isSubpage ? '../' : '';
 
@@ -8,7 +7,6 @@ async function setupLayout() {
         if (!response.ok) throw new Error("data.json nicht gefunden");
         const data = await response.json();
 
-        // --- HELPER FUNKTION ---
         const fixPath = (url) => {
             if (!url) return "";
             if (url.startsWith('http') || url.startsWith('data:')) return url;
@@ -16,54 +14,38 @@ async function setupLayout() {
             return pathPrefix + cleanUrl;
         };
 
-        // 1. Logos & Home-Link (Korrektur für Klick auf Huhn/Schrift)
+        // 1. Logos & Home-Link
         const logoSchrift = document.querySelector('.logo');
         const logoHuhn = document.querySelector('.logo2');
-        
         if (logoSchrift) {
             logoSchrift.src = fixPath(data.header.logos.schrift);
-            if (logoSchrift.parentElement.tagName === 'A') {
-                logoSchrift.parentElement.href = fixPath("index.html");
-            }
+            if (logoSchrift.parentElement.tagName === 'A') logoSchrift.parentElement.href = fixPath("index.html");
         }
         if (logoHuhn) {
             logoHuhn.src = fixPath(data.header.logos.huhn);
-            if (logoHuhn.parentElement.tagName === 'A') {
-                logoHuhn.parentElement.href = fixPath("index.html");
-            }
+            if (logoHuhn.parentElement.tagName === 'A') logoHuhn.parentElement.href = fixPath("index.html");
         }
 
-        // 2. Suche & Lupe
+        // 2. Suche
         const lupeIcon = document.querySelector('.lupe');
-        if (lupeIcon) {
-            lupeIcon.src = fixPath(data.header.search.icon_url);
-        }
+        if (lupeIcon) lupeIcon.src = fixPath(data.header.search.icon_url);
 
         const searchInput = document.getElementById('searchInput');
         if (searchInput) {
             searchInput.placeholder = data.header.search.placeholder;
-            
-            // EVENT LISTENER FÜR DIE SUCHE AKTIVIEREN
-            // Live-Suche (Vorschläge)
             searchInput.addEventListener('input', showLiveSearch);
-            // Enter-Taste (Weiterleitung)
             searchInput.addEventListener('keypress', handleSearchEnter);
         }
 
-        // 3. Login
+        // 3. Login & Settings
         const loginSpan = document.querySelector('.nav-login');
         if (loginSpan) {
             loginSpan.innerText = data.header.login.text;
-            if (loginSpan.parentElement.tagName === 'A') {
-                loginSpan.parentElement.href = fixPath(data.header.login.url);
-            }
+            if (loginSpan.parentElement.tagName === 'A') loginSpan.parentElement.href = fixPath(data.header.login.url);
         }
 
-        // 4. Settings Texte
         const settingsBtn = document.querySelector('.nav-settings');
-        if (settingsBtn) {
-            settingsBtn.innerText = data.header.settings.title;
-        }
+        if (settingsBtn) settingsBtn.innerText = data.header.settings.title;
 
         const profileLink = document.querySelector('#settingsDropdown a');
         if (profileLink) {
@@ -77,19 +59,31 @@ async function setupLayout() {
             settingsLabels[1].innerText = data.header.settings.dark_mode_text;
         }
 
-        // 5. Haupt-Navigation (Nav Bar)
+        // 4. Haupt-Navigation
         const mainNavList = document.getElementById('main-nav-list');
         if (mainNavList && data.header.main_nav) {
             mainNavList.innerHTML = data.header.main_nav.map(item => {
-                const clickAction = isSubpage 
+                const action = isSubpage 
                     ? `window.location.href='${pathPrefix}index.html?filter=${item.filter}'`
                     : `filterGames('${item.filter}')`;
-                
-                return `<li onclick="${clickAction}"><a>${item.name}</a></li>`;
+                return `<li onclick="${action}"><a>${item.name}</a></li>`;
             }).join('');
         }
 
-        // 6. Footer
+        // 5. FOOTER SOCIAL ICONS (Angepasst an dein CSS)
+        const socialContainer = document.querySelector('.footer-social-icons');
+        if (socialContainer && data.footer.social_icons) {
+            socialContainer.innerHTML = data.footer.social_icons.map(icon => {
+                // Erzeugt runden Kreis mit Kürzel (z.B. "ig")
+                return `
+                    <a href="${icon.url || '#'}" target="_blank" style="text-decoration: none;">
+                        <span class="icon" title="${icon.label}">${icon.platform}</span>
+                    </a>
+                `;
+            }).join('');
+        }
+
+        // 6. Footer Links & Lizenz
         const footerNav = document.querySelector('.footer-nav');
         if (footerNav) {
             footerNav.innerHTML = data.footer.nav_links.map(link => 
@@ -98,18 +92,13 @@ async function setupLayout() {
         }
 
         const licenseDiv = document.getElementById('footer-license');
-        if (licenseDiv) {
-            licenseDiv.innerText = data.footer.license_text;
-        }
-
-        console.log("Layout vollständig geladen. Prefix:", pathPrefix || "Root");
+        if (licenseDiv) licenseDiv.innerText = data.footer.license_text;
 
     } catch (error) {
         console.error("Layout-Fehler:", error);
     }
 }
 
-// Skript starten
 setupLayout();
 
 /* ------------------ Navbar - Suchfunktion erscheint durch Klick auf Lupe ------------------ */
