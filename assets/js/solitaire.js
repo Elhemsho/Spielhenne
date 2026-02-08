@@ -46,21 +46,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (stockElement) {
         stockElement.onclick = () => {
-            // Zuerst speichern für Undo
-            saveState();
+            saveState(); // Zustand für Undo speichern
 
             if (deck.length === 0 && wastePile.length > 0) {
-                // Stapel leer -> Neu mischen und Zähler hoch!
-                stackCycles++;
+                // FALL: Stapel leer, Waste voll -> Wir mischen neu
+                stackCycles++; 
                 deck = wastePile.reverse();
                 wastePile = [];
+                
+                // Wichtig: Wir zeigen erst an, DASS neu gemischt wurde
+                const counter = document.getElementById("move-counter");
+                if (counter) counter.innerText = `Stapel-Klicks: ${deckClickCount}`;
+                
                 renderAll();
             } else if (deck.length > 0) {
-                // Normal ziehen
+                // FALL: Normal ziehen
                 deckClickCount++;
                 const counter = document.getElementById("move-counter");
                 if (counter) counter.innerText = `Stapel-Klicks: ${deckClickCount}`;
                 drawThreeCards();
+            } else {
+                // Stapel leer UND Waste leer -> Nichts passiert
+                console.log("Keine Karten mehr zum Ziehen!");
             }
         };
     }
@@ -394,42 +401,35 @@ function renderStock() {
     const stockElement = document.getElementById("stock");
     if (!stockElement) return;
 
-    stockElement.innerHTML = ""; // Alles löschen
+    stockElement.innerHTML = ""; 
 
     if (deck.length === 0) {
-        // FALL: Stapel ist leer -> Zeige die Zahl
+        // Stapel ist leer -> Zeige die Zahl der bisherigen Durchgänge
         stockElement.classList.add("empty");
-        stockElement.style.position = "relative"; // Sicherstellen für die Zentrierung
-
+        
         const cycleDisplay = document.createElement("div");
         cycleDisplay.className = "stock-cycle-counter";
 
-        // Direkte Styles für maximale Sicherheit:
+        // Styles
         cycleDisplay.style.position = "absolute";
         cycleDisplay.style.top = "50%";
         cycleDisplay.style.left = "50%";
         cycleDisplay.style.transform = "translate(-50%, -50%)";
         cycleDisplay.style.fontSize = "40px";
         cycleDisplay.style.fontWeight = "bold";
-        cycleDisplay.style.fontFamily = 'Comic Neue2', cursive;
-        cycleDisplay.style.color = "rgba(166, 213, 222, 0.5)"; // Dein Hellblau, verblasst
-        cycleDisplay.style.pointerEvents = "none"; // Klicks gehen durch die Zahl zum Stapel
-        cycleDisplay.style.zIndex = "1";
+        cycleDisplay.style.fontFamily = "'Comic Neue', sans-serif"; // Anführungszeichen wichtig!
+        cycleDisplay.style.color = "rgba(166, 213, 222, 0.8)"; // Etwas kräftiger für bessere Sichtbarkeit
+        cycleDisplay.style.pointerEvents = "none"; 
 
         cycleDisplay.innerText = stackCycles;
         stockElement.appendChild(cycleDisplay);
     } else {
-        // FALL: Karten sind noch da -> Zeige Rückseite
+        // Karten sind noch da -> Zeige Rückseite
         stockElement.classList.remove("empty");
-
-        // Nutze deine existierende Karten-Erstellung
         const cardBack = createCardElement({ faceUp: false }, "stock");
-
-        // Sicherstellen, dass die Karte im Slot richtig sitzt
         cardBack.style.top = "-2px";
         cardBack.style.left = "-2px";
         cardBack.style.position = "absolute";
-
         stockElement.appendChild(cardBack);
     }
 }
