@@ -22,6 +22,8 @@ async function setupLayout() {
             const colors = data.playerColors;
             document.documentElement.style.setProperty('--player1-color', colors.player1);
             document.documentElement.style.setProperty('--player2-color', colors.player2);
+            document.documentElement.style.setProperty('--player1-colorl', colors.player1l);
+            document.documentElement.style.setProperty('--player2-colorl', colors.player2l);
         }
 
         // ----------------------------

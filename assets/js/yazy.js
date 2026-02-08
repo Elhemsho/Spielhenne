@@ -16,6 +16,7 @@ function rollDice() {
             diceElements.forEach((die, index) => {
                 if (!die.classList.contains('held')) {
                     die.classList.remove('shaking');
+                    die.classList.remove('is-question'); // <-- Diese Zeile hinzufügen
                     const newValue = Math.floor(Math.random() * 6) + 1;
                     die.innerText = newValue;
                     currentDice[index] = newValue;
@@ -54,6 +55,7 @@ function resetTurn() {
     document.querySelectorAll('.die').forEach(die => {
         die.classList.remove('held');
         die.innerText = "?";
+        die.classList.add('is-question');
     });
 
     currentDice = [0, 0, 0, 0, 0];

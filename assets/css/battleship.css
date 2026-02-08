@@ -98,13 +98,13 @@
 /* Spieler 1: Rot (Liste und Gitter) */
 #list-p1 .ship-part,
 #grid-p1 .cell.ship-present {
-    background-color: var(--p1-color) !important;
+    background-color: var(--player1-color) !important;
 }
 
 /* Spieler 2: Blau (Liste und Gitter) */
 #list-p2 .ship-part,
 #grid-p2 .cell.ship-present {
-    background-color: var(--p2-color) !important;
+    background-color: var(--player2-color) !important;
 }
 
 /* --- 5. SPIELFELD & ZELLEN-LOGIK --- */
@@ -205,7 +205,7 @@
     }
 
     50% {
-        box-shadow: 0 0 20px var(--p1-color);
+        box-shadow: 0 0 20px var(#ad3535);
         filter: brightness(1.5);
     }
 
@@ -250,7 +250,7 @@
     /* Geht 20% über das Schiff rechts hinaus (insgesamt 140%) */
     height: 5px;
     /* Schön dick und deutlich */
-    background-color: var(--player1-color);
+    background-color: #333;
     /* Knalliges Rot */
     transform: rotate(-15deg);
     /* Leichte Schräglage für den "X-Effekt" */

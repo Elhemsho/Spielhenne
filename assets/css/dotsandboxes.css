@@ -72,13 +72,13 @@ body {
 /* Belegte Linien */
 .h-line.taken.p1,
 .v-line.taken.p1 {
-    background-color: var(--p1-color) !important;
+    background-color: var(--player1-color) !important;
     cursor: default;
 }
 
 .h-line.taken.p2,
 .v-line.taken.p2 {
-    background-color: var(--p2-color) !important;
+    background-color: var(--player2-color) !important;
     cursor: default;
 }
 
@@ -94,11 +94,11 @@ body {
 
 /* Eroberte Kästchen */
 .box.taken.p1 {
-    background-color: var(--p1-light);
+    background-color: var(--player1-colorl);
 }
 
 .box.taken.p2 {
-    background-color: var(--p2-light);
+    background-color: var(--player2-colorl);
 }
 
 /* Löcher & Deaktivierte Elemente */
@@ -137,11 +137,11 @@ body {
 }
 
 .p1 {
-    color: var(--p1-color);
+    color: var(--player1-color);
 }
 
 .p2 {
-    color: var(--p2-color);
+    color: var(--player2-color);
 }
 
 /* Der abgedunkelte Hintergrund */
@@ -183,12 +183,12 @@ body {
 
 /* Die verschiedenen Schattenfarben */
 .winner-p1 {
-    box-shadow: 0 10px 50px rgba(77, 124, 255, 0.5);
+    box-shadow: 0 10px 50px var(--player2-color);
 }
 
 /* Blau */
 .winner-p2 {
-    box-shadow: 0 10px 50px rgba(255, 77, 77, 0.5);
+    box-shadow: 0 10px 50px var(--player1-color);
 }
 
 /* Rot */

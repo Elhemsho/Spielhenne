@@ -127,6 +127,7 @@ body {
     max-width: 150px;
     /* Schmaler, damit nur 2 Würfel in eine Zeile passen */
     margin-bottom: 10px;
+    
 }
 
 /* Würfel-Styling (leicht angepasst für das kompakte Layout) */
@@ -144,6 +145,12 @@ body {
     cursor: pointer;
     box-shadow: 0 4px 0 #ccc;
     transition: transform 0.1s;
+    font-family: Arial;
+}
+
+.die.is-question {
+    font-family: "Arial" !important;
+    font-weight: 500;
 }
 
 .dice-row {

@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < size; i++) {
             const part = document.createElement('div');
             part.className = 'ship-part';
-            part.style.backgroundColor = (currentPlayer === 1) ? 'rgb(255, 77, 77)' : 'rgb(77, 124, 255)';
+            part.style.backgroundColor = (currentPlayer === 1) ? 'var(--player1-color)' : 'var(--player2-color)';
             ghost.appendChild(part);
         }
 
@@ -330,10 +330,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (p1Win || p2Win) {
             gameState = 'GAME_OVER';
             const winner = p1Win ? 1 : 2;
-            const winnerColor = winner === 1 ? 'rgba(255, 77, 77, 0.8)' : 'rgba(77, 124, 255, 0.8)';
+            const winnerColor = winner === 1 ? 'var(--player1-color)' : 'var(--player2-color)';
             const winOverlay = document.getElementById('championOverlay');
             const winText = document.getElementById('championText');
-            if (winText) winText.innerText = `☆ Player ${winner} wins! ☆`;
+            if (winText){
+                winText.innerText = `☆ Player ${winner} wins! ☆`;
+                winOverlay.style.boxShadow = winnerColor;
+            }
             if (winOverlay) {
                 winOverlay.classList.remove('hidden');
                 winOverlay.style.display = 'flex';

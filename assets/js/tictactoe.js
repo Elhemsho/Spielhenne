@@ -149,7 +149,7 @@ function showChampion() {
 
     championText.textContent = isP1Win ? "☆ Player 1 wins! ☆" : "☆ Player 2 wins! ☆";
 
-    const winColor = isP1Win ? "rgb(255, 77, 77)" : "rgb(77, 124, 255)"; 
+    const winColor = isP1Win ? "var(--player1-color)" : "var(--player2-color)"; 
     if (championBox) {
         championBox.style.boxShadow = `0 0 20px 10px ${winColor}`;
     }

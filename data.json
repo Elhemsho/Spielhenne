@@ -1,7 +1,9 @@
 {
     "playerColors": {
         "player1": "#fface3",
-        "player2": "#9ec48d"
+        "player2": "#9ec48d",
+        "player1l": "#efd2e5",
+        "player2l": "#bddab0"
     },
     "meta": {
         "site_name": "Spielhenne",
