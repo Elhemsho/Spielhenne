@@ -105,7 +105,7 @@ body {
 
 .card-slot.drag-over {
     background-color: rgba(160, 236, 246, 0.3);
-    border: 2px solid #a0ecf6;
+    border: 2px solid var(--blue);
 }
 
 /* Tableau-Spalten */
@@ -297,7 +297,7 @@ body {
 }
 
 #showMeButton {
-    background: #a0ecf6;
+    background: var(--blue);
     color: #333;
     padding: 15px 40px;
     border: none;
@@ -333,7 +333,7 @@ body {
 /* Kleiner Bonus: Ein Hover-Effekt, damit er sich beim Drüberfahren abhebt */
 #undoButton:hover {
     background-color: #f0f0f0;
-    border-color: #a0ecf6;
+    border-color: var(--blue);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -477,7 +477,7 @@ body {
     border-radius: 25px;
     text-align: center;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-    border: 3px solid #a0ecf6;
+    border: 3px solid var(--blue);
     z-index: 501;
 }
 
@@ -491,7 +491,7 @@ body {
 /* --- Neuer Style für den "Weiter" Button (und ähnliche) --- */
 .control-button.blue-btn {
     /* Dein existierendes Styling für den blauen Button */
-    background-color: #a0ecf6;
+    background-color: var(--blue);
     color: #333;
     border: none;
     padding: 15px 40px;

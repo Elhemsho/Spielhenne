@@ -76,7 +76,7 @@ body {
 
 .score-val {
     font-weight: bold;
-    color: #a0ecf6;
+    color: var(--blue);
     opacity: 1;
     min-width: 30px;
     /* Reserviert Platz, damit Zahlen nicht springen */
@@ -96,7 +96,7 @@ body {
 }
 
 .score-val.filled {
-    color: #a0ecf6;
+    color: var(--blue);
     opacity: 1;
 }
 
@@ -163,7 +163,7 @@ body {
 
 /* Wenn ein Würfel ausgewählt ist */
 .die.held {
-    background-color: #a0ecf6;
+    background-color: var(--blue);
     transform: scale(0.95);
     box-shadow: 0 2px 0 #88c8d1;
 }
@@ -283,7 +283,7 @@ body {
     padding: 25px;
     border-radius: 20px;
     text-align: center;
-    box-shadow: 0 0 13px #a0ecf6;
+    box-shadow: 0 0 13px var(--blue);
     transform: scale(0.5);
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -298,13 +298,13 @@ body {
 }
 
 .winner-content h1 {
-    color: #a0ecf6;
+    color: var(--blue);
     font-size: 35px;
     margin-bottom: 10px;
 }
 
 .winner-content button {
-    background: #a0ecf6;
+    background: var(--blue);
     border: none;
     padding: 10px 30px;
     border-radius: 10px;

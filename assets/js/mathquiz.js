@@ -188,7 +188,7 @@ function endGame() {
         // NORMALES BLAU DESIGN
         if (resultStatsBox) {
             resultStatsBox.style.backgroundColor = "#f0fbfc";
-            resultStatsBox.style.borderColor = "#a0ecf6";
+            resultStatsBox.style.borderColor = "var(--blue)";
             resultStatsBox.style.boxShadow = "none";
         }
         if (labelText) {

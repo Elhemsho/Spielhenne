@@ -24,6 +24,9 @@ async function setupLayout() {
             document.documentElement.style.setProperty('--player2-color', colors.player2);
             document.documentElement.style.setProperty('--player1-colorl', colors.player1l);
             document.documentElement.style.setProperty('--player2-colorl', colors.player2l);
+            document.documentElement.style.setProperty('--blue', colors.blue);
+            document.documentElement.style.setProperty('--bluel', colors.bluel);
+            document.documentElement.style.setProperty('--bluell', colors.bluell);
         }
 
         // ----------------------------

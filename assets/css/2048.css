@@ -167,7 +167,7 @@ body {
 #grid-container .tile-2048 {
     background: #004d40;
     color: #fff;
-    border: 2px solid #a0ecf6;
+    border: 2px solid var(--blue);
 }
 
 .controls-bottom {

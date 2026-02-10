@@ -195,7 +195,7 @@ body {
 /* ------------------ Footer ------------------ */
 .site-footer {
     width: 100%;
-    background-color: #a0ecf6;
+    background-color: var(--blue);
     color: white;
     padding: 30px 0;
     margin-top: 50px;
@@ -210,7 +210,7 @@ body {
 
 .icon {
     background: white;
-    color: #a0ecf6;
+    color: var(--blue);
     width: 30px;
     height: 30px;
     border-radius: 50%;

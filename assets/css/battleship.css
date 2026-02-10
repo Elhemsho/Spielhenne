@@ -4,7 +4,7 @@
     /* Spieler 1: Rot */
     --p2-color: var(--player2-color);
     /* Spieler 2: Blau */
-    --main-blue: #a0ecf6;
+    --main-blue: var(--blue);
     /* Hintergrundfarbe Gitter */
     --miss-gray: #d3d3d3;
     /* Farbe für Fehlschüsse */

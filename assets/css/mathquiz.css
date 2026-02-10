@@ -7,7 +7,7 @@ body {
 }
 
 .quiz-container {
-    background: rgba(230, 252, 255, 0.5);
+    background: var(--bluel);
     padding: 30px 30px 5px 30px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -202,7 +202,7 @@ body {
     padding: 20px;
     border-radius: 15px;
     margin-bottom: 30px;
-    border: 2px solid #a0ecf6;
+    border: 2px solid var(--blue);
     /* Standard Blau */
     transition: all 0.3s ease;
     /* Macht den Farbwechsel weich */
@@ -250,7 +250,7 @@ body {
 }
 
 .retry-btn {
-    background: #a0ecf6;
+    background: var(--blue);
     color: #333;
     border: none;
     padding: 15px;
@@ -262,7 +262,7 @@ body {
 }
 
 .retry-btn:hover {
-    background: #78dbe8;
+    background: #a0ecf6;
     transform: scale(1.03);
 }
 

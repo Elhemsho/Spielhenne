@@ -1,9 +1,12 @@
 {
     "playerColors": {
-        "player1": "#fface3",
-        "player2": "#9ec48d",
+        "player1": "rgb(255, 77, 77)", 
+        "player2": "rgb(77, 124, 255)",
         "player1l": "#efd2e5",
-        "player2l": "#bddab0"
+        "player2l": "#bddab0",
+        "blue": "#b0eff7",
+        "bluel": "#defbff",
+        "bluell": "rgb(235, 255, 255)"
     },
     "meta": {
         "site_name": "Spielhenne",

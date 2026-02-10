@@ -10,13 +10,7 @@ body {
 /* ------------------------------------ Variablen & Board ------------------------------------ */
 :root {
     --bg-color: rgba(160, 236, 246, 0.4);
-    --p1-color: rgb(77, 124, 255);
-    /* Blau */
-    --p1-light: rgba(77, 124, 255, 0.3);
-    --p2-color: rgb(255, 77, 77);
-    /* Rot */
-    --p2-light: rgba(255, 77, 77, 0.3);
-    --line-gray: #d2d2d2;
+    --line-gray: #b8b8b8;
     --dot-color: #696969;
 }
 
@@ -26,10 +20,10 @@ body {
     align-content: center;
     margin: 20px auto;
     padding: 20px;
-    background-color: rgba(211, 250, 255, 0.5);
+    background-color: var(--bluel);
     border-radius: 12px;
     max-width: fit-content;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* Sicherstellen, dass die Grid-Zellen immer die gleiche Größe haben */
@@ -123,8 +117,8 @@ body {
 .player-score {
     padding: 10px 20px;
     border-radius: 8px;
-    background: rgba(211, 250, 255, 0.5);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    background: var(--bluel);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 #status {

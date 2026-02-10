@@ -57,7 +57,7 @@ body {
 /* Vorderseite (verdeckt) */
 .card-front {
     background-color: #e0f7fa;
-    border: 2px solid #a0ecf6;
+    border: 2px solid var(--blue);
     overflow: hidden;
 }
 
@@ -73,7 +73,7 @@ body {
 .card-back {
     background-color: white;
     transform: rotateY(180deg);
-    border: 2px solid #a0ecf6;
+    border: 2px solid var(--blue);
 }
 
 /* Das Frucht-Bild */
@@ -114,7 +114,7 @@ body {
 }
 
 .player-score.active {
-    background: #a0ecf6;
+    background: var(--bluel);
     color: #007c91;
     /* Dunklerer Ton für bessere Lesbarkeit */
     transform: translateY(-3px);
@@ -140,7 +140,7 @@ body {
     padding: 30px;
     border-radius: 15px;
     text-align: center;
-    border: 4px solid #a0ecf6;
+    border: 4px solid var(--blue);
     font-family: 'Comic Neue2', cursive;
     animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -163,7 +163,7 @@ body {
 }
 
 .win-popup button {
-    background-color: #a0ecf6;
+    background-color: var(--blue);
     color: #007c91;
     border: none;
     padding: 10px 25px;

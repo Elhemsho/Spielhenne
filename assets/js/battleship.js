@@ -331,11 +331,12 @@ document.addEventListener('DOMContentLoaded', () => {
             gameState = 'GAME_OVER';
             const winner = p1Win ? 1 : 2;
             const winnerColor = winner === 1 ? 'var(--player1-color)' : 'var(--player2-color)';
+            const championBox = championOverlay.querySelector('.winnerBox');
             const winOverlay = document.getElementById('championOverlay');
             const winText = document.getElementById('championText');
             if (winText){
                 winText.innerText = `☆ Player ${winner} wins! ☆`;
-                winOverlay.style.boxShadow = winnerColor;
+                championBox.style.boxShadow = `0 0 20px 10px ${winnerColor}`;
             }
             if (winOverlay) {
                 winOverlay.classList.remove('hidden');

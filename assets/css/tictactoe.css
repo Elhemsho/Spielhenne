@@ -146,7 +146,7 @@ body {
 	right: 0px;
 	bottom: 0px;
 
-	background: rgba(117, 115, 115, 0.35);
+	background: rgba(117, 115, 115, 0.25);
 	color: white;
 	font-size: 90px;
 
@@ -193,7 +193,7 @@ body {
 	/* passt zur Grid-Zelle */
 	border: 1px solid #585858;
 	cursor: pointer;
-	background-color: rgba(213, 247, 252, 0.962);
+	background-color: var(--bluel);
 	font-family: 'Comic Neue2', cursive;
 	box-sizing: border-box;
 	/* Padding und Border zählen in Höhe/Breite */
