@@ -318,7 +318,7 @@ body {
     position: relative;
     /* Zentriert den Button und sorgt für 20px Abstand zu den Karten */
     margin: 20px auto 10px auto;
-
+    margin-bottom: 50px;
     /* Dein Styling */
     padding: 10px 25px;
     background-color: #ffffff;

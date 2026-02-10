@@ -566,7 +566,7 @@ input:checked+.slider:before {
     background-color: var(--blue);
     color: white;
     padding: 30px 0;
-    margin-top: 50px;
+    margin-top: 0px;
     flex-shrink: 0;
     position: relative; 
     z-index: 1001; /* Höher als die 1000 vom Overlay */
