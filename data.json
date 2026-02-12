@@ -28,6 +28,7 @@
         "settings": {
             "title": "Settings",
             "profile_text": "Profile",
+            "language_text": "Language",
             "music_text": "Music",
             "dark_mode_text": "Dark Mode"
         },

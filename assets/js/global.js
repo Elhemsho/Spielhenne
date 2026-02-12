@@ -74,11 +74,24 @@ async function setupLayout() {
             profileLink.href = fixPath("index.html"); 
         }
 
-        const settingsLabels = document.querySelectorAll('.menu-item-flex > span');
-        if (settingsLabels.length >= 2) {
-            settingsLabels[0].innerText = data.header.settings.music_text;
-            settingsLabels[1].innerText = data.header.settings.dark_mode_text;
+        const menuItems = document.querySelectorAll('#settingsDropdown .menu-item-flex');
+
+        if (menuItems.length >= 3) {
+            // Sprache
+            menuItems[0].querySelector('span').innerText =
+                data.header.settings.language_text;
+
+            // Musik
+            menuItems[1].querySelector('span').innerText =
+                data.header.settings.music_text;
+
+            // Dark Mode
+            menuItems[2].querySelector('span').innerText =
+                data.header.settings.dark_mode_text;
         }
+
+        
+
 
         // ----------------------------
         // 4. Haupt-Navigation
@@ -301,29 +314,34 @@ function toggleSettings() {
     settings.classList.toggle("show");
 }
 
+
+
 /* ------------------ Navbar - Pop-Ups schließen bei Klick daneben ------------------ */
 window.onclick = function (event) {
     const settings = document.getElementById("settingsDropdown");
+    const languageMenu = document.getElementById("languageMenu");
     const input = document.getElementById("searchInput");
     const suggestionsBox = document.getElementById("searchSuggestions");
 
-    // Settings schließen
-    if (!event.target.closest('.nav-settings') && !event.target.closest('#settingsDropdown')) {
-        if (settings && settings.classList.contains('show')) {
-            settings.classList.remove('show');
-        }
+    // Settings + Sprache schließen
+    if (
+        !event.target.closest('.nav-settings') &&
+        !event.target.closest('#settingsDropdown') &&
+        !event.target.closest('#languageMenu') &&
+        !event.target.closest('.menu-item-flex.language')
+    ) {
+        settings?.classList.remove('show');
+        languageMenu?.classList.remove('show');
     }
 
-    // Suchfeld & Vorschläge schließen
+    // Suche schließen
     if (!event.target.closest('.search-container')) {
-        if (input && input.value === "") {
-            input.classList.remove('show');
-        }
-        if (suggestionsBox) {
-            suggestionsBox.style.display = "none";
-        }
+        if (input && input.value === "") input.classList.remove("show");
+        if (suggestionsBox) suggestionsBox.style.display = "none";
     }
-}
+};
+
+
 
 /* ------------------------------------ Musik ------------------------------------ */
 const audio = document.getElementById('bgMusic');
@@ -401,4 +419,18 @@ function startConfetti() {
         requestAnimationFrame(draw);
     }
     draw();
+}
+
+function openLanguageMenu(event) {
+    event.stopPropagation();
+    const menu = document.getElementById('languageMenu');
+    if (!menu) return;
+    menu.classList.toggle('show');
+}
+
+const languageMenuEl = document.getElementById('languageMenu');
+if (languageMenuEl) {
+    languageMenuEl.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
 }
