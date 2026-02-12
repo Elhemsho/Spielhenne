@@ -82,6 +82,7 @@ function writeScore(id, value) {
         target.innerText = points;
         target.classList.add("filled");
 
+        updateTotalScore();
         checkGameOver();
         nextPlayer(); // Hier wird currentPlayer von 1 auf 2 (oder umgekehrt) gewechselt
     }
@@ -125,6 +126,7 @@ function writeSpecial(id, type) {
     target.innerText = points;
     target.classList.add("filled");
 
+    updateTotalScore();
     checkGameOver();
     nextPlayer();
 }
@@ -164,7 +166,6 @@ function updateTotalScore() {
 }
 
 function nextPlayer() {
-    updateTotalScore(); // Punkte des aktuellen Spielers speichern
     checkGameOver();
 
     // Wechsel: 1 -> 2 oder 2 -> 1
@@ -204,6 +205,7 @@ function resetGame() {
     diceElements.forEach(die => {
         die.innerText = "?";
         die.classList.remove('held'); // Falls Würfel gehalten wurden
+        die.classList.add('is-question');
     });
 
     // 4. Wurf-Zähler zurücksetzen
@@ -259,7 +261,7 @@ function showWinner() {
     const winnerContent = document.querySelector('.winner-content');
 
     if (score1 > score2) {
-        winnerText.innerText = "Player 1 wins! ☆";
+        winnerText.innerText = "☆ Player 1 wins! ☆";
         winnerScore.innerText = "Difference: " + diff + " Points";
         if (winnerContent) winnerContent.style.width = "380px"; // Zurück auf Standard 
     } else if (score2 > score1) {

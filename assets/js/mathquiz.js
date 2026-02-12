@@ -177,7 +177,7 @@ function endGame() {
         if (resultStatsBox) {
             resultStatsBox.style.backgroundColor = "#fff9e6";
             resultStatsBox.style.borderColor = "#ffcc00";
-            resultStatsBox.style.boxShadow = "0 0 15px rgba(255, 204, 0, 0.4)";
+            resultStatsBox.style.boxShadow = "0 0 15px 10px rgba(255, 204, 0, 0.4)";
         }
         if (labelText) {
             labelText.innerText = "New Highscore";

@@ -1,6 +1,7 @@
 Nicht vergessen:
 - schiff senk animations farbe
-- balu auch als variable mit strg f
+- canvas einfügen bei allen games
+- new highscore bei solitaire und 2048 
 
 Weitere Seiten
 - Kontakt -> link zu spendenseite
@@ -10,5 +11,3 @@ Weitere Seiten
 - info feld -> anleitung pro game
 
 4 gewinnt chip farbe muss man immer selbst ändern neu generieren
-
-#defbff

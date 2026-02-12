@@ -214,9 +214,9 @@ function checkGameOver() {
 // Funktion zum Anzeigen des Pop-ups
 // Zeigt das Modal an
 function showModal(text) {
-    const modal = document.getElementById("game-modal");
-    const modalContent = modal.querySelector('.modal-content');
-    const modalText = document.getElementById("modal-text");
+    const modal = document.getElementById("championOverlay");
+    const modalContent = modal.querySelector('.winnerBox');
+    const modalText = document.getElementById("championText");
 
     modalText.innerText = text;
 
@@ -230,12 +230,12 @@ function showModal(text) {
         modalContent.classList.add('winner-draw');
     }
 
-    modal.style.display = "block";
+    modal.style.display = "flex";
 }
 
 // Diese Funktion hat gefehlt – sie schließt das Fenster
 function closeModal() {
-    const modal = document.getElementById("game-modal");
+    const modal = document.getElementById("championOverlay");
     if (modal) {
         modal.style.display = "none";
     }

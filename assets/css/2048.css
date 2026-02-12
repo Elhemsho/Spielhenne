@@ -190,13 +190,14 @@ body {
 
 .modal {
     display: none;
-    position: fixed;
+    position: absolute;
     z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(226, 226, 226, 0.4);
+    backdrop-filter: blur(3px);
     justify-content: center;
     align-items: center;
 }
@@ -209,11 +210,15 @@ body {
     padding-top: 20px;
     border-radius: 15px;
     text-align: center;
+    box-shadow: 0 0 15px 10px var(--blue);
+    min-width: 200px;
+    min-height: 120px;
+
 }
 
 /* Den Button im Modal und den Reset-Button stylen */
 #modal-button {
-    background-color: rgba(160, 236, 246, 0.726);
+    background-color: var(--blue);
     /* Ein schönes Erdbeer-Rot */
     color: white;
     font-family: 'Comic Neue2', cursive;
@@ -230,7 +235,7 @@ body {
 
 /* Hover-Effekt (Maus drüber) */
 #modal-button:hover {
-    background-color: rgba(191, 246, 253, 0.726);
+    background-color: #bbf6fe;
 }
 
 /* ------------------ Main-End ------------------ */

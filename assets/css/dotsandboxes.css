@@ -139,88 +139,23 @@ body {
     color: var(--player2-color);
 }
 
-/* Der abgedunkelte Hintergrund */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(3px);
-}
-
-/* Die Schrift im Modal */
-#modal-text {
-    margin: 0 0 30px 0;
-    /* 40px Abstand nach unten zum Button */
-    font-family: 'Comic Neue2', cursive;
-    font-size: 24px;
-    color: #333;
-}
-
-/* Das Pop-up Fenster mit dynamischen Schatten-Klassen */
-.modal-content {
-    background-color: #ffffff;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    min-width: 320px;
-    padding: 50px;
-    border-radius: 20px;
-    text-align: center;
-    transition: box-shadow 0.5s ease;
-    /* Sanfter Übergang für den Schatten */
-}
-
 /* Die verschiedenen Schattenfarben */
 .winner-p1 {
-    box-shadow: 0 10px 50px var(--player2-color);
+    box-shadow: 0 0 20px 10px var(--player1-color);
 }
 
 /* Blau */
 .winner-p2 {
-    box-shadow: 0 10px 50px var(--player1-color);
+    box-shadow: 0 0 20px 10px var(--player2-color);
 }
 
 /* Rot */
 .winner-draw {
-    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0  2px 10px var(--blue);
 }
 
 /* Neutral */
 
-/* Der optimierte Show-Me Button */
-#show-me-btn {
-    margin: 0;
-    background-color: #ffffff;
-    color: #444;
-    border: 1.5px solid #e0e0e0;
-    padding: 14px 32px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
 
-    /* WICHTIG: Sanfte Animation */
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    outline: none;
-}
-
-#show-me-btn:hover {
-    background-color: #f8f9fa;
-    border-color: #cccccc;
-    color: #000;
-    /* Ein leichter Glow-Effekt beim Hovern */
-}
-
-#show-me-btn:active {
-    transform: translateY(0);
-}
 
 /* ------------------ Main-End ------------------ */

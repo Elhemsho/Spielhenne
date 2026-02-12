@@ -268,7 +268,8 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(226, 226, 226, 0.4);
+    backdrop-filter: blur(3px);
     display: none;
     /* Standardmäßig unsichtbar */
     justify-content: center;
@@ -283,7 +284,7 @@ body {
     padding: 25px;
     border-radius: 20px;
     text-align: center;
-    box-shadow: 0 0 13px var(--blue);
+    box-shadow: 0 0 15px 10px var(--blue);
     transform: scale(0.5);
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -316,7 +317,7 @@ body {
 }
 
 .winner-content button:hover {
-    background: #aef1fa;
+    background: #bbf6fe;
 }
 
 .icon img {

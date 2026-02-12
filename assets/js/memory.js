@@ -125,26 +125,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showWinPopup() {
+        let winner = "";
         let message = "";
         if (scores.player1 > scores.player2) {
-            message = `Player 1 wins with ${scores.player1} to ${scores.player2} points!`;
+            winner = `☆ Player 1 wins ☆`;
+            message = `Final score: ${scores.player1} - ${scores.player2}`;
         } else if (scores.player2 > scores.player1) {
-            message = `Player 2 wins with ${scores.player2} to ${scores.player1} points!`;
+            winner = `☆ Player 2 wins ☆`;
+            message = `Final score: ${scores.player2} - ${scores.player1}`;
         } else {
-            message = `Draw! Both have ${scores.player1} points.`;
+            winner = `Draw! `;
+            message = `Final score: ${scores.player2} - ${scores.player1}`;
         }
 
-        const overlay = document.createElement('div');
+        const overlay = document.getElementById("overlay");
         overlay.id = 'winOverlay';
         overlay.className = 'win-overlay';
         overlay.innerHTML = `
             <div class="win-popup">
-                <h2>All Pairs Found!</h2>
+                <h2>${winner}</h2>
                 <p>${message}</p>
-                <button onclick="document.getElementById('winOverlay').remove()">Show Board</button>
+                <button onclick="document.getElementById('winOverlay').remove()">Show</button>
             </div>
         `;
-        document.body.appendChild(overlay);
+        document.querySelector('.main').appendChild(overlay);
+
+        overlay.style.display = "flex";
+        overlay.style.minWidth = "300px";
     }
 
     playAgainBtn.addEventListener('click', initGame);

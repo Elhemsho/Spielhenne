@@ -105,13 +105,16 @@
 
 			<div id="status">Player 1's turn</div>
 		</div>
+        
 
-		<div id="game-modal" class="modal">
-			<div class="modal-content">
-				<h2 id="modal-text">Winner!</h2>
-				<button id="show-me-btn" onclick="closeModal()">Show me</button>
+        <div id="championOverlay" class="overlay hidden">
+				<div class="winnerBox">
+					<h1 id="championText"></h1>
+					<button id="playAgainBtnChampion" class="playAgainBtn" onclick="closeModal()">Show</button>
+					<canvas id="confettiCanvas"></canvas>
+				</div>
 			</div>
-		</div>
+        </div>
 	</div>
 
 	<footer class="site-footer">
