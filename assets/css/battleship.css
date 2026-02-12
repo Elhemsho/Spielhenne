@@ -113,8 +113,8 @@
     grid-template-columns: repeat(8, 40px);
     grid-template-rows: repeat(8, 40px);
     gap: 2px;
-    background-color: var(--main-blue);
-    border: 4px solid var(--main-blue);
+    background-color: var(--bluel);
+    border: 5px solid var(--bluel);
     border-radius: 4px;
 }
 

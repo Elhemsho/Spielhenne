@@ -185,6 +185,11 @@ const allGames = [
         img: "../assets/images/chip_rot2.png"
     },
     {
+        name: "Battleship",
+        url: "../pages/battleship.html",
+        img: "../assets/images/battlelogo.png"
+    },
+    {
         name: "Yazy",
         url: "../pages/yazy.html",
         img: "../assets/images/würfel.png"

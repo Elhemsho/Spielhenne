@@ -22,7 +22,7 @@ body {
 }
 
 .score-box {
-    background-color: rgba(160, 236, 246, 0.726);
+    background-color: var(--blue);
     padding: 5px 15px;
     border-radius: 5px;
     color: white;
@@ -53,7 +53,7 @@ body {
 #board-viewport {
     width: 350px;
     height: 350px;
-    background-color: rgba(160, 236, 246, 0.4);
+    background-color: var(--bluel);
     border-radius: 10px;
     overflow: hidden;
     position: relative;
@@ -75,7 +75,7 @@ body {
     background: none;
     border: none;
     font-size: 40px;
-    color: rgba(160, 236, 246, 0.9);
+    color: var(--blue);
     cursor: pointer;
     transition: opacity 0.2s;
 }
@@ -116,12 +116,12 @@ body {
 }
 
 #grid-container .tile-2 {
-    background: #e8fafb;
+    background: #d9f9fa;
     color: #333;
 }
 
 #grid-container .tile-4 {
-    background: #c8edf1;
+    background: #cff6fa;
     color: #333;
 }
 
@@ -136,7 +136,7 @@ body {
 }
 
 #grid-container .tile-32 {
-    background: #4dd0e1;
+    background: #6ad2e0;
     color: #fff;
 }
 
@@ -168,7 +168,21 @@ body {
 #grid-container .tile-2048 {
     background: #004d40;
     color: #fff;
-    border: 2px solid var(--blue);
+}
+
+#grid-container .tile-4096 {
+    background: #004539;
+    color: #fff;
+}
+
+#grid-container .tile-8192 {
+    background: #00342b;
+    color: #fff;
+}
+
+#grid-container .tile-16384 {
+    background: #000000;
+    color: #fff;
 }
 
 .controls-bottom {
@@ -178,7 +192,7 @@ body {
 }
 
 .undo-button {
-    background-color: rgba(160, 236, 246, 0.726);
+    background-color: var(--blue);
     border: none;
     padding: 10px 20px;
     border-radius: 5px;

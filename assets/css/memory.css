@@ -57,7 +57,7 @@ body {
 
 /* Vorderseite (verdeckt) */
 .card-front {
-    background-color: #e0f7fa;
+    background-color: var(--bluel);
     border: 2px solid var(--blue);
     overflow: hidden;
 }

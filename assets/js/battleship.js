@@ -329,10 +329,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (p1Win || p2Win) {
             gameState = 'GAME_OVER';
+            
+            // Sofort alle Schiffe auf beiden Boards zeichnen
+            drawBoard(1);
+            drawBoard(2);
+
             const winner = p1Win ? 1 : 2;
             const winnerColor = winner === 1 ? 'var(--player1-color)' : 'var(--player2-color)';
-            
-            // Wir bereiten die Texte schon vor...
             const winOverlay = document.getElementById('championOverlay');
             const winText = document.getElementById('championText');
             const championBox = winOverlay.querySelector('.winnerBox');
@@ -342,7 +345,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 championBox.style.boxShadow = `0 0 20px 10px ${winnerColor}`;
             }
 
-            // ...aber wir warten mit dem Anzeigen (Delay)
             setTimeout(() => {
                 if (winOverlay) {
                     winOverlay.classList.remove('hidden');
@@ -350,7 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 if (typeof startConfetti === "function") startConfetti();
                 updateUI();
-            }, 500); // 500 Millisekunden Verzögerung
+            }, 500);
         }
     }
 
@@ -379,19 +381,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const shipAtPos = data.board[idx];
             if (shipAtPos) {
                 const isSetupForThisPlayer = (gameState === `SETUP_P${playerNum}`);
-                // Diese Zeile ändern wir: Wir entfernen die Bedingung, dass man im Kampf seine Schiffe sieht
-                const isOwnBoard = false; // Vorher: (gameState === 'BATTLE' && playerNum === currentPlayer)
-
                 const isHit = cell.classList.contains('hit');
                 const isGameOver = (gameState === 'GAME_OVER');
 
-                // Schiffe werden nur gezeichnet wenn:
-                // 1. Man gerade im Setup-Modus für dieses Board ist
-                // 2. Das Schiff an dieser Stelle bereits getroffen wurde
-                // 3. Das Spiel vorbei ist
+                // Logik-Fix: Wenn Game Over, zeige ALLE Schiffsteile
                 if (isSetupForThisPlayer || isHit || isGameOver) {
                     cell.classList.add('ship-present');
-                    if (isSetupForThisPlayer) cell.setAttribute('draggable', 'true');
+                    
+                    if (isSetupForThisPlayer) {
+                        cell.setAttribute('draggable', 'true');
+                    }
                 }
             }
         });

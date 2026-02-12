@@ -80,9 +80,8 @@ body {
 }
 
 .conimg {
-    margin-top: 15px;
-    border: #333 1px solid;
     border-radius: 10px;
+    border: #333 1px solid;
 }
 
 .battleship {
@@ -90,6 +89,11 @@ body {
     color: #222;
     text-align: center;
     padding-bottom: 4px;
+}
+
+.batimg{
+    border: 1px #333 solid;
+    border-radius: 10px;
 }
 
 .zwei {
@@ -112,11 +116,8 @@ body {
 }
 
 .solimg {
-    margin-top: 30px;
-    outline: #333 1px solid;
-    /* Äußerer Rahmen */
-    outline-offset: 6px;
-    border-radius: 5px;
+    border: #333 1px solid;
+    border-radius: 10px;
 }
 
 .yazy {
@@ -136,22 +137,11 @@ body {
     color: #222;
     text-align: center;
     padding-bottom: 4px;
-
 }
 
 .kkimg {
+    border: #333 1px solid;
     border-radius: 10px;
-    /* Abrundung für Bild und Border */
-
-    /* 1. Die "Offset-Farbe" (Innere Füllung) */
-    border: 3px solid rgba(211, 250, 255, 0.5);
-    /* Ersetze #ff0000 mit deiner Wunschfarbe */
-
-    /* 2. Der äußere Rahmen */
-    outline: #333 1px solid;
-
-    /* WICHTIG: Kein Offset nutzen, da der Border den Platz füllt */
-    outline-offset: 0px;
 }
 
 .memory {
@@ -162,16 +152,7 @@ body {
 }
 
 .memimg {
-    margin-top: 23px;
-    /* 1. Die "Offset-Farbe" (Innere Füllung) */
-    border: 5px solid #f7f7f7;
-    /* Ersetze #ff0000 mit deiner Wunschfarbe */
-
-    /* 2. Der äußere Rahmen */
-    outline: #333 1px solid;
-
-    /* WICHTIG: Kein Offset nutzen, da der Border den Platz füllt */
-    outline-offset: 0px;
+    border: #333 1px solid;
     border-radius: 10px;
 }
 
@@ -183,7 +164,6 @@ body {
 }
 
 .mathimg {
-    margin-top: 12px;
     border: 1px #333 solid;
     border-radius: 10px;
 }
