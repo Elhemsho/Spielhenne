@@ -17,7 +17,6 @@ const championText = document.getElementById("championText");
 // Die IDs für die Reset-Buttons
 const manualResetIcon = document.getElementById("playAgainBtn"); // Das Icon oben rechts
 const playAgainBtnChampion = document.getElementById("playAgainBtnChampion"); // Der Button im Overlay
-const confettiCanvas = document.getElementById("confettiCanvas");
 
 let board = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
@@ -167,37 +166,3 @@ function resetEverything() {
 }
 
 // Hier deine startConfetti Funktion lassen...
-function startConfetti() {
-    const ctx = confettiCanvas.getContext("2d");
-    confettiCanvas.width = window.innerWidth;
-    confettiCanvas.height = window.innerHeight;
-    const colors = ["#E53935", "#1E88E5", "#43A047", "#FDD835"];
-    const confetti = Array.from({ length: 100 }, () => ({
-        x: Math.random() * confettiCanvas.width,
-        y: Math.random() * confettiCanvas.height,
-        size: Math.random() * 6 + 4,
-        speedY: Math.random() * 1.5 + 0.5,
-        rotation: Math.random() * Math.PI,
-        rotationSpeed: Math.random() * 0.02 - 0.01,
-        color: colors[Math.floor(Math.random() * colors.length)]
-    }));
-    function draw() {
-        ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-        confetti.forEach(c => {
-            ctx.save();
-            ctx.translate(c.x, c.y);
-            ctx.rotate(c.rotation);
-            ctx.fillStyle = c.color;
-            ctx.fillRect(-c.size / 2, -c.size / 2, c.size, c.size);
-            ctx.restore();
-            c.y += c.speedY;
-            c.rotation += c.rotationSpeed;
-            if (c.y > confettiCanvas.height) {
-                c.y = -10;
-                c.x = Math.random() * confettiCanvas.width;
-            }
-        });
-        requestAnimationFrame(draw);
-    }
-    draw();
-}

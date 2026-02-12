@@ -1,4 +1,4 @@
-let isProcessing = false; 
+let isProcessing = false;
 
 document.addEventListener('DOMContentLoaded', () => {
     const gridP1 = document.getElementById('grid-p1');
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const winOverlay = document.getElementById('championOverlay');
 
     let currentPlayer = 1;
-    let gameState = 'SETUP_P1'; 
+    let gameState = 'SETUP_P1';
 
     const fleetDefinitions = [
         { id: 's4_1', size: 4 },
@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleActionBtnClick() {
         if (gameState === 'SETUP_P1') {
             gameState = 'SETUP_P2';
-            currentPlayer = 2; 
+            currentPlayer = 2;
             actionBtn.disabled = true;
             actionBtn.classList.remove('ready');
             renderInventories();
@@ -331,19 +331,26 @@ document.addEventListener('DOMContentLoaded', () => {
             gameState = 'GAME_OVER';
             const winner = p1Win ? 1 : 2;
             const winnerColor = winner === 1 ? 'var(--player1-color)' : 'var(--player2-color)';
-            const championBox = championOverlay.querySelector('.winnerBox');
+            
+            // Wir bereiten die Texte schon vor...
             const winOverlay = document.getElementById('championOverlay');
             const winText = document.getElementById('championText');
-            if (winText){
+            const championBox = winOverlay.querySelector('.winnerBox');
+
+            if (winText) {
                 winText.innerText = `☆ Player ${winner} wins! ☆`;
                 championBox.style.boxShadow = `0 0 20px 10px ${winnerColor}`;
             }
-            if (winOverlay) {
-                winOverlay.classList.remove('hidden');
-                winOverlay.style.display = 'flex';
-            }
-            if (typeof startConfetti === "function") startConfetti();
-            updateUI();
+
+            // ...aber wir warten mit dem Anzeigen (Delay)
+            setTimeout(() => {
+                if (winOverlay) {
+                    winOverlay.classList.remove('hidden');
+                    winOverlay.style.display = 'flex';
+                }
+                if (typeof startConfetti === "function") startConfetti();
+                updateUI();
+            }, 500); // 500 Millisekunden Verzögerung
         }
     }
 
@@ -353,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
         gameState = 'GAME_OVER';
         document.body.classList.add('GAME_OVER');
         actionBtn.disabled = false;
-        actionBtn.textContent = "Play again";
+        actionBtn.textContent = "PLAY AGAIN";
         actionBtn.classList.add('ready');
         actionBtn.onclick = resetGame;
         updateUI();
@@ -364,16 +371,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = playerNum === 1 ? p1Data : p2Data;
         const gridEl = playerNum === 1 ? gridP1 : gridP2;
         const cells = gridEl.querySelectorAll('.cell');
+
         cells.forEach((cell, idx) => {
             cell.classList.remove('ship-present');
             cell.removeAttribute('draggable');
+
             const shipAtPos = data.board[idx];
             if (shipAtPos) {
                 const isSetupForThisPlayer = (gameState === `SETUP_P${playerNum}`);
-                const isOwnBoard = (gameState === 'BATTLE' && playerNum === currentPlayer);
+                // Diese Zeile ändern wir: Wir entfernen die Bedingung, dass man im Kampf seine Schiffe sieht
+                const isOwnBoard = false; // Vorher: (gameState === 'BATTLE' && playerNum === currentPlayer)
+
                 const isHit = cell.classList.contains('hit');
                 const isGameOver = (gameState === 'GAME_OVER');
-                if (isSetupForThisPlayer || isOwnBoard || isHit || isGameOver) {
+
+                // Schiffe werden nur gezeichnet wenn:
+                // 1. Man gerade im Setup-Modus für dieses Board ist
+                // 2. Das Schiff an dieser Stelle bereits getroffen wurde
+                // 3. Das Spiel vorbei ist
+                if (isSetupForThisPlayer || isHit || isGameOver) {
                     cell.classList.add('ship-present');
                     if (isSetupForThisPlayer) cell.setAttribute('draggable', 'true');
                 }

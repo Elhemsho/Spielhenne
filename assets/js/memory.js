@@ -93,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (matchedPairs === symbols.length) {
                     setTimeout(showWinPopup, 500);
+                    setTimeout(startConfetti, 500);
                 }
             }, 400);
 

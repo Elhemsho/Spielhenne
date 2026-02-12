@@ -200,27 +200,40 @@ function checkGameOver() {
     if (takenBoxes === allPlayableBoxes && allPlayableBoxes > 0) {
         isGameOverState = true;
         let winnerText = "";
+        let message = "";
 
-        if (scores[1] > scores[2]) winnerText = `Blue wins ${scores[1]}:${scores[2]}!`;
-        else if (scores[2] > scores[1]) winnerText = `Red wins ${scores[2]}:${scores[1]}!`;
-        else winnerText = `Draw! ${scores[1]}:${scores[2]}`;
+        // WICHTIG: Zugriff über scores[1] und scores[2]
+        if (scores[1] > scores[2]) { 
+            winnerText = `☆ Player 1 wins ☆`;
+            message = `Final score: ${scores[1]} - ${scores[2]}`;
+        }
+        else if (scores[2] > scores[1]) { 
+            winnerText = `☆ Player 2 wins ☆`;
+            message = `Final score: ${scores[2]} - ${scores[1]}`;
+        }
+        else {
+            winnerText = `Draw!`;
+            message = `Final score: ${scores[1]} - ${scores[2]}`;
+        }
 
         setTimeout(() => {
-            showModal(winnerText);
+            // HIER war der Fehler: Du musst BEIDE Variablen übergeben
+            showModal(winnerText, message); 
+            if (typeof startConfetti === "function") startConfetti();
         }, 300);
     }
 }
 
-// Funktion zum Anzeigen des Pop-ups
-// Zeigt das Modal an
-function showModal(text) {
+function showModal(title) {
     const modal = document.getElementById("championOverlay");
     const modalContent = modal.querySelector('.winnerBox');
     const modalText = document.getElementById("championText");
 
-    modalText.innerText = text;
+    // Hier wird der Titel und die Nachricht mit Abstand gesetzt
+    modalText.innerHTML = `
+        <div style="margin-bottom: 20px; font-size: 32px;">${title}</div>
+    `;
 
-    // Schattenfarbe basierend auf dem Gewinner setzen
     modalContent.classList.remove('winner-p1', 'winner-p2', 'winner-draw');
     if (scores[1] > scores[2]) {
         modalContent.classList.add('winner-p1');

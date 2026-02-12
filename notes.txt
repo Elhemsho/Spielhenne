@@ -1,6 +1,4 @@
 Nicht vergessen:
-- schiff senk animations farbe
-- canvas einfügen bei allen games
 - new highscore bei solitaire und 2048 
 
 Weitere Seiten
@@ -9,5 +7,3 @@ Weitere Seiten
 - Bewerten
 - faq?
 - info feld -> anleitung pro game
-
-4 gewinnt chip farbe muss man immer selbst ändern neu generieren

@@ -269,9 +269,9 @@
 
 /* --- 8. HAUPT-AKTION-BUTTON (STYLING) --- */
 #main-action-btn {
-    background-color: var(--main-blue);
+    border: none;
+    background-color: var(--blue);
     color: #333;
-    border: 2px solid #8ddbe6;
     border-radius: 4px;
     padding: 10px 20px;
     font-weight: bold;
@@ -282,7 +282,7 @@
 
 /* Dezenter Hover-Effekt (nur wenn nicht deaktiviert) */
 #main-action-btn:hover:not(:disabled) {
-    background-color: #8ddbe6;
+    background-color: #bbf6fe;
 }
 
 /* Verhalten bei Klick */
@@ -294,7 +294,6 @@
 #main-action-btn:disabled {
     background-color: #eee;
     color: #aaa;
-    border-color: #ddd;
     cursor: not-allowed;
 }
 
