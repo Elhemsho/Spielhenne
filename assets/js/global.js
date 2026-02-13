@@ -1,12 +1,22 @@
+let cachedData = null; // Speicher für die JSON-Daten
+
 async function setupLayout() {
     const isSubpage = window.location.pathname.includes('/pages/');
     const pathPrefix = isSubpage ? '../' : '';
 
+    // Aktuelle Sprache aus Speicher laden (Standard: Deutsch)
+    const currentLang = localStorage.getItem('selectedLanguage') || 'de';
+
     try {
-        // JSON laden
-        const response = await fetch(pathPrefix + 'data.json');
-        if (!response.ok) throw new Error("data.json nicht gefunden");
-        const data = await response.json();
+        // Daten nur laden, wenn sie noch nicht im Cache sind
+        if (!cachedData) {
+            const response = await fetch(pathPrefix + 'data.json');
+            if (!response.ok) throw new Error("data.json nicht gefunden");
+            cachedData = await response.json();
+        }
+        
+        const data = cachedData;
+        const langData = data.languages[currentLang];
 
         const fixPath = (url) => {
             if (!url) return "";
@@ -16,21 +26,22 @@ async function setupLayout() {
         };
 
         // ----------------------------
-        // 0. Spielerfarben setzen
+        // 0. Spielerfarben & CSS Variablen
         // ----------------------------
         if (data.playerColors) {
             const colors = data.playerColors;
-            document.documentElement.style.setProperty('--player1-color', colors.player1);
-            document.documentElement.style.setProperty('--player2-color', colors.player2);
-            document.documentElement.style.setProperty('--player1-colorl', colors.player1l);
-            document.documentElement.style.setProperty('--player2-colorl', colors.player2l);
-            document.documentElement.style.setProperty('--blue', colors.blue);
-            document.documentElement.style.setProperty('--bluel', colors.bluel);
-            document.documentElement.style.setProperty('--bluell', colors.bluell);
+            const root = document.documentElement;
+            root.style.setProperty('--player1-color', colors.player1);
+            root.style.setProperty('--player2-color', colors.player2);
+            root.style.setProperty('--player1-colorl', colors.player1l);
+            root.style.setProperty('--player2-colorl', colors.player2l);
+            root.style.setProperty('--blue', colors.blue);
+            root.style.setProperty('--bluel', colors.bluel);
+            root.style.setProperty('--bluell', colors.bluell);
         }
 
         // ----------------------------
-        // 1. Logos & Home-Link
+        // 1. Logos & Meta
         // ----------------------------
         const logoSchrift = document.querySelector('.logo');
         const logoHuhn = document.querySelector('.logo2');
@@ -51,50 +62,58 @@ async function setupLayout() {
 
         const searchInput = document.getElementById('searchInput');
         if (searchInput) {
-            searchInput.placeholder = data.header.search.placeholder;
-            searchInput.addEventListener('input', showLiveSearch);
-            searchInput.addEventListener('keypress', handleSearchEnter);
+            searchInput.placeholder = langData.search_placeholder;
+            if (!searchInput.dataset.initialized) {
+                // Nur einmalig Events binden, sonst suchen wir doppelt
+                if (typeof showLiveSearch === "function") searchInput.addEventListener('input', showLiveSearch);
+                if (typeof handleSearchEnter === "function") searchInput.addEventListener('keypress', handleSearchEnter);
+                searchInput.dataset.initialized = "true";
+            }
         }
 
         // ----------------------------
-        // 3. Login & Settings
+        // 3. Login & Settings Texte
         // ----------------------------
         const loginSpan = document.querySelector('.nav-login');
         if (loginSpan) {
-            loginSpan.innerText = data.header.login.text;
+            loginSpan.innerText = langData.login_text;
             if (loginSpan.parentElement.tagName === 'A') loginSpan.parentElement.href = fixPath(data.header.login.url);
         }
 
         const settingsBtn = document.querySelector('.nav-settings');
-        if (settingsBtn) settingsBtn.innerText = data.header.settings.title;
+        if (settingsBtn) settingsBtn.innerText = langData.settings_title;
 
         const profileLink = document.querySelector('#settingsDropdown a');
         if (profileLink) {
-            profileLink.innerText = data.header.settings.profile_text;
+            profileLink.innerText = langData.profile_text;
             profileLink.href = fixPath("index.html"); 
         }
 
         const menuItems = document.querySelectorAll('#settingsDropdown .menu-item-flex');
-
         if (menuItems.length >= 3) {
-            // Sprache
-            menuItems[0].querySelector('span').innerText =
-                data.header.settings.language_text;
-
-            // Musik
-            menuItems[1].querySelector('span').innerText =
-                data.header.settings.music_text;
-
-            // Dark Mode
-            menuItems[2].querySelector('span').innerText =
-                data.header.settings.dark_mode_text;
+            menuItems[0].querySelector('span').innerText = langData.language_text;
+            menuItems[1].querySelector('span').innerText = langData.music_text;
+            menuItems[2].querySelector('span').innerText = langData.dark_mode_text;
         }
 
-        
-
+        // ----------------------------
+        // 4. AUTOMATISCHE ÜBERSETZUNG (data-i18n)
+        // ----------------------------
+        // Diese Schleife übersetzt Spielnamen & "Coming Soon"-Texte
+        const translateElements = document.querySelectorAll('[data-i18n]');
+        translateElements.forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            
+            // Erst in der "games" Liste suchen, dann in den Haupt-Sprachdaten
+            if (langData.games && langData.games[key]) {
+                el.innerText = langData.games[key];
+            } else if (langData[key]) {
+                el.innerText = langData[key];
+            }
+        });
 
         // ----------------------------
-        // 4. Haupt-Navigation
+        // 5. Haupt-Navigation (Neuaufbau für Filter-Texte)
         // ----------------------------
         const mainNavList = document.getElementById('main-nav-list');
         if (mainNavList && data.header.main_nav) {
@@ -102,12 +121,13 @@ async function setupLayout() {
                 const action = isSubpage 
                     ? `window.location.href='${pathPrefix}index.html?filter=${item.filter}'`
                     : `filterGames('${item.filter}')`;
-                return `<li onclick="${action}"><a>${item.name}</a></li>`;
+                const displayName = currentLang === 'de' ? item.name_de : item.name_en;
+                return `<li onclick="${action}"><a>${displayName}</a></li>`;
             }).join('');
         }
 
         // ----------------------------
-        // 5. Footer Social Icons
+        // 6. Footer Social Icons
         // ----------------------------
         const socialContainer = document.querySelector('.footer-social-icons');
         if (socialContainer && data.footer.social_icons) {
@@ -121,25 +141,38 @@ async function setupLayout() {
         }
 
         // ----------------------------
-        // 6. Footer Links & Lizenz
+        // 7. Footer Links & Lizenz
         // ----------------------------
         const footerNav = document.querySelector('.footer-nav');
         if (footerNav) {
-            footerNav.innerHTML = data.footer.nav_links.map(link => 
-                `<a href="${fixPath(link.url)}">${link.name}</a>`
-            ).join(' | ');
+            footerNav.innerHTML = data.footer.nav_links.map(link => {
+                const displayName = currentLang === 'de' ? link.name_de : link.name_en;
+                return `<a href="${fixPath(link.url)}">${displayName}</a>`;
+            }).join(' | ');
         }
 
         const licenseDiv = document.getElementById('footer-license');
-        if (licenseDiv) licenseDiv.innerText = data.footer.license_text;
+        if (licenseDiv) licenseDiv.innerText = langData.license_text;
 
     } catch (error) {
         console.error("Layout-Fehler:", error);
     }
 }
 
-setupLayout();
+// MODERNE VERSION: Sprache wechseln OHNE Reload
+function setLanguage(lang) {
+    localStorage.setItem('selectedLanguage', lang);
+    
+    // Einfach die Layout-Funktion erneut aufrufen -> Texte ändern sich live
+    setupLayout(); 
 
+    // Sprachmenü schließen
+    const languageMenu = document.getElementById('languageMenu');
+    if (languageMenu) languageMenu.classList.remove('show');
+}
+
+// Erstmaliger Aufruf beim Laden der Seite
+setupLayout();
 
 /* ------------------ Navbar - Suchfunktion erscheint durch Klick auf Lupe ------------------ */
 function toggleSearch() {

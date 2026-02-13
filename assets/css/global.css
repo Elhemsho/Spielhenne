@@ -285,83 +285,86 @@ a:visited {
     /* Nutzt dein Hellblau als Hover-Effekt */
 }
 
+/* Das Haupt-Dropdown braucht relative Positionierung */
 .dropdown-content {
+    color: #333;
+    display: none;
     position: absolute;
-    top: 25px;
-    /* Direkt unter dem Text */
-    right: -20px;
-    background-color: white;
+    right: 0;
+    top: 30px;
+    background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 8px 16px 2px rgba(0,0,0,0.2);
     z-index: 100;
     border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid #eee;
-
-    transform: scaleY(0);
-    /* Auf 0 zusammengepfercht */
-    transform-origin: top;
-    /* Fixpunkt oben */
-    opacity: 0;
-    /* Unsichtbar */
-    pointer-events: none;
-    /* Klicks gehen "durch" das Menü hindurch */
-    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-        opacity 0.2s ease-in-out;
 }
 
+.dropdown-content.show {
+    display: block;
+}
+
+
 .dropdown-content a {
-    color: #444;
+    color: #333;
     padding: 10px 15px;
     text-decoration: none;
     display: block;
     font-size: 14px;
 }
 
-.dropdown-content a:hover {
-    background-color: #f7f7f7;
-}
-
-.dropdown-content.show {
-    transform: scaleY(1);
-    /* Auf volle Größe ausfahren */
-    opacity: 1;
-    /* Sichtbar machen */
-    pointer-events: auto;
-    /* Klicks wieder empfangen */
+.dropdown-content a:hover, .menu-item-flex.language:hover {
+    background-color: #e2e2e2;
 }
 
 .show {
     display: block !important;
 }
 
+/* Das Sprachmenü (2. Modal) */
+/* Das Sprachmenü (2. Modal) */
 .language-menu {
+    display: none;
     position: absolute;
     top: 0;
-    right: -140px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    right: 100%; 
+    margin-right: 10px; 
+    background-color: #f9f9f9;
     min-width: 120px;
-    display: none;
-    z-index: 999;
-}
+    box-shadow: 2px 8px 16px 2px rgba(0,0,0,0.2);
+    z-index: 101;
+    
+    /* 1. Die Form definieren (nur links abgerundet) */
+    border-radius: 8px;
 
-.language-menu.show {
-    display: block;
+    /* 2. DER FIX: Alles abschneiden, was über diese Rundung hinausragt */
+    overflow: hidden; 
 }
 
 .language-menu div {
-    padding: 10px 14px;
+    padding: 10px 15px;
     cursor: pointer;
+    color: #333;
+    transition: background 0.2s;
+    font-size: 14px;
+    /* Wichtig: Kein eigener border-radius hier nötig, 
+       da das 'overflow:hidden' vom Eltern-Element das Abschneiden übernimmt */
 }
 
 .language-menu div:hover {
-    background: #f2f2f2;
+    background-color: #e2e2e2;
 }
 
+/* Styling für das Language-Item im Hauptmenü */
+.menu-item-flex.language {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+
 .menu-item-flex:hover {
-    background: rgba(0,0,0,0.08);
 }
 
 .menu-item-flex {
@@ -369,10 +372,11 @@ a:visited {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #444;
+    color: #333;
     font-size: 14px;
     text-align: left; 
     white-space: nowrap;
+    overflow: hidden;
 }
 
 .switch {
@@ -437,7 +441,7 @@ input:checked+.slider:before {
     border-top: 1px solid #eee;
     font-weight: bold;
     font-size: 18px;
-    color: #444;
+    color: #333;
 
     font-family: 'Comic Neue2', cursive;
 }

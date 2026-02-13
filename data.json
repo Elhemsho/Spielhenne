@@ -1,6 +1,6 @@
 {
     "playerColors": {
-        "player1": "rgb(255, 77, 77)", 
+        "player1": "rgb(255, 77, 77)",
         "player2": "rgb(77, 124, 255)",
         "player1l": "rgb(255, 190, 190)",
         "player2l": "rgb(198, 214, 255)",
@@ -8,9 +8,71 @@
         "bluel": "#defbff",
         "bluell": "rgb(235, 255, 255)"
     },
-    "meta": {
-        "site_name": "Spielhenne",
-        "description": "Spielhenne – Spiele alleine oder mit Freunden und hab Spaß!"
+    "languages": {
+        "de": {
+            "meta_description": "Spielhenne – Spiele alleine oder mit Freunden und hab Spaß!",
+            "search_placeholder": "Spiel suchen...",
+            "login_text": "Anmelden",
+            "settings_title": "Einstellungen",
+            "profile_text": "Profil",
+            "language_text": "Sprache",
+            "music_text": "Musik",
+            "dark_mode_text": "Dunkelmodus",
+            "license_text": "© 2026 Henrik Seebach. Alle Rechte vorbehalten.",
+            "no_games_title": "In Kürze verfügbar...",
+            "no_games_text": "Wir arbeiten an spannenden neuen Spielen für dich!",
+            
+            "player1": "Spieler 1",
+            "player2": "Spieler 2",
+            "your_turn": "Du bist dran!",
+            "next_round": "Nächste Runde",
+            "show_result": "Ansehen",
+            
+            "games": {
+                "ttt": "Tic Tac Toe",
+                "c4": "Vier Gewinnt",
+                "bs": "Schiffe versenken",
+                "2048": "2048",
+                "mem": "Memory",
+                "sol": "Solitär",
+                "yaz": "Kniffel",
+                "chess": "Schach",
+                "dab": "Käse Kästchen",
+                "mq": "Mathe Quiz"
+            }
+        },
+        "en": {
+            "meta_description": "Spielhenne – Play alone or with friends and have fun!",
+            "search_placeholder": "Search Game...",
+            "login_text": "Log In",
+            "settings_title": "Settings",
+            "profile_text": "Profile",
+            "language_text": "Language",
+            "music_text": "Music",
+            "dark_mode_text": "Dark Mode",
+            "license_text": "© 2026 Henrik Seebach. All rights reserved.",
+            "no_games_title": "Coming Soon...",
+            "no_games_text": "We are working on exciting games for you!",
+            
+            "player1": "Player 1",
+            "player2": "Player 2",
+            "your_turn": "It's your turn!",
+            "next_round": "Next Round",
+            "show_result": "Show",
+
+            "games": {
+                "ttt": "Tic Tac Toe",
+                "c4": "Connect Four",
+                "bs": "Battleship",
+                "2048": "2048",
+                "mem": "Memory",
+                "sol": "Solitaire",
+                "yaz": "Yazy",
+                "chess": "Chess",
+                "dab": "Dots and Boxes",
+                "mq": "Math Quiz"
+            }
+        }
     },
     "header": {
         "logos": {
@@ -18,75 +80,29 @@
             "huhn": "assets/images/logo_huhn.png"
         },
         "search": {
-            "placeholder": "Search Game...",
             "icon_url": "assets/images/lupe.png"
         },
         "login": {
-            "text": "LogIn",
             "url": "index.html"
         },
-        "settings": {
-            "title": "Settings",
-            "profile_text": "Profile",
-            "language_text": "Language",
-            "music_text": "Music",
-            "dark_mode_text": "Dark Mode"
-        },
         "main_nav": [
-            {
-                "name": "All Games",
-                "filter": "all"
-            },
-            {
-                "name": "2 Player Games",
-                "filter": "2"
-            },
-            {
-                "name": "Solo Games",
-                "filter": "1"
-            },
-            {
-                "name": "Online Games",
-                "filter": "multy"
-            }
+            { "name_de": "Alle Spiele", "name_en": "All Games", "filter": "all" },
+            { "name_de": "2 Spieler", "name_en": "2 Player Games", "filter": "2" },
+            { "name_de": "Einzelspieler", "name_en": "Solo Games", "filter": "1" },
+            { "name_de": "Online Spiele", "name_en": "Online Games", "filter": "multy" }
         ]
     },
     "footer": {
         "social_icons": [
-            {
-                "platform": "in",
-                "label": "LinkedIn",
-                "url": "../index.html"
-            },
-            {
-                "platform": "ig",
-                "label": "Instagram",
-                "url": "../index.html"
-            },
-            {
-                "platform": "fb",
-                "label": "Facebook",
-                "url": "../index.html"
-            }
+            { "platform": "in", "label": "LinkedIn", "url": "../index.html" },
+            { "platform": "ig", "label": "Instagram", "url": "../index.html" },
+            { "platform": "fb", "label": "Facebook", "url": "../index.html" }
         ],
         "nav_links": [
-            {
-                "name": "Impressum",
-                "url": "impressum.html"
-            },
-            {
-                "name": "Datenschutzerklärung",
-                "url": "datenschutz.html"
-            },
-            {
-                "name": "Change Logs",
-                "url": "changelogs.html"
-            },
-            {
-                "name": "Sitemap",
-                "url": "sitemap.html"
-            }
-        ],
-        "license_text": "© 2026 Henrik Bernhard Seebach. Alle Rechte vorbehalten."
+            { "name_de": "Impressum", "name_en": "Imprint", "url": "impressum.html" },
+            { "name_de": "Datenschutzerklärung", "name_en": "Privacy", "url": "datenschutz.html" },
+            { "name_de": "Change Logs", "name_en": "Change Logs", "url": "changelogs.html" },
+            { "name_de": "Sitemap", "name_en": "Sitemap", "url": "sitemap.html" }
+        ]
     }
 }

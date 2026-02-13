@@ -54,7 +54,7 @@
                         <div id="settingsDropdown" class="dropdown-content">
                             <a href="index.html"></a>
 
-							<div class="menu-item-flex" onclick="openLanguageMenu(event)">
+							<div class="menu-item-flex language" onclick="openLanguageMenu(event)">
                                 <span></span>
                                 <span>›</span>
                             </div>
@@ -95,9 +95,11 @@
 
 	<div class="main">
 		<div class="head">
-			<div class="reset" id="playAgainBtn"><img src="../assets/images/reset.png" class="resetImg" onclick="resetEverything()"></div>
+			<div class="reset" id="playAgainBtn">
+				<img src="../assets/images/reset.png" class="resetImg" onclick="resetEverything()">
+			</div>
 
-			<div class="header">Tic Tac Toe</div>
+			<div class="header" data-i18n="ttt">Tic Tac Toe</div>
 
 			<div class="muteBtn" id="muteBtn">
 				<img id="muteIcon" src="../assets/images/speaker.png" alt="Mute">
@@ -107,10 +109,10 @@
 		<div class="game-field">
 
 			<div class="box1">
-				<div class="p1">Player 1</div>
+				<div class="p1" data-i18n="player1">Player 1</div>
 				<div class="x">x</div>
 				<div class="pp1">0</div>
-				<div class="t1" id="turnP1">It's your turn!</div>
+				<div class="t1" id="turnP1" data-i18n="your_turn">It's your turn!</div>
 			</div>
 
 			<section class="spiel">
@@ -127,29 +129,29 @@
 			</section>
 
 			<div class="box2">
-				<div class="p2">Player 2</div>
+				<div class="p2" data-i18n="player2">Player 2</div>
 				<div class="o">⭘</div>
 				<div class="pp2">0</div>
-				<div class="t2" id="turnP2">It's your turn!</div>
+				<div class="t2" id="turnP2" data-i18n="your_turn">It's your turn!</div>
 			</div>
 			
 		</div>
 
 		<div id="winnerOverlay" class="overlay hidden">
-				<div class="winnerBox">
-					<span id="closeOverlay" class="closeBtn">✖</span>
-					<h1 id="winnerText"></h1>
-					<button id="resetBtn">Next Round</button>
-				</div>
+			<div class="winnerBox">
+				<span id="closeOverlay" class="closeBtn">✖</span>
+				<h1 id="winnerText"></h1> 
+				<button id="resetBtn" data-i18n="next_round">Next Round</button>
 			</div>
+		</div>
 
-			<div id="championOverlay" class="overlay hidden">
-				<div class="winnerBox">
-					<h1 id="championText"></h1>
-					<button id="playAgainBtnChampion" class="playAgainBtn">Show</button>
-					<canvas id="confettiCanvas"></canvas>
-				</div>
+		<div id="championOverlay" class="overlay hidden">
+			<div class="winnerBox">
+				<h1 id="championText"></h1>
+				<button id="playAgainBtnChampion" class="playAgainBtn" data-i18n="show_result">Show</button>
+				<canvas id="confettiCanvas"></canvas>
 			</div>
+		</div>
 	</div>
 
 	<footer class="site-footer">
