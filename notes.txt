@@ -1,6 +1,7 @@
 Nicht vergessen:
 - new highscore bei solitaire und 2048 
 - richtige schiffe bei battleship
+- von root seiten auf all gems klicken können
 
 Weitere Seiten
 - Kontakt -> link zu spendenseite

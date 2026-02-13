@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Kontakt</title>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/root.css">
+
+    <script src="assets/js/global.js" defer></script>
+    <script src="assets/js/root.js" defer></script>
+
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+    <meta name="description" content="Spielhenne – Spiele alleine oder mit Freunden und hab Spaß!">
+
+    <!-- Open Graph / Social Media Preview -->
+    <meta property="og:title" content="Spielhenne">
+    <meta property="og:description" content="Spielhenne ist eine Spieleplattform für Solo & Duo-Spiele.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://elhemsho.github.io/Spielhenne/">
+    <meta property="og:image" content="https://elhemsho.github.io/Spielhenne/assets/images/ogimage3.png">
+
+    <meta name="google-site-verification" content="qIlOWqRxNYsnpooIoh0nXj0v0UckOS1o7jqAMP9J0gU" />
+
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="25fcd45a-0c51-46b8-adac-284a437448cf"></script>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="header-top">
+                <div class="header-logo">
+                    <a href="index.html">
+                        <img class="logo" src="assets/images/logo_schrift.png">
+                        <img class="logo2" src="assets/images/logo_huhn.png">
+                    </a>
+                </div>
+
+                <nav class="header-meta-nav">
+                    <div class="nav-item search-container">
+                        <input type="text" id="searchInput" placeholder="..." oninput="searchGames()">
+                        <span>
+                            <img onclick="toggleSearch()" class="nav-link lupe" src="assets/images/lupe.png">
+                        </span>
+                    </div>
+
+                    <span class="divider">|</span>
+
+                    <a href="index.html">
+                        <span class="nav-login"></span>
+                    </a>
+
+                    <span class="divider">|</span>
+
+                    <div class="nav-item settings-container">
+                        <span onclick="toggleSettings()" class="nav-settings"></span>
+
+                        <div id="settingsDropdown" class="dropdown-content">
+                            <a href="index.html"></a>
+
+                            <div class="menu-item-flex language" onclick="openLanguageMenu(event)">
+                                <span></span>
+                                <span>›</span>
+                            </div>
+
+                            <div id="languageMenu" class="language-menu">
+                                <div onclick="setLanguage('de')">Deutsch</div>
+                                <div onclick="setLanguage('en')">English</div>
+                            </div>
+
+                            <div class="menu-item-flex">
+                                <span></span>
+                                <label class="switch">
+                                    <input type="checkbox" id="musicToggle">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+
+                            <div class="menu-item-flex">
+                                <span></span>
+                                <label class="switch">
+                                    <input type="checkbox" id="darkToggle">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <nav class="main-navigation">
+                <ul id="main-nav-list">
+                    </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="bg">
+        <div class="header" data-i18n="contact_title">Kontakt</div>
+
+        <div class="text">
+            <h3 data-i18n="contact_subtitle">Haste Fragen oder Feedback?</h3>
+            <p>
+                <span data-i18n="contact_text">Du kannst mich jederzeit per E-Mail erreichen. Ich freue mich über Nachrichten zu Fehlern, Spielideen oder einfach nur Feedback!</span>
+            </p>
+
+            <p>
+                E-Mail: <a href="mailto:spielhenne.de@gmail.com">spielhenne.de@gmail.com</a>
+            </p>
+
+            <hr style="margin: 30px 0; border: 0; border-top: 1px solid #ccc;">
+
+            <h3 data-i18n="donation_title">Unterstütze Spielhenne</h3>
+            <p data-i18n="donation_text">
+                Wenn dir meine Seite gefällt, kannst du mich freiwillig unterstützen. Jede Spende hilft mir, neue Spiele zu entwickeln.
+            </p>
+            
+            <p>
+                <a href="https://www.paypal.me/HenrikSeebach/5" target="_blank" rel="noopener noreferrer" class="donation-link" style="font-weight: bold; color: #0070ba; text-decoration: underline;">
+                    <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg" alt="PayPal Logo" style="margin-right: 10px;">
+                    ➔ <span data-i18n="donation_link_text">Hier geht's zu meinem PayPal</span>
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-social-icons"></div>
+
+            <nav class="footer-nav"></nav>
+
+            <div class="license" id="footer-license"></div>
+        </div>
+    </footer>
+</body>
+
+</html>

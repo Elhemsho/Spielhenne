@@ -22,12 +22,12 @@ body {
     box-shadow: 0 0 12px 1px rgba(0, 0, 0, 0.2);
 }
 
-a, a:visited{
+.text a, .text a:visited{
     text-decoration: none;
     color: #5de5f7;
 }
 
-a:hover{
+.text a:hover{
     text-decoration: none;
     color: #3cb0bf;
 }

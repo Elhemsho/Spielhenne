@@ -21,6 +21,13 @@
             "license_text": "© 2026 Henrik Seebach. Alle Rechte vorbehalten.",
             "no_games_title": "In Kürze verfügbar...",
             "no_games_text": "Wir arbeiten an spannenden neuen Spielen für dich!",
+
+            "contact_title": "Kontakt",
+            "contact_subtitle": "Hast du Fragen oder Feedback?",
+            "contact_text": "Du kannst mich jederzeit per E-Mail erreichen. Ich freue mich über Nachrichten zu Fehlern, Spielideen oder einfach nur Feedback!",
+            "donation_title": "Unterstütze Spielhenne",
+            "donation_text": "Wenn dir meine Seite gefällt, kannst du mich freiwillig unterstützen.",
+            "donation_link_text": "Hier geht's zu meinem PayPal",
             
             "player1": "Spieler 1",
             "player2": "Spieler 2",
@@ -53,6 +60,13 @@
             "license_text": "© 2026 Henrik Seebach. All rights reserved.",
             "no_games_title": "Coming Soon...",
             "no_games_text": "We are working on exciting games for you!",
+
+            "contact_title": "Contact",
+            "contact_subtitle": "Do you have questions or feedback?",
+            "contact_text": "You can reach me anytime via email. I look forward to hearing about bugs, game ideas, or just general feedback!",
+            "donation_title": "Support Spielhenne",
+            "donation_text": "If you like my site, you can support me voluntarily.",
+            "donation_link_text": "Click here for my PayPal",
             
             "player1": "Player 1",
             "player2": "Player 2",
@@ -99,10 +113,12 @@
             { "platform": "fb", "label": "Facebook", "url": "../index.html" }
         ],
         "nav_links": [
+            { "name_de": "Kontakt", "name_en": "Contact", "url": "kontakt.html" },
             { "name_de": "Impressum", "name_en": "Imprint", "url": "impressum.html" },
             { "name_de": "Datenschutzerklärung", "name_en": "Privacy", "url": "datenschutz.html" },
             { "name_de": "Change Logs", "name_en": "Change Logs", "url": "changelogs.html" },
             { "name_de": "Sitemap", "name_en": "Sitemap", "url": "sitemap.html" }
+            
         ]
     }
 }
