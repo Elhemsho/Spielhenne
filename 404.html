@@ -40,7 +40,15 @@
                         <span class="nav-login"></span>
                     </a>
 
-                    <div class="menu-item-flex language" onclick="openLanguageMenu(event)">
+                    <span class="divider">|</span>
+
+                    <div class="nav-item settings-container">
+                        <span onclick="toggleSettings()" class="nav-settings"></span>
+
+                        <div id="settingsDropdown" class="dropdown-content">
+                            <a href="index.html"></a>
+                            
+                            <div class="menu-item-flex language" onclick="openLanguageMenu(event)">
                                 <span></span>
                                 <span>›</span>
                             </div>
@@ -49,14 +57,6 @@
                                 <div onclick="setLanguage('de')">Deutsch</div>
                                 <div onclick="setLanguage('en')">English</div>
                             </div>
-
-                    <span class="divider">|</span>
-
-                    <div class="nav-item settings-container">
-                        <span onclick="toggleSettings()" class="nav-settings"></span>
-
-                        <div id="settingsDropdown" class="dropdown-content">
-                            <a href="index.html"></a>
 
                             <div class="menu-item-flex">
                                 <span></span>

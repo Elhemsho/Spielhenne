@@ -41,7 +41,15 @@
                         <span class="nav-login"></span>
                     </a>
 
-                    <div class="menu-item-flex language" onclick="openLanguageMenu(event)">
+                    <span class="divider">|</span>
+
+                    <div class="nav-item settings-container">
+                        <span onclick="toggleSettings()" class="nav-settings"></span>
+
+                        <div id="settingsDropdown" class="dropdown-content">
+                            <a href="index.html"></a>
+
+                            <div class="menu-item-flex language" onclick="openLanguageMenu(event)">
                                 <span></span>
                                 <span>›</span>
                             </div>
@@ -50,14 +58,6 @@
                                 <div onclick="setLanguage('de')">Deutsch</div>
                                 <div onclick="setLanguage('en')">English</div>
                             </div>
-
-                    <span class="divider">|</span>
-
-                    <div class="nav-item settings-container">
-                        <span onclick="toggleSettings()" class="nav-settings"></span>
-
-                        <div id="settingsDropdown" class="dropdown-content">
-                            <a href="index.html"></a>
 
                             <div class="menu-item-flex">
                                 <span></span>
@@ -87,41 +87,38 @@
     </header>
 
     <div class="bg">
-        <div class="header">Change-Logs</div>
+        <div class="header" data-i18n="changelog_title">Change-Logs</div>
 
         <div class="text">
-            <p>All notable changes to this project will be documented here.</p>
+            <p data-i18n="changelog_intro">All notable changes to this project will be documented here.</p>
             <hr>
-            <!--
-                    <h2>[Unreleased]</h2>
-                    <ul>
-                    <li>Placeholder for upcoming changes</li>
-                    </ul>
-            -->
+
             <h2>[1.0.0] – 2026-02-02</h2>
-            <p><strong>Initial release</strong></p>
+            <p><strong data-i18n="initial_release">Initial release</strong></p>
             <ul>
-                <li>Public launch of Spielhenne</li>
-                <li>Includes the following games:
+                <li data-i18n="launch_text">Public launch of Spielhenne</li>
+                <li>
+                    <span data-i18n="includes_games">Includes the following games:</span>
                     <ul>
-                        <li>Tic Tac Toe</li>
-                        <li>Connect Four</li>
-                        <li>Battleship</li>
-                        <li>2048</li>
-                        <li>Memory</li>
-                        <li>Solitaire</li>
-                        <li>Yazy</li>
-                        <li>Dots and Boxes</li>
-                        <li>Math Quiz</li>
+                        <li data-i18n="ttt">Tic Tac Toe</li>
+                        <li data-i18n="c4">Connect Four</li>
+                        <li data-i18n="bs">Battleship</li>
+                        <li data-i18n="2048">2048</li>
+                        <li data-i18n="mem">Memory</li>
+                        <li data-i18n="sol">Solitaire</li>
+                        <li data-i18n="yaz">Yazy</li>
+                        <li data-i18n="dab">Dots and Boxes</li>
+                        <li data-i18n="mq">Math Quiz</li>
                     </ul>
                 </li>
-                <li>Features:
+                <li>
+                    <span data-i18n="features_label">Features:</span>
                     <ul>
-                        <li>Singleplayer & Local Multiplayer</li>
-                        <li>Local Highscores</li>
+                        <li data-i18n="feature_players">Singleplayer & Local Multiplayer</li>
+                        <li data-i18n="feature_highscores">Local Highscores</li>
                     </ul>
                 </li>
-                <li>Built with HTML5, CSS3, and Vanilla JavaScript</li>
+                <li data-i18n="tech_stack">Built with HTML5, CSS3, and Vanilla JavaScript</li>
             </ul>
         </div>
     </div>

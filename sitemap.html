@@ -39,7 +39,15 @@
                         <span class="nav-login">LogIn</span>
                     </a>
 
-                    <div class="menu-item-flex language" onclick="openLanguageMenu(event)">
+                    <span class="divider">|</span>
+
+                    <div class="nav-item settings-container">
+                        <span onclick="toggleSettings()" class="nav-settings">Settings</span>
+
+                        <div id="settingsDropdown" class="dropdown-content">
+                            <a href="index.html">Profile</a>
+
+                            <div class="menu-item-flex language" onclick="openLanguageMenu(event)">
                                 <span></span>
                                 <span>›</span>
                             </div>
@@ -48,14 +56,6 @@
                                 <div onclick="setLanguage('de')">Deutsch</div>
                                 <div onclick="setLanguage('en')">English</div>
                             </div>
-
-                    <span class="divider">|</span>
-
-                    <div class="nav-item settings-container">
-                        <span onclick="toggleSettings()" class="nav-settings">Settings</span>
-
-                        <div id="settingsDropdown" class="dropdown-content">
-                            <a href="index.html">Profile</a>
 
                             <div class="menu-item-flex">
                                 <span>Music</span>
@@ -91,29 +91,28 @@
     </header>
 
     <div class="bg">
-        <div class="header">Sitemap</div>
+        <div class="header" data-i18n="sitemap_title">Sitemap</div>
 
         <div class="text">
-            <p>Hier finden Sie alle Seiten von <strong>Spielhenne</strong>:</p>
+            <p data-i18n="sitemap_intro">Hier finden Sie alle Seiten von <strong>Spielhenne</strong>:</p>
 
             <ul>
-                <!-- Root-Seiten -->
-                <li><a href="index.html">Startseite</a></li>
-                <li><a href="datenschutz.html">Datenschutzerklärung</a></li>
-                <li><a href="impressum.html">Impressum</a></li>
-                <li><a href="changelogs.html">Change Logs</a></li>
-                <li><a href="sitemap.html">Sitemap</a></li>
+                <li><a href="index.html" data-i18n="home">Startseite</a></li>
+                <li><a href="datenschutz.html" data-i18n="privacy_title">Datenschutzerklärung</a></li>
+                <li><a href="impressum.html" data-i18n="imprint_title">Impressum</a></li>
+                <li><a href="changelogs.html" data-i18n="changelog_title">Change Logs</a></li>
+                <li><a href="sitemap.html" data-i18n="sitemap_title">Sitemap</a></li>
+                <li><a href="kontakt.html" data-i18n="contact_title">Kontakt</a></li>
 
-                <!-- Spiele-Seiten -->
-                <li><a href="pages/tictactoe.html">Tic Tac Toe</a></li>
-                <li><a href="pages/connectfour.html">Connect Four</a></li>
-                <li><a href="pages/battleship.html">Battleship</a></li>
-                <li><a href="pages/yazy.html">Yazy</a></li>
-                <li><a href="pages/solitaire.html">Solitaire</a></li>
-                <li><a href="pages/dotsandboxes.html">Dots and Boxes</a></li>
-                <li><a href="pages/memory.html">Memory</a></li>
-                <li><a href="pages/2048.html">2048</a></li>
-                <li><a href="pages/mathquiz.html">Math Quiz</a></li>
+                <li><a href="pages/tictactoe.html" data-i18n="ttt">Tic Tac Toe</a></li>
+                <li><a href="pages/connectfour.html" data-i18n="c4">Connect Four</a></li>
+                <li><a href="pages/battleship.html" data-i18n="bs">Battleship</a></li>
+                <li><a href="pages/yazy.html" data-i18n="yaz">Yazy</a></li>
+                <li><a href="pages/solitaire.html" data-i18n="sol">Solitaire</a></li>
+                <li><a href="pages/dotsandboxes.html" data-i18n="dab">Dots and Boxes</a></li>
+                <li><a href="pages/memory.html" data-i18n="mem">Memory</a></li>
+                <li><a href="pages/2048.html" data-i18n="2048">2048</a></li>
+                <li><a href="pages/mathquiz.html" data-i18n="mq">Math Quiz</a></li>
             </ul>
         </div>
     </div>
@@ -133,7 +132,7 @@
                 <a href="sitemap.html">Sitemap</a>
             </nav>
 
-            <div class="license">© 2026 Henrik Bernhard Seebach. Alle Rechte vorbehalten.</div>
+            <div class="license" id="footer-license">© 2026 Henrik Bernhard Seebach. Alle Rechte vorbehalten.</div>
         </div>
     </footer>
 </body>

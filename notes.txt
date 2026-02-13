@@ -2,10 +2,9 @@ Nicht vergessen:
 - new highscore bei solitaire und 2048 
 - richtige schiffe bei battleship
 - von root seiten auf all gems klicken können
+- kontakt anpassen
 
 Weitere Seiten
-- Kontakt -> link zu spendenseite
-- spenden/unterstützen („Wenn dir meine Seite gefällt, kannst du mich freiwillig unterstützen.“)
 - Bewerten
 - faq?
 - info feld -> anleitung pro game

@@ -41,7 +41,15 @@
                         <span class="nav-login"></span>
                     </a>
 
-                    <div class="menu-item-flex language" onclick="openLanguageMenu(event)">
+                    <span class="divider">|</span>
+
+                    <div class="nav-item settings-container">
+                        <span onclick="toggleSettings()" class="nav-settings"></span>
+
+                        <div id="settingsDropdown" class="dropdown-content">
+                            <a href="index.html"></a>
+
+                            <div class="menu-item-flex language" onclick="openLanguageMenu(event)">
                                 <span></span>
                                 <span>›</span>
                             </div>
@@ -50,14 +58,6 @@
                                 <div onclick="setLanguage('de')">Deutsch</div>
                                 <div onclick="setLanguage('en')">English</div>
                             </div>
-
-                    <span class="divider">|</span>
-
-                    <div class="nav-item settings-container">
-                        <span onclick="toggleSettings()" class="nav-settings"></span>
-
-                        <div id="settingsDropdown" class="dropdown-content">
-                            <a href="index.html"></a>
 
                             <div class="menu-item-flex">
                                 <span></span>
@@ -87,31 +87,32 @@
     </header>
 
     <div class="bg">
-        <div class="header">Datenschutzerklärung</div>
+        <div class="header" data-i18n="privacy_title">Datenschutzerklärung</div>
 
         <div class="text">
-            <h3>1. Hosting durch GitHub Pages</h3>
-            <p>Diese Website wird über <strong>GitHub Pages</strong> gehostet. Anbieter ist GitHub Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA.</p>
-            <p>Beim Aufruf der Website erhebt GitHub automatisch Informationen in Server-Log-Dateien (IP-Adresse, Browsertyp, Uhrzeit). Dies ist technisch erforderlich, um die Website sicher auszuliefern. Rechtsgrundlage ist unser berechtigtes Interesse (Art. 6 Abs. 1 lit. f DSGVO).</p>
+            <h3 data-i18n="privacy_h1">1. Hosting durch GitHub Pages</h3>
+            <p><span data-i18n="privacy_p1_a">Diese Website wird über</span> <strong>GitHub Pages</strong> <span data-i18n="privacy_p1_b">gehostet. Anbieter ist GitHub Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA.</span></p>
+            <p data-i18n="privacy_p1_c">Beim Aufruf der Website erhebt GitHub automatisch Informationen in Server-Log-Dateien (IP-Adresse, Browsertyp, Uhrzeit). Dies ist technisch erforderlich, um die Website sicher auszuliefern. Rechtsgrundlage ist unser berechtigtes Interesse (Art. 6 Abs. 1 lit. f DSGVO).</p>
 
-            <h3>2. Analyse-Tool Umami (Cookie-frei)</h3>
-            <p>Wir nutzen das Analyse-Tool <strong>Umami</strong> (Umami Software, Inc.), um die Nutzung unserer Website statistisch auszuwerten. Umami ist eine datenschutzfreundliche Lösung:</p>
+            <h3 data-i18n="privacy_h2">2. Analyse-Tool Umami (Cookie-frei)</h3>
+            <p><span data-i18n="privacy_p2_a">Wir nutzen das Analyse-Tool</span> <strong>Umami</strong> <span data-i18n="privacy_p2_b">(Umami Software, Inc.), um die Nutzung unserer Website statistisch auszuwerten. Umami ist eine datenschutzfreundliche Lösung:</span></p>
             <ul>
-                <li><strong>Keine Cookies:</strong> Umami speichert keine Dateien auf Ihrem Endgerät und erkennt Nutzer nicht über Cookies wieder.</li>
-                <li><strong>Anonymisierung:</strong> IP-Adressen werden sofort anonymisiert (gehasht). Ein Rückschluss auf Ihre Person ist nicht möglich.</li>
-                <li><strong>Datenminimierung:</strong> Es werden nur technische Daten wie Browsertyp, Land und besuchte Seiten erfasst, um die Website zu verbessern.</li>
+                <li><strong data-i18n="privacy_li1_title">Keine Cookies:</strong> <span data-i18n="privacy_li1_text">Umami speichert keine Dateien auf Ihrem Endgerät und erkennt Nutzer nicht über Cookies wieder.</span></li>
+                <li><strong data-i18n="privacy_li2_title">Anonymisierung:</strong> <span data-i18n="privacy_li2_text">IP-Adressen werden sofort anonymisiert (gehasht). Ein Rückschluss auf Ihre Person ist nicht möglich.</span></li>
+                <li><strong data-i18n="privacy_li3_title">Datenminimierung:</strong> <span data-i18n="privacy_li3_text">Es werden nur technische Daten wie Browsertyp, Land und besuchte Seiten erfasst, um die Website zu verbessern.</span></li>
             </ul>
-            <p>Rechtsgrundlage für diese Analyse ist unser berechtigtes Interesse an der Optimierung unseres Angebots gemäß Art. 6 Abs. 1 lit. f DSGVO.</p>
+            <p data-i18n="privacy_p2_c">Rechtsgrundlage für diese Analyse ist unser berechtigtes Interesse an der Optimierung unseres Angebots gemäß Art. 6 Abs. 1 lit. f DSGVO.</p>
 
-            <h3>3. KI-Generierte Inhalte</h3>
-            <p>Die auf dieser Website verwendeten Grafiken wurden teilweise mit KI-Systemen (ChatGPT / Google Gemini) generiert.</p>
+            <h3 data-i18n="privacy_h3">3. KI-Generierte Inhalte</h3>
+            <p data-i18n="privacy_p3">Die auf dieser Website verwendeten Grafiken wurden teilweise mit KI-Systemen (ChatGPT / Google Gemini) generiert.</p>
 
-            <h3>4. Ihre Rechte</h3>
-            <p>Sie haben das Recht auf Auskunft, Berichtigung oder Löschung Ihrer Daten. Da wir keine personenbezogenen Identifikatoren (wie Namen oder ungekürzte IPs) dauerhaft speichern, ist eine Zuordnung von Daten zu Ihrer Person in der Regel nicht möglich.</p>
-            <p>Kontakt für Datenschutzanfragen: <a href="mailto:spielhenne.de@gmail.com">spielhenne.de@gmail.com</a></p>
+            <h3 data-i18n="privacy_h4">4. Ihre Rechte</h3>
+            <p data-i18n="privacy_p4_a">Sie haben das Recht auf Auskunft, Berichtigung oder Löschung Ihrer Daten. Da wir keine personenbezogenen Identifikatoren (wie Namen oder ungekürzte IPs) dauerhaft speichern, ist eine Zuordnung von Daten zu Ihrer Person in der Regel nicht möglich.</p>
+            <p><span data-i18n="privacy_p4_b">Kontakt für Datenschutzanfragen:</span> <a href="mailto:spielhenne.de@gmail.com">spielhenne.de@gmail.com</a></p>
 
-            <h3>5. Datensicherheit</h3>
-            <p>Die Datenübertragung erfolgt verschlüsselt über <strong>HTTPS</strong>.</p></div>
+            <h3 data-i18n="privacy_h5">5. Datensicherheit</h3>
+            <p><span data-i18n="privacy_p5">Die Datenübertragung erfolgt verschlüsselt über</span> <strong>HTTPS</strong>.</p>
+        </div>
     </div>
 
     <footer class="site-footer">
