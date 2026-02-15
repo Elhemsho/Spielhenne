@@ -117,11 +117,23 @@ async function setupLayout() {
         // ----------------------------
         const mainNavList = document.getElementById('main-nav-list');
         if (mainNavList && data.header.main_nav) {
+            // Wir prüfen: Sind wir in /pages/ oder direkt im Root?
+            const isSubpage = window.location.pathname.includes('/pages/');
+            const pathPrefix = isSubpage ? '../' : '';
+            
+            // Sind wir auf der index.html? (Egal ob im Root oder via Pfad)
+            const isIndex = window.location.pathname.endsWith('index.html') || 
+                            window.location.pathname.endsWith('/') ||
+                            (!window.location.pathname.includes('.html') && !isSubpage);
+
             mainNavList.innerHTML = data.header.main_nav.map(item => {
-                const action = isSubpage 
-                    ? `window.location.href='${pathPrefix}index.html?filter=${item.filter}'`
-                    : `filterGames('${item.filter}')`;
                 const displayName = currentLang === 'de' ? item.name_de : item.name_en;
+                
+                // Die Action entscheidet: Sofort filtern (auf Index) oder Springen (Rest)
+                const action = isIndex 
+                    ? `filterGames('${item.filter}')` 
+                    : `window.location.href='${pathPrefix}index.html?filter=${item.filter}'`;
+
                 return `<li onclick="${action}"><a>${displayName}</a></li>`;
             }).join('');
         }
@@ -158,6 +170,38 @@ async function setupLayout() {
         console.error("Layout-Fehler:", error);
     }
 }
+
+function filterGames(filter) {
+    const gameCards = document.querySelectorAll('.game-card');
+    
+    // Falls wir NICHT auf der Index sind, haben wir keine .game-card Elemente.
+    // Das ist okay, die Funktion bricht dann einfach hier ab.
+    if (gameCards.length === 0) return;
+
+    gameCards.forEach(card => {
+        const players = card.getAttribute('data-players');
+        if (filter === 'all' || players === filter) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+    
+    // Hilfreich für das Styling: Aktiven Filter im Menü markieren (optional)
+    console.log("Filter aktiv:", filter);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const filterFromUrl = urlParams.get('filter');
+
+    if (filterFromUrl) {
+        // Kurze Verzögerung, damit die Spiele-Kacheln sicher geladen sind
+        setTimeout(() => {
+            filterGames(filterFromUrl);
+        }, 100);
+    }
+});
 
 // MODERNE VERSION: Sprache wechseln OHNE Reload
 function setLanguage(lang) {
