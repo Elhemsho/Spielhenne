@@ -1,10 +1,8 @@
 Nicht vergessen:
 - new highscore bei solitaire und 2048 
 - richtige schiffe bei battleship
-- von root seiten auf all gems klicken können
-- kontakt anpassen
+- footer unten auch bei handy ansicht
 
 Weitere Seiten
 - Bewerten
-- faq?
 - info feld -> anleitung pro game

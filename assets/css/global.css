@@ -1,3 +1,13 @@
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* Fallback für ältere Browser */
+}
+
+/* Optional: Verhindert das Standard-Kontextmenü beim langen Drücken (z.B. bei Bildern) */
+img, a {
+    -webkit-touch-callout: none;
+}
+
 :root {
   --player1-color: #000; /* Default-Farbe, wird überschrieben */
   --player2-color: #000; /* Default-Farbe, wird überschrieben */
@@ -25,24 +35,27 @@ img.colored1 {
 }
         */
 
-html,
-body {
+html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-
 }
 
 body {
-    background: #fdfdfd;
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    font-family: 'Comic Neue', cursive;
+    min-height: 100vh; /* Wichtig: 100vh statt height */
+    margin: 0;
 }
 
+/* Wir zwingen JEDES Element zwischen Header und Footer, 
+   den verfügbaren Platz nach unten zu drücken */
+header + div, 
+header + main,
+.main, 
+.bg {
+    flex: 1 0 auto; /* Wachsen lassen, aber nicht schrumpfen */
+}
 /* Comic Neue lokal einbinden */
 @font-face {
     font-family: 'Comic Neue';
@@ -595,15 +608,19 @@ input:checked+.slider:before {
 /* ------------------ Head-Bar-End ------------------ */
 
 /* ------------------ Footer ------------------ */
+footer {
+    flex-shrink: 0; /* Footer darf niemals gequetscht werden */
+}
+
 .site-footer {
     width: 100%;
     background-color: var(--blue);
     color: white;
     padding: 30px 0;
-    margin-top: 0px;
     flex-shrink: 0;
     position: relative; 
     z-index: 1001; /* Höher als die 1000 vom Overlay */
+    margin-top: auto; /* Schiebt den Footer mit Gewalt nach ganz unten */
 }
 
 .footer-social-icons {
