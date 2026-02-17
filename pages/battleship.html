@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 
 <head>
-    <title>Battleship</title>
+    <title>Battleship | Spielhenne</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/battleship.css">
@@ -10,7 +10,6 @@
     <script src="../assets/js/battleship.js" defer></script>
     <link rel="icon" type="image/png" href="../assets/images/favicon.png">
 
-    <!-- Open Graph / Social Media Preview -->
     <meta property="og:title" content="Battleship">
     <meta property="og:description" content="Battleship - Ein Spiel aus der Spieleplattform Spielhenne.">
     <meta property="og:type" content="website">
@@ -23,26 +22,24 @@
         <div class="container">
             <div class="header-top">
                 <div class="header-logo">
-                    <a href="index.html">
-                        <img class="logo" src="assets/images/logo_schrift.png">
-                        <img class="logo2" src="assets/images/logo_huhn.png">
+                    <a href="../../index.html">
+                        <img class="logo" src="../assets/images/logo_schrift.png">
+                        <img class="logo2" src="../assets/images/logo_huhn.png">
                     </a>
                 </div>
 
                 <nav class="header-meta-nav">
                     <div class="nav-item search-container">
-						<input type="text" id="searchInput" placeholder="...">
-						
-						<div id="searchSuggestions" class="suggestions-box" style="display:none;"></div>
-
-						<span>
-							<img onclick="toggleSearch()" class="nav-link lupe" src="">
-						</span>
-					</div>
+                        <input type="text" id="searchInput" placeholder="...">
+                        <div id="searchSuggestions" class="suggestions-box" style="display:none;"></div>
+                        <span>
+                            <img onclick="toggleSearch()" class="nav-link lupe" src="../assets/images/lupe.png">
+                        </span>
+                    </div>
 
                     <span class="divider">|</span>
 
-                    <a href="index.html">
+                    <a href="../../index.html">
                         <span class="nav-login"></span>
                     </a>
 
@@ -52,7 +49,7 @@
                         <span onclick="toggleSettings()" class="nav-settings"></span>
 
                         <div id="settingsDropdown" class="dropdown-content">
-                            <a href="index.html"></a>
+                            <a href="../../index.html"></a>
 
                             <div class="menu-item-flex language" onclick="openLanguageMenu(event)">
                                 <span></span>
@@ -85,8 +82,7 @@
             </div>
 
             <nav class="main-navigation">
-                <ul id="main-nav-list">
-                    </ul>
+                <ul id="main-nav-list"></ul>
             </nav>
         </div>
     </header>
@@ -95,8 +91,10 @@
 
     <div class="main">
         <div class="head">
-            <div class="reset" id="playAgainBtn"><img src="../assets/images/reset.png" class="resetImg"></div>
-            <div class="header">Battleship</div>
+            <div class="reset" id="playAgainBtn">
+                <img src="../assets/images/reset.png" class="resetImg">
+            </div>
+            <div class="header" data-i18n="bs">Battleship</div>
             <div class="muteBtn" id="muteBtn">
                 <img id="muteIcon" src="../assets/images/speaker.png" alt="Mute">
             </div>
@@ -104,55 +102,47 @@
 
         <div class="game-container">
             <div class="player-area" id="area-p1">
-                <h3 class="player-label" style="color: var(--player1-color);">Player 1</h3>
+                <h3 class="player-label" data-i18n="player1" style="color: var(--player1-color);"></h3>
                 <div class="grid" id="grid-p1"></div>
             </div>
 
             <div class="center-panel">
                 <div class="overviews-row">
                     <div class="ship-overview p1-style" id="ships-p1">
-                        <h4>P1 Fleet</h4>
-                        <div class="ship-list" id="list-p1">
-                        </div>
+                        <h4 data-i18n="fleet_p1">P1 Fleet</h4>
+                        <div class="ship-list" id="list-p1"></div>
                     </div>
 
                     <div class="ship-overview p2-style" id="ships-p2">
-                        <h4>P2 Fleet</h4>
-                        <div class="ship-list" id="list-p2">
-                        </div>
+                        <h4 data-i18n="fleet_p2">P2 Fleet</h4>
+                        <div class="ship-list" id="list-p2"></div>
                     </div>
                 </div>
             </div>
 
             <div class="player-area" id="area-p2">
-                <h3 class="player-label" style="color: var(--player2-color);">Player 2</h3>
+                <h3 class="player-label" data-i18n="player2" style="color: var(--player2-color);"></h3>
                 <div class="grid" id="grid-p2"></div>
             </div>
         </div>
 
         <div class="controls-bottom">
-            <button id="main-action-btn" class="action-btn" disabled>NEXT PLAYER</button>
+            <button id="main-action-btn" class="action-btn" data-i18n="next_player" disabled></button>
         </div>
 
         <div id="championOverlay" class="overlay hidden">
-				<div class="winnerBox">
-					<h1 id="championText"></h1>
-					<button id="playAgainBtnChampion" class="playAgainBtn">Show</button>
-					<canvas id="confettiCanvas"></canvas>
-				</div>
-			</div>
+            <div class="winnerBox">
+                <h1 id="championText"></h1>
+                <button id="playAgainBtnChampion" class="playAgainBtn" data-i18n="show_result"></button>
+                <canvas id="confettiCanvas"></canvas>
+            </div>
         </div>
-    </div>
-
-    <footer class="site-footer">
+    </div> <footer class="site-footer">
         <div class="container">
             <div class="footer-social-icons"></div>
-
             <nav class="footer-nav"></nav>
-
             <div class="license" id="footer-license"></div>
         </div>
     </footer>
 </body>
-
 </html>

@@ -2,6 +2,7 @@ Nicht vergessen:
 - new highscore bei solitaire und 2048 
 - richtige schiffe bei battleship
 - footer unten auch bei handy ansicht
+- battleship sprache button switch fixen
 
 Weitere Seiten
 - Bewerten

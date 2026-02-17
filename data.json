@@ -89,6 +89,10 @@
             "your_turn": "Du bist dran!",
             "next_round": "Nächste Runde",
             "show_result": "Ansehen",
+
+            "fleet_p1": "P1 Flotte",
+            "fleet_p2": "P2 Flotte",
+            "next_player": "Nächster Spieler",
             
             "games": {
                 "ttt": "Tic Tac Toe",
@@ -183,6 +187,10 @@
             "your_turn": "It's your turn!",
             "next_round": "Next Round",
             "show_result": "Show",
+
+            "fleet_p1": "P1 Fleet",
+            "fleet_p2": "P2 Fleet",
+            "next_player": "Next Player",
 
             "games": {
                 "ttt": "Tic Tac Toe",
