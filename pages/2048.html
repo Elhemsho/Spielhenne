@@ -96,7 +96,7 @@
     <div class="main">
         <div class="head">
             <div class="reset" id="playAgainBtn"><img src="../assets/images/reset.png" class="resetImg"></div>
-            <div class="header">2048</div>
+            <div class="header" data-i18n="2048">2048</div>
             <div class="muteBtn" id="muteBtn">
                 <img id="muteIcon" src="../assets/images/speaker.png" alt="Mute">
             </div>
@@ -104,7 +104,7 @@
 
         <div class="score-container">
             <div class="score-box">
-                <div class="score-label">SCORE</div>
+                <div class="score-label" data-i18n="sc">SCORE</div>
                 <div id="score">0</div>
             </div>
             <div class="score-box">
@@ -123,7 +123,10 @@
             </div>
 
             <div class="controls-bottom">
-                <button id="undoBtn" class="undo-button">Undo (<span id="undoCount">5</span>)</button>
+                <button id="undoBtn" class="undo-button">
+                    <span data-i18n="un">Undo</span> 
+                    (<span id="undoCount">5</span>)
+                </button>
             </div>
         </div>
 

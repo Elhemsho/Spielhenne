@@ -64,7 +64,6 @@ async function setupLayout() {
         if (searchInput) {
             searchInput.placeholder = langData.search_placeholder;
             if (!searchInput.dataset.initialized) {
-                // Nur einmalig Events binden, sonst suchen wir doppelt
                 if (typeof showLiveSearch === "function") searchInput.addEventListener('input', showLiveSearch);
                 if (typeof handleSearchEnter === "function") searchInput.addEventListener('keypress', handleSearchEnter);
                 searchInput.dataset.initialized = "true";
@@ -99,12 +98,9 @@ async function setupLayout() {
         // ----------------------------
         // 4. AUTOMATISCHE ÜBERSETZUNG (data-i18n)
         // ----------------------------
-        // Diese Schleife übersetzt Spielnamen & "Coming Soon"-Texte
         const translateElements = document.querySelectorAll('[data-i18n]');
         translateElements.forEach(el => {
             const key = el.getAttribute('data-i18n');
-            
-            // Erst in der "games" Liste suchen, dann in den Haupt-Sprachdaten
             if (langData.games && langData.games[key]) {
                 el.innerText = langData.games[key];
             } else if (langData[key]) {
@@ -113,23 +109,16 @@ async function setupLayout() {
         });
 
         // ----------------------------
-        // 5. Haupt-Navigation (Neuaufbau für Filter-Texte)
+        // 5. Haupt-Navigation
         // ----------------------------
         const mainNavList = document.getElementById('main-nav-list');
         if (mainNavList && data.header.main_nav) {
-            // Wir prüfen: Sind wir in /pages/ oder direkt im Root?
-            const isSubpage = window.location.pathname.includes('/pages/');
-            const pathPrefix = isSubpage ? '../' : '';
-            
-            // Sind wir auf der index.html? (Egal ob im Root oder via Pfad)
             const isIndex = window.location.pathname.endsWith('index.html') || 
                             window.location.pathname.endsWith('/') ||
                             (!window.location.pathname.includes('.html') && !isSubpage);
 
             mainNavList.innerHTML = data.header.main_nav.map(item => {
                 const displayName = currentLang === 'de' ? item.name_de : item.name_en;
-                
-                // Die Action entscheidet: Sofort filtern (auf Index) oder Springen (Rest)
                 const action = isIndex 
                     ? `filterGames('${item.filter}')` 
                     : `window.location.href='${pathPrefix}index.html?filter=${item.filter}'`;
@@ -165,6 +154,58 @@ async function setupLayout() {
 
         const licenseDiv = document.getElementById('footer-license');
         if (licenseDiv) licenseDiv.innerText = langData.license_text;
+
+        // ---------------------------------------------------------
+        // 8. NEU: SOFORTIGER CHECK FÜR DEN UNDO-BUTTON (INNERHALB TRY)
+        // ---------------------------------------------------------
+        const toggleBtn = document.getElementById("toggleUndoBtn");
+        if (toggleBtn && typeof undosAllowed !== 'undefined') {
+            const statusText = undosAllowed ? (langData.on || "AN") : (langData.off || "AUS");
+            const undoLabel = langData.undo_text || "Undo";
+            toggleBtn.innerText = `${undoLabel}: ${statusText}`;
+        }
+        const drawBtn = document.getElementById("toggleDrawBtn");
+        if (drawBtn && typeof cardsToDrawCount !== 'undefined') {
+            const drawLabel = langData.draw_text || "Draw";
+            drawBtn.innerText = `${drawLabel}: ${cardsToDrawCount}`;
+        }
+        if (typeof updateHighscoreDisplay === "function") {
+            updateHighscoreDisplay();
+        }
+        if (typeof updateUndoButton === "function") {
+            updateUndoButton();
+        }
+        if (typeof updateUI === "function") {
+            updateUI();
+        }
+        const inputs = document.querySelectorAll('[data-i18n-placeholder]');
+        inputs.forEach(input => {
+            const key = input.getAttribute('data-i18n-placeholder');
+            if (langData[key]) {
+                input.placeholder = langData[key];
+            }
+        });
+        const streakInfo = document.getElementById('streak-info');
+        if (streakInfo && typeof streak !== 'undefined') {
+            // Wir prüfen, was gerade im Element steht, um zu wissen, ob wir 
+            // "Richtig", "Falsch" oder die "Serie" übersetzen müssen.
+            
+            if (streak > 1) {
+                // Fall: Laufende Serie
+                const streakLabel = langData.streak_text || "Streak:";
+                const bonusLabel = langData.bonus_text || "Bonus!";
+                streakInfo.innerText = `${streakLabel} ${streak} (+${streak - 1} ${bonusLabel})`;
+            } else if (streak === 1) {
+                // Fall: Gerade richtig geantwortet (erste richtige Antwort)
+                streakInfo.innerText = langData.correct || "Correct!";
+            } else if (streak === 0 && (streakInfo.innerText.includes("Wrong") || streakInfo.innerText.includes("Falsch"))) {
+                // Fall: Gerade falsch geantwortet
+                streakInfo.innerText = langData.wrong || "Wrong! -5";
+            }
+        }
+        if (typeof updateUI === "function") {
+            updateUI();
+        }
 
     } catch (error) {
         console.error("Layout-Fehler:", error);

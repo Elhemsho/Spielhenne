@@ -97,7 +97,7 @@
         <div class="head">
             <div class="reset" id="playAgainBtn"><img src="../assets/images/reset.png" class="resetImg"></div>
 
-            <div class="header">Yazy</div>
+            <div class="header" data-i18n="yaz">Yazy</div>
 
             <div class="muteBtn" id="muteBtn">
                 <img id="muteIcon" src="../assets/images/speaker.png" alt="Mute">
@@ -106,155 +106,127 @@
 
         <div class="game-field">
             <div class="player-table player1 active-player">
-                <h3>Spieler 1</h3>
+                <h3 data-i18n="player1">Spieler 1</h3>
                 <div class="table-columns">
                     <div class="column">
                         <div class="score-row" onclick="writeScore('p1-ones', 1)">
-                            <div class="score-group"><span>1s:</span> <span id="p1-ones" class="score-val">-</span>
-                            </div>
+                            <div class="score-group"><span data-i18n="ones">1s:</span> <span id="p1-ones" class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeScore('p1-twos', 2)">
-                            <div class="score-group"><span>2s:</span> <span id="p1-twos" class="score-val">-</span>
-                            </div>
+                            <div class="score-group"><span data-i18n="twos">2s:</span> <span id="p1-twos" class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeScore('p1-threes', 3)">
-                            <div class="score-group"><span>3s:</span> <span id="p1-threes" class="score-val">-</span>
-                            </div>
+                            <div class="score-group"><span data-i18n="threes">3s:</span> <span id="p1-threes" class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeScore('p1-fours', 4)">
-                            <div class="score-group"><span>4s:</span> <span id="p1-fours" class="score-val">-</span>
-                            </div>
+                            <div class="score-group"><span data-i18n="fours">4s:</span> <span id="p1-fours" class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeScore('p1-fives', 5)">
-                            <div class="score-group"><span>5s:</span> <span id="p1-fives" class="score-val">-</span>
-                            </div>
+                            <div class="score-group"><span data-i18n="fives">5s:</span> <span id="p1-fives" class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeScore('p1-sixs', 6)">
-                            <div class="score-group"><span>6s:</span> <span id="p1-sixs" class="score-val">-</span>
-                            </div>
+                            <div class="score-group"><span data-i18n="sixs">6s:</span> <span id="p1-sixs" class="score-val">-</span></div>
                         </div>
                         <div class="score-row">
-                            <div class="score-group"><span>Bonus:</span> <span id="p1-bonus" class="score-val">0</span>
-                            </div>
+                            <div class="score-group"><span data-i18n="bonus">Bonus:</span> <span id="p1-bonus" class="score-val">0</span></div>
                         </div>
                     </div>
 
                     <div class="column">
                         <div class="score-row" onclick="writeSpecial('p1-3pasch', '3pasch')">
-                            <div class="score-group"><span>3 of a Kind:</span> <span id="p1-3pasch"
-                                    class="score-val">-</span></div>
+                            <div class="score-group"><span data-i18n="three_kind">3 of a Kind:</span> <span id="p1-3pasch" class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p1-4pasch', '4pasch')">
-                            <div class="score-group"><span>4 of a Kind:</span> <span id="p1-4pasch"
-                                    class="score-val">-</span></div>
+                            <div class="score-group"><span data-i18n="four_kind">4 of a Kind:</span> <span id="p1-4pasch" class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p1-fullhouse', 'fullhouse')">
-                            <div class="score-group"><span>Full House:</span> <span id="p1-fullhouse"
-                                    class="score-val">-</span></div>
+                            <div class="score-group"><span data-i18n="full_house">Full House:</span> <span id="p1-fullhouse" class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p1-klstr', 'klstr')">
-                            <div class="score-group"><span>S. Straight:</span> <span id="p1-klstr"
-                                    class="score-val">-</span></div>
+                            <div class="score-group"><span data-i18n="s_straight">S. Straight:</span> <span id="p1-klstr" class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p1-grstr', 'grstr')">
-                            <div class="score-group"><span>L. Straight:</span> <span id="p1-grstr"
-                                    class="score-val">-</span></div>
+                            <div class="score-group"><span data-i18n="l_straight">L. Straight:</span> <span id="p1-grstr" class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p1-kniffel', 'kniffel')">
-                            <div class="score-group"><span>Yazy:</span> <span id="p1-kniffel" class="score-val">-</span>
-                            </div>
+                            <div class="score-group"><span data-i18n="yazy">Yazy:</span> <span id="p1-kniffel" class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p1-chance', 'chance')">
-                            <div class="score-group"><span>Chance:</span> <span id="p1-chance"
-                                    class="score-val">-</span></div>
+                            <div class="score-group"><span data-i18n="chance">Chance:</span> <span id="p1-chance" class="score-val">-</span></div>
                         </div>
                     </div>
                 </div>
-                <div class="total-score">Total: <span id="p1-total">0</span></div>
+                <div class="total-score"><span data-i18n="total">Total:</span> <span id="p1-total">0</span></div>
             </div>
 
             <div class="dice-area">
                 <div id="dice-container">
                     <div class="dice-row">
-                        <div class="die die is-question" id="die-0">?</div>
-                        <div class="die die is-question" id="die-1">?</div>
+                        <div class="die is-question" id="die-0">?</div>
+                        <div class="die is-question" id="die-1">?</div>
                     </div>
                     <div class="dice-row">
-                        <div class="die die is-question" id="die-2">?</div>
-                        <div class="die die is-question" id="die-3">?</div>
-                        <div class="die die is-question" id="die-4">?</div>
+                        <div class="die is-question" id="die-2">?</div>
+                        <div class="die is-question" id="die-3">?</div>
+                        <div class="die is-question" id="die-4">?</div>
                     </div>
                 </div>
-                <button class="rollBtn" id="rollBtn" onclick="rollDice()">Roll</button>
+                <button class="rollBtn" id="rollBtn" onclick="rollDice()" data-i18n="roll">Roll</button>
                 <p class="rollCount"><span id="rollCount">0</span>/3</p>
             </div>
 
             <div class="player-table player2">
-                <h3>Spieler 2</h3>
+                <h3 data-i18n="player2">Spieler 2</h3>
                 <div class="table-columns">
                     <div class="column">
                         <div class="score-row" onclick="writeScore('p2-ones', 1)">
-                            <div class="score-group"><span>1s:</span> <span id="p2-ones" class="score-val">-</span>
-                            </div>
+                            <div class="score-group"><span data-i18n="ones">1s:</span> <span id="p2-ones" class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeScore('p2-twos', 2)">
-                            <div class="score-group"><span>2s:</span> <span id="p2-twos" class="score-val">-</span>
-                            </div>
+                            <div class="score-group"><span data-i18n="twos">2s:</span> <span id="p2-twos" class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeScore('p2-threes', 3)">
-                            <div class="score-group"><span>3s:</span> <span id="p2-threes" class="score-val">-</span>
-                            </div>
+                            <div class="score-group"><span data-i18n="threes">3s:</span> <span id="p2-threes" class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeScore('p2-fours', 4)">
-                            <div class="score-group"><span>4s:</span> <span id="p2-fours" class="score-val">-</span>
-                            </div>
+                            <div class="score-group"><span data-i18n="fours">4s:</span> <span id="p2-fours" class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeScore('p2-fives', 5)">
-                            <div class="score-group"><span>5s:</span> <span id="p2-fives" class="score-val">-</span>
-                            </div>
+                            <div class="score-group"><span data-i18n="fives">5s:</span> <span id="p2-fives" class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeScore('p2-sixs', 6)">
-                            <div class="score-group"><span>6s:</span> <span id="p2-sixs" class="score-val">-</span>
-                            </div>
+                            <div class="score-group"><span data-i18n="sixs">6s:</span> <span id="p2-sixs" class="score-val">-</span></div>
                         </div>
                         <div class="score-row">
-                            <div class="score-group"><span>Bonus:</span> <span id="p2-bonus" class="score-val">0</span>
-                            </div>
+                            <div class="score-group"><span data-i18n="bonus">Bonus:</span> <span id="p2-bonus" class="score-val">0</span></div>
                         </div>
                     </div>
 
                     <div class="column">
                         <div class="score-row" onclick="writeSpecial('p2-3pasch', '3pasch')">
-                            <div class="score-group"><span>3 of a Kind:</span> <span id="p2-3pasch"
-                                    class="score-val">-</span></div>
+                            <div class="score-group"><span data-i18n="three_kind">3 of a Kind:</span> <span id="p2-3pasch" class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p2-4pasch', '4pasch')">
-                            <div class="score-group"><span>4 of a Kind:</span> <span id="p2-4pasch"
-                                    class="score-val">-</span></div>
+                            <div class="score-group"><span data-i18n="four_kind">4 of a Kind:</span> <span id="p2-4pasch" class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p2-fullhouse', 'fullhouse')">
-                            <div class="score-group"><span>Full House:</span> <span id="p2-fullhouse"
-                                    class="score-val">-</span></div>
+                            <div class="score-group"><span data-i18n="full_house">Full House:</span> <span id="p2-fullhouse" class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p2-klstr', 'klstr')">
-                            <div class="score-group"><span>S. Straight:</span> <span id="p2-klstr"
-                                    class="score-val">-</span></div>
+                            <div class="score-group"><span data-i18n="s_straight">S. Straight:</span> <span id="p2-klstr" class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p2-grstr', 'grstr')">
-                            <div class="score-group"><span>L. Straight:</span> <span id="p2-grstr"
-                                    class="score-val">-</span></div>
+                            <div class="score-group"><span data-i18n="l_straight">L. Straight:</span> <span id="p2-grstr" class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p2-kniffel', 'kniffel')">
-                            <div class="score-group"><span>Yazy:</span> <span id="p2-kniffel" class="score-val">-</span>
-                            </div>
+                            <div class="score-group"><span data-i18n="yazy">Yazy:</span> <span id="p2-kniffel" class="score-val">-</span></div>
                         </div>
                         <div class="score-row" onclick="writeSpecial('p2-chance', 'chance')">
-                            <div class="score-group"><span>Chance:</span> <span id="p2-chance"
-                                    class="score-val">-</span></div>
+                            <div class="score-group"><span data-i18n="chance">Chance:</span> <span id="p2-chance" class="score-val">-</span></div>
                         </div>
                     </div>
                 </div>
-                <div class="total-score">Total: <span id="p2-total">0</span></div>
+                <div class="total-score"><span data-i18n="total">Total:</span> <span id="p2-total">0</span></div>
             </div>
         </div>
         <div id="winner-popup" class="winner-overlay">

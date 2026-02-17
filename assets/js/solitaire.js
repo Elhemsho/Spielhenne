@@ -156,7 +156,19 @@ function undo() {
 function updateUndoButton() {
     const undoBtn = document.getElementById("undoButton");
     if (undoBtn) {
-        undoBtn.innerText = `Undo (${undoLimit})`;
+        // Aktuelle Sprache abrufen
+        const currentLang = localStorage.getItem('selectedLanguage') || 'de';
+        let undoLabel = "Undo"; // Standardfall
+
+        // Übersetzung aus cachedData holen
+        if (cachedData && cachedData.languages[currentLang]) {
+            undoLabel = cachedData.languages[currentLang].undo_text || "Undo";
+        }
+
+        // Text mit dem aktuellen Limit setzen
+        undoBtn.innerText = `${undoLabel} (${undoLimit})`;
+
+        // Styling Logik
         if (undoLimit <= 0) {
             undoBtn.style.opacity = "0.5";
             undoBtn.style.cursor = "not-allowed";
@@ -735,19 +747,62 @@ function togglePause() {
 
 // Einstellungen
 function toggleUndoSetting() {
-    if (gameStarted) return;
+    if (typeof gameStarted !== 'undefined' && gameStarted) return;
+
+    // 1. Status umschalten
     undosAllowed = !undosAllowed;
-    document.getElementById("toggleUndoBtn").innerText = `Undo: ${undosAllowed ? "ON" : "OFF"}`;
-    document.getElementById("undoButton").style.display = undosAllowed ? "block" : "none";
-    updateHighscoreDisplay();
+
+    // 2. Sprache & Daten laden
+    const currentLang = localStorage.getItem('selectedLanguage') || 'de';
+    // Wir greifen auf die Daten zu, die global.js geladen hat
+    if (cachedData && cachedData.languages[currentLang]) {
+        const langData = cachedData.languages[currentLang];
+        
+        // Begriffe aus der JSON holen (on/off/undo_text müssen dort stehen!)
+        const statusText = undosAllowed ? langData.on : langData.off;
+        const undoLabel = langData.undo_text || "Undo";
+
+        // 3. Button-Text setzen
+        const toggleBtn = document.getElementById("toggleUndoBtn");
+        if (toggleBtn) {
+            toggleBtn.innerText = `${undoLabel}: ${statusText}`;
+        }
+    }
+
+    // 4. Button Sichtbarkeit
+    const undoBtn = document.getElementById("undoButton");
+    if (undoBtn) {
+        undoBtn.style.display = undosAllowed ? "block" : "none";
+    }
+
+    if (typeof updateHighscoreDisplay === "function") {
+        updateHighscoreDisplay();
+    }
 }
 
 function toggleDrawSetting() {
-    if (gameStarted) return;
-    // Erhöht auf maximal 3, dann zurück auf 1
+    if (typeof gameStarted !== 'undefined' && gameStarted) return;
+
+    // 1. Logik: 1 -> 2 -> 3 -> 1
     cardsToDrawCount = (cardsToDrawCount % 3) + 1;
-    document.getElementById("toggleDrawBtn").innerText = `Draw: ${cardsToDrawCount}`;
-    updateHighscoreDisplay();
+
+    // 2. Sprache & Daten laden
+    const currentLang = localStorage.getItem('selectedLanguage') || 'de';
+    
+    if (cachedData && cachedData.languages[currentLang]) {
+        const langData = cachedData.languages[currentLang];
+        const drawLabel = langData.draw_text || "Draw";
+
+        // 3. Button-Text setzen
+        const drawBtn = document.getElementById("toggleDrawBtn");
+        if (drawBtn) {
+            drawBtn.innerText = `${drawLabel}: ${cardsToDrawCount}`;
+        }
+    }
+
+    if (typeof updateHighscoreDisplay === "function") {
+        updateHighscoreDisplay();
+    }
 }
 
 // Modifizierte existierende Funktionen
@@ -779,7 +834,15 @@ function updateHighscoreDisplay() {
         if (score) {
             display.innerText = `${score.cycles} | ${score.timeStr}`;
         } else {
-            display.innerText = "None";
+            // Aktuelle Sprache prüfen
+            const currentLang = localStorage.getItem('selectedLanguage') || 'de';
+            
+            // Wenn cachedData existiert, nimm die Übersetzung, sonst Fallback "None"
+            if (cachedData && cachedData.languages[currentLang]) {
+                display.innerText = cachedData.languages[currentLang].none_text || "None";
+            } else {
+                display.innerText = "None";
+            }
         }
     }
 }

@@ -98,7 +98,7 @@
 			<div class="head">
 				<div class="reset" id="playAgainBtn"><img src="../assets/images/reset.png" class="resetImg"></div>
 
-				<div class="header">Solitaire</div>
+				<div class="header" data-i18n="sol">Solitaire</div>
 
 				<div class="muteBtn" id="muteBtn">
 					<img id="muteIcon" src="../assets/images/speaker.png" alt="Mute">
@@ -113,12 +113,13 @@
 				</div>
 
 				<div class="settings-section">
-					<button id="toggleUndoBtn" class="setting-toggle">Undo: ON</button>
-					<button id="toggleDrawBtn" class="setting-toggle">Draw: 3</button>
+					<button id="toggleUndoBtn" class="setting-toggle" data-i18n="cun">Undo: ON</button>
+					<button id="toggleDrawBtn" class="setting-toggle" data-i18n="cdr">Draw: 3</button>
 				</div>
 
 				<div class="highscore-section">
-					Highscore: <span id="highscoreDisplay">None</span>
+					<span data-i18n="hs">Highscore: </span>
+					<span id="highscoreDisplay" data-i18n="no">None</span>
 				</div>
 			</div>
 
@@ -142,7 +143,10 @@
 				</div>
 			</div>
 
-			<button id="undoButton" class="control-button">Undo (5)</button>
+			<button id="undoButton" class="control-button">
+                    <span data-i18n="undo_text">Undo</span> 
+                    (<span id="undoCount">5</span>)
+                </button>
 
 			<div id="victoryPopup" class="victory-overlay">
 				<div class="victory-content">

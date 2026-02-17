@@ -1,4 +1,9 @@
+// Diese Variablen müssen AUẞERHALB des Listeners stehen, 
+// damit global.js darauf zugreifen kann!
+let updateUI; 
 let isProcessing = false;
+let currentPlayer = 1;
+let gameState = 'SETUP_P1';
 
 document.addEventListener('DOMContentLoaded', () => {
     const gridP1 = document.getElementById('grid-p1');
@@ -9,9 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const resetBtn = document.getElementById('playAgainBtn');
     const showBtn = document.getElementById('playAgainBtnChampion');
     const winOverlay = document.getElementById('championOverlay');
-
-    let currentPlayer = 1;
-    let gameState = 'SETUP_P1';
 
     const fleetDefinitions = [
         { id: 's4_1', size: 4 },
@@ -25,25 +27,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function init() {
         createGrid(gridP1, 1);
         createGrid(gridP2, 2);
-        updateUI();
+        updateUI(); // Erster Aufruf
         renderInventories();
     }
 
+    // --- DEINE FUNKTIONEN (unverändert übernommen) ---
     function createGrid(gridEl, playerNum) {
         gridEl.innerHTML = '';
         for (let i = 0; i < 64; i++) {
             const cell = document.createElement('div');
             cell.className = 'cell';
             cell.dataset.index = i;
-
             cell.ondragover = (e) => e.preventDefault();
             cell.ondragenter = (e) => handleDragEnter(e, i, playerNum);
             cell.ondragleave = (e) => clearHoverEffects();
-            cell.ondrop = (e) => {
-                clearHoverEffects();
-                handleDrop(e, i, playerNum);
-            };
-
+            cell.ondrop = (e) => { clearHoverEffects(); handleDrop(e, i, playerNum); };
             cell.ondragstart = (e) => handleGridDragStart(e, i, playerNum);
             cell.onclick = () => handleCellClick(i, playerNum);
             gridEl.appendChild(cell);
@@ -67,35 +65,28 @@ document.addEventListener('DOMContentLoaded', () => {
         ghost.style.position = 'absolute';
         ghost.style.top = '-1000px';
         ghost.style.display = 'flex';
-
         if (dir === 0) ghost.style.flexDirection = 'row';
         else if (dir === 1) ghost.style.flexDirection = 'column';
         else if (dir === 2) ghost.style.flexDirection = 'row-reverse';
         else if (dir === 3) ghost.style.flexDirection = 'column-reverse';
-
         for (let i = 0; i < size; i++) {
             const part = document.createElement('div');
             part.className = 'ship-part';
             part.style.backgroundColor = (currentPlayer === 1) ? 'var(--player1-color)' : 'var(--player2-color)';
             ghost.appendChild(part);
         }
-
         document.body.appendChild(ghost);
         return ghost;
     }
 
     function handleGridDragStart(e, index, playerNum) {
-        if (!gameState.startsWith('SETUP')) {
-            e.preventDefault();
-            return;
-        }
+        if (!gameState.startsWith('SETUP')) { e.preventDefault(); return; }
         const data = playerNum === 1 ? p1Data : p2Data;
         const ship = data.board[index];
         if (ship) {
             handleDragStartData(e, ship.size, ship.dir);
             const ghost = createDragGhost(ship.size, ship.dir);
-            let offsetX = 15;
-            let offsetY = 15;
+            let offsetX = 15; let offsetY = 15;
             if (ship.dir === 2) offsetX = (ship.size * 30) - 15;
             if (ship.dir === 3) offsetY = (ship.size * 30) - 15;
             e.dataTransfer.setDragImage(ghost, offsetX, offsetY);
@@ -108,9 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
             drawBoard(playerNum);
             renderInventories();
             checkSetupComplete();
-        } else {
-            e.preventDefault();
-        }
+        } else { e.preventDefault(); }
     }
 
     function renderInventories() {
@@ -121,12 +110,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderInventory(playerNum, listEl) {
         listEl.innerHTML = '';
         const playerData = playerNum === 1 ? p1Data : p2Data;
-
         fleetDefinitions.forEach(shipDef => {
             const placedShip = playerData.ships.find(s => s.id === shipDef.id);
             const isPlaced = !!placedShip;
             const isSunken = placedShip && placedShip.isSunken;
-
             const isSetup = gameState.startsWith('SETUP');
             const showInSetup = isSetup && !isPlaced;
             const showInBattle = (gameState === 'BATTLE');
@@ -136,29 +123,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 const shipEl = document.createElement('div');
                 shipEl.className = 'draggable-ship';
                 shipEl.style.flexDirection = 'column';
-
                 if (showInGameOver) {
                     shipEl.style.opacity = "1";
-                    shipEl.style.filter = "none";
                     if (isSunken) shipEl.classList.add('sunken');
                 } else if (isSunken) {
                     shipEl.classList.add('sunken');
-                    shipEl.style.opacity = "1";
                 } else if (showInBattle && isPlaced) {
                     shipEl.style.opacity = "0.2";
                     shipEl.style.filter = "grayscale(1)";
                 } else {
-                    // HIER WAR DER FEHLER: Wir prüfen direkt den Player
                     shipEl.draggable = (gameState === `SETUP_P${playerNum}`);
-                    shipEl.style.opacity = "1";
                 }
-
                 for (let i = 0; i < shipDef.size; i++) {
                     const part = document.createElement('div');
                     part.className = 'ship-part';
                     shipEl.appendChild(part);
                 }
-
                 if (isSetup && !isPlaced) {
                     shipEl.ondragstart = (e) => {
                         const startDir = 1;
@@ -184,7 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const coords = calculateShipCoords(index, size, dir);
         const gridEl = playerNum === 1 ? gridP1 : gridP2;
         const isValid = coords && checkCollision(coords, playerNum);
-
         if (coords) {
             coords.forEach(coordIndex => {
                 const targetCell = gridEl.children[coordIndex];
@@ -200,14 +179,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const size = parseInt(e.dataTransfer.getData('size'));
         const dir = parseInt(e.dataTransfer.getData('dir'));
         const coords = calculateShipCoords(index, size, dir);
-
         if (coords && checkCollision(coords, playerNum)) {
             placeShip(shipId, size, coords, dir, playerNum);
             renderInventories();
             checkSetupComplete();
-        } else {
-            renderInventories();
-        }
+        } else { renderInventories(); }
     }
 
     function calculateShipCoords(startIndex, size, dir) {
@@ -298,7 +274,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const gridEl = targetPlayer === 1 ? gridP1 : gridP2;
         const cell = gridEl.children[index];
         if (cell.classList.contains('hit') || cell.classList.contains('miss')) return;
-
         const targetShip = data.board[index];
         if (targetShip && typeof targetShip === 'object') {
             cell.classList.add('hit');
@@ -309,47 +284,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderInventories();
                 drawBoard(targetPlayer);
                 setTimeout(() => { checkGameOver(); }, 100);
-            } else {
-                updateUI();
-            }
+            } else { updateUI(); }
         } else {
             cell.classList.add('miss');
             isProcessing = true;
-            setTimeout(() => {
-                currentPlayer = (currentPlayer === 1 ? 2 : 1);
-                isProcessing = false;
-                updateUI();
-            }, 800);
+            setTimeout(() => { currentPlayer = (currentPlayer === 1 ? 2 : 1); isProcessing = false; updateUI(); }, 800);
         }
     }
 
     function checkGameOver() {
         const p1Win = p2Data.ships.every(s => s.isSunken);
         const p2Win = p1Data.ships.every(s => s.isSunken);
-
         if (p1Win || p2Win) {
             gameState = 'GAME_OVER';
-            
-            // Sofort alle Schiffe auf beiden Boards zeichnen
-            drawBoard(1);
-            drawBoard(2);
-
+            drawBoard(1); drawBoard(2);
             const winner = p1Win ? 1 : 2;
-            const winnerColor = winner === 1 ? 'var(--player1-color)' : 'var(--player2-color)';
-            const winOverlay = document.getElementById('championOverlay');
             const winText = document.getElementById('championText');
-            const championBox = winOverlay.querySelector('.winnerBox');
-
-            if (winText) {
+            // Hier nutzen wir wieder langData für das Overlay
+            const currentLang = localStorage.getItem('selectedLanguage') || 'de';
+            const langData = (window.cachedData && window.cachedData.languages) ? window.cachedData.languages[currentLang] : null;
+            
+            if (winText && langData) {
+                winText.innerText = `☆ ${langData.player_wins.replace('{n}', winner)} ☆`;
+            } else {
                 winText.innerText = `☆ Player ${winner} wins! ☆`;
-                championBox.style.boxShadow = `0 0 20px 10px ${winnerColor}`;
             }
-
             setTimeout(() => {
-                if (winOverlay) {
-                    winOverlay.classList.remove('hidden');
-                    winOverlay.style.display = 'flex';
-                }
+                if (winOverlay) { winOverlay.classList.remove('hidden'); winOverlay.style.display = 'flex'; }
                 if (typeof startConfetti === "function") startConfetti();
                 updateUI();
             }, 500);
@@ -362,7 +323,6 @@ document.addEventListener('DOMContentLoaded', () => {
         gameState = 'GAME_OVER';
         document.body.classList.add('GAME_OVER');
         actionBtn.disabled = false;
-        actionBtn.textContent = "PLAY AGAIN";
         actionBtn.classList.add('ready');
         actionBtn.onclick = resetGame;
         updateUI();
@@ -373,35 +333,30 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = playerNum === 1 ? p1Data : p2Data;
         const gridEl = playerNum === 1 ? gridP1 : gridP2;
         const cells = gridEl.querySelectorAll('.cell');
-
         cells.forEach((cell, idx) => {
             cell.classList.remove('ship-present');
             cell.removeAttribute('draggable');
-
             const shipAtPos = data.board[idx];
             if (shipAtPos) {
                 const isSetupForThisPlayer = (gameState === `SETUP_P${playerNum}`);
                 const isHit = cell.classList.contains('hit');
                 const isGameOver = (gameState === 'GAME_OVER');
-
-                // Logik-Fix: Wenn Game Over, zeige ALLE Schiffsteile
                 if (isSetupForThisPlayer || isHit || isGameOver) {
                     cell.classList.add('ship-present');
-                    
-                    if (isSetupForThisPlayer) {
-                        cell.setAttribute('draggable', 'true');
-                    }
+                    if (isSetupForThisPlayer) cell.setAttribute('draggable', 'true');
                 }
             }
         });
     }
 
-    function updateUI() {
+    // --- DIE WICHTIGE UPDATE-FUNKTION ---
+    updateUI = function() {
+        const currentLang = localStorage.getItem('selectedLanguage') || 'de';
+        const langData = (window.cachedData && window.cachedData.languages) ? window.cachedData.languages[currentLang] : null;
+
         if (gameState === 'GAME_OVER') {
-            [gridP1, gridP2].forEach(g => {
-                g.style.opacity = "1";
-                g.style.pointerEvents = "none";
-            });
+            [gridP1, gridP2].forEach(g => { g.style.opacity = "1"; g.style.pointerEvents = "none"; });
+            if (langData) actionBtn.textContent = langData.btn_play_again || "PLAY AGAIN";
             return;
         }
 
@@ -409,20 +364,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (gameState === 'SETUP_P1') {
             gridP1.style.opacity = "1"; gridP2.style.opacity = "0.3";
-            actionBtn.textContent = "NEXT PLAYER";
+            actionBtn.textContent = langData ? langData.btn_next_player : "NEXT PLAYER";
         } else if (gameState === 'SETUP_P2') {
             gridP1.style.opacity = "0.3"; gridP2.style.opacity = "1";
-            actionBtn.textContent = "START BATTLE";
+            actionBtn.textContent = langData ? langData.btn_start_battle : "START BATTLE";
         } else if (gameState === 'BATTLE') {
             actionBtn.disabled = true;
-            actionBtn.textContent = `PLAYER ${currentPlayer}'S TURN`;
+            if (langData) {
+                actionBtn.textContent = langData.btn_player_turn.replace('{n}', currentPlayer);
+            } else {
+                actionBtn.textContent = `PLAYER ${currentPlayer}'S TURN`;
+            }
             const targetPlayer = (currentPlayer === 1 ? 2 : 1);
             gridP1.style.opacity = (targetPlayer === 1) ? "1" : "0.5";
             gridP2.style.opacity = (targetPlayer === 2) ? "1" : "0.5";
             gridP1.style.pointerEvents = (targetPlayer === 1 && !isProcessing) ? "auto" : "none";
             gridP2.style.pointerEvents = (targetPlayer === 2 && !isProcessing) ? "auto" : "none";
         }
-    }
+    };
 
     function resetGame() {
         p1Data = { board: Array(64).fill(null), ships: [] };
@@ -431,14 +390,10 @@ document.addEventListener('DOMContentLoaded', () => {
         gameState = 'SETUP_P1';
         isProcessing = false;
         document.body.classList.remove('GAME_OVER');
-        if (winOverlay) {
-            winOverlay.classList.add('hidden');
-            winOverlay.style.display = 'none';
-        }
+        if (winOverlay) { winOverlay.classList.add('hidden'); winOverlay.style.display = 'none'; }
         createGrid(gridP1, 1);
         createGrid(gridP2, 2);
         actionBtn.disabled = true;
-        actionBtn.textContent = "NEXT PLAYER";
         actionBtn.classList.remove('ready');
         actionBtn.onclick = handleActionBtnClick;
         updateUI();

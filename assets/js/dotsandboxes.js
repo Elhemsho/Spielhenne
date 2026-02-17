@@ -184,11 +184,31 @@ function checkBox(line) {
 }
 
 function updateUI() {
+    // 1. Die reinen Zahlen-Werte aktualisieren
     document.getElementById('p1-score').innerText = scores[1];
     document.getElementById('p2-score').innerText = scores[2];
+    
     const status = document.getElementById('status');
     if (status) {
-        status.innerText = `Player ${currentPlayer}'s turn`;
+        const currentLang = localStorage.getItem('selectedLanguage') || 'de';
+        
+        if (cachedData && cachedData.languages[currentLang]) {
+            const langData = cachedData.languages[currentLang];
+            
+            // 2. Den Status-Text übersetzen
+            const playerLabel = currentPlayer === 1 ? langData.player1 : langData.player2;
+            const turnText = langData.your_turn2 || "ist dran!";
+            status.innerText = `${playerLabel} ${turnText}`;
+
+            // 3. OPTIONAL: Falls die Scoreboard-Labels nicht über data-i18n 
+            // automatisch mitsprangen, kannst du sie hier erzwingen:
+            // document.querySelector('.p1 [data-i18n="player1"]').innerText = langData.player1;
+            // document.querySelector('.p2 [data-i18n="player2"]').innerText = langData.player2;
+
+        } else {
+            status.innerText = `Player ${currentPlayer}'s turn`;
+        }
+        
         status.className = `p${currentPlayer}`;
     }
 }

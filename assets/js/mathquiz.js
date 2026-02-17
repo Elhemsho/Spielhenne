@@ -124,17 +124,31 @@ document.getElementById('answerInput').addEventListener('keydown', (e) => {
 
         if (!gameActive) return;
 
+        // Sprache laden
+        const currentLang = localStorage.getItem('selectedLanguage') || 'de';
+        const langData = cachedData.languages[currentLang];
+
         let val = parseInt(e.target.value);
+        const streakInfo = document.getElementById('streak-info');
+
         if (val === currentAnswer) {
             streak++;
             score += (10 + (streak > 1 ? streak - 1 : 0));
-            document.getElementById('streak-info').innerText = streak > 1 ? `Streak: ${streak} (+${streak - 1} Bonus!)` : "Correct!";
+            
+            if (streak > 1) {
+                // Beispiel: "Serie: 5 (+4 Bonus!)"
+                streakInfo.innerText = `${langData.streak_text} ${streak} (+${streak - 1} ${langData.bonus_text})`;
+            } else {
+                streakInfo.innerText = langData.correct;
+            }
         } else {
             streak = 0;
             score -= 5;
-            document.getElementById('streak-info').innerText = "Wrong! -5";
+            streakInfo.innerText = langData.wrong;
         }
+        
         document.getElementById('current-score').innerText = score;
+        e.target.value = ""; // Input leeren nach Enter
         nextQuestion();
     }
 });

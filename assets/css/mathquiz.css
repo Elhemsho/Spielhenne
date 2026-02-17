@@ -45,6 +45,15 @@ body {
     /* Kleiner Abstand zwischen Icon und Text */
 }
 
+/* Oder falls du kein Flexbox nutzen willst: */
+.stat-item span[data-i18n="time_text"] {
+    margin-right: 0 !important;
+}
+
+.stat-item b#timer {
+    margin-left: 0 !important;
+}
+
 .quiz-settings-wrapper {
     position: relative;
     /* Wichtig für die Positionierung des Dropdowns */

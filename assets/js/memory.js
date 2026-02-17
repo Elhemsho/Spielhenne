@@ -116,10 +116,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateScoreDisplay() {
         scoreBoard.innerHTML = `
-            <div class="player-score ${currentPlayer === 1 ? 'active' : ''}">
+            <div class="player-score ${currentPlayer === 1 ? 'active' : ''}" data-i18n="player1">
                 Player 1: <span>${scores.player1}</span>
             </div>
-            <div class="player-score ${currentPlayer === 2 ? 'active' : ''}">
+            <div class="player-score ${currentPlayer === 2 ? 'active' : ''}" data-i18n="player2">
                 Player 2: <span>${scores.player2}</span>
             </div>
         `;

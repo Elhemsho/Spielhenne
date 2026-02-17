@@ -96,7 +96,7 @@
     <div class="main">
         <div class="head">
             <div class="reset" id="playAgainBtn"><img src="../assets/images/reset.png" class="resetImg"></div>
-            <div class="header">Math Quiz</div>
+            <div class="header" data-i18n="mq">Math Quiz</div>
             <div class="muteBtn" id="muteBtn">
                 <img id="muteIcon" src="../assets/images/speaker.png" alt="Mute">
             </div>
@@ -104,31 +104,45 @@
 
         <div class="quiz-container">
             <div class="stats-bar">
-                <div class="stat-item">Time: <b id="timer">60</b>s</div>
+                <div class="stat-item">
+                    <span data-i18n="time_text">Time:</span><b id="timer">60</b>s
+                </div>
 
                 <div class="stat-item">
-                    <div class="quiz-settings-wrapper"
-                        style="display: inline-block; vertical-align: middle; position: relative;">
+                    <div class="quiz-settings-wrapper" style="display: inline-block; vertical-align: middle; position: relative;">
                         <div class="settings-icon" onclick="toggleQuizSettings(event)" style="display: inline-block;">
-                            <img src="../assets/images/einstellungen.png" class="einImg"></div>
+                            <img src="../assets/images/einstellungen.png" class="einImg">
+                        </div>
 
                         <div id="quizSettingsDropdown" class="quiz-dropdown">
-                            <p onclick="changeMode('easy')">Easy (Mix +-)</p>
-                            <p onclick="changeMode('medium')">Normal (* & -)</p>
-                            <p onclick="changeMode('hard')">Hard (Extreme)</p>
+                            <p onclick="changeMode('easy')">
+                                <span data-i18n="easy">Easy</span> (<span data-i18n="mix">Mix</span> +-)
+                            </p>
+                            <p onclick="changeMode('medium')">
+                                <span data-i18n="normal">Normal</span> (* & -)
+                            </p>
+                            <p onclick="changeMode('hard')">
+                                <span data-i18n="hard">Hard</span> (<span data-i18n="extreme">Extreme</span>)
+                            </p>
                         </div>
                     </div>
 
-                    <span id="mode-label">Mode: <b id="current-mode-name">Easy</b></span>
+                    <span id="mode-label">
+                        <span data-i18n="mode_text">Mode:</span> <b id="current-mode-name" data-i18n="easy">Easy</b>
+                    </span>
                 </div>
 
-                <div class="stat-item">Highscore: <b id="highscore-val">0</b></div>
+                <div class="stat-item">
+                    <span data-i18n="highscore_text">Highscore:</span> <b id="highscore-val">0</b>
+                </div>
             </div>
 
             <div class="question-box">
                 <h1 id="question">? + ?</h1>
-                <input type="number" id="answerInput" placeholder="Type Result..." autocomplete="off">
-                <div id="score-display">Score: <b id="current-score">0</b></div>
+                <input type="number" id="answerInput" data-i18n-placeholder="placeholder_result" placeholder="Type Result..." autocomplete="off">
+                <div id="score-display">
+                    <span data-i18n="score_text">Score:</span> <b id="current-score">0</b>
+                </div>
                 <p id="streak-info"></p>
             </div>
         </div>
