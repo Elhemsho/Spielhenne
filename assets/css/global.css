@@ -298,6 +298,18 @@ a:visited {
     /* Nutzt dein Hellblau als Hover-Effekt */
 }
 
+/* 1. Das erste Element im Dropdown (Profil-Link) oben abrunden */
+#settingsDropdown > *:first-child:hover {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+/* 2. Das letzte Element im Dropdown (meist Dark Mode oder Footer-Link) unten abrunden */
+#settingsDropdown > *:last-child:hover {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
 /* Das Haupt-Dropdown braucht relative Positionierung */
 .dropdown-content {
     color: #333;
@@ -374,10 +386,6 @@ a:visited {
     align-items: center;
     padding: 10px 15px;
     cursor: pointer;
-}
-
-
-.menu-item-flex:hover {
 }
 
 .menu-item-flex {

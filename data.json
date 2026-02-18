@@ -87,14 +87,14 @@
 
             "game_descriptions": {
                 "ttt": "Der Klassiker für zwei Spieler!<br><br>Ziel ist es, als Erster drei deiner Symbole in eine Reihe zu bringen – egal ob horizontal, vertikal oder diagonal.<br><br>Wenn das Spielfeld voll ist und niemand gewonnen hat, endet es unentschieden.",
-                "c4": "Strategie pur!<br><br>Lasse abwechselnd Steine in die Spalten fallen. Wer zuerst vier Steine der eigenen Farbe in eine Linie bringt (waagerecht, senkrecht oder diagonal), gewinnt.",
-                "bs": "Ab auf hohe See!<br><br>Platziere deine Flotte geheim und versuche dann, die Schiffe deines Gegners zu versenken.<br><br>Wer zuerst alle gegnerischen Schiffe trifft, gewinnt die Schlacht.",
-                "2048": "Ein süchtig machendes Zahlenrätsel!<br><br>Verschiebe die Kacheln. Gleiche Zahlen verschmelzen zu ihrer Summe.<br><br>Schaffst du es bis zur 2048-Kachel?",
-                "mem": "Gehirntraining!<br><br>Decke zwei Karten auf. Passen sie zusammen, darfst du sie behalten. Wenn nicht, werden sie wieder umgedreht.<br><br>Merke dir die Positionen gut!",
-                "sol": "Geduld ist eine Tugend.<br><br>Sortiere das Kartendeck nach Farben und Werten auf die vier Zielstapel.<br><br>Ein Klassiker für zwischendurch.",
-                "yaz": "Das große Würfelglück!<br><br>Erziele Kombinationen wie Full House oder Straßen.<br><br>Taktik beim Eintragen der Punkte ist hier alles!",
-                "dab": "Kästchen erobern!<br><br>Ziehe Linien zwischen den Punkten. Wer das vierte Segment eines Quadrats setzt, dem gehört das Kästchen.<br><br>Wer am Ende mehr Platz hat, gewinnt.",
-                "mq": "Mathe-Ass oder Rechen-Muffel?<br><br>Löse so viele Aufgaben wie möglich gegen die Zeit.<br><br>Schnelligkeit und Präzision sind gefragt!"
+                "c4": "Strategie pur!<br><br>Lasse abwechselnd Steine in die Spalten fallen. Wer zuerst vier Steine der eigenen Farbe in einer waagerechten, senkrechten oder diagonalen Linie anordnet, gewinnt.<br><br>Behalte das Spielfeld immer im Blick!",
+                "bs": "Ab auf hohe See!<br><br>Platziert nacheinander eure Flotten geheim (Durch Klick auf ein Schiff kann es gedreht werden) und versuche dann, die Schiffe eures Gegners zu treffen und vollständig zu versenken. Wenn man einen Treffer landet darf man nocheinmal schießen.<br><br>Wer zuerst alle gegnerischen Schiffe trifft, gewinnt die Schlacht.",
+                "2048": "Ein süchtig machendes Zahlenrätsel!<br><br>Verschiebe die Kacheln in eine Richtung. Die Steuerung geht durch die Pfeiltasten oder WASD. Gleiche Zahlen verschmelzen zu ihrer Summe.<br><br>Schaffst du es bis zur 2048-Kachel?",
+                "mem": "Gehirntraining!<br><br>Decke zwei Karten auf. Passen sie zusammen, darfst du sie behalten und du bist erneut dran. Wenn nicht, werden sie wieder umgedreht.<br><br>Merke dir die Positionen gut!",
+                "sol": "Geduld ist eine Tugend.<br><br>Sortiere das Kartendeck nach Farben und Werten auf die vier Zielstapel.<br>Versuche alle Karten aufzudecken durch ziehen einer schwarzen Karte auf eine Rote oder anders rum.<br><br>Ein Klassiker für zwischendurch.",
+                "yaz": "Das große Würfelglück!<br><br>Erziele Kombinationen wie Full House, Straßen, Pasche oder sammle Einzelzahlen. Erziehlst du 63 Punkte auf der linken Seite erhältst du einen Bonus von 35 Punkten.<br><br>Taktik beim Eintragen der Punkte ist hier alles!",
+                "dab": "Kästchen erobern!<br><br>Färbe Linien durch Klick auf sie. Wer die vierte Linie eines Quadrats setzt, dem gehört das Kästchen.<br><br>Wer am Ende meisten Kästchen gefärbt hat, gewinnt.",
+                "mq": "Mathe-Ass oder Rechen-Muffel?<br><br>Löse so viele Aufgaben wie möglich gegen die Zeit. Bei einer Serie erhältst du extra Punkte.<br><br>Schnelligkeit und Präzision sind gefragt!"
             },
 
             "player_wins": "☆ Spieler {n} gewinnt! ☆",
@@ -118,7 +118,7 @@
             "undo_text": "Rückgängig",
             "on": "AN",
             "off": "AUS",
-            "draw_text": "Ziehen",
+            "draw_text": " Karten ziehen",
             "hs":"Rekord:",
             "none_text": "Keiner",
 
@@ -246,15 +246,15 @@
             "home": "Home",
 
             "game_descriptions": {
-                "ttt": "The classic game for two players!<br><br>The goal is to be the first to get three of your symbols in a row – whether horizontally, vertically, or diagonally.<br><br>If the board is full and no one has won, it ends in a draw.",
-                "c4": "Pure strategy!<br><br>Take turns dropping discs into the columns. The first person to get four discs of their own color in a line (horizontally, vertically, or diagonally) wins.",
-                "bs": "Head out to the high seas!<br><br>Place your fleet secretly and then try to sink your opponent's ships.<br><br>The first one to hit all enemy ships wins the battle.",
-                "2048": "An addictive number puzzle!<br><br>Move the tiles. Identical numbers merge into their sum.<br><br>Can you make it to the 2048 tile?",
-                "mem": "Brain training!<br><br>Flip over two cards. If they match, you get to keep them. If not, they are flipped back over.<br><br>Remember the positions well!",
-                "sol": "Patience is a virtue.<br><br>Sort the deck by suit and value onto the four foundation piles.<br><br>A classic game for in-between.",
-                "yaz": "Great dice luck!<br><br>Achieve combinations like Full House or straights.<br><br>Tactics when entering your points are everything here!",
-                "dab": "Conquer the boxes!<br><br>Draw lines between the dots. Whoever places the fourth segment of a square owns the box.<br><br>The person with more boxes at the end wins.",
-                "mq": "Math ace or number grump?<br><br>Solve as many problems as possible against the clock.<br><br>Speed and precision are key!"
+                "ttt": "The classic for two players!<br><br>The goal is to be the first to get three of your symbols in a row – whether horizontally, vertically, or diagonally.<br><br>If the board is full and no one has won, it ends in a draw.",
+                "c4": "Pure strategy!<br><br>Take turns dropping discs into the columns. The first person to get four discs of their own color in a horizontal, vertical, or diagonal line wins.<br><br>Always keep a close eye on the board!",
+                "bs": "Head out to the high seas!<br><br>Take turns placing your fleets secretly (click on a ship to rotate it) and then try to hit and completely sink your opponent's ships. If you land a hit, you get to shoot again.<br><br>The first one to hit all enemy ships wins the battle.",
+                "2048": "An addictive number puzzle!<br><br>Move the tiles in one direction. You can control the game using the arrow keys or WASD. Identical numbers merge into their sum.<br><br>Can you make it to the 2048 tile?",
+                "mem": "Brain training!<br><br>Flip over two cards. If they match, you get to keep them and it's your turn again. If not, they are flipped back over.<br><br>Remember the positions well!",
+                "sol": "Patience is a virtue.<br><br>Sort the deck by suit and value onto the four foundation piles.<br>Try to reveal all cards by moving a black card onto a red one or vice versa.<br><br>A classic game for in-between.",
+                "yaz": "Great dice luck!<br><br>Achieve combinations like Full House, straights, pairs, or collect individual numbers. If you score 63 points on the left side, you receive a bonus of 35 points.<br><br>Tactics when entering your points are everything here!",
+                "dab": "Conquer the boxes!<br><br>Color lines by clicking on them. Whoever places the fourth line of a square owns the box.<br><br>The person who has colored the most boxes at the end wins.",
+                "mq": "Math ace or number grump?<br><br>Solve as many problems as possible against the clock. You get extra points for a streak.<br><br>Speed and precision are key!"
             },
 
             "player_wins": "☆ Player {n} wins! ☆",
@@ -278,7 +278,7 @@
             "undo_text": "Undo",
             "on": "ON",
             "off": "OFF",
-            "draw_text": "Draw",
+            "draw_text": "Draw Cards",
             "hs":"Highscore:",
             "none_text": "None",
 

@@ -5,10 +5,8 @@ Nicht vergessen:
 - bs button reset fixen
 - battleship sprache button switch fixen
 - sprache bei winpop ups
-einstellungs und suche pop up schlieen bei klick daneben
-sprache hover kein overflow
-andere siten den profil entfernne und login
-info text etwas ausführlicher
+- ttt kreis favicon
+login entfernen/ersetzen
 
 Sound Effect by <a href="https://pixabay.com/users/justsomesounds-53130806/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=432501">JustSomeSounds</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=432501">Pixabay</a>
 Sound Effect by <a href="https://pixabay.com/users/freesound_community-46691455/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=40764">freesound_community</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=40764">Pixabay</a>
@@ -16,5 +14,3 @@ Sound Effect by <a href="https://pixabay.com/users/dragon-studio-38165424/?utm_s
 Sound Effect by <a href="https://pixabay.com/users/floraphonic-38928062/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=224414">floraphonic</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=224414">Pixabay</a>
 Sound Effect by <a href="https://pixabay.com/users/pw23check-44527802/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=218995">PW23CHECK</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=218995">Pixabay</a>
 Sound Effect by <a href="https://pixabay.com/users/freesound_community-46691455/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=91468">freesound_community</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=91468">Pixabay</a>
-
-

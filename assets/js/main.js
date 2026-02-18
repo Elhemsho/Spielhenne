@@ -103,6 +103,12 @@ function updateModalContent(gameId) {
 
 // Diese Funktion wird vom Icon aufgerufen
 function showInfo(event, gameId) {
+    // A. Zuerst alle Navbar-Menüs schließen (Funktion aus global.js)
+    if (typeof closeAllNavbarMenus === "function") {
+        closeAllNavbarMenus();
+    }
+
+    // B. Das normale Info-Event verarbeiten
     event.preventDefault();
     event.stopPropagation();
 

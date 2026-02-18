@@ -280,6 +280,33 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+/* 1. Zentrale Funktion zum Schließen aller Menüs */
+function closeAllNavbarMenus() {
+    const settings = document.getElementById("settingsDropdown");
+    const languageMenu = document.getElementById("languageMenu");
+    const searchInput = document.getElementById("searchInput");
+    const suggestionsBox = document.getElementById("searchSuggestions");
+
+    if (settings) settings.classList.remove('show');
+    if (languageMenu) languageMenu.classList.remove('show');
+    if (suggestionsBox) suggestionsBox.style.display = "none";
+    if (searchInput && searchInput.value === "") {
+        searchInput.classList.remove("show");
+    }
+}
+
+/* 2. Globaler Klick-Wächter: Schließt Menüs bei Klick auf leere Flächen */
+window.addEventListener('click', function (event) {
+    // Wenn der Klick AUẞERHALB von Settings, Sprache oder Suche war:
+    if (!event.target.closest('.nav-settings') && 
+        !event.target.closest('#settingsDropdown') && 
+        !event.target.closest('#languageMenu') &&
+        !event.target.closest('.search-container')) {
+        
+        closeAllNavbarMenus();
+    }
+});
+
 // MODERNE VERSION: Sprache wechseln OHNE Reload
 function setLanguage(lang) {
     // Beide Keys speichern zur Sicherheit
