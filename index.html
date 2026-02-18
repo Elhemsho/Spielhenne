@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 
 <head>
     <title>Spielhenne – Kostenlose Browser Spiele</title>
@@ -15,7 +15,6 @@
 
     <meta name="description" content="Spielhenne – Spiele alleine oder mit Freunden und hab Spaß!">
 
-    <!-- Open Graph / Social Media Preview -->
     <meta property="og:title" content="Spielhenne">
     <meta property="og:description" content="Spielhenne ist eine Spieleplattform für Solo & Duo-Spiele.">
     <meta property="og:type" content="website">
@@ -33,8 +32,8 @@
             <div class="header-top">
                 <div class="header-logo">
                     <a href="index.html">
-                        <img class="logo" src="assets/images/logo_schrift.png">
-                        <img class="logo2" src="assets/images/logo_huhn.png">
+                        <img class="logo" src="assets/images/logo_schrift.png" alt="Spielhenne Logo">
+                        <img class="logo2" src="assets/images/logo_huhn.png" alt="Huhn Icon">
                     </a>
                 </div>
 
@@ -42,26 +41,24 @@
                     <div class="nav-item search-container">
                         <input type="text" id="searchInput" placeholder="..." oninput="searchGames()">
                         <span>
-                            <img onclick="toggleSearch()" class="nav-link lupe" src="assets/images/lupe.png">
+                            <img onclick="toggleSearch()" class="nav-link lupe" src="assets/images/lupe.png" alt="Suche">
                         </span>
                     </div>
 
                     <span class="divider">|</span>
 
                     <a href="index.html">
-                        <span class="nav-login"></span>
+                        <span class="nav-login" data-i18n="login_text">Anmelden</span>
                     </a>
 
                     <span class="divider">|</span>
 
                     <div class="nav-item settings-container">
-                        <span onclick="toggleSettings()" class="nav-settings"></span>
+                        <span onclick="toggleSettings()" class="nav-settings" data-i18n="settings_title">Einstellungen</span>
 
                         <div id="settingsDropdown" class="dropdown-content">
-                            <a href="index.html"></a>
-
                             <div class="menu-item-flex language" onclick="openLanguageMenu(event)">
-                                <span></span>
+                                <span data-i18n="language_text">Sprache</span>
                                 <span>›</span>
                             </div>
 
@@ -71,7 +68,7 @@
                             </div>
 
                             <div class="menu-item-flex">
-                                <span></span>
+                                <span data-i18n="music_text">Musik</span>
                                 <label class="switch">
                                     <input type="checkbox" id="musicToggle">
                                     <span class="slider round"></span>
@@ -79,7 +76,7 @@
                             </div>
 
                             <div class="menu-item-flex">
-                                <span></span>
+                                <span data-i18n="dark_mode_text">Dunkelmodus</span>
                                 <label class="switch">
                                     <input type="checkbox" id="darkToggle">
                                     <span class="slider round"></span>
@@ -96,71 +93,90 @@
             </nav>
         </div>
     </header>
-    <div class="auswahl-container">
-    <a href="pages/tictactoe.html" class="game" data-players="2">
-        <span class="info-icon" onclick="showInfo(event, 'ttt')">i</span>
-        <div class="game-title" data-i18n="ttt">Tic Tac Toe</div>
-        <img src="assets/images/tictactoe.png" height="200" width="200" class="ticimg">
-    </a>
 
-    <a href="pages/connectfour.html" class="game" data-players="2">
-        <span class="info-icon" onclick="showInfo(event, 'c4')">i</span>
-        <div class="game-title" data-i18n="c4">Connect Four</div>
-        <img class="conimg" src="assets/images/connectfour.png" height="200" width="200">
-    </a>
+    <main class="auswahl-container">
+        <a href="pages/tictactoe.html" class="game" data-players="2">
+            <span class="info-icon" onclick="showInfo(event, 'ttt')">
+                <img class="info" src="assets/images/info.png" alt="Info">
+            </span>
+            <div class="game-title" data-i18n="ttt">Tic Tac Toe</div>
+            <img src="assets/images/tictactoe.png" height="200" width="200" class="ticimg">
+        </a>
 
-    <a href="pages/battleship.html" class="game" data-players="2">
-        <span class="info-icon" onclick="showInfo(event, 'bs')">i</span>
-        <div class="game-title" data-i18n="bs">Battleship</div>
-        <img src="assets/images/battleship.png" height="200" width="200" class="batimg">
-    </a>
+        <a href="pages/connectfour.html" class="game" data-players="2">
+            <span class="info-icon" onclick="showInfo(event, 'c4')">
+                <img class="info" src="assets/images/info.png" alt="Info">
+            </span>
+            <div class="game-title" data-i18n="c4">Connect Four</div>
+            <img class="conimg" src="assets/images/connectfour.png" height="200" width="200">
+        </a>
 
-    <a href="pages/2048.html" class="game" data-players="1">
-        <span class="info-icon" onclick="showInfo(event, 'g2048')">i</span>
-        <div class="game-title" data-i18n="g2048">2048</div>
-        <img src="assets/images/2048.png" height="200" width="200" class="zweimg">
-    </a>
+        <a href="pages/battleship.html" class="game" data-players="2">
+            <span class="info-icon" onclick="showInfo(event, 'bs')">
+                <img class="info" src="assets/images/info.png" alt="Info">
+            </span>
+            <div class="game-title" data-i18n="bs">Battleship</div>
+            <img src="assets/images/battleship.png" height="200" width="200" class="batimg">
+        </a>
 
-    <a href="pages/memory.html" class="game" data-players="2">
-        <span class="info-icon" onclick="showInfo(event, 'mem')">i</span>
-        <div class="game-title" data-i18n="mem">Memory</div>
-        <img src="assets/images/memory.png" height="200" width="200" class="memimg">
-    </a>
+        <a href="pages/2048.html" class="game" data-players="1">
+            <span class="info-icon" onclick="showInfo(event, '2048')">
+                <img class="info" src="assets/images/info.png" alt="Info">
+            </span>
+            <div class="game-title" data-i18n="2048">2048</div>
+            <img src="assets/images/2048.png" height="200" width="200" class="zweimg">
+        </a>
 
-    <a href="pages/solitaire.html" class="game" data-players="1">
-        <span class="info-icon" onclick="showInfo(event, 'sol')">i</span>
-        <div class="game-title" data-i18n="sol">Solitaire</div>
-        <img src="assets/images/solitaire.png" height="200" width="200" class="solimg">
-    </a>
+        <a href="pages/memory.html" class="game" data-players="2">
+            <span class="info-icon" onclick="showInfo(event, 'mem')">
+                <img class="info" src="assets/images/info.png" alt="Info">
+            </span>
+            <div class="game-title" data-i18n="mem">Memory</div>
+            <img src="assets/images/memory.png" height="200" width="200" class="memimg">
+        </a>
 
-    <a href="pages/yazy.html" class="game" data-players="2">
-        <span class="info-icon" onclick="showInfo(event, 'yaz')">i</span>
-        <div class="game-title" data-i18n="yaz">Yazy</div>
-        <img src="assets/images/yazy.png" height="200" width="200" class="kniimg">
-    </a>
+        <a href="pages/solitaire.html" class="game" data-players="1">
+            <span class="info-icon" onclick="showInfo(event, 'sol')">
+                <img class="info" src="assets/images/info.png" alt="Info">
+            </span>
+            <div class="game-title" data-i18n="sol">Solitaire</div>
+            <img src="assets/images/solitaire.png" height="200" width="200" class="solimg">
+        </a>
 
-    <a href="pages/dotsandboxes.html" class="game" data-players="2">
-        <span class="info-icon" onclick="showInfo(event, 'dab')">i</span>
-        <div class="game-title" data-i18n="dab">Dots and Boxes</div>
-        <img src="assets/images/dotsandboxes.png" height="200" width="200" class="kkimg">
-    </a>
+        <a href="pages/yazy.html" class="game" data-players="2">
+            <span class="info-icon" onclick="showInfo(event, 'yaz')">
+                <img class="info" src="assets/images/info.png" alt="Info">
+            </span>
+            <div class="game-title" data-i18n="yaz">Yazy</div>
+            <img src="assets/images/yazy.png" height="200" width="200" class="kniimg">
+        </a>
 
-    <a href="pages/mathquiz.html" class="game" data-players="1">
-        <span class="info-icon" onclick="showInfo(event, 'mq')">i</span>
-        <div class="game-title" data-i18n="mq">Math Quiz</div>
-        <img src="assets/images/mathquiz.png" height="200" width="200" class="mathimg">
-    </a>
-</div>
+        <a href="pages/dotsandboxes.html" class="game" data-players="2">
+            <span class="info-icon" onclick="showInfo(event, 'dab')">
+                <img class="info" src="assets/images/info.png" alt="Info">
+            </span>
+            <div class="game-title" data-i18n="dab">Dots and Boxes</div>
+            <img src="assets/images/dotsandboxes.png" height="200" width="200" class="kkimg">
+        </a>
 
-<div id="info-modal" class="modal">
-    <div class="modal-content">
-        <span class="close-button" onclick="closeModal()">&times;</span>
-        <h2 id="modal-title">Info</h2>
-        <p id="info-text"></p>
+        <a href="pages/mathquiz.html" class="game" data-players="1">
+            <span class="info-icon" onclick="showInfo(event, 'mq')">
+                <img class="info" src="assets/images/info.png" alt="Info">
+            </span>
+            <div class="game-title" data-i18n="mq">Math Quiz</div>
+            <img src="assets/images/mathquiz.png" height="200" width="200" class="mathimg">
+        </a>
+    </main>
+
+    <div id="info-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title"></h2>
+            <div id="info-text" style="line-height: 1.6; text-align: left; padding: 10px;"></div>
+        </div>
     </div>
-</div>
 
-    <div id="noGamesMessage">
+    <div id="noGamesMessage" style="display: none;">
         <h2 data-i18n="no_games_title">Coming Soon...</h2>
         <p data-i18n="no_games_text">We are working on exciting games for you!</p>
     </div>
@@ -168,10 +184,8 @@
     <footer class="site-footer">
         <div class="container">
             <div class="footer-social-icons"></div>
-
             <nav class="footer-nav"></nav>
-
-            <div class="license" id="footer-license"></div>
+            <div class="license" id="footer-license" data-i18n="license_text"></div>
         </div>
     </footer>
 </body>

@@ -1,6 +1,7 @@
 let cachedData = null; // Speicher für die JSON-Daten
 
 async function setupLayout() {
+    
     const isSubpage = window.location.pathname.includes('/pages/');
     const pathPrefix = isSubpage ? '../' : '';
 
@@ -13,6 +14,8 @@ async function setupLayout() {
             const response = await fetch(pathPrefix + 'data.json');
             if (!response.ok) throw new Error("data.json nicht gefunden");
             cachedData = await response.json();
+
+            window.gameData = cachedData;
         }
         
         const data = cachedData;
@@ -101,10 +104,24 @@ async function setupLayout() {
         const translateElements = document.querySelectorAll('[data-i18n]');
         translateElements.forEach(el => {
             const key = el.getAttribute('data-i18n');
-            if (langData.games && langData.games[key]) {
-                el.innerText = langData.games[key];
-            } else if (langData[key]) {
-                el.innerText = langData[key];
+            let translation = null;
+
+            // 1. Suche direkt in langData (z.B. login_text)
+            if (langData[key]) {
+                translation = langData[key];
+            } 
+            // 2. Falls nicht gefunden, suche in langData.games (z.B. ttt, c4)
+            else if (langData.games && langData.games[key]) {
+                translation = langData.games[key];
+            }
+            // 3. Spezialfall für "games.mq" (Punkt-Notation)
+            else if (key.includes('.')) {
+                const parts = key.split('.');
+                translation = langData[parts[0]] ? langData[parts[0]][parts[1]] : null;
+            }
+
+            if (translation) {
+                el.innerText = translation;
             }
         });
 
@@ -215,6 +232,15 @@ async function setupLayout() {
                 }
             }
         }, 50); // Kleiner Puffer für die Datenverarbeitung
+        const modal = document.getElementById('info-modal');
+        if (modal && modal.style.display === "block") {
+            // Wir holen uns die aktuelle gameId, die wir im Titel-Element versteckt haben
+            const currentId = modal.dataset.currentGameId;
+            if (currentId) {
+                // Wir rufen eine Hilfsfunktion auf, die nur den Inhalt aktualisiert
+                updateModalContent(currentId);
+            }
+        }
 
     } catch (error) {
         console.error("Layout-Fehler:", error);
@@ -256,12 +282,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // MODERNE VERSION: Sprache wechseln OHNE Reload
 function setLanguage(lang) {
+    // Beide Keys speichern zur Sicherheit
     localStorage.setItem('selectedLanguage', lang);
+    localStorage.setItem('language', lang); 
     
-    // Einfach die Layout-Funktion erneut aufrufen -> Texte ändern sich live
+    // Texte live aktualisieren
     setupLayout(); 
 
-    // Sprachmenü schließen
     const languageMenu = document.getElementById('languageMenu');
     if (languageMenu) languageMenu.classList.remove('show');
 }

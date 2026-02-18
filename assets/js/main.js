@@ -70,45 +70,56 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 100);
     }
 });
+/* ------------------ Info-Modal Logik ------------------ */
 
-// Hier kannst du die Erklärungen für jedes Spiel anpassen
-const gameInfo = {
-    'ttt': { title: 'Tic Tac Toe', text: 'Bringe drei deiner Zeichen in eine waagerechte, senkrechte oder diagonale Reihe.' },
-    'c4': { title: 'Connect Four', text: 'Versuche als Erster, vier deiner Steine in eine Reihe zu bekommen – egal ob horizontal, vertikal oder diagonal.' },
-    'bs': { title: 'Battleship', text: 'Platziere deine Schiffe und versuche, die Flotte deines Gegners durch gezielte Schüsse zu versenken.' },
-    'g2048': { title: '2048', text: 'Kombiniere gleiche Zahlenkacheln durch Verschieben, um die Kachel mit dem Wert 2048 zu erreichen.' },
-    'mem': { title: 'Memory', text: 'Decke zwei Karten nacheinander auf und finde alle passenden Paare.' },
-    'sol': { title: 'Solitaire', text: 'Sortiere die Karten nach Farben und Werten auf die Ablagestapel.' },
-    'yaz': { title: 'Yazy', text: 'Ein Würfelspiel, bei dem du durch geschicktes Kombinieren die höchste Punktzahl erreichen musst.' },
-    'dab': { title: 'Dots and Boxes', text: 'Verbinde Punkte, um Quadrate zu schließen. Wer die meisten Kästchen besitzt, gewinnt!' },
-    'mq': { title: 'Math Quiz', text: 'Löse so viele Rechenaufgaben wie möglich innerhalb der vorgegebenen Zeit.' }
-};
+/* ------------------ Info-Modal Funktionen ------------------ */
 
+// Diese Funktion befüllt das Modal mit Inhalten
+function updateModalContent(gameId) {
+    const titleElem = document.getElementById('modal-title');
+    const textElem = document.getElementById('info-text');
+    const modal = document.getElementById('info-modal');
+
+    const lang = localStorage.getItem('selectedLanguage') || 'de';
+    const data = window.gameData;
+
+    if (data && data.languages[lang]) {
+        const langData = data.languages[lang];
+
+        // 1. Titel aus der "games"-Sektion (ttt, c4, bs, etc.)
+        titleElem.innerText = langData.games[gameId] || "Info";
+
+        // 2. Text aus "game_descriptions"
+        if (langData.game_descriptions && langData.game_descriptions[gameId]) {
+            textElem.innerHTML = langData.game_descriptions[gameId];
+        } else {
+            textElem.innerText = "Keine Beschreibung verfügbar.";
+        }
+
+        // 3. ID am Modal speichern für das Live-Update in global.js
+        modal.dataset.currentGameId = gameId;
+    }
+}
+
+// Diese Funktion wird vom Icon aufgerufen
 function showInfo(event, gameId) {
-    // Stoppt das Öffnen des Spiel-Links
     event.preventDefault();
     event.stopPropagation();
-    
-    const modal = document.getElementById('info-modal');
-    const title = document.getElementById('modal-title');
-    const text = document.getElementById('info-text');
-    
-    const info = gameInfo[gameId];
-    if (info) {
-        title.innerText = info.title;
-        text.innerText = info.text;
-        modal.style.display = "block";
-    }
+
+    updateModalContent(gameId);
+    document.getElementById('info-modal').style.display = "block";
 }
 
 function closeModal() {
-    document.getElementById('info-modal').style.display = "none";
+    const modal = document.getElementById('info-modal');
+    modal.style.display = "none";
+    modal.dataset.currentGameId = ""; // ID löschen beim Schließen
 }
 
-// Schließen, wenn man irgendwo außerhalb des Fensters hinklickt
-window.onclick = function(event) {
+// Schließen wenn man außerhalb klickt
+window.addEventListener('click', (event) => {
     const modal = document.getElementById('info-modal');
-    if (event.target == modal) {
-        modal.style.display = "none";
+    if (event.target === modal) {
+        closeModal();
     }
-}
+});

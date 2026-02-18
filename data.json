@@ -43,6 +43,7 @@
             "credit_reset": "Reset-Icon von",
             "credit_pause": "Pause-Icon von",
             "credit_settings": "Settings-Icon von",
+            "credit_info": "Info-Icon von",
             "credit_music": "Musik",
             "credit_cards": "Spielkarten: eigene Umsetzung basierend auf Karten von",
             "license_none": "Lizenz: keine offizielle Lizenz angegeben / frei verwendbar",
@@ -83,6 +84,18 @@
             "sitemap_title": "Sitemap",
             "sitemap_intro": "Hier finden Sie alle Seiten von Spielhenne:",
             "home": "Startseite",
+
+            "game_descriptions": {
+                "ttt": "Der Klassiker für zwei Spieler!<br><br>Ziel ist es, als Erster drei deiner Symbole in eine Reihe zu bringen – egal ob horizontal, vertikal oder diagonal.<br><br>Wenn das Spielfeld voll ist und niemand gewonnen hat, endet es unentschieden.",
+                "c4": "Strategie pur!<br><br>Lasse abwechselnd Steine in die Spalten fallen. Wer zuerst vier Steine der eigenen Farbe in eine Linie bringt (waagerecht, senkrecht oder diagonal), gewinnt.",
+                "bs": "Ab auf hohe See!<br><br>Platziere deine Flotte geheim und versuche dann, die Schiffe deines Gegners zu versenken.<br><br>Wer zuerst alle gegnerischen Schiffe trifft, gewinnt die Schlacht.",
+                "2048": "Ein süchtig machendes Zahlenrätsel!<br><br>Verschiebe die Kacheln. Gleiche Zahlen verschmelzen zu ihrer Summe.<br><br>Schaffst du es bis zur 2048-Kachel?",
+                "mem": "Gehirntraining!<br><br>Decke zwei Karten auf. Passen sie zusammen, darfst du sie behalten. Wenn nicht, werden sie wieder umgedreht.<br><br>Merke dir die Positionen gut!",
+                "sol": "Geduld ist eine Tugend.<br><br>Sortiere das Kartendeck nach Farben und Werten auf die vier Zielstapel.<br><br>Ein Klassiker für zwischendurch.",
+                "yaz": "Das große Würfelglück!<br><br>Erziele Kombinationen wie Full House oder Straßen.<br><br>Taktik beim Eintragen der Punkte ist hier alles!",
+                "dab": "Kästchen erobern!<br><br>Ziehe Linien zwischen den Punkten. Wer das vierte Segment eines Quadrats setzt, dem gehört das Kästchen.<br><br>Wer am Ende mehr Platz hat, gewinnt.",
+                "mq": "Mathe-Ass oder Rechen-Muffel?<br><br>Löse so viele Aufgaben wie möglich gegen die Zeit.<br><br>Schnelligkeit und Präzision sind gefragt!"
+            },
 
             "player_wins": "☆ Spieler {n} gewinnt! ☆",
             
@@ -190,6 +203,7 @@
             "credit_reset": "Reset icon by",
             "credit_pause": "Pause icon by",
             "credit_settings": "Settings icon by",
+            "credit_info": "Info icon by",
             "credit_music": "Music",
             "credit_cards": "Playing cards: own implementation based on cards from",
             "license_none": "License: no official license specified / free to use",
@@ -230,6 +244,18 @@
             "sitemap_title": "Sitemap",
             "sitemap_intro": "Here you can find all pages of Spielhenne:",
             "home": "Home",
+
+            "game_descriptions": {
+                "ttt": "The classic game for two players!<br><br>The goal is to be the first to get three of your symbols in a row – whether horizontally, vertically, or diagonally.<br><br>If the board is full and no one has won, it ends in a draw.",
+                "c4": "Pure strategy!<br><br>Take turns dropping discs into the columns. The first person to get four discs of their own color in a line (horizontally, vertically, or diagonally) wins.",
+                "bs": "Head out to the high seas!<br><br>Place your fleet secretly and then try to sink your opponent's ships.<br><br>The first one to hit all enemy ships wins the battle.",
+                "2048": "An addictive number puzzle!<br><br>Move the tiles. Identical numbers merge into their sum.<br><br>Can you make it to the 2048 tile?",
+                "mem": "Brain training!<br><br>Flip over two cards. If they match, you get to keep them. If not, they are flipped back over.<br><br>Remember the positions well!",
+                "sol": "Patience is a virtue.<br><br>Sort the deck by suit and value onto the four foundation piles.<br><br>A classic game for in-between.",
+                "yaz": "Great dice luck!<br><br>Achieve combinations like Full House or straights.<br><br>Tactics when entering your points are everything here!",
+                "dab": "Conquer the boxes!<br><br>Draw lines between the dots. Whoever places the fourth segment of a square owns the box.<br><br>The person with more boxes at the end wins.",
+                "mq": "Math ace or number grump?<br><br>Solve as many problems as possible against the clock.<br><br>Speed and precision are key!"
+            },
 
             "player_wins": "☆ Player {n} wins! ☆",
             

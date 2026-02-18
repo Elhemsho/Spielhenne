@@ -5,7 +5,10 @@ Nicht vergessen:
 - bs button reset fixen
 - battleship sprache button switch fixen
 - sprache bei winpop ups
-- info feld -> anleitung pro game
+einstellungs und suche pop up schlieen bei klick daneben
+sprache hover kein overflow
+andere siten den profil entfernne und login
+info text etwas ausführlicher
 
 Sound Effect by <a href="https://pixabay.com/users/justsomesounds-53130806/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=432501">JustSomeSounds</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=432501">Pixabay</a>
 Sound Effect by <a href="https://pixabay.com/users/freesound_community-46691455/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=40764">freesound_community</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=40764">Pixabay</a>
@@ -15,4 +18,3 @@ Sound Effect by <a href="https://pixabay.com/users/pw23check-44527802/?utm_sourc
 Sound Effect by <a href="https://pixabay.com/users/freesound_community-46691455/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=91468">freesound_community</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=91468">Pixabay</a>
 
 
-einstellungs und suche pop up schlieen bei klick daneben
