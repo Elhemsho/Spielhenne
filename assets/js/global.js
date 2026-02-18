@@ -566,9 +566,23 @@ document.addEventListener('click', () => {
     if (audio) audio.play().catch(() => { });
 }, { once: true });
 
+const clickSound = new Audio('../assets/audio/sfx/click-sound.mp3');
+window.winSound = new Audio('../assets/audio/sfx/win.mp3');
+window.winSound.volume = 0.2;
+const correctSound = new Audio('assets/audio/sfx/correct.mp3');
+const wrongSound = new Audio('assets/audio/sfx/negative.mp3');
+const diceSound = new Audio('assets/audio/sfx/dice-roll.mp3');
+const cardSound = new Audio('assets/audio/sfx/flipcard.mp3');
+
+
+
+
 const confettiCanvas = document.getElementById("confettiCanvas");
 
 function startConfetti() {
+    window.winSound.currentTime = 0; 
+    window.winSound.volume = 0.08; 
+    window.winSound.play();
     const ctx = confettiCanvas.getContext("2d");
     confettiCanvas.width = window.innerWidth;
     confettiCanvas.height = window.innerHeight;
