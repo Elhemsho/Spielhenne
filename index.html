@@ -96,58 +96,69 @@
             </nav>
         </div>
     </header>
-
     <div class="auswahl-container">
-        <a href="pages/tictactoe.html" class="game" data-players="2">
-            <div class="game-title" data-i18n="ttt">Tic Tac Toe</div>
-            <img src="assets/images/tictactoe.png" height="200" width="200" class="ticimg">
-        </a>
+    <a href="pages/tictactoe.html" class="game" data-players="2">
+        <span class="info-icon" onclick="showInfo(event, 'ttt')">i</span>
+        <div class="game-title" data-i18n="ttt">Tic Tac Toe</div>
+        <img src="assets/images/tictactoe.png" height="200" width="200" class="ticimg">
+    </a>
 
-        <a href="pages/connectfour.html" class="game" data-players="2">
-            <div class="game-title" data-i18n="c4">Connect Four</div>
-            <img class="conimg" src="assets/images/connectfour.png" height="200" width="200">
-        </a>
+    <a href="pages/connectfour.html" class="game" data-players="2">
+        <span class="info-icon" onclick="showInfo(event, 'c4')">i</span>
+        <div class="game-title" data-i18n="c4">Connect Four</div>
+        <img class="conimg" src="assets/images/connectfour.png" height="200" width="200">
+    </a>
 
-        <a href="pages/battleship.html" class="game" data-players="2">
-            <div class="game-title" data-i18n="bs">Battleship</div>
-            <img src="assets/images/battleship.png" height="200" width="200" class="batimg">
-        </a>
+    <a href="pages/battleship.html" class="game" data-players="2">
+        <span class="info-icon" onclick="showInfo(event, 'bs')">i</span>
+        <div class="game-title" data-i18n="bs">Battleship</div>
+        <img src="assets/images/battleship.png" height="200" width="200" class="batimg">
+    </a>
 
-        <a href="pages/2048.html" class="game" data-players="1">
-            <div class="game-title" data-i18n="g2048">2048</div>
-            <img src="assets/images/2048.png" height="200" width="200" class="zweimg">
-        </a>
+    <a href="pages/2048.html" class="game" data-players="1">
+        <span class="info-icon" onclick="showInfo(event, 'g2048')">i</span>
+        <div class="game-title" data-i18n="g2048">2048</div>
+        <img src="assets/images/2048.png" height="200" width="200" class="zweimg">
+    </a>
 
-        <a href="pages/memory.html" class="game" data-players="2">
-            <div class="game-title" data-i18n="mem">Memory</div>
-            <img src="assets/images/memory.png" height="200" width="200" class="memimg">
-        </a>
+    <a href="pages/memory.html" class="game" data-players="2">
+        <span class="info-icon" onclick="showInfo(event, 'mem')">i</span>
+        <div class="game-title" data-i18n="mem">Memory</div>
+        <img src="assets/images/memory.png" height="200" width="200" class="memimg">
+    </a>
 
-        <a href="pages/solitaire.html" class="game" data-players="1">
-            <div class="game-title" data-i18n="sol">Solitaire</div>
-            <img src="assets/images/solitaire.png" height="200" width="200" class="solimg">
-        </a>
+    <a href="pages/solitaire.html" class="game" data-players="1">
+        <span class="info-icon" onclick="showInfo(event, 'sol')">i</span>
+        <div class="game-title" data-i18n="sol">Solitaire</div>
+        <img src="assets/images/solitaire.png" height="200" width="200" class="solimg">
+    </a>
 
-        <a href="pages/yazy.html" class="game" data-players="2">
-            <div class="game-title" data-i18n="yaz">Yazy</div>
-            <img src="assets/images/yazy.png" height="200" width="200" class="kniimg">
-        </a>
-<!--
-        <a href="pages/chess.html" class="game" data-players="2">
-            <div class="game-title" data-i18n="chess">Chess</div>
-            <img src="assets/images/chess.png" height="200" width="200">
-        </a>
--->
-        <a href="pages/dotsandboxes.html" class="game" data-players="2">
-            <div class="game-title" data-i18n="dab">Dots and Boxes</div>
-            <img src="assets/images/dotsandboxes.png" height="200" width="200" class="kkimg">
-        </a>
+    <a href="pages/yazy.html" class="game" data-players="2">
+        <span class="info-icon" onclick="showInfo(event, 'yaz')">i</span>
+        <div class="game-title" data-i18n="yaz">Yazy</div>
+        <img src="assets/images/yazy.png" height="200" width="200" class="kniimg">
+    </a>
 
-        <a href="pages/mathquiz.html" class="game" data-players="1">
-            <div class="game-title" data-i18n="mq">Math Quiz</div>
-            <img src="assets/images/mathquiz.png" height="200" width="200" class="mathimg">
-        </a>
+    <a href="pages/dotsandboxes.html" class="game" data-players="2">
+        <span class="info-icon" onclick="showInfo(event, 'dab')">i</span>
+        <div class="game-title" data-i18n="dab">Dots and Boxes</div>
+        <img src="assets/images/dotsandboxes.png" height="200" width="200" class="kkimg">
+    </a>
+
+    <a href="pages/mathquiz.html" class="game" data-players="1">
+        <span class="info-icon" onclick="showInfo(event, 'mq')">i</span>
+        <div class="game-title" data-i18n="mq">Math Quiz</div>
+        <img src="assets/images/mathquiz.png" height="200" width="200" class="mathimg">
+    </a>
+</div>
+
+<div id="info-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" onclick="closeModal()">&times;</span>
+        <h2 id="modal-title">Info</h2>
+        <p id="info-text"></p>
     </div>
+</div>
 
     <div id="noGamesMessage">
         <h2 data-i18n="no_games_title">Coming Soon...</h2>

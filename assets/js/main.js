@@ -71,3 +71,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Hier kannst du die Erklärungen für jedes Spiel anpassen
+const gameInfo = {
+    'ttt': { title: 'Tic Tac Toe', text: 'Bringe drei deiner Zeichen in eine waagerechte, senkrechte oder diagonale Reihe.' },
+    'c4': { title: 'Connect Four', text: 'Versuche als Erster, vier deiner Steine in eine Reihe zu bekommen – egal ob horizontal, vertikal oder diagonal.' },
+    'bs': { title: 'Battleship', text: 'Platziere deine Schiffe und versuche, die Flotte deines Gegners durch gezielte Schüsse zu versenken.' },
+    'g2048': { title: '2048', text: 'Kombiniere gleiche Zahlenkacheln durch Verschieben, um die Kachel mit dem Wert 2048 zu erreichen.' },
+    'mem': { title: 'Memory', text: 'Decke zwei Karten nacheinander auf und finde alle passenden Paare.' },
+    'sol': { title: 'Solitaire', text: 'Sortiere die Karten nach Farben und Werten auf die Ablagestapel.' },
+    'yaz': { title: 'Yazy', text: 'Ein Würfelspiel, bei dem du durch geschicktes Kombinieren die höchste Punktzahl erreichen musst.' },
+    'dab': { title: 'Dots and Boxes', text: 'Verbinde Punkte, um Quadrate zu schließen. Wer die meisten Kästchen besitzt, gewinnt!' },
+    'mq': { title: 'Math Quiz', text: 'Löse so viele Rechenaufgaben wie möglich innerhalb der vorgegebenen Zeit.' }
+};
+
+function showInfo(event, gameId) {
+    // Stoppt das Öffnen des Spiel-Links
+    event.preventDefault();
+    event.stopPropagation();
+    
+    const modal = document.getElementById('info-modal');
+    const title = document.getElementById('modal-title');
+    const text = document.getElementById('info-text');
+    
+    const info = gameInfo[gameId];
+    if (info) {
+        title.innerText = info.title;
+        text.innerText = info.text;
+        modal.style.display = "block";
+    }
+}
+
+function closeModal() {
+    document.getElementById('info-modal').style.display = "none";
+}
+
+// Schließen, wenn man irgendwo außerhalb des Fensters hinklickt
+window.onclick = function(event) {
+    const modal = document.getElementById('info-modal');
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}

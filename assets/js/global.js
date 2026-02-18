@@ -206,11 +206,21 @@ async function setupLayout() {
         if (typeof updateUI === "function") {
             updateUI();
         }
+        // 9. SPEZIAL: Champion-Text Live-Update
+        setTimeout(() => {
+            const champOverlay = document.getElementById('championOverlay');
+            if (champOverlay && !champOverlay.classList.contains('hidden')) {
+                if (typeof window.showChampion === "function") {
+                    window.showChampion(true); 
+                }
+            }
+        }, 50); // Kleiner Puffer für die Datenverarbeitung
 
     } catch (error) {
         console.error("Layout-Fehler:", error);
     }
 }
+
 
 function filterGames(filter) {
     const gameCards = document.querySelectorAll('.game-card');

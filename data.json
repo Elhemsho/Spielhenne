@@ -83,6 +83,8 @@
             "sitemap_title": "Sitemap",
             "sitemap_intro": "Hier finden Sie alle Seiten von Spielhenne:",
             "home": "Startseite",
+
+            "player_wins": "☆ Spieler {n} gewinnt! ☆",
             
             "player1": "Spieler 1",
             "player2": "Spieler 2",
@@ -96,7 +98,6 @@
             "btn_start_battle": "KAMPF STARTEN",
             "btn_player_turn": "SPIELER {n} IST DRAN",
             "btn_play_again": "NOCHMAL SPIELEN",
-            "player_wins": "Spieler {n} gewinnt!",
 
             "sc":"PUNKTE",
             "un":"Rückgängig",
@@ -229,6 +230,8 @@
             "sitemap_title": "Sitemap",
             "sitemap_intro": "Here you can find all pages of Spielhenne:",
             "home": "Home",
+
+            "player_wins": "☆ Player {n} wins! ☆",
             
             "player1": "Player 1",
             "player2": "Player 2",
@@ -242,7 +245,6 @@
             "btn_start_battle": "KAMPF STARTEN",
             "btn_player_turn": "SPIELER {n} IST DRAN",
             "btn_play_again": "NOCHMAL SPIELEN",
-            "player_wins": "Spieler {n} gewinnt!",
 
             "sc":"SCORE",
             "un":"Undo",
