@@ -88,6 +88,27 @@ body {
 	font-weight: bold;
 }
 
+.circle {
+  width: 20px;
+  aspect-ratio: 1 / 1;
+  border: 3px solid currentColor;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative; /* nötig für ::after */
+}
+
+/* Unterstreichung */
+.circle::after {
+  content: "";
+  position: absolute;
+  left: -30%;          /* etwas breiter als der Kreis */
+  right: -30%;
+  bottom: -8px;        /* Abstand unter dem Kreis */
+  height: 3.5px;         /* dezente Linie */
+  background-color: currentColor;
+}
+
+
 .pp1 {
 	font-size: 40px;
 	text-align: center;
