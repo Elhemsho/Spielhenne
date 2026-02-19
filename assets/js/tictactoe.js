@@ -51,7 +51,10 @@ function handleClick(field) {
     if (board[index] !== "" || !gameActive) return;
 
     board[index] = currentPlayer;
-    field.textContent = currentPlayer === "X" ? "X" : "⭘";
+    field.innerHTML = currentPlayer === "X"
+  ? "X"
+  : '<span class="circle2"></span>';
+
     field.classList.add(currentPlayer === "X" ? "x" : "o");
 
     const winData = checkWin();

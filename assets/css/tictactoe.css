@@ -87,6 +87,15 @@ body {
 	font-weight: bold;
 }
 
+.circle2 {
+  width: 20px;
+  height: 20px;  
+  border: 3px solid currentColor;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative; /* nötig für ::after */
+}
+
 .circle {
   width: 20px;
   height: 20px;  
