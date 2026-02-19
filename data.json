@@ -113,7 +113,6 @@
             "btn_next_player": "NÄCHSTER SPIELER",
             "btn_start_battle": "KAMPF STARTEN",
             "btn_player_turn": "SPIELER {n} IST DRAN",
-            "btn_play_again": "NOCHMAL SPIELEN",
 
             "sc":"PUNKTE",
             "un":"Rückgängig",
@@ -273,10 +272,9 @@
 
             "fleet_p1": "P1 Fleet",
             "fleet_p2": "P2 Fleet",
-            "btn_next_player": "NÄCHSTER SPIELER",
-            "btn_start_battle": "KAMPF STARTEN",
-            "btn_player_turn": "SPIELER {n} IST DRAN",
-            "btn_play_again": "NOCHMAL SPIELEN",
+            "btn_next_player": "NEXT PLAYER",
+            "btn_start_battle": "START BATTLE",
+            "btn_player_turn": "PLAYER {n}'S TURN",
 
             "sc":"SCORE",
             "un":"Undo",

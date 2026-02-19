@@ -14,6 +14,7 @@ async function setupLayout() {
             const response = await fetch(pathPrefix + 'data.json');
             if (!response.ok) throw new Error("data.json nicht gefunden");
             cachedData = await response.json();
+            window.cachedData = cachedData;
 
             window.gameData = cachedData;
         }

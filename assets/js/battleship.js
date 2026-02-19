@@ -293,38 +293,49 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function checkGameOver() {
-        const p1Win = p2Data.ships.every(s => s.isSunken);
-        const p2Win = p1Data.ships.every(s => s.isSunken);
-        if (p1Win || p2Win) {
-            gameState = 'GAME_OVER';
-            drawBoard(1); drawBoard(2);
-            const winner = p1Win ? 1 : 2;
-            const winText = document.getElementById('championText');
-            // Hier nutzen wir wieder langData für das Overlay
-            const currentLang = localStorage.getItem('selectedLanguage') || 'de';
-            const langData = (window.cachedData && window.cachedData.languages) ? window.cachedData.languages[currentLang] : null;
-            
-            if (winText && langData) {
-                winText.innerText = `☆ ${langData.player_wins.replace('{n}', winner)} ☆`;
-            } else {
-                winText.innerText = `☆ Player ${winner} wins! ☆`;
-            }
-            setTimeout(() => {
-                if (winOverlay) { winOverlay.classList.remove('hidden'); winOverlay.style.display = 'flex'; }
-                if (typeof startConfetti === "function") startConfetti();
-                updateUI();
-            }, 500);
+    const p1Win = p2Data.ships.every(s => s.isSunken);
+    const p2Win = p1Data.ships.every(s => s.isSunken);
+    
+    if (p1Win || p2Win) {
+        gameState = 'GAME_OVER';
+        drawBoard(1); drawBoard(2);
+        const winner = p1Win ? 1 : 2;
+        
+        // Farbe basierend auf dem Gewinner wählen
+        const winnerColor = winner === 1 ? 'var(--player1-color)' : 'var(--player2-color)';
+        
+        const winText = document.getElementById('championText');
+        const currentLang = localStorage.getItem('selectedLanguage') || 'de';
+        const langData = (window.cachedData && window.cachedData.languages) ? window.cachedData.languages[currentLang] : null;
+        
+
+        if (winText && langData) {
+            winText.innerText = `☆ ${langData.player_wins.replace('{n}', winner)} ☆`;
+        } else {
+            winText.innerText = `☆ Player ${winner} wins! ☆`;
         }
+
+        setTimeout(() => {
+            if (winOverlay) { 
+                winOverlay.classList.remove('hidden'); 
+                winOverlay.style.display = 'flex';
+                
+                // HIER: Dynamischer Box-Shadow in der Spielerfarbe
+             const box = winOverlay.querySelector('.winnerBox');
+                if (box) {
+                    box.style.boxShadow = `0 0 30px 10px ${winnerColor}`;
+                }}
+            if (typeof startConfetti === "function") startConfetti();
+            updateUI();
+        }, 200);
     }
+}
 
     showBtn.onclick = () => {
         winOverlay.classList.add('hidden');
         winOverlay.style.display = 'none';
         gameState = 'GAME_OVER';
         document.body.classList.add('GAME_OVER');
-        actionBtn.disabled = false;
-        actionBtn.classList.add('ready');
-        actionBtn.onclick = resetGame;
         updateUI();
         renderInventories();
     };
@@ -356,7 +367,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (gameState === 'GAME_OVER') {
             [gridP1, gridP2].forEach(g => { g.style.opacity = "1"; g.style.pointerEvents = "none"; });
-            if (langData) actionBtn.textContent = langData.btn_play_again || "PLAY AGAIN";
+            actionBtn.disabled = true;
+            actionBtn.classList.remove('ready');
+            if (langData) {
+                actionBtn.textContent = langData.btn_player_turn.replace('{n}', currentPlayer);
+            } else {
+                actionBtn.textContent = `PLAYER ${currentPlayer}'S TURN`;
+            }
             return;
         }
 
@@ -364,9 +381,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (gameState === 'SETUP_P1') {
             gridP1.style.opacity = "1"; gridP2.style.opacity = "0.3";
+            gridP1.style.pointerEvents = "auto"; gridP2.style.pointerEvents = "none"; // ← NEU
             actionBtn.textContent = langData ? langData.btn_next_player : "NEXT PLAYER";
         } else if (gameState === 'SETUP_P2') {
             gridP1.style.opacity = "0.3"; gridP2.style.opacity = "1";
+            gridP1.style.pointerEvents = "none"; gridP2.style.pointerEvents = "auto"; // ← NEU
             actionBtn.textContent = langData ? langData.btn_start_battle : "START BATTLE";
         } else if (gameState === 'BATTLE') {
             actionBtn.disabled = true;
