@@ -84,13 +84,12 @@ body {
 	font-family: 'Comic Neue2', cursive;
 	color: #424242;
 	padding-top: 30px;
-	text-decoration: underline;
 	font-weight: bold;
 }
 
 .circle {
   width: 20px;
-  aspect-ratio: 1 / 1;
+  height: 20px;  
   border: 3px solid currentColor;
   border-radius: 50%;
   display: inline-block;
@@ -103,11 +102,10 @@ body {
   position: absolute;
   left: -30%;          /* etwas breiter als der Kreis */
   right: -30%;
-  bottom: -8px;        /* Abstand unter dem Kreis */
   height: 3.5px;         /* dezente Linie */
   background-color: currentColor;
+  top: calc(100% + 5px);  
 }
-
 
 .pp1 {
 	font-size: 40px;
