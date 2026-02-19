@@ -80,6 +80,10 @@ body {
     transition: opacity 0.2s;
 }
 
+.size-arrow:hover{
+    color: #bbf6fe;
+}
+
 .size-arrow:disabled {
     opacity: 0.2;
     cursor: not-allowed;
@@ -200,6 +204,11 @@ body {
     color: white;
     font-weight: bold;
     cursor: pointer;
+}
+
+.undo-button:hover {
+    background-color: #bbf6fe;
+    
 }
 
 .modal {

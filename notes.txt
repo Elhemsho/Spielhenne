@@ -1,15 +1,13 @@
 To-Dos/Fixes:
 - new highscore bei solitaire und 2048 
 - richtige schiffe bei battleship
-- footer unten auch bei handy ansicht
 - sprache bei winpop ups
 - ttt kreis favicon
-- login entfernen/ersetzen
 - sounds beim rest hinzufügen
 
 Weitere Ideen
 - Dark Mode
-- Respponsive Design
+- Respponsive Design (footer unten auch bei handy ansicht)
 - Snake
 - Schach
 - olympiade
