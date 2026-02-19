@@ -12,7 +12,6 @@
         "de": {
             "meta_description": "Spielhenne – Spiele alleine oder mit Freunden und hab Spaß!",
             "search_placeholder": "Spiel suchen...",
-            "login_text": "Anmelden",
             "settings_title": "Einstellungen",
             "profile_text": "Profil",
             "language_text": "Sprache",
@@ -44,6 +43,7 @@
             "credit_pause": "Pause-Icon von",
             "credit_settings": "Settings-Icon von",
             "credit_info": "Info-Icon von",
+            "credit_trophae": "Pokal-Icon von",
             "credit_music": "Musik",
             "credit_sfx": "Sound-Effekt von",
             "license": "Lizenz",
@@ -174,7 +174,6 @@
         "en": {
             "meta_description": "Spielhenne – Play alone or with friends and have fun!",
             "search_placeholder": "Search Game...",
-            "login_text": "Log In",
             "settings_title": "Settings",
             "profile_text": "Profile",
             "language_text": "Language",
@@ -206,6 +205,7 @@
             "credit_pause": "Pause icon by",
             "credit_settings": "Settings icon by",
             "credit_info": "Info icon by",
+            "credit_trophae": "Trophae icon by",
             "credit_music": "Music",
             "credit_sfx": "Sound effect by",
             "license": "License",

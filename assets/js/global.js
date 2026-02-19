@@ -78,10 +78,10 @@ async function setupLayout() {
         // 3. Login & Settings Texte
         // ----------------------------
         const loginSpan = document.querySelector('.nav-login');
-        if (loginSpan) {
-            loginSpan.innerText = langData.login_text;
-            if (loginSpan.parentElement.tagName === 'A') loginSpan.parentElement.href = fixPath(data.header.login.url);
-        }
+            if (loginSpan && !loginSpan.querySelector('img')) {
+                loginSpan.innerText = langData.login_text;
+                if (loginSpan.parentElement.tagName === 'A') loginSpan.parentElement.href = fixPath(data.header.login.url);
+            }
 
         const settingsBtn = document.querySelector('.nav-settings');
         if (settingsBtn) settingsBtn.innerText = langData.settings_title;

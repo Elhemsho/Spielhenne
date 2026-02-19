@@ -2,8 +2,6 @@ To-Dos/Fixes:
 - new highscore bei solitaire und 2048 
 - richtige schiffe bei battleship
 - footer unten auch bei handy ansicht
-- bs button reset fixen
-- battleship sprache button switch fixen
 - sprache bei winpop ups
 - ttt kreis favicon
 - login entfernen/ersetzen
@@ -14,3 +12,4 @@ Weitere Ideen
 - Respponsive Design
 - Snake
 - Schach
+- olympiade
