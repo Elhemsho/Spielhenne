@@ -363,6 +363,10 @@ function createCardElement(cardData, origin) {
                         stack: [cardData]
                     });
 
+                    window.cardSound.currentTime = 0; 
+                    window.cardSound.volume = 0.05; 
+                    window.cardSound.play();
+
                     // 3. Alles neu zeichnen (rendert die Karte nun auch in der Foundation)
                     renderAll();
                     break;
@@ -447,11 +451,13 @@ function renderStock() {
 }
 
 function drawThreeCards() {
+    
     if (deck.length === 0) {
         if (wastePile.length === 0) return;
         deck = wastePile.map(c => ({ ...c, faceUp: false })).reverse();
         wastePile = [];
     } else {
+        
         const count = Math.min(deck.length, 2); //Anzahl an Karten die umgedreht werden sollen
         for (let i = 0; i < count; i++) {
             let card = deck.pop();
@@ -500,7 +506,6 @@ function handleFoundationDrop(e) {
     const dragData = JSON.parse(dragDataString);
 
     if (dragData.stack && dragData.stack.length > 1) return;
-
     const slot = e.currentTarget;
     // Wir finden heraus, welcher der 4 Slots es ist (0-3)
     const slotIndex = Array.from(document.querySelectorAll("#foundations .card-slot")).indexOf(slot);
@@ -513,6 +518,9 @@ function handleFoundationDrop(e) {
         foundationData[slotIndex].push(cardData);
 
         removeFromOrigin(dragData);
+        window.cardSound.currentTime = 0;
+        window.cardSound.volume = 0.05;
+        window.cardSound.play();
         renderAll(); // Jetzt zeichnet renderAll die Karte korrekt mit
     }
     checkWinCondition;
@@ -555,7 +563,12 @@ function removeFromOrigin(dragData) {
         if (idx !== -1) {
             col.splice(idx);
             // Die jetzt oberste Karte im Tableau aufdecken
-            if (col.length > 0) col[col.length - 1].faceUp = true;
+            if (col.length > 0) {
+                col[col.length - 1].faceUp = true;
+                window.cardSound.currentTime = 0; 
+                window.cardSound.volume = 0.05; 
+                window.cardSound.play();
+            }
         }
     }
 }
@@ -577,6 +590,9 @@ async function autoSortToFoundations() {
 
                 for (let i = 0; i < foundations.length; i++) {
                     if (canMoveToFoundation(card, foundations[i])) {
+                        window.cardSound.currentTime = 0; 
+                        window.cardSound.volume = 0.05; 
+                        window.cardSound.play();
                         foundationData[i].push(card);
                         column.pop();
                         renderAll();
@@ -640,6 +656,10 @@ function checkWinCondition() {
 }
 
 function showVictoryPopup() {
+    window.winSound.currentTime = 0; 
+    window.winSound.volume = 0.07; 
+    window.winSound.play();
+    
     const popup = document.getElementById("victoryPopup");
     if (!popup) return;
 
@@ -813,6 +833,9 @@ function drawThreeCards() {
         deck = wastePile.map(c => ({ ...c, faceUp: false })).reverse();
         wastePile = [];
     } else {
+        window.cardSound.currentTime = 0; 
+        window.cardSound.volume = 0.05; 
+        window.cardSound.play();
         // Nutzt jetzt die cardsToDrawCount Variable
         const count = Math.min(deck.length, cardsToDrawCount);
         for (let i = 0; i < count; i++) {

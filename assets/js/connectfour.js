@@ -37,6 +37,9 @@ function handleClick(col) {
             grid[r][col] = currentPlayer;
             
             // Stein erstellen
+            window.cardSound.currentTime = 0; 
+               window.cardSound.volume = 0.05; 
+            window.cardSound.play();
             const stone = document.createElement('div');
             stone.classList.add('stone');
             stone.style.backgroundImage = currentPlayer === 'red'

@@ -2,8 +2,7 @@ To-Dos/Fixes:
 - new highscore bei solitaire und 2048 
 - richtige schiffe bei battleship
 - sprache bei winpop ups
-- ttt kreis favicon
-- sounds beim rest hinzufügen
+- kniffel win overlay nicht über ganzen bildshcirm
 
 Weitere Ideen
 - Dark Mode
@@ -11,3 +10,8 @@ Weitere Ideen
 - Snake
 - Schach
 - olympiade
+
+sol -> x (evt klick bei karte verschieben)
+yaz -> x (evt gedempfter klcik bei einloggen)
+bs -> x (evt schiff platzier sound)
+2048 -> x (evt kästchen bewegungs sound)

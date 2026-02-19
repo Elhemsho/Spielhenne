@@ -137,9 +137,18 @@ function handleMove(el) {
     if (isGameOverState || el.classList.contains('taken') || el.classList.contains('is-disabled')) return;
 
     el.classList.add('taken', `p${currentPlayer}`);
+
+    window.clickSound.currentTime = 0;
+    window.clickSound.volume = 0.1;
+    window.clickSound.play();
+
     const boxesClosed = checkBox(el);
 
     if (boxesClosed > 0) {
+        window.correctSound.currentTime = 0;
+        window.correctSound.volume = 0.07;
+        window.correctSound.play();
+
         scores[currentPlayer] += boxesClosed;
         updateUI();
         checkGameOver();

@@ -181,6 +181,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const coords = calculateShipCoords(index, size, dir);
         if (coords && checkCollision(coords, playerNum)) {
             placeShip(shipId, size, coords, dir, playerNum);
+            //window.clickSound.currentTime = 0;
+            //window.clickSound.volume = 0.1;
+            //window.clickSound.play();
             renderInventories();
             checkSetupComplete();
         } else { renderInventories(); }
@@ -253,6 +256,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleActionBtnClick() {
+        window.clickSound.currentTime = 0;
+        window.clickSound.volume = 0.1;
+        window.clickSound.play();
+
         if (gameState === 'SETUP_P1') {
             gameState = 'SETUP_P2';
             currentPlayer = 2;
@@ -279,13 +286,24 @@ document.addEventListener('DOMContentLoaded', () => {
             cell.classList.add('hit');
             targetShip.hits++;
             if (targetShip.hits === targetShip.size) {
+                window.correctSound.currentTime = 0;
+                window.correctSound.volume = 0.07;
+                window.correctSound.play();
                 targetShip.isSunken = true;
                 targetShip.coords.forEach(coord => gridEl.children[coord].classList.add('sunken-animation'));
                 renderInventories();
                 drawBoard(targetPlayer);
                 setTimeout(() => { checkGameOver(); }, 100);
-            } else { updateUI(); }
+            } else { 
+                window.goodSound.currentTime = 0;
+                window.goodSound.volume = 0.07;
+                window.goodSound.play();
+                updateUI(); 
+            }
         } else {
+            window.wrongSound.currentTime = 0;
+            window.wrongSound.volume = 0.1;
+            window.wrongSound.play();
             cell.classList.add('miss');
             isProcessing = true;
             setTimeout(() => { currentPlayer = (currentPlayer === 1 ? 2 : 1); isProcessing = false; updateUI(); }, 800);
@@ -310,7 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
 
         if (winText && langData) {
-            winText.innerText = `☆ ${langData.player_wins.replace('{n}', winner)} ☆`;
+            winText.innerText = `${langData.player_wins.replace('{n}', winner)}`;
         } else {
             winText.innerText = `☆ Player ${winner} wins! ☆`;
         }

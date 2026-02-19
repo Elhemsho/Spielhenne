@@ -67,10 +67,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function flipCard() {
+        
+         
         if (lockBoard || this.classList.contains('flipped') || this.classList.contains('matched')) return;
 
         this.classList.add('flipped');
         flippedCards.push(this);
+
+        window.cardSound.currentTime = 0; 
+        window.cardSound.volume = 0.05; 
+        window.cardSound.play();
 
         if (flippedCards.length === 2) {
             checkMatch();
@@ -83,19 +89,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const isMatch = card1.dataset.symbol === card2.dataset.symbol;
 
         if (isMatch) {
+            
             scores[`player${currentPlayer}`]++;
             matchedPairs++;
 
             setTimeout(() => {
                 card1.classList.add('matched');
                 card2.classList.add('matched');
+                window.correctSound.currentTime = 0; 
+                window.correctSound.volume = 0.1; 
+                window.correctSound.play();
                 resetTurn(true);
 
                 if (matchedPairs === symbols.length) {
                     setTimeout(showWinPopup, 500);
                     setTimeout(startConfetti, 500);
                 }
-            }, 400);
+            }, 300);
 
             updateScoreDisplay();
         } else {
@@ -126,6 +136,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showWinPopup() {
+        window.winSound.currentTime = 0; 
+        window.winSound.volume = 0.07; 
+        window.winSound.play();
         let winner = "";
         let message = "";
         if (scores.player1 > scores.player2) {

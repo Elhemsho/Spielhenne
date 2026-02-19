@@ -5,6 +5,9 @@ let currentPlayer = 1;
 
 function rollDice() {
     if (rollsLeft > 0) {
+        window.diceSound.currentTime = 0;
+        window.diceSound.volume = 0.05;
+        window.diceSound.play();
         const diceElements = document.querySelectorAll('.die');
         diceElements.forEach(die => {
             if (!die.classList.contains('held')) {
@@ -41,6 +44,10 @@ document.querySelectorAll('.die').forEach(die => {
     die.addEventListener('click', function () {
         if (rollsLeft < 3) {
             this.classList.toggle('held');
+
+            window.clickSound.currentTime = 0;
+            window.clickSound.volume = 0.1;
+            window.clickSound.play();
         }
     });
 });
@@ -81,6 +88,10 @@ function writeScore(id, value) {
 
         target.innerText = points;
         target.classList.add("filled");
+
+        window.clickSound.currentTime = 0;
+        window.clickSound.volume = 0.05;
+        window.clickSound.play();
 
         updateTotalScore();
         checkGameOver();
@@ -125,6 +136,10 @@ function writeSpecial(id, type) {
 
     target.innerText = points;
     target.classList.add("filled");
+
+    window.clickSound.currentTime = 0;
+    window.clickSound.volume = 0.05;
+    window.clickSound.play();
 
     updateTotalScore();
     checkGameOver();
@@ -249,6 +264,10 @@ function checkGameOver() {
 }
 
 function showWinner() {
+    window.winSound.currentTime = 0;
+    window.winSound.volume = 0.1;
+    window.winSound.play();
+
     const score1 = parseInt(document.getElementById('p1-total').innerText) || 0;
     const score2 = parseInt(document.getElementById('p2-total').innerText) || 0;
     const diff = Math.abs(score1 - score2); // Berechnet immer den positiven Unterschied

@@ -104,6 +104,7 @@ function slide(row) {
 function updateScore(p) {
     score += p;
     document.getElementById("score").innerText = score;
+
     if (score > highScore) {
         highScore = score;
         localStorage.setItem(getHighScoreKey(), highScore);
@@ -171,6 +172,30 @@ function renderBoard() {
 }
 
 function showModal() {
+    const isNewHighscore = score >= highScore && score > 0;
+    
+    const modalContent = document.querySelector('.modal-content');
+    const modalText = document.getElementById('modal-text');
+    const modalScore = document.getElementById('modal-score-display');
+
+    if (isNewHighscore) {
+        window.winSound.currentTime = 0; window.winSound.volume = 0.07; window.winSound.play();
+        if (modalContent) {
+            modalContent.style.borderColor = "#ffcc00";
+            modalContent.style.boxShadow = "0 0 15px 10px rgba(255, 204, 0, 0.4)";
+        }
+        if (modalText) { modalText.innerText = "New Highscore!"; modalText.style.color = "#b8860b"; }
+        if (modalScore) modalScore.style.color = "#b8860b";
+    } else {
+        window.goodSound.currentTime = 0; window.goodSound.volume = 0.1; window.goodSound.play();
+        if (modalContent) {
+            modalContent.style.borderColor = "var(--blue)";
+            modalContent.style.boxShadow = "0 0 15px 10px var(--blue)";
+        }
+        if (modalText) { modalText.innerText = "Game Over!"; modalText.style.color = "#333"; }
+        if (modalScore) modalScore.style.color = "#666";
+    }
+
     const m = document.getElementById("game-modal");
     document.getElementById("modal-score-display").innerText = "Your Score: " + score;
     m.style.display = "flex";
@@ -202,10 +227,19 @@ function isGameOver() {
 }
 
 document.addEventListener('click', (e) => {
-    if (e.target.id === "undoBtn") undo();
+    if (e.target.id === "undoBtn") {
+        window.clickSound.currentTime = 0; window.clickSound.volume = 0.1; window.clickSound.play();
+        undo();
+    }
     if (e.target.id === "playAgainBtn" || e.target.classList.contains("reset")) setGame();
-    if (e.target.id === "prevSize") changeSize(-1);
-    if (e.target.id === "nextSize") changeSize(1);
+    if (e.target.id === "prevSize") {
+        window.clickSound.currentTime = 0; window.clickSound.volume = 0.1; window.clickSound.play();
+        changeSize(-1);
+    }
+    if (e.target.id === "nextSize") {
+        window.clickSound.currentTime = 0; window.clickSound.volume = 0.1; window.clickSound.play();
+        changeSize(1);
+    }
 });
 
 document.getElementById("playAgainBtn").addEventListener("click", setGame);

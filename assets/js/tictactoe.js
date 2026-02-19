@@ -50,6 +50,10 @@ function handleClick(field) {
     const index = field.dataset.index;
     if (board[index] !== "" || !gameActive) return;
 
+    window.clickSound.currentTime = 0;
+    window.clickSound.volume = 0.1;
+    window.clickSound.play();
+
     board[index] = currentPlayer;
     field.innerHTML = currentPlayer === "X"
   ? "X"
@@ -90,6 +94,9 @@ function checkWin() {
 }
 
 function handleWin(winFields) {
+    window.correctSound.currentTime = 0; 
+               window.correctSound.volume = 0.1; 
+            window.correctSound.play();
     gameOver = true;
 
     // Gewinnerfelder markieren (Blinken)

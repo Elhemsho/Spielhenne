@@ -132,6 +132,9 @@ document.getElementById('answerInput').addEventListener('keydown', (e) => {
         const streakInfo = document.getElementById('streak-info');
 
         if (val === currentAnswer) {
+            window.correctSound.currentTime = 0; 
+            window.correctSound.volume = 0.1; 
+            window.correctSound.play();
             streak++;
             score += (10 + (streak > 1 ? streak - 1 : 0));
             
@@ -142,6 +145,9 @@ document.getElementById('answerInput').addEventListener('keydown', (e) => {
                 streakInfo.innerText = langData.correct;
             }
         } else {
+            window.wrongSound.currentTime = 0; 
+            window.wrongSound.volume = 0.4; 
+            window.wrongSound.play();
             streak = 0;
             score -= 5;
             streakInfo.innerText = langData.wrong;
@@ -187,6 +193,10 @@ function endGame() {
     if (isNewHighscore) {
         localStorage.setItem(`mathHS_${currentMode}`, score);
 
+        window.winSound.currentTime = 0;
+        window.winSound.volume = 0.08;
+        window.winSound.play();
+
         // GOLD DESIGN
         if (resultStatsBox) {
             resultStatsBox.style.backgroundColor = "#fff9e6";
@@ -199,6 +209,10 @@ function endGame() {
         }
         if (modalIcon) modalIcon.innerText = "⭐";
     } else {
+        window.goodSound.currentTime = 0;
+        window.goodSound.volume = 0.1;
+        window.goodSound.play();
+
         // NORMALES BLAU DESIGN
         if (resultStatsBox) {
             resultStatsBox.style.backgroundColor = "#f0fbfc";
