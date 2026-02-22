@@ -184,8 +184,10 @@ body {
 }
 
 .control-button {
-    background: #f0f0f0;
-    border: 1px solid #ccc;
+    background: var(--bluel);
+    border: 1px solid var(--blue);
+    width: 90px;
+    height: 40px;
     padding: 8px 15px;
     border-radius: 5px;
     cursor: pointer;
@@ -194,12 +196,7 @@ body {
 }
 
 .control-button:hover {
-    background: #e0e0e0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.control-button:active {
-    transform: translateY(1px);
+    background: var(--bluell);
 }
 
 /* Die Karten im Waste-Stapel auffächern */
@@ -487,7 +484,10 @@ body {
     transform: translate(-50%, -50%);
 
     background: white;
-    padding: 50px 100px;
+    padding-bottom: 60px;
+    padding-top: 30px;
+    padding-left: 80px;
+    padding-right: 80px;
     border-radius: 25px;
     text-align: center;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);

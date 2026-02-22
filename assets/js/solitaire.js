@@ -677,7 +677,7 @@ function showVictoryPopup() {
     if (isNewHighscore) {
         if (resultStats) { resultStats.style.backgroundColor = "#fff9e6"; resultStats.style.borderColor = "#ffcc00"; resultStats.style.boxShadow = "0 0 15px 10px rgba(255, 204, 0, 0.4)"; }
         if (modalH2) { modalH2.innerText = "Congratulations!"; modalH2.style.color = "#333"; }
-        if (labelEl) { labelEl.innerText = "NEW HIGHSCORE"; labelEl.style.color = "#b8860b"; }
+        if (labelEl) { labelEl.innerText = "NEW HIGHSCORE"; labelEl.style.color = "#333"; }
         if (valueEl) valueEl.style.color = "#b8860b";
     } else {
         if (resultStats) { resultStats.style.backgroundColor = "#f0fbfc"; resultStats.style.borderColor = "var(--blue)"; resultStats.style.boxShadow = "var(--blue)"; }
