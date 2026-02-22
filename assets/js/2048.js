@@ -173,31 +173,29 @@ function renderBoard() {
 
 function showModal() {
     const isNewHighscore = score >= highScore && score > 0;
-    
+
     const modalContent = document.querySelector('.modal-content');
+    const resultStatsBox = document.querySelector('.result-stats');
+    const labelText = document.querySelector('.result-item .label');
+    const modalIcon = document.querySelector('.modal-icon');
     const modalText = document.getElementById('modal-text');
-    const modalScore = document.getElementById('modal-score-display');
 
     if (isNewHighscore) {
         window.winSound.currentTime = 0; window.winSound.volume = 0.07; window.winSound.play();
-        if (modalContent) {
-            modalContent.style.borderColor = "#ffcc00";
-            modalContent.style.boxShadow = "0 0 15px 10px rgba(255, 204, 0, 0.4)";
-        }
-        if (modalText) { modalText.innerText = "New Highscore!"; modalText.style.color = "#b8860b"; }
-        if (modalScore) modalScore.style.color = "#b8860b";
+        if (resultStatsBox) { resultStatsBox.style.backgroundColor = "#fff9e6"; resultStatsBox.style.borderColor = "#ffcc00"; resultStatsBox.style.boxShadow = "0 0 15px 10px rgba(255, 204, 0, 0.4)"; }
+        if (labelText) { labelText.innerText = "New Highscore"; labelText.style.color = "#b8860b"; }
+        if (modalIcon) modalIcon.innerText = "⭐";
+        if (modalText) { modalText.innerText = "Game Over!"; modalText.style.color = "#333"; }
     } else {
         window.goodSound.currentTime = 0; window.goodSound.volume = 0.1; window.goodSound.play();
-        if (modalContent) {
-            modalContent.style.borderColor = "var(--blue)";
-            modalContent.style.boxShadow = "0 0 15px 10px var(--blue)";
-        }
+        if (resultStatsBox) { resultStatsBox.style.backgroundColor = "#f0fbfc"; resultStatsBox.style.borderColor = "var(--blue)"; resultStatsBox.style.boxShadow = "none"; }
+        if (labelText) { labelText.innerText = "Your Score"; labelText.style.color = "#666"; }
+        if (modalIcon) modalIcon.innerText = "🏆";
         if (modalText) { modalText.innerText = "Game Over!"; modalText.style.color = "#333"; }
-        if (modalScore) modalScore.style.color = "#666";
     }
 
+    document.getElementById('modal-score-display').innerText = score;
     const m = document.getElementById("game-modal");
-    document.getElementById("modal-score-display").innerText = "Your Score: " + score;
     m.style.display = "flex";
     document.getElementById("modal-button").onclick = () => m.style.display = "none";
 }

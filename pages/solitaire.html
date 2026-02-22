@@ -148,11 +148,16 @@
                     (<span id="undoCount">5</span>)
                 </button>
 
-			<div id="victoryPopup" class="victory-overlay">
-				<div class="victory-content">
-					<h2>☆ Congratulations! ☆</h2>
-					<p>Number of stack cycles: 0</p>
-					<button id="showMeButton">Play Again</button>
+			<div id="game-modal" class="modal">
+				<div class="modal-content">
+					<h2 id="modal-text">Congratulations!</h2>
+					<div class="result-stats">
+						<div class="result-item">
+							<span class="label">Your Score</span>
+							<span class="value" id="modal-score-display">0</span>
+						</div>
+					</div>
+					<button id="modal-button">Play Again</button>
 				</div>
 			</div>
 		</div>

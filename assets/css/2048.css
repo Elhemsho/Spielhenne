@@ -211,6 +211,59 @@ body {
     
 }
 
+.modal-content {
+    background: white;
+    padding: 20px 30px 40px 30px;
+    border-radius: 25px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 0 15px 10px var(--blue);
+    transform: translateY(-50px);
+    animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.result-stats {
+    background-color: #f0fbfc;
+    border: 2px solid var(--blue);
+    border-radius: 12px;
+    padding: 15px 30px;
+    margin: 15px 0;
+    transition: all 0.3s ease;
+}
+
+.result-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-content h2 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.result-item .label {
+    font-size: 14px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.result-item .value {
+    font-size: 48px;
+    font-weight: bold;
+    color: #333;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    to { transform: translateY(0); }
+}
+
 .modal {
     display: none;
     position: absolute;
@@ -225,40 +278,22 @@ body {
     align-items: center;
 }
 
-.modal-content {
-    background-color: white;
-    padding-left: 60px;
-    padding-right: 60px;
-    padding-bottom: 30px;
-    padding-top: 20px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 0 15px 10px var(--blue);
-    min-width: 200px;
-    min-height: 120px;
-
-}
-
-/* Den Button im Modal und den Reset-Button stylen */
 #modal-button {
-    background-color: var(--blue);
-    /* Ein schönes Erdbeer-Rot */
-    color: white;
-    font-family: 'Comic Neue2', cursive;
-    /* Kräftige Schrift */
-    font-size: 16px;
-    padding: 12px 25px;
-    border: 1px solid #ffffff;
-    /* Dicke Comic-Outline */
-    border-radius: 15px;
+    background: var(--blue);
+    color: #333;
+    border: none;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 18px;
     cursor: pointer;
-    transition: transform 0.1s, box-shadow 0.1s;
-    outline: none;
+    transition: all 0.2s;
 }
 
-/* Hover-Effekt (Maus drüber) */
 #modal-button:hover {
-    background-color: #bbf6fe;
+    background: #bbf6fe;
 }
+
 
 /* ------------------ Main-End ------------------ */

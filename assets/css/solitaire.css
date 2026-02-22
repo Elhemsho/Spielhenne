@@ -241,75 +241,89 @@ body {
     z-index: 1000;
 }
 
-/* Victory Popup Styling */
-/* Das dunkle Overlay */
-.victory-overlay {
+.modal-content {
+    background: white;
+    padding: 20px 30px 40px 30px;
+    border-radius: 25px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 0 15px 10px var(--blue);
+    transform: translateY(-50px);
+    animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.result-stats {
+    background-color: #f0fbfc;
+    border: 2px solid var(--blue);
+    border-radius: 12px;
+    padding: 15px 30px;
+    margin: 15px 0;
+    transition: all 0.3s ease;
+}
+
+.result-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-content h2 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.result-item .label {
+    font-size: 14px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.result-item .value {
+    font-size: 26px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    to { transform: translateY(0); }
+}
+
+.modal {
+    display: none;
     position: absolute;
-    top: 0;
+    z-index: 1000;
     left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(226, 226, 226, 0.4);
+    background-color: rgba(226, 226, 226, 0.4);
     backdrop-filter: blur(3px);
-    z-index: 10000;
     justify-content: center;
     align-items: center;
-
-    /* Animation-Fix: */
-    display: flex;
-    /* Immer flex, aber... */
-    visibility: hidden;
-    /* ...unsichtbar für Maus und Augen */
-    opacity: 0;
-    /* ...voll transparent */
-    transition: opacity 0.4s ease, visibility 0.4s;
 }
 
-.victory-overlay.is-visible {
-    visibility: visible;
-    opacity: 1;
-}
-
-/* Das weiße Fenster in der Mitte */
-.victory-content {
-    background: white;
-    padding: 50px;
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0  0 15px 10px var(--blue);
-    transform: translateY(-20px);
-    transition: transform 0.4s ease;
-}
-
-.victory-overlay.is-visible .victory-content {
-    transform: translateY(0);
-}
-
-.victory-content h2 {
-    color: #333;
-    font-size: 2.5rem;
-    margin: 0 0 15px 0;
-}
-
-.victory-content p {
-    color: #666;
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-}
-
-#showMeButton {
+#modal-button {
     background: var(--blue);
     color: #333;
-    padding: 15px 40px;
     border: none;
-    border-radius: 10px;
-    font-size: 1.1rem;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 12px;
     font-weight: bold;
+    font-size: 18px;
     cursor: pointer;
-    transition: transform 0.2s, background 0.3s;
+    transition: all 0.2s;
 }
 
-#showMeButton:hover {
+#modal-button:hover {
     background: #bbf6fe;
 }
 

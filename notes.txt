@@ -2,14 +2,17 @@ To-Dos/Fixes:
 - new highscore bei solitaire und 2048 
 - richtige schiffe bei battleship
 - sprache bei winpop ups
-- kniffel win overlay nicht über ganzen bildshcirm
+- show btn -> reset; neu x oben rechts -> neues show
 
 Weitere Ideen
 - Dark Mode
-- Respponsive Design (footer unten auch bei handy ansicht)
+- Responsive Design (footer unten auch bei handy ansicht)
 - Snake
 - Schach
 - olympiade
+
+<a href="https://www.vecteezy.com/free-vector/chess-pieces">Chess Pieces Vectors by Vecteezy</a> -PITIPORN AUNGPRAPHAPORNCHAI
+
 
 sol -> x (evt klick bei karte verschieben)
 yaz -> x (evt gedempfter klcik bei einloggen)

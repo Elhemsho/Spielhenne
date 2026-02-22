@@ -284,7 +284,7 @@ function showWinner() {
         winnerScore.innerText = "Difference: " + diff + " Points";
         if (winnerContent) winnerContent.style.width = "380px"; // Zurück auf Standard 
     } else if (score2 > score1) {
-        winnerText.innerText = "Player 2 wins! ☆";
+        winnerText.innerText = "☆ Player 2 wins! ☆";
         winnerScore.innerText = "Difference: " + diff + " Points";
         if (winnerContent) winnerContent.style.width = "380px"; // Zurück auf Standard
     } else {

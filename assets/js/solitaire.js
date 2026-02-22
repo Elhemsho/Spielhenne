@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
         slot.addEventListener("drop", handleFoundationDrop);
     });
 
-    const winBtn = document.getElementById("showMeButton");
+    const winBtn = document.getElementById("modal-button");
     if (winBtn) winBtn.onclick = hideVictoryPopup;
 
     document.getElementById("pauseBtn").onclick = togglePause;
@@ -656,30 +656,41 @@ function checkWinCondition() {
 }
 
 function showVictoryPopup() {
-    window.winSound.currentTime = 0; 
-    window.winSound.volume = 0.07; 
+    window.winSound.currentTime = 0;
+    window.winSound.volume = 0.07;
     window.winSound.play();
-    
-    const popup = document.getElementById("victoryPopup");
+
+    const popup = document.getElementById("game-modal");
     if (!popup) return;
 
-    // 1. Aktuelle Werte holen
     const currentTimeStr = document.getElementById("timerDisplay").innerText;
     const currentCycles = stackCycles;
+    const isNewHighscore = saveHighscore(currentCycles, currentTimeStr);
 
-    // 2. Highscore in LocalStorage speichern
-    saveHighscore(currentCycles, currentTimeStr);
+    const modalContent = document.querySelector('.modal-content');
+    const modalH2 = document.getElementById('modal-text');
+    const resultStats = document.querySelector('.result-stats');
+    const labelEl = document.querySelector('.result-item .label');
+    const valueEl = document.getElementById('modal-score-display');
+    const modalBtn = document.getElementById('modal-button');
 
-    // 3. Anzeige im Popup
-    const pTag = popup.querySelector("p");
-    if (pTag) {
-        pTag.innerText = `Cycles: ${currentCycles} | Time: ${currentTimeStr}`;
+    if (isNewHighscore) {
+        if (resultStats) { resultStats.style.backgroundColor = "#fff9e6"; resultStats.style.borderColor = "#ffcc00"; resultStats.style.boxShadow = "0 0 15px 10px rgba(255, 204, 0, 0.4)"; }
+        if (modalH2) { modalH2.innerText = "Congratulations!"; modalH2.style.color = "#333"; }
+        if (labelEl) { labelEl.innerText = "NEW HIGHSCORE"; labelEl.style.color = "#b8860b"; }
+        if (valueEl) valueEl.style.color = "#b8860b";
+    } else {
+        if (resultStats) { resultStats.style.backgroundColor = "#f0fbfc"; resultStats.style.borderColor = "var(--blue)"; resultStats.style.boxShadow = "var(--blue)"; }
+        if (modalH2) { modalH2.innerText = "Congratulations!"; modalH2.style.color = "#333"; }
+        if (labelEl) { labelEl.innerText = "YOUR SCORE"; labelEl.style.color = "#666"; }
+        if (valueEl) valueEl.style.color = "#333";
     }
 
-    // 4. Die Anzeige in der Control-Bar oben sofort aktualisieren
-    updateHighscoreDisplay();
+    if (valueEl) valueEl.innerText = `${currentCycles} Cycles | ${currentTimeStr}`;
+    if (modalBtn) { modalBtn.innerText = "Play Again"; modalBtn.onclick = () => { popup.style.display = "none"; resetGame(); }; }
 
-    popup.classList.add("is-visible");
+    updateHighscoreDisplay();
+    popup.style.display = "flex";
 }
 
 function hideVictoryPopup() {
@@ -884,4 +895,5 @@ function saveHighscore(cycles, timeStr) {
         const newScore = { cycles: cycles, timeStr: timeStr };
         localStorage.setItem(key, JSON.stringify(newScore));
     }
+    return isBetter;
 }
