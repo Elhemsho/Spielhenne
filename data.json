@@ -106,7 +106,7 @@
             "player2": "Spieler 2",
             "your_turn": "Du bist dran!",
             "next_round": "Nächste Runde",
-            "show_result": "Ansehen",
+            "show_result": "Erneut Spielen",
 
             "fleet_p1": "P1 Flotte",
             "fleet_p2": "P2 Flotte",
@@ -268,7 +268,7 @@
             "player2": "Player 2",
             "your_turn": "It's your turn!",
             "next_round": "Next Round",
-            "show_result": "Show",
+            "show_result": "Play Again",
 
             "fleet_p1": "P1 Fleet",
             "fleet_p2": "P2 Fleet",

@@ -105,7 +105,13 @@ function showWinPopup(player) {
 // REVIEW-LOGIK: Nur das Overlay schließen, Spiel bleibt sichtbar
 if (playAgainBtnChampion) {
     playAgainBtnChampion.onclick = () => {
+        grid = Array.from({ length: rows }, () => Array(cols).fill(null));
+        document.querySelectorAll('.stone').forEach(s => s.remove());
+        currentPlayer = 'red';
+        gameOver = false;
         winPopup.classList.add("hidden");
+        if (winCoin) winCoin.style.display = "block";
+        updateTurnIndicator();
     };
 }
 
@@ -174,3 +180,7 @@ function showDrawPopup() {
 function isBoardFull() {
     return grid.every(row => row.every(cell => cell !== null));
 }
+
+document.getElementById("modal-close").addEventListener("click", () => {
+    winPopup.classList.add("hidden");
+});

@@ -279,6 +279,7 @@ body {
 
 /* Die Box im Pop-up */
 .winner-content {
+    position: relative;
     background: white;
     width: 300px;
     padding: 25px;
@@ -304,7 +305,7 @@ body {
     margin-bottom: 10px;
 }
 
-.winner-content button {
+.pABtn {
     background: var(--blue);
     border: none;
     padding: 10px 30px;
@@ -316,7 +317,7 @@ body {
     margin-bottom: 20px;
 }
 
-.winner-content button:hover {
+.pABtn:hover {
     background: #bbf6fe;
 }
 

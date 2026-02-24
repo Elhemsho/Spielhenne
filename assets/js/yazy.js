@@ -178,6 +178,19 @@ function updateTotalScore() {
         bonusField.innerText = "0";
     }
 
+    // Bonus-Label verblassen wenn alle oberen Felder gefüllt sind
+    const allUpperFilled = upperFields.every(field => {
+        const el = document.getElementById('p' + p + '-' + field);
+        return el && el.classList.contains('filled');
+    });
+
+    const bonusRow = document.querySelector('.player' + p + ' .score-row:has(#p' + p + '-bonus)');
+    if (bonusRow && allUpperFilled) {
+        bonusRow.querySelector('span:first-child').style.opacity = '0.5';
+    } else if (bonusRow) {
+        bonusRow.querySelector('span:first-child').style.opacity = '1';
+    }
+
     // Gesamt berechnen
     const allFilled = document.querySelectorAll('.player' + p + ' .score-val.filled');
     let total = 0;
@@ -232,6 +245,11 @@ function resetGame() {
         die.classList.add('is-question');
     });
 
+    // Bonus-Labels zurücksetzen
+    [1, 2].forEach(p => {
+        const bonusRow = document.querySelector('.player' + p + ' .score-row:has(#p' + p + '-bonus)');
+        if (bonusRow) bonusRow.querySelector('span:first-child').style.opacity = '1';
+    });
     // 4. Wurf-Zähler zurücksetzen
     rollsLeft = 3;
     document.getElementById('rollCount').innerText = "0";
@@ -314,8 +332,14 @@ function showWinner() {
     }
 }
 
-// Funktion zum Schließen
-function closePopup() {
-    document.getElementById('winner-popup').classList.remove('show');
-    document.getElementById('rollBtn').disabled = true;
-}
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('winner-close').addEventListener('click', () => {
+        document.getElementById('winner-popup').classList.remove('show');
+        document.getElementById('rollBtn').disabled = true;
+    });
+
+    document.getElementById('winner-play-again').addEventListener('click', () => {
+        document.getElementById('winner-popup').classList.remove('show');
+        resetGame();
+    });
+});

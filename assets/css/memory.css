@@ -139,6 +139,7 @@ body {
 }
 
 .win-popup {
+    position: relative;
     background: white;
     padding: 30px;
     border-radius: 15px;
@@ -161,12 +162,12 @@ body {
     }
 }
 
-.win-popup h2 {
+.win-popup h1 {
     margin-top: 0;
     color: var(--blue);
 }
 
-.win-popup button {
+.pABtn {
     background-color: var(--blue);
     color: #fff;
     border: none;
@@ -178,7 +179,7 @@ body {
     transition: background 0.2s;
 }
 
-.win-popup button:hover {
+.pABtn:hover {
     background-color: #bbf6fe;
 }
 

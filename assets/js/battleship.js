@@ -350,13 +350,13 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 
     showBtn.onclick = () => {
-        winOverlay.classList.add('hidden');
-        winOverlay.style.display = 'none';
-        gameState = 'GAME_OVER';
-        document.body.classList.add('GAME_OVER');
-        updateUI();
-        renderInventories();
-    };
+    winOverlay.classList.add('hidden');
+    winOverlay.style.display = 'none';
+    gameState = 'GAME_OVER';
+    document.body.classList.add('GAME_OVER');
+    updateUI();
+    renderInventories();
+};
 
     function drawBoard(playerNum) {
         const data = playerNum === 1 ? p1Data : p2Data;
@@ -439,6 +439,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     actionBtn.onclick = handleActionBtnClick;
     resetBtn.onclick = resetGame;
+
+    const closeBtn = document.getElementById('modal-close');
+        if (closeBtn) closeBtn.onclick = () => {
+            winOverlay.classList.add('hidden');
+            winOverlay.style.display = 'none';
+            gameState = 'GAME_OVER';
+            document.body.classList.add('GAME_OVER');
+            updateUI();
+            renderInventories();
+        };
+
+        showBtn.onclick = () => {
+        resetGame();
+    };
 
     init();
 });

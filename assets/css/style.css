@@ -77,10 +77,10 @@ body {
     right: 15px; top: 0px;
     cursor: pointer;
     font-size: 35px;
-    color: #999;
+    color: #333;
 }
 
-.close-button:hover { color: #333; }
+.close-button:hover { color: #999; }
 
 .info{
     height: 16px;

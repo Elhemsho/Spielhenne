@@ -52,8 +52,7 @@
                         <span onclick="toggleSettings()" class="nav-settings"></span>
 
                         <div id="settingsDropdown" class="dropdown-content">
-                            <a href="index.html"></a>
-
+                        
 							<div class="menu-item-flex language" onclick="openLanguageMenu(event)">
                                 <span></span>
                                 <span>›</span>
@@ -147,8 +146,9 @@
 
 		<div id="championOverlay" class="overlay hidden">
 			<div class="winnerBox">
+				<button class="modal-close" id="modal-close">&times;</button>
 				<h1 id="championText"></h1>
-				<button id="playAgainBtnChampion" class="playAgainBtn" data-i18n="show_result">Show</button>
+				<button id="playAgainBtnChampion" class="playAgainBtn" data-i18n="show_result">Play Again</button>
 				<canvas id="confettiCanvas"></canvas>
 			</div>
 		</div>

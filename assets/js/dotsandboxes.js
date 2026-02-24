@@ -297,4 +297,15 @@ function resetGame() {
 }
 
 initBoard();
+
+// X schließt nur das Modal
+document.getElementById("modal-close").addEventListener("click", () => {
+    closeModal();
+});
+
+// "Show" setzt alles zurück
+document.getElementById("playAgainBtnChampion").addEventListener("click", () => {
+    resetGame();
+});
+
 updateUI();

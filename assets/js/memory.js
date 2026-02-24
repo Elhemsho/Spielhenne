@@ -156,16 +156,27 @@ document.addEventListener('DOMContentLoaded', () => {
         overlay.id = 'winOverlay';
         overlay.className = 'win-overlay';
         overlay.innerHTML = `
-            <div class="win-popup">
-                <h2>${winner}</h2>
-                <p>${message}</p>
-                <button onclick="document.getElementById('winOverlay').remove()">Show</button>
-            </div>
+        <div class="win-popup">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <h1>${winner}</h2>
+            <p>${message}</p>
+            <button class="pABtn" id="playAgainPopupBtn" data-i18n="show_result">Play Again</button>
+        </div>
         `;
         document.querySelector('.main').appendChild(overlay);
-
         overlay.style.display = "flex";
         overlay.style.minWidth = "300px";
+
+        // X - nur schließen
+        document.getElementById('modal-close').onclick = () => {
+            overlay.style.display = "none";
+        };
+
+        // Play Again - kompletter Reset
+        document.getElementById('playAgainPopupBtn').onclick = () => {
+            overlay.style.display = "none";
+            initGame();
+        };
     }
 
     playAgainBtn.addEventListener('click', initGame);

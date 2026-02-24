@@ -212,6 +212,7 @@ body {
 }
 
 .modal-content {
+    position:relative;
     background: white;
     padding: 20px 30px 40px 30px;
     border-radius: 25px;
@@ -295,5 +296,19 @@ body {
     background: #bbf6fe;
 }
 
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 17px;
+    background: none;
+    border: none;
+    font-size: 32px;
+    cursor: pointer;
+    color: #333;
+    line-height: 1;
+}
 
+.modal-close:hover {
+    color: #999;
+}
 /* ------------------ Main-End ------------------ */

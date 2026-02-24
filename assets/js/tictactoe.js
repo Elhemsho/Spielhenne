@@ -43,8 +43,13 @@ resetOverlay.addEventListener("click", resetGame);
 // Event Listener für Champion-Overlay Button (NUR SCHLIESSEN)
 playAgainBtnChampion.addEventListener("click", () => {
     championOverlay.classList.add("hidden");
-    // Hier passiert kein Reset, damit man das Spielfeld sieht!
+    resetEverything();
 });
+
+document.getElementById("modal-close").addEventListener("click", () => {
+    championOverlay.classList.add("hidden");
+});
+
 
 function handleClick(field) {
     const index = field.dataset.index;

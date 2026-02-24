@@ -201,7 +201,9 @@ function showModal() {
     document.getElementById('modal-score-display').innerText = score;
     const m = document.getElementById("game-modal");
     m.style.display = "flex";
-    document.getElementById("modal-button").onclick = () => m.style.display = "none";
+    document.getElementById("modal-button").onclick = () => { m.style.display = "none"; setGame(); };
+    document.querySelector(".modal-close").onclick = () => { m.style.display = "none"; };
+
 }
 
 function undo() {
