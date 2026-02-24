@@ -130,7 +130,7 @@ a:visited {
     border-top: 12px solid var(--blue);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     position: relative; 
-    z-index: 1001; /* Höher als die 1000 vom Overlay */
+    z-index: 10100; /* Höher als die 1000 vom Overlay */
 }
 
 .header-top {
@@ -165,9 +165,17 @@ a:visited {
     color: #ccc;
 }
 
+.nav-settings img {
+    transition: filter 0.2s ease;
+}
+
+.nav-settings img:hover {
+    filter: invert(85%) sepia(30%) saturate(400%) hue-rotate(160deg) brightness(0.95);
+}
+
 .lupe {
-    width: 12px;
-    height: 12px;
+    width: 13px;
+    height: 13px;
     cursor: pointer;
     transition: filter 0.2s ease;
 }
@@ -337,7 +345,7 @@ a:visited {
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 2px 8px 16px 2px rgba(0,0,0,0.2);
-    z-index: 2100;
+    z-index: 10100;
     border-radius: 8px;
 }
 
@@ -373,7 +381,7 @@ a:visited {
     background-color: #f9f9f9;
     min-width: 120px;
     box-shadow: 2px 8px 16px 2px rgba(0,0,0,0.2);
-    z-index: 10001;
+    z-index: 10100;
     
     /* 1. Die Form definieren (nur links abgerundet) */
     border-radius: 8px;
@@ -610,12 +618,13 @@ input:checked+.slider:before {
 	width: 100%;
 	height: 100%;
 	pointer-events: none;
+    z-index: 1999;
 }
 
 .playAgainBtn {
 	margin-top: 15px;
-	padding: 12px 30px;
-	font-size: 20px;
+	padding: 8px 20px;
+	font-size: 17px;
 	cursor: pointer;
 	margin-bottom: 10px;
 	border-radius: 10px;

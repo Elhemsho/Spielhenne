@@ -242,6 +242,14 @@ async function setupLayout() {
                 updateModalContent(currentId);
             }
         }
+        const settingsButn = document.querySelector('.nav-settings');
+        if (settingsButn) {
+            if (data.header.settings && data.header.settings.icon_url) {
+                settingsButn.innerHTML = `<img src="${fixPath(data.header.settings.icon_url)}" style="width:17px; height:17px; display:block; cursor:pointer;">`;
+            } else {
+                settingsButn.innerText = langData.settings_title;
+            }
+        }
 
     } catch (error) {
         console.error("Layout-Fehler:", error);

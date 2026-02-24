@@ -1,11 +1,7 @@
 To-Dos/Fixes:
 - (richtige schiffe bei battleship)
 - sprache bei winpop ups
-- sounds zuordnen
-- settings durch icon ersetzen?
-- confetti über winOverlay
-- play again in global css kleiner
-- settingsdropdown über blurred background
+- sound einstellungen
 
 Weitere Ideen
 - Dark Mode
@@ -14,9 +10,4 @@ Weitere Ideen
 - Schach
 - olympiade
 
-- show btn -> reset; neu x oben rechts -> neues show
-mem
-yaz
-
 <a href="https://www.vecteezy.com/free-vector/chess-pieces">Chess Pieces Vectors by Vecteezy</a> -PITIPORN AUNGPRAPHAPORNCHAI
-

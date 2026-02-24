@@ -45,7 +45,16 @@
             "credit_info": "Info-Icon von",
             "credit_trophae": "Pokal-Icon von",
             "credit_music": "Musik",
-            "credit_sfx": "Sound-Effekt von",
+            "credit_sfx1": "Klick-Sound von",
+            "credit_sfx2": "Sieg-Sound von",
+            "credit_sfx3": "Korrekt-Sound von",
+            "credit_sfx4": "Falsch-Sound von",
+            "credit_sfx5": "Würfel-Sound von",
+            "credit_sfx6": "Karten-Sound von",
+            "credit_sfx7": "Gut-Sound von",
+            "credit_sfx8": "Wasser-Sound von",
+            "credit_sfx9": "Bing-Sound von",
+            "credit_sfx10": "Klick2-Sound von",
             "license": "Lizenz",
             "license_pixabay": "Pixabay Lizenz",
             "credit_cards": "Spielkarten: eigene Umsetzung basierend auf Karten von",
@@ -207,7 +216,16 @@
             "credit_info": "Info icon by",
             "credit_trophae": "Trophae icon by",
             "credit_music": "Music",
-            "credit_sfx": "Sound effect by",
+            "credit_sfx1": "Click sound by",
+            "credit_sfx2": "Victory sound by",
+            "credit_sfx3": "Correct sound by",
+            "credit_sfx4": "Wrong sound by",
+            "credit_sfx5": "Dice sound by",
+            "credit_sfx6": "Card sound by",
+            "credit_sfx7": "Good sound by",
+            "credit_sfx8": "Water sound by",
+            "credit_sfx9": "Bing sound by",
+            "credit_sfx10": "Click2 sound by",
             "license": "License",
             "license_pixabay": "Pixabay License",
             "credit_cards": "Playing cards: own implementation based on cards from",
@@ -341,6 +359,9 @@
         },
         "search": {
             "icon_url": "assets/images/lupe.png"
+        },
+        "settings": { 
+            "icon_url": "assets/images/einstellungen.png" 
         },
         "login": {
             "url": "index.html"
