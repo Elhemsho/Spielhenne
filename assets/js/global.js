@@ -92,12 +92,20 @@ async function setupLayout() {
             profileLink.href = fixPath("index.html"); 
         }
 
-        const menuItems = document.querySelectorAll('#settingsDropdown .menu-item-flex');
-        if (menuItems.length >= 3) {
-            menuItems[0].querySelector('span').innerText = langData.language_text;
-            menuItems[1].querySelector('span').innerText = langData.music_text;
-            menuItems[2].querySelector('span').innerText = langData.dark_mode_text;
-        }
+        const langItem = document.querySelector('.menu-item-flex.language span:first-child');
+        if (langItem) langItem.innerText = langData.language_text;
+
+        const audioItem = document.querySelector('.audio-item span:first-child');
+        if (audioItem) audioItem.innerText = langData.audio_text || 'Audio';
+
+        const musicItem = document.querySelector('#audioMenu .menu-item-flex:first-child span:first-child');
+        if (musicItem) musicItem.innerText = langData.music_text || 'Musik';
+
+        const soundsItem = document.querySelector('#audioMenu .menu-item-flex:last-child span:first-child');
+        if (soundsItem) soundsItem.innerText = langData.sounds_text || 'Sounds';
+
+        const darkItem = document.querySelector('.menu-item-flex:has(#darkToggle) span:first-child');
+        if (darkItem) darkItem.innerText = langData.dark_mode_text;
 
         // ----------------------------
         // 4. AUTOMATISCHE ÜBERSETZUNG (data-i18n)
@@ -250,6 +258,7 @@ async function setupLayout() {
                 settingsButn.innerText = langData.settings_title;
             }
         }
+        injectAudioMenu();
 
     } catch (error) {
         console.error("Layout-Fehler:", error);
@@ -514,15 +523,17 @@ window.onclick = function (event) {
     const input = document.getElementById("searchInput");
     const suggestionsBox = document.getElementById("searchSuggestions");
 
-    // Settings + Sprache schließen
     if (
         !event.target.closest('.nav-settings') &&
         !event.target.closest('#settingsDropdown') &&
         !event.target.closest('#languageMenu') &&
-        !event.target.closest('.menu-item-flex.language')
+        !event.target.closest('.menu-item-flex.language') &&
+        !event.target.closest('#audioMenu') &&       
+        !event.target.closest('.audio-item')           
     ) {
         settings?.classList.remove('show');
         languageMenu?.classList.remove('show');
+        audioMenu?.classList.remove('show');           
     }
 
     // Suche schließen
@@ -532,23 +543,32 @@ window.onclick = function (event) {
     }
 };
 
-
-
 /* ------------------------------------ Musik ------------------------------------ */
 const audio = document.getElementById('bgMusic');
 const muteBtn = document.getElementById('muteBtn');
 const muteIcon = document.getElementById('muteIcon');
-const musicToggle = document.getElementById('musicToggle');
 const dropdown = document.getElementById('settingsDropdown');
+
+// Sound-Toggle Logik
+window.soundsEnabled = localStorage.getItem('soundsEnabled') !== 'false';
+
+function updateSounds(enabled) {
+    window.soundsEnabled = enabled;
+    localStorage.setItem('soundsEnabled', enabled);
+    const soundToggle = document.getElementById('soundToggle');
+    if (soundToggle) soundToggle.checked = enabled;
+}
 
 function updateMusic(isMuted) {
     if (audio) audio.muted = isMuted;
     if (muteIcon) muteIcon.src = isMuted ? '../assets/images/mute2.png' : '../assets/images/speaker.png';
-    if (musicToggle) musicToggle.checked = !isMuted;
     localStorage.setItem('muted', isMuted);
+    // Toggle wird nach injectAudioMenu gesetzt
+    const mToggle = document.getElementById('musicToggle');
+    if (mToggle) mToggle.checked = !isMuted;
 }
 
-// Initialisierung
+// Initialisierung Musik
 const initialMutedState = localStorage.getItem('muted') === 'true';
 updateMusic(initialMutedState);
 
@@ -556,12 +576,6 @@ if (muteBtn) {
     muteBtn.onclick = () => {
         const currentMuted = localStorage.getItem('muted') === 'true';
         updateMusic(!currentMuted);
-    };
-}
-
-if (musicToggle) {
-    musicToggle.onchange = () => {
-        updateMusic(!musicToggle.checked);
     };
 }
 
@@ -574,6 +588,87 @@ if (dropdown) {
 document.addEventListener('click', () => {
     if (audio) audio.play().catch(() => { });
 }, { once: true });
+
+function openAudioMenu(event) {
+    event.stopPropagation();
+    const menu = document.getElementById('audioMenu');
+    if (!menu) return;
+    const langMenu = document.getElementById('languageMenu');
+    if (langMenu) langMenu.classList.remove('show');
+    menu.classList.toggle('show');
+}
+
+function openLanguageMenu(event) {
+    event.stopPropagation();
+    const menu = document.getElementById('languageMenu');
+    if (!menu) return;
+    const aMenu = document.getElementById('audioMenu');
+    if (aMenu) aMenu.classList.remove('show');
+    menu.classList.toggle('show');
+}
+
+function injectAudioMenu() {
+    const drop = document.getElementById('settingsDropdown');
+    if (!drop) return;
+
+    // Altes musicToggle-Item entfernen falls noch vorhanden (ohne audioMenu davor)
+    const oldMusicItem = drop.querySelector('.menu-item-flex:has(#musicToggle)');
+    const audioMenuExists = document.getElementById('audioMenu');
+    
+    // Nur entfernen wenn es das alte standalone musicToggle ist (nicht das im audioMenu)
+    if (oldMusicItem && !audioMenuExists) {
+        oldMusicItem.remove();
+    }
+
+    // Falls audioMenu noch nicht im HTML ist, neu erstellen
+    if (!audioMenuExists) {
+        const currentLang = localStorage.getItem('selectedLanguage') || 'de';
+        const langData = cachedData?.languages?.[currentLang] || {};
+
+        const audioItem = document.createElement('div');
+        audioItem.className = 'menu-item-flex audio-item';
+        audioItem.onclick = openAudioMenu;
+        audioItem.innerHTML = `<span>${langData.audio_text || 'Audio'}</span><span>›</span>`;
+
+        const audioMenuEl = document.createElement('div');
+        audioMenuEl.id = 'audioMenu';
+        audioMenuEl.className = 'audio-menu';
+        audioMenuEl.innerHTML = `
+            <div class="menu-item-flex">
+                <span>${langData.music_text || 'Musik'}</span>
+                <label class="switch"><input type="checkbox" id="musicToggle"><span class="slider round"></span></label>
+            </div>
+            <div class="menu-item-flex">
+                <span>${langData.sounds_text || 'Sounds'}</span>
+                <label class="switch"><input type="checkbox" id="soundToggle"><span class="slider round"></span></label>
+            </div>
+        `;
+
+        const darkItem = drop.querySelector('.menu-item-flex:has(#darkToggle)');
+        if (darkItem) {
+            drop.insertBefore(audioMenuEl, darkItem);
+            drop.insertBefore(audioItem, audioMenuEl);
+        }
+
+        audioMenuEl.addEventListener('click', e => e.stopPropagation());
+    }
+
+    // Toggles initialisieren (egal ob neu oder bereits im HTML)
+    const mToggle = document.getElementById('musicToggle');
+    const sToggle = document.getElementById('soundToggle');
+
+    if (mToggle) {
+        mToggle.checked = !(localStorage.getItem('muted') === 'true');
+        mToggle.onchange = () => updateMusic(!mToggle.checked);
+    }
+    if (sToggle) {
+        sToggle.checked = window.soundsEnabled;
+        sToggle.onchange = () => updateSounds(sToggle.checked);
+    }
+
+    const audioMenuEl2 = document.getElementById('audioMenu');
+    if (audioMenuEl2) audioMenuEl2.addEventListener('click', e => e.stopPropagation());
+}
 
 window.clickSound = new Audio('../assets/audio/sfx/click-sound.mp3');
 window.winSound = new Audio('../assets/audio/sfx/win.mp3');
@@ -648,6 +743,9 @@ function openLanguageMenu(event) {
     event.stopPropagation();
     const menu = document.getElementById('languageMenu');
     if (!menu) return;
+    // Audiomenü schließen
+    const audioMenu = document.getElementById('audioMenu');
+    if (audioMenu) audioMenu.classList.remove('show');
     menu.classList.toggle('show');
 }
 

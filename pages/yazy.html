@@ -64,13 +64,27 @@
                                 <div onclick="setLanguage('en')">English</div>
                             </div>
 
-                            <div class="menu-item-flex">
-                                <span></span>
-                                <label class="switch">
-                                    <input type="checkbox" id="musicToggle">
-                                    <span class="slider round"></span>
-                                </label>
+                            <div class="menu-item-flex audio-item" onclick="openAudioMenu(event)">
+                                <span data-i18n="audio_text">Audio</span>
+                                <span>›</span>
                             </div>
+
+                            <div id="audioMenu" class="audio-menu">
+                                <div class="menu-item-flex">
+                                    <span data-i18n="music_text">Musik</span>
+                                    <label class="switch">
+                                        <input type="checkbox" id="musicToggle">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                                <div class="menu-item-flex">
+                                    <span data-i18n="sounds_text">Sounds</span>
+                                    <label class="switch">
+                                        <input type="checkbox" id="soundToggle">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div> 
 
                             <div class="menu-item-flex">
                                 <span></span>
