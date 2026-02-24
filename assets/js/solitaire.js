@@ -363,9 +363,9 @@ function createCardElement(cardData, origin) {
                         stack: [cardData]
                     });
 
-                    window.cardSound.currentTime = 0; 
-                    window.cardSound.volume = 0.05; 
-                    window.cardSound.play();
+                    window.click2Sound.currentTime = 0;
+                    window.click2Sound.volume = 0.1;
+                    window.click2Sound.play();
 
                     // 3. Alles neu zeichnen (rendert die Karte nun auch in der Foundation)
                     renderAll();
@@ -479,7 +479,19 @@ function handleTableauDrop(e) {
     if (canMoveToTableau(movingCard, targetColIndex)) {
         saveState(); // Speicher vor Tableau-Drop
         tableauData[targetColIndex].push(...dragData.stack);
+
+        const originCol = typeof dragData.origin === 'number' ? tableauData[dragData.origin] : null;
+        const willFlip = originCol && originCol.length > dragData.stack.length && 
+                         !originCol[originCol.length - dragData.stack.length - 1].faceUp;
+        
         removeFromOrigin(dragData);
+
+        if (!willFlip) {
+            window.click2Sound.currentTime = 0;
+            window.click2Sound.volume = 0.1;
+            window.click2Sound.play();
+        }
+
         renderAll();
     }
     checkWinCondition;
@@ -518,9 +530,9 @@ function handleFoundationDrop(e) {
         foundationData[slotIndex].push(cardData);
 
         removeFromOrigin(dragData);
-        window.cardSound.currentTime = 0;
-        window.cardSound.volume = 0.05;
-        window.cardSound.play();
+        window.click2Sound.currentTime = 0;
+        window.click2Sound.volume = 0.1;
+        window.click2Sound.play();
         renderAll(); // Jetzt zeichnet renderAll die Karte korrekt mit
     }
     checkWinCondition;

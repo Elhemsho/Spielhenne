@@ -183,7 +183,7 @@ body {
     padding-top: 20px;
 }
 
-.control-button {
+.control-buttonc {
     background: var(--bluel);
     border: 1px solid var(--blue);
     width: 90px;
@@ -195,7 +195,7 @@ body {
     transition: all 0.2s;
 }
 
-.control-button:hover {
+.control-buttonc:hover {
     background: var(--bluell);
 }
 

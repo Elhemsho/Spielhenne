@@ -181,9 +181,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const coords = calculateShipCoords(index, size, dir);
         if (coords && checkCollision(coords, playerNum)) {
             placeShip(shipId, size, coords, dir, playerNum);
-            //window.clickSound.currentTime = 0;
-            //window.clickSound.volume = 0.1;
-            //window.clickSound.play();
+            window.waterSound.currentTime = 0;
+            window.waterSound.volume = 0.25;
+            window.waterSound.play();
             renderInventories();
             checkSetupComplete();
         } else { renderInventories(); }

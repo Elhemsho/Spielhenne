@@ -574,8 +574,27 @@ window.wrongSound = new Audio('../assets/audio/sfx/negative.mp3');
 window.diceSound = new Audio('../assets/audio/sfx/dice-roll.mp3');
 window.cardSound = new Audio('../assets/audio/sfx/flipcard.mp3');
 window.goodSound = new Audio('../assets/audio/sfx/end.mp3');
+window.waterSound = new Audio('../assets/audio/sfx/water.mp3');
+window.bingSound = new Audio('../assets/audio/sfx/bing.mp3');
+window.click2Sound = new Audio('../assets/audio/sfx/click2.mp3');
 
 
+function fadeOutAudio(audioObject, duration = 500) {
+    const startVolume = audioObject.volume;
+    const step = startVolume / (duration / 50); // Alle 50ms leiser machen
+
+    const fadeInterval = setInterval(() => {
+        if (audioObject.volume > step) {
+            audioObject.volume -= step;
+        } else {
+            audioObject.volume = 0;
+            audioObject.pause();
+            clearInterval(fadeInterval);
+            // Lautstärke für das nächste Mal wieder zurücksetzen
+            audioObject.volume = startVolume; 
+        }
+    }, 50);
+}
 
 const confettiCanvas = document.getElementById("confettiCanvas");
 

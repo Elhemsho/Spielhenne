@@ -1,8 +1,9 @@
 To-Dos/Fixes:
-- new highscore bei solitaire und 2048 
-- richtige schiffe bei battleship
+- (richtige schiffe bei battleship)
 - sprache bei winpop ups
 - show btn -> reset; neu x oben rechts -> neues show
+- sounds zuordnen
+- settings durch icon ersetzen?
 
 Weitere Ideen
 - Dark Mode
@@ -13,8 +14,3 @@ Weitere Ideen
 
 <a href="https://www.vecteezy.com/free-vector/chess-pieces">Chess Pieces Vectors by Vecteezy</a> -PITIPORN AUNGPRAPHAPORNCHAI
 
-
-sol -> x (evt klick bei karte verschieben)
-yaz -> x (evt gedempfter klcik bei einloggen)
-bs -> x (evt schiff platzier sound)
-2048 -> x (evt kästchen bewegungs sound)

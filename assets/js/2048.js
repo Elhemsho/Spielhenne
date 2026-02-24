@@ -153,6 +153,10 @@ document.addEventListener('keyup', (e) => {
     } else return;
 
     if (old !== JSON.stringify(board)) {
+        window.click2Sound.currentTime = 0;
+        window.click2Sound.volume = 0.1;
+        window.click2Sound.play();
+
         history.push({ b: old, s: oldS });
         if (history.length > 5) history.shift();
         renderBoard(); spawnTile(); updateUndoDisplay();

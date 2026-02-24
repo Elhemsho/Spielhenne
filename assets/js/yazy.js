@@ -28,6 +28,14 @@ function rollDice() {
                 }
             });
 
+            const counts = {};
+                currentDice.forEach(x => { counts[x] = (counts[x] || 0) + 1; });
+                if (Object.values(counts).includes(5)) {
+                    window.correctSound.currentTime = 0;
+                    window.correctSound.volume = 0.1;
+                    window.correctSound.play();
+                }
+
             rollsLeft--;
             document.getElementById('rollCount').innerText = 3 - rollsLeft;
 
@@ -46,7 +54,7 @@ document.querySelectorAll('.die').forEach(die => {
             this.classList.toggle('held');
 
             window.clickSound.currentTime = 0;
-            window.clickSound.volume = 0.1;
+            window.clickSound.volume = 0.05;
             window.clickSound.play();
         }
     });
@@ -89,9 +97,9 @@ function writeScore(id, value) {
         target.innerText = points;
         target.classList.add("filled");
 
-        window.clickSound.currentTime = 0;
-        window.clickSound.volume = 0.05;
-        window.clickSound.play();
+        window.click2Sound.currentTime = 0;
+        window.click2Sound.volume = 0.1;
+        window.click2Sound.play();
 
         updateTotalScore();
         checkGameOver();
@@ -137,9 +145,10 @@ function writeSpecial(id, type) {
     target.innerText = points;
     target.classList.add("filled");
 
-    window.clickSound.currentTime = 0;
-    window.clickSound.volume = 0.05;
-    window.clickSound.play();
+    window.click2Sound.currentTime = 0;
+    window.click2Sound.volume = 0.1;
+    window.click2Sound.play();
+    //fadeOutAudio(window.bingSound, 2000);
 
     updateTotalScore();
     checkGameOver();
