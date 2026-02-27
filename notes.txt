@@ -1,9 +1,6 @@
 To-Dos/Fixes:
-- (richtige schiffe bei battleship)
 - sprache bei winpop ups
-- pop ups unterschiedliche größen
-- sound switch mit sounds verbinden
-- mute symbol auf alles beziehen
+- titel language switch
 
 Weitere Ideen
 - Dark Mode

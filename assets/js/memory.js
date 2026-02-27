@@ -134,47 +134,75 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showWinPopup() {
+        playSound(window.winSound);
         window.winSound.volume = 0.07;
-    playSound(window.winSound);
-        let winner = "";
-        let message = "";
+
+        // Gewinner bestimmen und merken
+        const overlay = document.getElementById("overlay");
         if (scores.player1 > scores.player2) {
-            winner = `☆ Player 1 wins ☆`;
-            message = `Final score: ${scores.player1} - ${scores.player2}`;
+            overlay.dataset.winner = "1";
         } else if (scores.player2 > scores.player1) {
-            winner = `☆ Player 2 wins ☆`;
-            message = `Final score: ${scores.player2} - ${scores.player1}`;
+            overlay.dataset.winner = "2";
         } else {
-            winner = `Draw! `;
-            message = `Final score: ${scores.player2} - ${scores.player1}`;
+            overlay.dataset.winner = "draw";
         }
 
-        const overlay = document.getElementById("overlay");
         overlay.id = 'winOverlay';
         overlay.className = 'win-overlay';
-        overlay.innerHTML = `
-        <div class="win-popup">
-            <button class="modal-close" id="modal-close">&times;</button>
-            <h1>${winner}</h2>
-            <p>${message}</p>
-            <button class="pABtn" id="playAgainPopupBtn" data-i18n="show_result">Play Again</button>
-        </div>
-        `;
-        document.querySelector('.main').appendChild(overlay);
         overlay.style.display = "flex";
         overlay.style.minWidth = "300px";
 
-        // X - nur schließen
-        document.getElementById('modal-close').onclick = () => {
+        renderWinPopupContent(overlay);
+        document.querySelector('.main').appendChild(overlay);
+
+        overlay.querySelector('#modal-close').onclick = () => {
             overlay.style.display = "none";
         };
-
-        // Play Again - kompletter Reset
-        document.getElementById('playAgainPopupBtn').onclick = () => {
+        overlay.querySelector('#playAgainPopupBtn').onclick = () => {
             overlay.style.display = "none";
             initGame();
         };
     }
+
+    function renderWinPopupContent(overlay) {
+        const currentLang = localStorage.getItem('selectedLanguage') || 'de';
+        const langData = window.cachedData?.languages?.[currentLang];
+        const winner = overlay.dataset.winner;
+
+        let winnerText = "";
+        if (winner === "draw") {
+            winnerText = "Draw!";
+        } else {
+            winnerText = langData ? langData.player_wins.replace('{n}', winner) : `☆ Player ${winner} wins ☆`;
+        }
+
+        const s1 = scores.player1;
+        const s2 = scores.player2;
+        const playAgainLabel = langData?.show_result || "Play Again";
+
+        overlay.innerHTML = `
+            <div class="win-popup">
+                <button class="modal-close" id="modal-close">&times;</button>
+                <h1>${winnerText}</h1>
+                <p>Final score: ${s1} - ${s2}</p>
+                <button class="pABtn" id="playAgainPopupBtn">${playAgainLabel}</button>
+            </div>
+        `;
+    }
+
+    window.refreshChampionText = () => {
+        const overlay = document.getElementById('winOverlay') || document.getElementById('overlay');
+        if (!overlay || overlay.style.display === "none") return;
+        renderWinPopupContent(overlay);
+        // Event Listener neu setzen da innerHTML überschrieben wurde
+        overlay.querySelector('#modal-close').onclick = () => {
+            overlay.style.display = "none";
+        };
+        overlay.querySelector('#playAgainPopupBtn').onclick = () => {
+            overlay.style.display = "none";
+            initGame();
+        };
+    };
 
     playAgainBtn.addEventListener('click', initGame);
     initGame();

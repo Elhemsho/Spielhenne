@@ -230,18 +230,16 @@ function checkGameOver() {
         let message = "";
 
         // WICHTIG: Zugriff über scores[1] und scores[2]
-        if (scores[1] > scores[2]) { 
-            winnerText = `☆ Player 1 wins ☆`;
-            message = `Final score: ${scores[1]} - ${scores[2]}`;
+        const modal = document.getElementById("championOverlay");
+        if (scores[1] > scores[2]) {
+            modal.dataset.winner = "1";
+        } else if (scores[2] > scores[1]) {
+            modal.dataset.winner = "2";
+        } else {
+            modal.dataset.winner = "draw";
         }
-        else if (scores[2] > scores[1]) { 
-            winnerText = `☆ Player 2 wins ☆`;
-            message = `Final score: ${scores[2]} - ${scores[1]}`;
-        }
-        else {
-            winnerText = `Draw!`;
-            message = `Final score: ${scores[1]} - ${scores[2]}`;
-        }
+        updateDotsWinText();
+        winnerText = document.getElementById("championText").innerHTML; // showModal bekommt bereits gesetzten Text
 
         setTimeout(() => {
             // HIER war der Fehler: Du musst BEIDE Variablen übergeben
@@ -254,12 +252,6 @@ function checkGameOver() {
 function showModal(title) {
     const modal = document.getElementById("championOverlay");
     const modalContent = modal.querySelector('.winnerBox');
-    const modalText = document.getElementById("championText");
-
-    // Hier wird der Titel und die Nachricht mit Abstand gesetzt
-    modalText.innerHTML = `
-        <div style="margin-bottom: 20px; font-size: 32px;">${title}</div>
-    `;
 
     modalContent.classList.remove('winner-p1', 'winner-p2', 'winner-draw');
     if (scores[1] > scores[2]) {
@@ -270,6 +262,8 @@ function showModal(title) {
         modalContent.classList.add('winner-draw');
     }
 
+    // NEU: hidden entfernen statt display setzen
+    modal.classList.remove('hidden');
     modal.style.display = "flex";
 }
 
@@ -277,6 +271,7 @@ function showModal(title) {
 function closeModal() {
     const modal = document.getElementById("championOverlay");
     if (modal) {
+        modal.classList.add('hidden');
         modal.style.display = "none";
     }
 }
@@ -305,5 +300,27 @@ document.getElementById("modal-close").addEventListener("click", () => {
 document.getElementById("playAgainBtnChampion").addEventListener("click", () => {
     resetGame();
 });
+
+function updateDotsWinText() {
+    const modal = document.getElementById("championOverlay");
+    const winner = modal?.dataset.winner;
+    if (!winner) return;
+    const currentLang = localStorage.getItem('selectedLanguage') || 'de';
+    const langData = window.cachedData?.languages?.[currentLang];
+    if (!langData) return;
+
+    const modalText = document.getElementById("championText");
+    if (!modalText) return;
+
+    let text = "";
+    if (winner === "draw") {
+        text = "Draw!"; // Draw hat keinen Eintrag in data.json, kannst du aber ergänzen
+    } else {
+        text = langData.player_wins.replace('{n}', winner);
+    }
+    modalText.innerHTML = `<div style="margin-bottom: 20px; font-size: 32px;">${text}</div>`;
+}
+
+window.refreshChampionText = updateDotsWinText;
 
 updateUI();

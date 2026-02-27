@@ -82,9 +82,10 @@ function showWinPopup(player) {
     const content = winPopup.querySelector(".winnerBox");
     if (content) content.classList.replace("draw", "win");
     
-    winText.textContent = player === "red" ? "☆ Player 1 wins! ☆" : "☆ Player 2 wins! ☆";
-    
-    // Münze im Popup anzeigen
+    // Gewinner merken für Sprachaktualisierung
+    winPopup.dataset.winner = player === "red" ? "1" : "2";
+    updateWinText();
+
     if (winCoin) {
         winCoin.style.display = "block";
         winCoin.style.backgroundImage = player === "red"
@@ -92,16 +93,24 @@ function showWinPopup(player) {
             : "url('../assets/images/chip_blau2.png')";
     }
 
-    // Leuchteffekt/Schatten basierend auf Gewinner
     const winColor = player === "red" ? "rgb(255, 77, 77)" : "rgb(77, 124, 255)";
     const winnerBox = winPopup.querySelector('.winnerBox');
-    if (winnerBox) {
-        winnerBox.style.boxShadow = `0 0 20px 10px ${winColor}`;
-    }
+    if (winnerBox) winnerBox.style.boxShadow = `0 0 20px 10px ${winColor}`;
 
     winPopup.classList.remove("hidden");
     if (typeof startConfetti === "function") startConfetti();
 }
+
+function updateWinText() {
+    const winner = winPopup.dataset.winner;
+    if (!winner) return;
+    const currentLang = localStorage.getItem('selectedLanguage') || 'de';
+    const langData = window.cachedData?.languages?.[currentLang];
+    if (!langData) return;
+    winText.textContent = langData.player_wins.replace('{n}', winner);
+}
+
+window.refreshChampionText = updateWinText;
 
 // REVIEW-LOGIK: Nur das Overlay schließen, Spiel bleibt sichtbar
 if (playAgainBtnChampion) {

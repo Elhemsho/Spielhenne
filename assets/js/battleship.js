@@ -317,16 +317,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Farbe basierend auf dem Gewinner wählen
         const winnerColor = winner === 1 ? 'var(--player1-color)' : 'var(--player2-color)';
         
-        const winText = document.getElementById('championText');
-        const currentLang = localStorage.getItem('selectedLanguage') || 'de';
-        const langData = (window.cachedData && window.cachedData.languages) ? window.cachedData.languages[currentLang] : null;
-        
-
-        if (winText && langData) {
-            winText.innerText = `${langData.player_wins.replace('{n}', winner)}`;
-        } else {
-            winText.innerText = `☆ Player ${winner} wins! ☆`;
-        }
+        winOverlay.dataset.winner = winner;
+updateBattleshipWinText();
 
         setTimeout(() => {
             if (winOverlay) { 
@@ -451,3 +443,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     init();
 });
+
+function updateBattleshipWinText() {
+    const winOverlay = document.getElementById('championOverlay');
+    const winner = winOverlay?.dataset.winner;
+    if (!winner) return;
+    const currentLang = localStorage.getItem('selectedLanguage') || 'de';
+    const langData = window.cachedData?.languages?.[currentLang];
+    const winText = document.getElementById('championText');
+    if (winText && langData) {
+        winText.innerText = langData.player_wins.replace('{n}', winner);
+    }
+}
+
+window.refreshChampionText = updateBattleshipWinText;

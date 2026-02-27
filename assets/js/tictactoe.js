@@ -160,16 +160,37 @@ function showChampion() {
 
     const championBox = championOverlay.querySelector('.winnerBox');
     const isP1Win = scoreP1.textContent === "3";
-
-    championText.textContent = isP1Win ? "☆ Player 1 wins! ☆" : "☆ Player 2 wins! ☆";
-
     const winColor = isP1Win ? "var(--player1-color)" : "var(--player2-color)"; 
+
+    // Gewinner merken damit setupLayout es neu übersetzen kann
+    championOverlay.dataset.winner = isP1Win ? "1" : "2";
+
+    // Text setzen (mit aktueller Sprache)
+    updateChampionText();
+
     if (championBox) {
         championBox.style.boxShadow = `0 0 20px 10px ${winColor}`;
     }
 
     startConfetti();
 }
+
+// Neue Hilfsfunktion die den Text übersetzt
+function updateChampionText() {
+    const winner = championOverlay.dataset.winner;
+    if (!winner) return;
+
+    const currentLang = localStorage.getItem('selectedLanguage') || 'de';
+    const langData = window.cachedData?.languages?.[currentLang];
+    if (!langData) return;
+
+    championText.textContent = langData.player_wins.replace('{n}', winner);
+}
+
+// Global verfügbar machen damit setupLayout es aufrufen kann
+// NICHT mehr: window.showChampion = updateChampionText;
+// Stattdessen:
+window.refreshChampionText = updateChampionText;
 
 function resetEverything() {
     scoreP1.textContent = "0";

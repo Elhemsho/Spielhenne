@@ -234,13 +234,22 @@ async function setupLayout() {
         }
         // 9. SPEZIAL: Champion-Text Live-Update
         setTimeout(() => {
-            const champOverlay = document.getElementById('championOverlay');
-            if (champOverlay && !champOverlay.classList.contains('hidden')) {
-                if (typeof window.showChampion === "function") {
-                    window.showChampion(true); 
-                }
+        // Prüft championOverlay (TTT, C4, Battleship, Dots)
+        const champOverlay = document.getElementById('championOverlay');
+        if (champOverlay && !champOverlay.classList.contains('hidden')) {
+            if (typeof window.refreshChampionText === "function") {
+                window.refreshChampionText();
             }
-        }, 50); // Kleiner Puffer für die Datenverarbeitung
+        }
+
+        // Prüft Memory-Overlay (andere ID)
+        const memOverlay = document.getElementById('winOverlay');
+        if (memOverlay && memOverlay.style.display !== "none") {
+            if (typeof window.refreshChampionText === "function") {
+                window.refreshChampionText();
+            }
+        }
+    }, 50); // Kleiner Puffer für die Datenverarbeitung
         const modal = document.getElementById('info-modal');
         if (modal && modal.style.display === "block") {
             // Wir holen uns die aktuelle gameId, die wir im Titel-Element versteckt haben
@@ -725,9 +734,6 @@ function fadeOutAudio(audioObject, duration = 500) {
 const confettiCanvas = document.getElementById("confettiCanvas");
 
 function startConfetti() {
-    window.winSound.currentTime = 0; 
-    window.winSound.volume = 0.07; 
-    window.winSound.play();
     const ctx = confettiCanvas.getContext("2d");
     confettiCanvas.width = window.innerWidth;
     confettiCanvas.height = window.innerHeight;
