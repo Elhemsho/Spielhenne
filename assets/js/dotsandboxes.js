@@ -138,16 +138,14 @@ function handleMove(el) {
 
     el.classList.add('taken', `p${currentPlayer}`);
 
-    window.clickSound.currentTime = 0;
-    window.clickSound.volume = 0.1;
-    window.clickSound.play();
+    window.click2Sound.volume = 0.1;
+    playSound(window.click2Sound);
 
     const boxesClosed = checkBox(el);
 
     if (boxesClosed > 0) {
-        window.correctSound.currentTime = 0;
-        window.correctSound.volume = 0.07;
-        window.correctSound.play();
+        window.correctSound.volume = 0.7;
+    playSound(window.correctSound);
 
         scores[currentPlayer] += boxesClosed;
         updateUI();

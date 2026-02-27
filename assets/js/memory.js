@@ -74,9 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
         this.classList.add('flipped');
         flippedCards.push(this);
 
-        window.cardSound.currentTime = 0; 
-        window.cardSound.volume = 0.05; 
-        window.cardSound.play();
+        window.cardSound.volume = 0.05;
+    playSound(window.cardSound);
 
         if (flippedCards.length === 2) {
             checkMatch();
@@ -96,9 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 card1.classList.add('matched');
                 card2.classList.add('matched');
-                window.correctSound.currentTime = 0; 
-                window.correctSound.volume = 0.1; 
-                window.correctSound.play();
+                window.correctSound.volume = 0.1;
+    playSound(window.correctSound);
                 resetTurn(true);
 
                 if (matchedPairs === symbols.length) {
@@ -136,9 +134,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showWinPopup() {
-        window.winSound.currentTime = 0; 
-        window.winSound.volume = 0.07; 
-        window.winSound.play();
+        window.winSound.volume = 0.07;
+    playSound(window.winSound);
         let winner = "";
         let message = "";
         if (scores.player1 > scores.player2) {

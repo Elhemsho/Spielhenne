@@ -55,9 +55,8 @@ function handleClick(field) {
     const index = field.dataset.index;
     if (board[index] !== "" || !gameActive) return;
 
-    window.clickSound.currentTime = 0;
     window.clickSound.volume = 0.1;
-    window.clickSound.play();
+    playSound(window.clickSound);
 
     board[index] = currentPlayer;
     field.innerHTML = currentPlayer === "X"
@@ -99,9 +98,8 @@ function checkWin() {
 }
 
 function handleWin(winFields) {
-    window.correctSound.currentTime = 0; 
-               window.correctSound.volume = 0.1; 
-            window.correctSound.play();
+    window.correctSound.volume = 0.1;
+    playSound(window.correctSound);
     gameOver = true;
 
     // Gewinnerfelder markieren (Blinken)
@@ -155,6 +153,8 @@ function resetGame() {
 }
 
 function showChampion() {
+    window.winSound.volume = 0.07;
+    playSound(window.winSound);
     if (overlay) overlay.classList.add("hidden"); 
     championOverlay.classList.remove("hidden");
 

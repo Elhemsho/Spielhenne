@@ -181,9 +181,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const coords = calculateShipCoords(index, size, dir);
         if (coords && checkCollision(coords, playerNum)) {
             placeShip(shipId, size, coords, dir, playerNum);
-            window.waterSound.currentTime = 0;
             window.waterSound.volume = 0.25;
-            window.waterSound.play();
+    playSound(window.waterSound);
             renderInventories();
             checkSetupComplete();
         } else { renderInventories(); }
@@ -256,9 +255,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleActionBtnClick() {
-        window.clickSound.currentTime = 0;
         window.clickSound.volume = 0.1;
-        window.clickSound.play();
+    playSound(window.clickSound);
 
         if (gameState === 'SETUP_P1') {
             gameState = 'SETUP_P2';
@@ -286,24 +284,21 @@ document.addEventListener('DOMContentLoaded', () => {
             cell.classList.add('hit');
             targetShip.hits++;
             if (targetShip.hits === targetShip.size) {
-                window.correctSound.currentTime = 0;
                 window.correctSound.volume = 0.07;
-                window.correctSound.play();
+    playSound(window.correctSound);
                 targetShip.isSunken = true;
                 targetShip.coords.forEach(coord => gridEl.children[coord].classList.add('sunken-animation'));
                 renderInventories();
                 drawBoard(targetPlayer);
                 setTimeout(() => { checkGameOver(); }, 100);
             } else { 
-                window.goodSound.currentTime = 0;
                 window.goodSound.volume = 0.07;
-                window.goodSound.play();
+    playSound(window.goodSound);
                 updateUI(); 
             }
         } else {
-            window.wrongSound.currentTime = 0;
             window.wrongSound.volume = 0.1;
-            window.wrongSound.play();
+    playSound(window.wrongSound);
             cell.classList.add('miss');
             isProcessing = true;
             setTimeout(() => { currentPlayer = (currentPlayer === 1 ? 2 : 1); isProcessing = false; updateUI(); }, 800);

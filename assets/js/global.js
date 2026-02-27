@@ -557,15 +557,30 @@ function updateSounds(enabled) {
     localStorage.setItem('soundsEnabled', enabled);
     const soundToggle = document.getElementById('soundToggle');
     if (soundToggle) soundToggle.checked = enabled;
+    
+    // Icon ebenfalls aktualisieren
+    const musicMuted = localStorage.getItem('muted') === 'true';
+    const showMuted = musicMuted || !enabled;
+    if (muteIcon) muteIcon.src = showMuted ? '../assets/images/mute2.png' : '../assets/images/speaker.png';
 }
 
 function updateMusic(isMuted) {
     if (audio) audio.muted = isMuted;
-    if (muteIcon) muteIcon.src = isMuted ? '../assets/images/mute2.png' : '../assets/images/speaker.png';
+    
+    // Icon: aus wenn Musik ODER Sounds aus ist
+    const soundsOff = !window.soundsEnabled;
+    const showMuted = isMuted || soundsOff;
+    if (muteIcon) muteIcon.src = showMuted ? '../assets/images/mute2.png' : '../assets/images/speaker.png';
+    
     localStorage.setItem('muted', isMuted);
-    // Toggle wird nach injectAudioMenu gesetzt
     const mToggle = document.getElementById('musicToggle');
     if (mToggle) mToggle.checked = !isMuted;
+}
+
+function playSound(soundObject) {
+    if (!window.soundsEnabled) return;
+    soundObject.currentTime = 0;
+    soundObject.play().catch(() => {});
 }
 
 // Initialisierung Musik
@@ -574,8 +589,16 @@ updateMusic(initialMutedState);
 
 if (muteBtn) {
     muteBtn.onclick = () => {
-        const currentMuted = localStorage.getItem('muted') === 'true';
-        updateMusic(!currentMuted);
+        const musicMuted = localStorage.getItem('muted') === 'true';
+        const soundsMuted = !window.soundsEnabled;
+        
+        // Symbol zeigt "aus" wenn MINDESTENS EINES aus ist
+        const anyOff = musicMuted || soundsMuted;
+        
+        // Wenn irgendwas aus ist -> alles AN
+        // Wenn alles an ist -> alles AUS
+        updateMusic(!anyOff);  // true = muted, false = nicht muted
+        updateSounds(anyOff);  // true = sounds an, false = aus
     };
 }
 

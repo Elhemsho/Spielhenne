@@ -132,9 +132,8 @@ document.getElementById('answerInput').addEventListener('keydown', (e) => {
         const streakInfo = document.getElementById('streak-info');
 
         if (val === currentAnswer) {
-            window.correctSound.currentTime = 0; 
-            window.correctSound.volume = 0.1; 
-            window.correctSound.play();
+            window.correctSound.volume = 0.1;
+    playSound(window.correctSound);
             streak++;
             score += (10 + (streak > 1 ? streak - 1 : 0));
             
@@ -145,9 +144,8 @@ document.getElementById('answerInput').addEventListener('keydown', (e) => {
                 streakInfo.innerText = langData.correct;
             }
         } else {
-            window.wrongSound.currentTime = 0; 
-            window.wrongSound.volume = 0.4; 
-            window.wrongSound.play();
+            window.wrongSound.volume = 0.4;
+    playSound(window.wrongSound);
             streak = 0;
             score -= 5;
             streakInfo.innerText = langData.wrong;
@@ -193,9 +191,8 @@ function endGame() {
     if (isNewHighscore) {
         localStorage.setItem(`mathHS_${currentMode}`, score);
 
-        window.winSound.currentTime = 0;
-        window.winSound.volume = 0.08;
-        window.winSound.play();
+        window.winSound.volume = 0.07;
+    playSound(window.winSound);
 
         // GOLD DESIGN
         if (resultStatsBox) {
@@ -209,9 +206,8 @@ function endGame() {
         }
         if (modalIcon) modalIcon.innerText = "⭐";
     } else {
-        window.goodSound.currentTime = 0;
         window.goodSound.volume = 0.1;
-        window.goodSound.play();
+    playSound(window.goodSound);
 
         // NORMALES BLAU DESIGN
         if (resultStatsBox) {

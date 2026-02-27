@@ -153,9 +153,8 @@ document.addEventListener('keyup', (e) => {
     } else return;
 
     if (old !== JSON.stringify(board)) {
-        window.click2Sound.currentTime = 0;
         window.click2Sound.volume = 0.1;
-        window.click2Sound.play();
+    playSound(window.click2Sound);
 
         history.push({ b: old, s: oldS });
         if (history.length > 5) history.shift();
@@ -185,14 +184,16 @@ function showModal() {
     const modalText = document.getElementById('modal-text');
 
     if (isNewHighscore) {
-        window.winSound.currentTime = 0; window.winSound.volume = 0.07; window.winSound.play();
-        if (resultStatsBox) { resultStatsBox.style.backgroundColor = "#fff9e6"; resultStatsBox.style.borderColor = "#ffcc00"; resultStatsBox.style.boxShadow = "0 0 15px 10px rgba(255, 204, 0, 0.4)"; }
+        window.winSound.volume = 0.07;
+    playSound(window.winSound);
+    if (resultStatsBox) { resultStatsBox.style.backgroundColor = "#fff9e6"; resultStatsBox.style.borderColor = "#ffcc00"; resultStatsBox.style.boxShadow = "0 0 15px 10px rgba(255, 204, 0, 0.4)"; }
         if (labelText) { labelText.innerText = "New Highscore"; labelText.style.color = "#b8860b"; }
         if (modalIcon) modalIcon.innerText = "⭐";
         if (modalText) { modalText.innerText = "Game Over!"; modalText.style.color = "#333"; }
     } else {
-        window.goodSound.currentTime = 0; window.goodSound.volume = 0.1; window.goodSound.play();
-        if (resultStatsBox) { resultStatsBox.style.backgroundColor = "#f0fbfc"; resultStatsBox.style.borderColor = "var(--blue)"; resultStatsBox.style.boxShadow = "none"; }
+        window.goodSound.volume = 0.1;
+    playSound(window.goodSound);
+    if (resultStatsBox) { resultStatsBox.style.backgroundColor = "#f0fbfc"; resultStatsBox.style.borderColor = "var(--blue)"; resultStatsBox.style.boxShadow = "none"; }
         if (labelText) { labelText.innerText = "Your Score"; labelText.style.color = "#666"; }
         if (modalIcon) modalIcon.innerText = "🏆";
         if (modalText) { modalText.innerText = "Game Over!"; modalText.style.color = "#333"; }
@@ -232,17 +233,20 @@ function isGameOver() {
 
 document.addEventListener('click', (e) => {
     if (e.target.id === "undoBtn") {
-        window.clickSound.currentTime = 0; window.clickSound.volume = 0.1; window.clickSound.play();
-        undo();
+        window.clickSound.volume = 0.1;
+    playSound(window.clickSound);
+    undo();
     }
     if (e.target.id === "playAgainBtn" || e.target.classList.contains("reset")) setGame();
     if (e.target.id === "prevSize") {
-        window.clickSound.currentTime = 0; window.clickSound.volume = 0.1; window.clickSound.play();
-        changeSize(-1);
+        window.clickSound.volume = 0.1;
+    playSound(window.clickSound);
+    changeSize(-1);
     }
     if (e.target.id === "nextSize") {
-        window.clickSound.currentTime = 0; window.clickSound.volume = 0.1; window.clickSound.play();
-        changeSize(1);
+        window.clickSound.volume = 0.1;
+    playSound(window.clickSound);
+    changeSize(1);
     }
 });
 

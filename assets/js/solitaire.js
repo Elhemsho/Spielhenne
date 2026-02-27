@@ -363,9 +363,8 @@ function createCardElement(cardData, origin) {
                         stack: [cardData]
                     });
 
-                    window.click2Sound.currentTime = 0;
                     window.click2Sound.volume = 0.1;
-                    window.click2Sound.play();
+                    playSound(window.click2Sound);
 
                     // 3. Alles neu zeichnen (rendert die Karte nun auch in der Foundation)
                     renderAll();
@@ -487,9 +486,8 @@ function handleTableauDrop(e) {
         removeFromOrigin(dragData);
 
         if (!willFlip) {
-            window.click2Sound.currentTime = 0;
             window.click2Sound.volume = 0.1;
-            window.click2Sound.play();
+            playSound(window.click2Sound);
         }
 
         renderAll();
@@ -530,9 +528,8 @@ function handleFoundationDrop(e) {
         foundationData[slotIndex].push(cardData);
 
         removeFromOrigin(dragData);
-        window.click2Sound.currentTime = 0;
         window.click2Sound.volume = 0.1;
-        window.click2Sound.play();
+    playSound(window.click2Sound);
         renderAll(); // Jetzt zeichnet renderAll die Karte korrekt mit
     }
     checkWinCondition;
@@ -577,9 +574,8 @@ function removeFromOrigin(dragData) {
             // Die jetzt oberste Karte im Tableau aufdecken
             if (col.length > 0) {
                 col[col.length - 1].faceUp = true;
-                window.cardSound.currentTime = 0; 
-                window.cardSound.volume = 0.05; 
-                window.cardSound.play();
+                window.cardSound.volume = 0.05;
+    playSound(window.cardSound);
             }
         }
     }
@@ -602,9 +598,8 @@ async function autoSortToFoundations() {
 
                 for (let i = 0; i < foundations.length; i++) {
                     if (canMoveToFoundation(card, foundations[i])) {
-                        window.cardSound.currentTime = 0; 
-                        window.cardSound.volume = 0.05; 
-                        window.cardSound.play();
+                        window.cardound.volume = 0.05;
+                        playSound(window.cardSound);
                         foundationData[i].push(card);
                         column.pop();
                         renderAll();
@@ -668,9 +663,8 @@ function checkWinCondition() {
 }
 
 function showVictoryPopup() {
-    window.winSound.currentTime = 0;
     window.winSound.volume = 0.07;
-    window.winSound.play();
+    playSound(window.winSound);
 
     const popup = document.getElementById("game-modal");
     if (!popup) return;
@@ -856,9 +850,8 @@ function drawThreeCards() {
         deck = wastePile.map(c => ({ ...c, faceUp: false })).reverse();
         wastePile = [];
     } else {
-        window.cardSound.currentTime = 0; 
-        window.cardSound.volume = 0.05; 
-        window.cardSound.play();
+        window.cardSound.volume = 0.05;
+    playSound(window.cardSound);
         // Nutzt jetzt die cardsToDrawCount Variable
         const count = Math.min(deck.length, cardsToDrawCount);
         for (let i = 0; i < count; i++) {

@@ -37,9 +37,8 @@ function handleClick(col) {
             grid[r][col] = currentPlayer;
             
             // Stein erstellen
-            window.cardSound.currentTime = 0; 
-               window.cardSound.volume = 0.05; 
-            window.cardSound.play();
+            window.cardSound.volume = 0.05;
+    playSound(window.cardSound);
             const stone = document.createElement('div');
             stone.classList.add('stone');
             stone.style.backgroundImage = currentPlayer === 'red'
@@ -78,6 +77,8 @@ function handleClick(col) {
 }
 
 function showWinPopup(player) {
+    window.winSound.volume = 0.07;
+    playSound(window.winSound);
     const content = winPopup.querySelector(".winnerBox");
     if (content) content.classList.replace("draw", "win");
     

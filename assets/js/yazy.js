@@ -5,9 +5,8 @@ let currentPlayer = 1;
 
 function rollDice() {
     if (rollsLeft > 0) {
-        window.diceSound.currentTime = 0;
         window.diceSound.volume = 0.05;
-        window.diceSound.play();
+        playSound(window.diceSound);
         const diceElements = document.querySelectorAll('.die');
         diceElements.forEach(die => {
             if (!die.classList.contains('held')) {
@@ -31,9 +30,8 @@ function rollDice() {
             const counts = {};
                 currentDice.forEach(x => { counts[x] = (counts[x] || 0) + 1; });
                 if (Object.values(counts).includes(5)) {
-                    window.correctSound.currentTime = 0;
                     window.correctSound.volume = 0.1;
-                    window.correctSound.play();
+                    playSound(window.correctSound);
                 }
 
             rollsLeft--;
@@ -53,9 +51,8 @@ document.querySelectorAll('.die').forEach(die => {
         if (rollsLeft < 3) {
             this.classList.toggle('held');
 
-            window.clickSound.currentTime = 0;
             window.clickSound.volume = 0.05;
-            window.clickSound.play();
+            playSound(window.clickSound);
         }
     });
 });
@@ -97,9 +94,8 @@ function writeScore(id, value) {
         target.innerText = points;
         target.classList.add("filled");
 
-        window.click2Sound.currentTime = 0;
         window.click2Sound.volume = 0.1;
-        window.click2Sound.play();
+        playSound(window.click2Sound);
 
         updateTotalScore();
         checkGameOver();
@@ -145,9 +141,8 @@ function writeSpecial(id, type) {
     target.innerText = points;
     target.classList.add("filled");
 
-    window.click2Sound.currentTime = 0;
     window.click2Sound.volume = 0.1;
-    window.click2Sound.play();
+    playSound(window.click2Sound);
     //fadeOutAudio(window.bingSound, 2000);
 
     updateTotalScore();
@@ -291,9 +286,8 @@ function checkGameOver() {
 }
 
 function showWinner() {
-    window.winSound.currentTime = 0;
     window.winSound.volume = 0.1;
-    window.winSound.play();
+    playSound(window.winSound);
 
     const score1 = parseInt(document.getElementById('p1-total').innerText) || 0;
     const score2 = parseInt(document.getElementById('p2-total').innerText) || 0;
