@@ -10,6 +10,8 @@
     },
     "languages": {
         "de": {
+            "title_home": "Spielhenne – Kostenlose Browser Spiele",
+
             "meta_description": "Spielhenne – Spiele alleine oder mit Freunden und hab Spaß!",
             "search_placeholder": "Spiel suchen...",
             "settings_title": "Einstellungen",
@@ -198,6 +200,8 @@
             }
         },
         "en": {
+            "title_home": "Spielhenne – Free Browser Games",
+            
             "meta_description": "Spielhenne – Play alone or with friends and have fun!",
             "search_placeholder": "Search Game...",
             "settings_title": "Settings",

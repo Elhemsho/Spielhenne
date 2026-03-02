@@ -57,6 +57,14 @@ async function setupLayout() {
             logoHuhn.src = fixPath(data.header.logos.huhn);
             if (logoHuhn.parentElement.tagName === 'A') logoHuhn.parentElement.href = fixPath("index.html");
         }
+/*
+        // Titel übersetzen
+const pageTitleKey = document.querySelector('meta[data-title-i18n]')?.getAttribute('data-title-i18n');
+if (pageTitleKey && langData[pageTitleKey]) {
+    document.title = langData[pageTitleKey];
+} else if (pageTitleKey && langData.games?.[pageTitleKey]) {
+    document.title = langData.games[pageTitleKey] + " – Spielhenne";
+}*/
 
         // ----------------------------
         // 2. Suche
