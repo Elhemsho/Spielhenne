@@ -598,7 +598,7 @@ async function autoSortToFoundations() {
 
                 for (let i = 0; i < foundations.length; i++) {
                     if (canMoveToFoundation(card, foundations[i])) {
-                        window.cardound.volume = 0.05;
+                        window.cardSound.volume = 0.05;
                         playSound(window.cardSound);
                         foundationData[i].push(card);
                         column.pop();
@@ -673,7 +673,14 @@ function showVictoryPopup() {
     const currentCycles = stackCycles;
     const isNewHighscore = saveHighscore(currentCycles, currentTimeStr);
 
-    const modalContent = document.querySelector('.modal-content');
+    const currentLang = localStorage.getItem('selectedLanguage') || 'de';
+    const langData = window.cachedData?.languages?.[currentLang];
+
+    const congratsLabel = langData?.congratulations || "Congratulations!";
+    const newHsLabel = langData?.new_highscore || "NEW HIGHSCORE";
+    const yourScoreLabel = langData?.your_score || "YOUR SCORE";
+    const playAgainLabel = langData?.show_result || "Play Again";
+
     const modalH2 = document.getElementById('modal-text');
     const resultStats = document.querySelector('.result-stats');
     const labelEl = document.querySelector('.result-item .label');
@@ -682,18 +689,22 @@ function showVictoryPopup() {
 
     if (isNewHighscore) {
         if (resultStats) { resultStats.style.backgroundColor = "#fff9e6"; resultStats.style.borderColor = "#ffcc00"; resultStats.style.boxShadow = "0 0 15px 10px rgba(255, 204, 0, 0.4)"; }
-        if (modalH2) { modalH2.innerText = "Congratulations!"; modalH2.style.color = "#333"; }
-        if (labelEl) { labelEl.innerText = "NEW HIGHSCORE"; labelEl.style.color = "#333"; }
+        if (modalH2) { modalH2.innerText = congratsLabel; modalH2.style.color = "#333"; }
+        if (labelEl) { labelEl.innerText = newHsLabel; labelEl.style.color = "#b8860b"; }
         if (valueEl) valueEl.style.color = "#b8860b";
     } else {
-        if (resultStats) { resultStats.style.backgroundColor = "#f0fbfc"; resultStats.style.borderColor = "var(--blue)"; resultStats.style.boxShadow = "var(--blue)"; }
-        if (modalH2) { modalH2.innerText = "Congratulations!"; modalH2.style.color = "#333"; }
-        if (labelEl) { labelEl.innerText = "YOUR SCORE"; labelEl.style.color = "#666"; }
+        if (resultStats) { resultStats.style.backgroundColor = "#f0fbfc"; resultStats.style.borderColor = "var(--blue)"; resultStats.style.boxShadow = "none"; }
+        if (modalH2) { modalH2.innerText = congratsLabel; modalH2.style.color = "#333"; }
+        if (labelEl) { labelEl.innerText = yourScoreLabel; labelEl.style.color = "#666"; }
         if (valueEl) valueEl.style.color = "#333";
     }
 
-    if (valueEl) valueEl.innerText = `${currentCycles} Cycles | ${currentTimeStr}`;
-    if (modalBtn) { modalBtn.innerText = "Play Again"; modalBtn.onclick = () => { popup.style.display = "none"; resetGame(); }; }
+    const cyclesLabel = langData?.cycles_text || "Cycles";
+    if (valueEl) valueEl.innerText = `${currentCycles} ${cyclesLabel} | ${currentTimeStr}`;
+    if (modalBtn) { 
+        modalBtn.innerText = playAgainLabel; 
+        modalBtn.onclick = () => { popup.style.display = "none"; resetGame(); }; 
+    }
 
     updateHighscoreDisplay();
     popup.style.display = "flex";

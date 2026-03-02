@@ -172,57 +172,43 @@ function endGame() {
     gameActive = false;
     clearInterval(timerId);
 
-    // 1. Werte aus dem Speicher holen
     const hs = parseInt(localStorage.getItem(`mathHS_${currentMode}`)) || 0;
     const isNewHighscore = score > hs;
 
-    console.log("Aktueller Score:", score);
-    console.log("Alter Highscore:", hs);
-    console.log("Neuer Rekord?:", isNewHighscore);
+    // Sprache laden
+    const currentLang = localStorage.getItem('selectedLanguage') || 'de';
+    const langData = window.cachedData?.languages?.[currentLang];
+    const newHsLabel = langData?.new_highscore || "New Highscore";
+    const yourScoreLabel = langData?.your_score || "Your Score";
+    const timeOverLabel = langData?.time_over || "Time Over!";
+    const playAgainLabel = langData?.show_result || "Play Again";
 
-    // 2. Elemente im Modal suchen
     const modal = document.getElementById('result-modal');
     const resultStatsBox = document.querySelector('.result-stats');
     const labelText = document.querySelector('.result-item .label');
     const modalIcon = document.querySelector('.modal-icon');
     const finalScoreDisplay = document.getElementById('final-score-display');
+    const resultTitle = document.getElementById('result-title');
+    const retryBtn = document.querySelector('.retry-btn');
 
-    // 3. Highscore speichern, wenn er neu ist
+    if (resultTitle) resultTitle.innerText = timeOverLabel;
+    if (retryBtn) retryBtn.innerText = playAgainLabel;
+
     if (isNewHighscore) {
         localStorage.setItem(`mathHS_${currentMode}`, score);
-
         window.winSound.volume = 0.07;
-    playSound(window.winSound);
-
-        // GOLD DESIGN
-        if (resultStatsBox) {
-            resultStatsBox.style.backgroundColor = "#fff9e6";
-            resultStatsBox.style.borderColor = "#ffcc00";
-            resultStatsBox.style.boxShadow = "0 0 15px 10px rgba(255, 204, 0, 0.4)";
-        }
-        if (labelText) {
-            labelText.innerText = "New Highscore";
-            labelText.style.color = "#b8860b";
-        }
+        playSound(window.winSound);
+        if (resultStatsBox) { resultStatsBox.style.backgroundColor = "#fff9e6"; resultStatsBox.style.borderColor = "#ffcc00"; resultStatsBox.style.boxShadow = "0 0 15px 10px rgba(255, 204, 0, 0.4)"; }
+        if (labelText) { labelText.innerText = newHsLabel; labelText.style.color = "#b8860b"; }
         if (modalIcon) modalIcon.innerText = "⭐";
     } else {
         window.goodSound.volume = 0.1;
-    playSound(window.goodSound);
-
-        // NORMALES BLAU DESIGN
-        if (resultStatsBox) {
-            resultStatsBox.style.backgroundColor = "#f0fbfc";
-            resultStatsBox.style.borderColor = "var(--blue)";
-            resultStatsBox.style.boxShadow = "none";
-        }
-        if (labelText) {
-            labelText.innerText = "Your Score";
-            labelText.style.color = "#666";
-        }
+        playSound(window.goodSound);
+        if (resultStatsBox) { resultStatsBox.style.backgroundColor = "#f0fbfc"; resultStatsBox.style.borderColor = "var(--blue)"; resultStatsBox.style.boxShadow = "none"; }
+        if (labelText) { labelText.innerText = yourScoreLabel; labelText.style.color = "#666"; }
         if (modalIcon) modalIcon.innerText = "🏆";
     }
 
-    // 4. Score im Modal anzeigen und Modal öffnen
     if (finalScoreDisplay) finalScoreDisplay.innerText = score;
     if (modal) modal.classList.add('active');
 }

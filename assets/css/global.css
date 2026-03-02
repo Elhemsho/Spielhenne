@@ -638,6 +638,22 @@ input:checked + .slider:before {
     line-height: 1;
 }
 
+.modal-close2 {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 32px;
+    cursor: pointer;
+    color: #333;
+    line-height: 1;
+}
+
+.modal-close2:hover {
+    color: #999;
+}
+
 .modal-close:hover {
     color: #999;
 }

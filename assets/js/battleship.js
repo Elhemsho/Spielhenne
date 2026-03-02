@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const coords = calculateShipCoords(index, size, dir);
         if (coords && checkCollision(coords, playerNum)) {
             placeShip(shipId, size, coords, dir, playerNum);
-            window.waterSound.volume = 0.25;
+            window.waterSound.volume = 0.2;
     playSound(window.waterSound);
             renderInventories();
             checkSetupComplete();
@@ -322,6 +322,8 @@ updateBattleshipWinText();
 
         setTimeout(() => {
             if (winOverlay) { 
+                window.winSound.volume = 0.07;
+                playSound(window.winSound);
                 winOverlay.classList.remove('hidden'); 
                 winOverlay.style.display = 'flex';
                 

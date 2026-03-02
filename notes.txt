@@ -1,5 +1,4 @@
 To-Dos/Fixes:
-- sprache bei winpop ups
 - titel language switch
 
 Weitere Ideen

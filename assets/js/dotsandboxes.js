@@ -314,7 +314,7 @@ function updateDotsWinText() {
 
     let text = "";
     if (winner === "draw") {
-        text = "Draw!"; // Draw hat keinen Eintrag in data.json, kannst du aber ergänzen
+        text = langData?.draw_result || "Draw!";
     } else {
         text = langData.player_wins.replace('{n}', winner);
     }

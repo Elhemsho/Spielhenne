@@ -176,6 +176,8 @@ function renderBoard() {
 
 function showModal() {
     const isNewHighscore = score >= highScore && score > 0;
+    const currentLang = localStorage.getItem('selectedLanguage') || 'de';
+    const langData = window.cachedData?.languages?.[currentLang];
 
     const modalContent = document.querySelector('.modal-content');
     const resultStatsBox = document.querySelector('.result-stats');
@@ -183,28 +185,34 @@ function showModal() {
     const modalIcon = document.querySelector('.modal-icon');
     const modalText = document.getElementById('modal-text');
 
+    const gameOverLabel = langData?.game_over || "Game Over!";
+    const newHsLabel = langData?.new_highscore || "New Highscore";
+    const yourScoreLabel = langData?.your_score || "Your Score";
+    const playAgainLabel = langData?.show_result || "Play Again";
+
     if (isNewHighscore) {
         window.winSound.volume = 0.07;
-    playSound(window.winSound);
-    if (resultStatsBox) { resultStatsBox.style.backgroundColor = "#fff9e6"; resultStatsBox.style.borderColor = "#ffcc00"; resultStatsBox.style.boxShadow = "0 0 15px 10px rgba(255, 204, 0, 0.4)"; }
-        if (labelText) { labelText.innerText = "New Highscore"; labelText.style.color = "#b8860b"; }
+        playSound(window.winSound);
+        if (resultStatsBox) { resultStatsBox.style.backgroundColor = "#fff9e6"; resultStatsBox.style.borderColor = "#ffcc00"; resultStatsBox.style.boxShadow = "0 0 15px 10px rgba(255, 204, 0, 0.4)"; }
+        if (labelText) { labelText.innerText = newHsLabel; labelText.style.color = "#b8860b"; }
         if (modalIcon) modalIcon.innerText = "⭐";
-        if (modalText) { modalText.innerText = "Game Over!"; modalText.style.color = "#333"; }
+        if (modalText) { modalText.innerText = gameOverLabel; modalText.style.color = "#333"; }
     } else {
         window.goodSound.volume = 0.1;
-    playSound(window.goodSound);
-    if (resultStatsBox) { resultStatsBox.style.backgroundColor = "#f0fbfc"; resultStatsBox.style.borderColor = "var(--blue)"; resultStatsBox.style.boxShadow = "none"; }
-        if (labelText) { labelText.innerText = "Your Score"; labelText.style.color = "#666"; }
+        playSound(window.goodSound);
+        if (resultStatsBox) { resultStatsBox.style.backgroundColor = "#f0fbfc"; resultStatsBox.style.borderColor = "var(--blue)"; resultStatsBox.style.boxShadow = "none"; }
+        if (labelText) { labelText.innerText = yourScoreLabel; labelText.style.color = "#666"; }
         if (modalIcon) modalIcon.innerText = "🏆";
-        if (modalText) { modalText.innerText = "Game Over!"; modalText.style.color = "#333"; }
+        if (modalText) { modalText.innerText = gameOverLabel; modalText.style.color = "#333"; }
     }
 
     document.getElementById('modal-score-display').innerText = score;
+    document.getElementById("modal-button").innerText = playAgainLabel;
+
     const m = document.getElementById("game-modal");
     m.style.display = "flex";
     document.getElementById("modal-button").onclick = () => { m.style.display = "none"; setGame(); };
     document.querySelector(".modal-close").onclick = () => { m.style.display = "none"; };
-
 }
 
 function undo() {

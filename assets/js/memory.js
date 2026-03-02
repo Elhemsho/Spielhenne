@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPlayer = 1;
     let scores = { player1: 0, player2: 0 };
     let lockBoard = false;
+    let winOverlayVisible = false;
 
     const scoreBoard = document.createElement('div');
     scoreBoard.className = 'score-board';
@@ -134,35 +135,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showWinPopup() {
-        playSound(window.winSound);
-        window.winSound.volume = 0.07;
+    playSound(window.winSound);
+    window.winSound.volume = 0.07;
 
-        // Gewinner bestimmen und merken
-        const overlay = document.getElementById("overlay");
-        if (scores.player1 > scores.player2) {
-            overlay.dataset.winner = "1";
-        } else if (scores.player2 > scores.player1) {
-            overlay.dataset.winner = "2";
-        } else {
-            overlay.dataset.winner = "draw";
-        }
-
-        overlay.id = 'winOverlay';
-        overlay.className = 'win-overlay';
-        overlay.style.display = "flex";
-        overlay.style.minWidth = "300px";
-
-        renderWinPopupContent(overlay);
-        document.querySelector('.main').appendChild(overlay);
-
-        overlay.querySelector('#modal-close').onclick = () => {
-            overlay.style.display = "none";
-        };
-        overlay.querySelector('#playAgainPopupBtn').onclick = () => {
-            overlay.style.display = "none";
-            initGame();
-        };
+    const overlay = document.getElementById("overlay");
+    if (scores.player1 > scores.player2) {
+        overlay.dataset.winner = "1";
+    } else if (scores.player2 > scores.player1) {
+        overlay.dataset.winner = "2";
+    } else {
+        overlay.dataset.winner = "draw";
     }
+
+    overlay.id = 'winOverlay';
+    overlay.className = 'win-overlay';
+    overlay.style.display = "flex";
+    overlay.style.minWidth = "300px";
+    winOverlayVisible = true;  // ← NEU
+
+    renderWinPopupContent(overlay);
+    document.querySelector('.main').appendChild(overlay);
+
+    overlay.querySelector('#modal-close').onclick = () => {
+        overlay.style.display = "none";
+        winOverlayVisible = false;  // ← NEU
+    };
+    overlay.querySelector('#playAgainPopupBtn').onclick = () => {
+        overlay.style.display = "none";
+        winOverlayVisible = false;  // ← NEU
+        initGame();
+    };
+}
 
     function renderWinPopupContent(overlay) {
         const currentLang = localStorage.getItem('selectedLanguage') || 'de';
@@ -171,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let winnerText = "";
         if (winner === "draw") {
-            winnerText = "Draw!";
+            winnerText = langData?.draw_result || "Draw!";
         } else {
             winnerText = langData ? langData.player_wins.replace('{n}', winner) : `☆ Player ${winner} wins ☆`;
         }
@@ -182,27 +185,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
         overlay.innerHTML = `
             <div class="win-popup">
-                <button class="modal-close" id="modal-close">&times;</button>
+                <button class="modal-close2" id="modal-close">&times;</button>
                 <h1>${winnerText}</h1>
-                <p>Final score: ${s1} - ${s2}</p>
+                <p>${langData?.final_score || "Final Score:"} ${s1} - ${s2}</p>
                 <button class="pABtn" id="playAgainPopupBtn">${playAgainLabel}</button>
             </div>
         `;
     }
 
     window.refreshChampionText = () => {
-        const overlay = document.getElementById('winOverlay') || document.getElementById('overlay');
-        if (!overlay || overlay.style.display === "none") return;
-        renderWinPopupContent(overlay);
-        // Event Listener neu setzen da innerHTML überschrieben wurde
-        overlay.querySelector('#modal-close').onclick = () => {
-            overlay.style.display = "none";
-        };
-        overlay.querySelector('#playAgainPopupBtn').onclick = () => {
-            overlay.style.display = "none";
-            initGame();
-        };
+    if (!winOverlayVisible) return;
+    const overlay = document.getElementById('winOverlay');
+    if (!overlay) return;
+
+    renderWinPopupContent(overlay);
+    overlay.querySelector('#modal-close').onclick = () => {
+        overlay.style.display = "none";
+        winOverlayVisible = false;
     };
+    overlay.querySelector('#playAgainPopupBtn').onclick = () => {
+        overlay.style.display = "none";
+        winOverlayVisible = false;
+        initGame();
+    };
+};
 
     playAgainBtn.addEventListener('click', initGame);
     initGame();

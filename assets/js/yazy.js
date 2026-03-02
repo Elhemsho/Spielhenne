@@ -289,41 +289,39 @@ function showWinner() {
     window.winSound.volume = 0.1;
     playSound(window.winSound);
 
+    const currentLang = localStorage.getItem('selectedLanguage') || 'de';
+    const langData = window.cachedData?.languages?.[currentLang];
+
     const score1 = parseInt(document.getElementById('p1-total').innerText) || 0;
     const score2 = parseInt(document.getElementById('p2-total').innerText) || 0;
-    const diff = Math.abs(score1 - score2); // Berechnet immer den positiven Unterschied
+    const diff = Math.abs(score1 - score2);
 
     const winnerText = document.getElementById('winner-text');
     const winnerScore = document.getElementById('winner-score');
     const popup = document.getElementById('winner-popup');
-
-    // WICHTIG: Nutze querySelector, falls es eine Klasse ist, oder stelle sicher, dass die ID im HTML existiert
     const winnerContent = document.querySelector('.winner-content');
 
+    const diffLabel = langData?.points_diff || "Difference:";
+    const pointsLabel = langData?.points_label || "Points";
+    const bothLabel = langData?.both_points || "Both scored";
+
     if (score1 > score2) {
-        winnerText.innerText = "☆ Player 1 wins! ☆";
-        winnerScore.innerText = "Difference: " + diff + " Points";
-        if (winnerContent) winnerContent.style.width = "380px"; // Zurück auf Standard 
+        const p1wins = langData?.player_wins?.replace('{n}', '1') || "☆ Player 1 wins! ☆";
+        winnerText.innerText = p1wins;
+        winnerScore.innerText = `${diffLabel} ${diff} ${pointsLabel}`;
+        if (winnerContent) winnerContent.style.width = "380px";
     } else if (score2 > score1) {
-        winnerText.innerText = "☆ Player 2 wins! ☆";
-        winnerScore.innerText = "Difference: " + diff + " Points";
-        if (winnerContent) winnerContent.style.width = "380px"; // Zurück auf Standard
+        const p2wins = langData?.player_wins?.replace('{n}', '2') || "☆ Player 2 wins! ☆";
+        winnerText.innerText = p2wins;
+        winnerScore.innerText = `${diffLabel} ${diff} ${pointsLabel}`;
+        if (winnerContent) winnerContent.style.width = "380px";
     } else {
-        winText.innerHTML = `
-        <strong>Draw!</strong>
-        <div class="icon">
-            <img src="../assets/images/draw.png" alt="Unentschieden">
-        </div>
-        `;
-        winnerScore.innerText = "Both of you got " + score1 + " Points.";
-        if (winnerContent) winnerContent.style.width = "260px"; // Breiter bei Unentschieden
+        winnerText.innerText = langData?.draw_result || "Draw!";
+        winnerScore.innerText = `${bothLabel} ${score1} ${pointsLabel}`;
+        if (winnerContent) winnerContent.style.width = "260px";
     }
 
-    if (popup) {
-        popup.classList.add('show');
-    } else {
-        console.error("Popup-Element nicht gefunden! Prüfe die ID 'winner-popup' im HTML.");
-    }
+    if (popup) popup.classList.add('show');
 }
 
 document.addEventListener('DOMContentLoaded', () => {

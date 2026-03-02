@@ -234,22 +234,79 @@ async function setupLayout() {
         }
         // 9. SPEZIAL: Champion-Text Live-Update
         setTimeout(() => {
-        // Prüft championOverlay (TTT, C4, Battleship, Dots)
-        const champOverlay = document.getElementById('championOverlay');
-        if (champOverlay && !champOverlay.classList.contains('hidden')) {
-            if (typeof window.refreshChampionText === "function") {
-                window.refreshChampionText();
+            const champOverlay = document.getElementById('championOverlay');
+            if (champOverlay && !champOverlay.classList.contains('hidden')) {
+                if (typeof window.refreshChampionText === "function") {
+                    window.refreshChampionText();
+                }
             }
-        }
 
-        // Prüft Memory-Overlay (andere ID)
-        const memOverlay = document.getElementById('winOverlay');
-        if (memOverlay && memOverlay.style.display !== "none") {
-            if (typeof window.refreshChampionText === "function") {
-                window.refreshChampionText();
+            // Memory-Overlay: beide IDs prüfen + display-Check korrigiert
+            const memOverlay = document.getElementById('winOverlay');
+            if (memOverlay && memOverlay.style.display !== "none") {
+                if (typeof window.refreshChampionText === "function") {
+                    window.refreshChampionText();
+                }
             }
-        }
-    }, 50); // Kleiner Puffer für die Datenverarbeitung
+
+            // 2048 Modal
+            const modal2048 = document.getElementById('game-modal');
+            if (modal2048 && modal2048.style.display === "flex") {
+                const currentLang = localStorage.getItem('selectedLanguage') || 'de';
+                const langData = window.cachedData?.languages?.[currentLang];
+                
+                const modalText = document.getElementById('modal-text');
+                const modalBtn = document.getElementById('modal-button');
+                const labelText = document.querySelector('.result-item .label');
+                const highscoreEl = document.getElementById('high-score');
+                const isNewHighscore = highscoreEl && 
+                    document.getElementById('score')?.innerText >= highscoreEl.innerText;
+
+                if (modalText) modalText.innerText = langData?.game_over || "Game Over!";
+                if (modalBtn) modalBtn.innerText = langData?.show_result || "Play Again";
+                if (labelText) labelText.innerText = isNewHighscore 
+                    ? (langData?.new_highscore || "New Highscore") 
+                    : (langData?.your_score || "Your Score");
+            }
+
+            // Solitaire Modal
+            const modalSol = document.getElementById('game-modal');
+            if (modalSol && modalSol.style.display === "flex") {
+                const langData = window.cachedData?.languages?.[currentLang];
+                const modalH2 = document.getElementById('modal-text');
+                const modalBtn = document.getElementById('modal-button');
+                if (modalH2) modalH2.innerText = langData?.congratulations || "Congratulations!";
+                if (modalBtn) modalBtn.innerText = langData?.show_result || "Play Again";
+                const labelEl = document.querySelector('.result-item .label');
+                if (labelEl) {
+                    const isHs = labelEl.style.color === "rgb(184, 134, 11)"; // #b8860b
+                    labelEl.innerText = isHs 
+                        ? (langData?.new_highscore || "NEW HIGHSCORE") 
+                        : (langData?.your_score || "YOUR SCORE");
+                }
+            }
+
+            // Math Quiz Modal
+            const modalMQ = document.getElementById('result-modal');
+            if (modalMQ && modalMQ.classList.contains('active')) {
+                const langData = window.cachedData?.languages?.[currentLang];
+                const resultTitle = document.getElementById('result-title');
+                const retryBtn = document.querySelector('.retry-btn');
+                const labelText = document.querySelector('.result-item .label');
+                if (resultTitle) resultTitle.innerText = langData?.time_over || "Time Over!";
+                if (retryBtn) retryBtn.innerText = langData?.show_result || "Play Again";
+                if (labelText) {
+                    const isHs = labelText.style.color === "rgb(184, 134, 11)";
+                    labelText.innerText = isHs ? (langData?.new_highscore || "New Highscore") : (langData?.your_score || "Your Score");
+                }
+            }
+
+            // Yazy Popup
+            const yazyPopup = document.getElementById('winner-popup');
+            if (yazyPopup && yazyPopup.classList.contains('show')) {
+                if (typeof showWinner === "function") showWinner();
+            }
+        }, 50); // Kleiner Puffer für die Datenverarbeitung
         const modal = document.getElementById('info-modal');
         if (modal && modal.style.display === "block") {
             // Wir holen uns die aktuelle gameId, die wir im Titel-Element versteckt haben
