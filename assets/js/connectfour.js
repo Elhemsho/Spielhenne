@@ -98,6 +98,13 @@ function showWinPopup(player) {
     if (winnerBox) winnerBox.style.boxShadow = `0 0 20px 10px ${winColor}`;
 
     winPopup.classList.remove("hidden");
+    // NEU: Turnierergebnis melden (falls Turniermodus aktiv)
+    if (new URLSearchParams(window.location.search).get('tournament')) {
+        const w = player === 'red' ? 1 : 2;
+        // Der Button wird automatisch von tournament.js injiziert –
+        // aber wir können auch direkt reporten wenn kein draw möglich:
+        // Tournament.reportResult(w);  // optional: sofort ohne Button
+    }
     if (typeof startConfetti === "function") startConfetti();
 }
 

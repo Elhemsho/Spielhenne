@@ -286,6 +286,7 @@ function checkGameOver() {
 }
 
 function showWinner() {
+    
     window.winSound.volume = 0.1;
     playSound(window.winSound);
 

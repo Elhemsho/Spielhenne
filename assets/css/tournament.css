@@ -1,0 +1,475 @@
+/* ============================================================
+   SPIELHENNE – TURNIER / OLYMPIADE
+   tournament.css  –  gehört in assets/css/
+   
+   Passt sich dem bestehenden Design (Comic Neue, --blue) an.
+   ============================================================ */
+
+/* ----------------------------------------------------------------
+   OVERLAY
+   ---------------------------------------------------------------- */
+#t-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(79, 183, 215, 0.1);
+  backdrop-filter: blur(5px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+#t-overlay.t-open {
+  opacity: 1;
+}
+
+/* ----------------------------------------------------------------
+   PANELS (alle Modalfenster)
+   ---------------------------------------------------------------- */
+.t-panel {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 36px 40px;
+  max-width: 500px;
+  width: 92vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 0 0 3px var(--blue), 0 20px 60px rgba(0,0,0,0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  overflow: hidden;
+  font-family: 'Comic Neue2', cursive;
+  position: relative;
+  animation: tPanelIn 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes tPanelIn {
+  from { transform: scale(0.82); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+/* ----------------------------------------------------------------
+   CLOSE BUTTON
+   ---------------------------------------------------------------- */
+.t-close-btn {
+  position: absolute;
+  top: 15px; right: 15px;
+  background: rgba(0,0,0,0.06);
+  border: none;
+  border-radius: 50%;
+  width: 30px; height: 30px;
+  padding-left: 7px;
+  padding-top: 3px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #555;
+  font-family: 'Comic Neue2', cursive;
+  transition: background 0.15s;
+  line-height: 1;
+}
+.t-close-btn:hover { background: rgba(0,0,0,0.13); }
+
+/* ----------------------------------------------------------------
+   TYPOGRAPHY
+   ---------------------------------------------------------------- */
+.t-title {
+  font-family: 'Comic Neue2', cursive;
+  font-size: 1.7rem;
+  color: #333;
+  margin: 0;
+}
+.t-sub {
+  color: #666;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  margin: 0;
+}
+.t-trophy-icon {
+  font-size: 58px;
+  animation: tFloat 3s ease-in-out infinite;
+}
+@keyframes tFloat {
+  0%,100%{ transform:translateY(0); }
+  50%    { transform:translateY(-9px); }
+}
+
+/* ----------------------------------------------------------------
+   RULES BOX
+   ---------------------------------------------------------------- */
+.t-rules-box {
+  background: #f5fdfe;
+  border: 1.5px solid var(--blue);
+  border-radius: 12px;
+  padding: 14px 18px;
+  width: 100%;
+  text-align: left;
+  font-size: 0.88rem;
+  color: #444;
+}
+.t-rules-box strong {
+  color: #333;
+  font-size: 0.95rem;
+}
+.t-rules-box ul {
+  margin: 8px 0 0 16px;
+  padding: 0;
+}
+.t-rules-box li {
+  margin-bottom: 5px;
+  line-height: 1.4;
+}
+
+/* ----------------------------------------------------------------
+   GAME CHIPS
+   ---------------------------------------------------------------- */
+.t-game-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  justify-content: center;
+}
+.t-chip {
+  background: var(--blue);
+  color: #333;
+  border-radius: 20px;
+  padding: 5px 13px;
+  font-size: 0.82rem;
+  font-family: 'Comic Neue2', cursive;
+}
+
+/* ----------------------------------------------------------------
+   PRIMARY BUTTON  (matches .playAgainBtn style)
+   ---------------------------------------------------------------- */
+.t-btn-primary {
+  font-family: 'Comic Neue2', cursive;
+  font-size: 1.05rem;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  background: var(--blue);
+  color: #333;
+  transition: ease-in-out 0.2s;
+  font-weight: bold;
+  margin-top: 4px;
+}
+.t-btn-primary:hover {
+  background: var(--bluel, #defbff);
+}
+.t-btn-primary:disabled {
+  opacity: 0.5; cursor: not-allowed; transform: none;
+}
+
+/* ----------------------------------------------------------------
+   SCOREBOARD (fixed top banner)
+   ---------------------------------------------------------------- */
+#t-scoreboard {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99990;
+  background: #ffffff;
+  border-bottom: 3px solid var(--blue);
+  border-radius: 0 0 16px 16px;
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 3px 18px rgba(0,0,0,0.12);
+  font-family: 'Comic Neue2', cursive;
+}
+.t-sb-player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 70px;
+}
+.t-sb-name {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #888;
+}
+.t-sb-score {
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 1.1;
+}
+.t-sb-score--p1 { color: var(--player1-color, #ff4d4d); }
+.t-sb-score--p2 { color: var(--player2-color, #4d7cff); }
+.t-sb-center {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.t-sb-vs {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--blue);
+}
+.t-sb-round {
+  font-size: 0.75rem;
+  color: #aaa;
+}
+.t-sb-dots {
+  display: flex;
+  gap: 4px;
+  margin-top: 3px;
+}
+.t-sb-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #ddd;
+}
+.t-sb-dot--p1 { background: var(--player1-color, #ff4d4d); }
+.t-sb-dot--p2 { background: var(--player2-color, #4d7cff); }
+.t-sb-dot--draw { background: #ccc; }
+
+/* ----------------------------------------------------------------
+   SLOT MACHINE (spin animation)
+   ---------------------------------------------------------------- */
+.t-spin-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+.t-spin-sub {
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: -8px;
+}
+.t-slot-machine {
+  width: 100%;
+  max-width: 320px;
+  height: 88px;
+  background: #f5fdfe;
+  border: 2px solid var(--blue);
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+}
+.t-slot-fade {
+  position: absolute; left:0; right:0; height:28px; z-index:2; pointer-events:none;
+}
+.t-slot-fade--top { top:0; background:linear-gradient(to bottom, #f5fdfe, transparent); }
+.t-slot-fade--bot { bottom:0; background:linear-gradient(to top, #f5fdfe, transparent); }
+.t-slot-highlight {
+  position: absolute;
+  top:50%; left:0; right:0;
+  transform:translateY(-50%);
+  height:44px;
+  background:rgba(176,239,247,0.25);
+  border-top:1.5px solid var(--blue);
+  border-bottom:1.5px solid var(--blue);
+  z-index:1;
+  pointer-events:none;
+}
+.t-slot-strip {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  will-change:transform;
+}
+.t-slot-item {
+  height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.05rem;
+  font-family:'Comic Neue2',cursive;
+  width:100%;
+  padding:0 16px;
+  flex-shrink:0;
+  white-space:nowrap;
+  color:#333;
+  gap:8px;
+}
+.t-spin-winner {
+  font-size:1.5rem;
+  font-weight:bold;
+  color:#333;
+  animation:tPulse 0.5s ease-out 3;
+}
+@keyframes tPulse {
+  0%,100%{ transform:scale(1); }
+  50%    { transform:scale(1.07); }
+}
+#t-spin-result {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+  margin-top:4px;
+}
+
+/* ----------------------------------------------------------------
+   RESULT PANEL
+   ---------------------------------------------------------------- */
+.t-result-emoji { font-size:52px; }
+.t-result-title { font-size:1.5rem; color:#333; margin:0; }
+.t-result-sub   { font-size:0.85rem; color:#888; margin:0; }
+.t-score-row {
+  display:flex;
+  align-items:center;
+  gap:20px;
+  background:#f5fdfe;
+  border:1.5px solid var(--blue);
+  border-radius:12px;
+  padding:14px 24px;
+  width:100%;
+  justify-content:center;
+}
+.t-score-block {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+  min-width:60px;
+}
+.t-score-name { font-size:0.75rem; color:#888; }
+.t-score-val  { font-size:2.2rem; font-weight:bold; line-height:1; }
+.t-score-divider { font-size:1.4rem; color:#ccc; font-weight:bold; }
+
+/* ----------------------------------------------------------------
+   MATH QUIZ PANEL
+   ---------------------------------------------------------------- */
+.t-mq-title  { font-size:1.1rem; font-weight:bold; color:#333; }
+.t-mq-player { font-size:0.88rem; color:#666; }
+.t-mq-timer  { font-size:2.8rem; font-weight:bold; color:#333; line-height:1; }
+.t-mq-timer--urgent {
+  color: var(--player1-color, #ff4d4d);
+  animation: tShake 0.3s ease infinite;
+}
+@keyframes tShake {
+  0%,100%{ transform:translateX(0); }
+  25%    { transform:translateX(-3px); }
+  75%    { transform:translateX(3px); }
+}
+.t-mq-stats {
+  display:flex;
+  gap:20px;
+  justify-content:center;
+}
+.t-mq-stat {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  font-size:0.78rem;
+  color:#888;
+}
+.t-mq-stat span { font-size:1.3rem; font-weight:bold; color:#333; }
+.t-mq-question {
+  font-size:2.2rem;
+  font-weight:bold;
+  color:#333;
+  min-height:56px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.t-mq-input {
+  font-family:'Comic Neue2',cursive;
+  font-size:1.6rem;
+  width:120px;
+  text-align:center;
+  padding:8px;
+  border:2px solid var(--blue);
+  border-radius:10px;
+  outline:none;
+  color:#333;
+  background:#f5fdfe;
+}
+.t-mq-input:focus { border-color:#7ad8e4; box-shadow:0 0 0 3px rgba(176,239,247,0.4); }
+.t-mq-fb { font-size:1rem; font-weight:bold; min-height:24px; }
+.t-mq-fb--correct { color:#2e9e4f; }
+.t-mq-fb--wrong   { color:var(--player1-color,#ff4d4d); }
+
+/* ----------------------------------------------------------------
+   FINAL PANEL
+   ---------------------------------------------------------------- */
+.t-crown       { font-size:68px; animation:tFloat 2.5s ease-in-out infinite; }
+.t-final-label { font-size:1rem; color:#888; font-weight:bold; text-transform:uppercase; letter-spacing:1px; }
+.t-final-winner{ font-size:1.9rem; font-weight:bold; color:#333; }
+.t-podium {
+  display:flex;
+  align-items:flex-end;
+  gap:12px;
+  justify-content:center;
+}
+.t-podium-col  { display:flex; flex-direction:column; align-items:center; }
+.t-podium-score{ font-size:1.8rem; font-weight:bold; }
+.t-podium-bar  {
+  width:76px;
+  border-radius:10px 10px 0 0;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  padding-bottom:6px;
+  font-size:1.2rem;
+}
+.t-podium-bar--p1 { background:linear-gradient(to top,var(--player1-color,#ff4d4d),var(--player1-colorl,#ffbebe)); }
+.t-podium-bar--p2 { background:linear-gradient(to top,var(--player2-color,#4d7cff),var(--player2-colorl,#c6d6ff)); }
+.t-podium-lbl  { font-size:0.75rem; color:#888; margin-top:5px; }
+.t-history {
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+.t-hist-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:#f5fdfe;
+  border-radius:8px;
+  padding:7px 12px;
+  font-size:0.85rem;
+  color:#555;
+}
+.t-hist-row span:last-child { font-weight:bold; }
+
+/* ----------------------------------------------------------------
+   COLOR HELPERS
+   ---------------------------------------------------------------- */
+.t-col-p1    { color:var(--player1-color,#ff4d4d); }
+.t-col-p2    { color:var(--player2-color,#4d7cff); }
+.t-col-green { color:#2e9e4f; }
+
+/* ----------------------------------------------------------------
+   REPORT RESULT BUTTON (injected into game win overlays)
+   ---------------------------------------------------------------- */
+.t-report-btn {
+  display:block;
+  margin:14px auto 0;
+  font-family:'Comic Neue2',cursive;
+  font-size:0.95rem;
+  padding:9px 22px;
+  border:2px solid var(--blue);
+  border-radius:10px;
+  background:#f5fdfe;
+  color:#333;
+  cursor:pointer;
+  font-weight:bold;
+  transition:all 0.15s;
+}
+.t-report-btn:hover {
+  background:var(--blue);
+  transform:translateY(-2px);
+}
+
+/* ----------------------------------------------------------------
+   RESPONSIVE
+   ---------------------------------------------------------------- */
+@media (max-width:540px){
+  .t-panel { padding:24px 18px; }
+  .t-title { font-size:1.35rem; }
+  .t-slot-machine { max-width:260px; }
+  #t-scoreboard { padding:6px 14px; gap:10px; }
+  .t-sb-score { font-size:1.6rem; }
+}

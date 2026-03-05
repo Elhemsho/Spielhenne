@@ -1,9 +1,10 @@
 To-Dos/Fixes:
-win sound
-sound lautstärke individuell
+- oly Design
+- oly Mathquiz
+- oly winoverlay anstatt play again weiter und kein kreuz 
+- oly emojis austauschen
 
 Weitere Ideen
-- olympiade
 - Dark Mode
 - Responsive Design (footer unten auch bei handy ansicht)
 - Snake
