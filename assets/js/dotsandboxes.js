@@ -144,7 +144,7 @@ function handleMove(el) {
     const boxesClosed = checkBox(el);
 
     if (boxesClosed > 0) {
-        window.correctSound.volume = 0.7;
+        window.correctSound.volume = 0.1;
     playSound(window.correctSound);
 
         scores[currentPlayer] += boxesClosed;
@@ -250,6 +250,8 @@ function checkGameOver() {
 }
 
 function showModal(title) {
+    window.winSound.volume = 0.07;
+    playSound(window.winSound);
     const modal = document.getElementById("championOverlay");
     const modalContent = modal.querySelector('.winnerBox');
 

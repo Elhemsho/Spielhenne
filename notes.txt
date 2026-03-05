@@ -1,11 +1,13 @@
 To-Dos/Fixes:
-- titel language switch
+win sound
+sound lautstärke individuell
 
 Weitere Ideen
+- olympiade
 - Dark Mode
 - Responsive Design (footer unten auch bei handy ansicht)
 - Snake
 - Schach
-- olympiade
+
 
 <a href="https://www.vecteezy.com/free-vector/chess-pieces">Chess Pieces Vectors by Vecteezy</a> -PITIPORN AUNGPRAPHAPORNCHAI
