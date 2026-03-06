@@ -24,14 +24,89 @@ document.addEventListener('DOMContentLoaded', () => {
     let p1Data = { board: Array(64).fill(null), ships: [] };
     let p2Data = { board: Array(64).fill(null), ships: [] };
 
+    // ----------------------------------------------------------------
+    // TURNIER SNAPSHOT SPEICHERN
+    // ----------------------------------------------------------------
+    function tSaveBattleshipState() {
+        if (!new URLSearchParams(window.location.search).get('tournament')) return;
+        const serializeData = (data) => ({
+            board: data.board.map(cell => cell ? cell.id : null),
+            ships: data.ships.map(s => ({
+                id: s.id, size: s.size, coords: s.coords,
+                dir: s.dir, hits: s.hits, isSunken: s.isSunken
+            }))
+        });
+        // Hit/Miss-Zellen speichern
+        const cellStates = { p1: [], p2: [] };
+        gridP1.querySelectorAll('.cell').forEach((cell, idx) => {
+            cellStates.p1[idx] = {
+                hit: cell.classList.contains('hit'),
+                miss: cell.classList.contains('miss'),
+                sunken: cell.classList.contains('sunken-animation')
+            };
+        });
+        gridP2.querySelectorAll('.cell').forEach((cell, idx) => {
+            cellStates.p2[idx] = {
+                hit: cell.classList.contains('hit'),
+                miss: cell.classList.contains('miss'),
+                sunken: cell.classList.contains('sunken-animation')
+            };
+        });
+        sessionStorage.setItem('t_game_snapshot', JSON.stringify({
+            p1: serializeData(p1Data),
+            p2: serializeData(p2Data),
+            cellStates,
+            gameState, currentPlayer, isProcessing
+        }));
+    }
+
     function init() {
         createGrid(gridP1, 1);
         createGrid(gridP2, 2);
-        updateUI(); // Erster Aufruf
+        updateUI();
         renderInventories();
+
+        // ----------------------------------------------------------------
+        // TURNIER SNAPSHOT WIEDERHERSTELLEN
+        // ----------------------------------------------------------------
+        (function tRestoreBattleshipState() {
+            if (!new URLSearchParams(window.location.search).get('tournament')) return;
+            const raw = sessionStorage.getItem('t_game_snapshot');
+            if (!raw) return;
+            try {
+                const s = JSON.parse(raw);
+
+                const deserializeData = (saved, data) => {
+                    data.ships = saved.ships.map(s => ({ ...s }));
+                    data.board = saved.board.map(id => id ? data.ships.find(ship => ship.id === id) || null : null);
+                };
+                deserializeData(s.p1, p1Data);
+                deserializeData(s.p2, p2Data);
+                gameState = s.gameState;
+                currentPlayer = s.currentPlayer;
+                isProcessing = s.isProcessing;
+
+                // Hit/Miss/Sunken-Klassen wiederherstellen
+                if (s.cellStates) {
+                    gridP1.querySelectorAll('.cell').forEach((cell, idx) => {
+                        if (s.cellStates.p1[idx]?.hit) cell.classList.add('hit');
+                        if (s.cellStates.p1[idx]?.miss) cell.classList.add('miss');
+                        if (s.cellStates.p1[idx]?.sunken) cell.classList.add('sunken-animation');
+                    });
+                    gridP2.querySelectorAll('.cell').forEach((cell, idx) => {
+                        if (s.cellStates.p2[idx]?.hit) cell.classList.add('hit');
+                        if (s.cellStates.p2[idx]?.miss) cell.classList.add('miss');
+                        if (s.cellStates.p2[idx]?.sunken) cell.classList.add('sunken-animation');
+                    });
+                }
+
+                drawBoard(1); drawBoard(2);
+                renderInventories();
+                updateUI();
+            } catch(e) { console.warn('Battleship restore error:', e); }
+        })();
     }
 
-    // --- DEINE FUNKTIONEN (unverändert übernommen) ---
     function createGrid(gridEl, playerNum) {
         gridEl.innerHTML = '';
         for (let i = 0; i < 64; i++) {
@@ -182,9 +257,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (coords && checkCollision(coords, playerNum)) {
             placeShip(shipId, size, coords, dir, playerNum);
             window.waterSound.volume = 0.2;
-    playSound(window.waterSound);
+            playSound(window.waterSound);
             renderInventories();
             checkSetupComplete();
+            tSaveBattleshipState();
         } else { renderInventories(); }
     }
 
@@ -256,7 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleActionBtnClick() {
         window.clickSound.volume = 0.1;
-    playSound(window.clickSound);
+        playSound(window.clickSound);
 
         if (gameState === 'SETUP_P1') {
             gameState = 'SETUP_P2';
@@ -265,11 +341,13 @@ document.addEventListener('DOMContentLoaded', () => {
             actionBtn.classList.remove('ready');
             renderInventories();
             updateUI();
+            tSaveBattleshipState();
         } else if (gameState === 'SETUP_P2') {
             gameState = 'BATTLE';
             currentPlayer = 1;
             renderInventories();
             updateUI();
+            tSaveBattleshipState();
         }
     }
 
@@ -285,67 +363,73 @@ document.addEventListener('DOMContentLoaded', () => {
             targetShip.hits++;
             if (targetShip.hits === targetShip.size) {
                 window.correctSound.volume = 0.07;
-    playSound(window.correctSound);
+                playSound(window.correctSound);
                 targetShip.isSunken = true;
                 targetShip.coords.forEach(coord => gridEl.children[coord].classList.add('sunken-animation'));
                 renderInventories();
                 drawBoard(targetPlayer);
+                tSaveBattleshipState();
                 setTimeout(() => { checkGameOver(); }, 100);
-            } else { 
+            } else {
                 window.goodSound.volume = 0.07;
-    playSound(window.goodSound);
-                updateUI(); 
+                playSound(window.goodSound);
+                tSaveBattleshipState();
+                updateUI();
             }
         } else {
             window.wrongSound.volume = 0.1;
-    playSound(window.wrongSound);
+            playSound(window.wrongSound);
             cell.classList.add('miss');
             isProcessing = true;
-            setTimeout(() => { currentPlayer = (currentPlayer === 1 ? 2 : 1); isProcessing = false; updateUI(); }, 800);
+            setTimeout(() => {
+                currentPlayer = (currentPlayer === 1 ? 2 : 1);
+                isProcessing = false;
+                tSaveBattleshipState();
+                updateUI();
+            }, 800);
         }
     }
 
     function checkGameOver() {
-    const p1Win = p2Data.ships.every(s => s.isSunken);
-    const p2Win = p1Data.ships.every(s => s.isSunken);
-    
-    if (p1Win || p2Win) {
-        gameState = 'GAME_OVER';
-        drawBoard(1); drawBoard(2);
-        const winner = p1Win ? 1 : 2;
-        
-        // Farbe basierend auf dem Gewinner wählen
-        const winnerColor = winner === 1 ? 'var(--player1-color)' : 'var(--player2-color)';
-        
-        winOverlay.dataset.winner = winner;
-updateBattleshipWinText();
+        const p1Win = p2Data.ships.every(s => s.isSunken);
+        const p2Win = p1Data.ships.every(s => s.isSunken);
 
-        setTimeout(() => {
-            if (winOverlay) { 
-                window.winSound.volume = 0.07;
-                playSound(window.winSound);
-                winOverlay.classList.remove('hidden'); 
-                winOverlay.style.display = 'flex';
-                
-                // HIER: Dynamischer Box-Shadow in der Spielerfarbe
-             const box = winOverlay.querySelector('.winnerBox');
-                if (box) {
-                    box.style.boxShadow = `0 0 30px 10px ${winnerColor}`;
-                }}
-            if (typeof startConfetti === "function") startConfetti();
-            updateUI();
-        }, 200);
+        if (p1Win || p2Win) {
+            gameState = 'GAME_OVER';
+            drawBoard(1); drawBoard(2);
+            const winner = p1Win ? 1 : 2;
+
+            const winnerColor = winner === 1 ? 'var(--player1-color)' : 'var(--player2-color)';
+
+            winOverlay.dataset.winner = winner;
+            updateBattleshipWinText();
+
+            setTimeout(() => {
+                if (winOverlay) {
+                    window.winSound.volume = 0.07;
+                    playSound(window.winSound);
+                    winOverlay.classList.remove('hidden');
+                    winOverlay.style.display = 'flex';
+
+                    const box = winOverlay.querySelector('.winnerBox');
+                    if (box) {
+                        box.style.boxShadow = `0 0 30px 10px ${winnerColor}`;
+                    }
+                }
+                if (typeof startConfetti === "function") startConfetti();
+                updateUI();
+            }, 200);
+        }
     }
-}
 
     showBtn.onclick = () => {
-    winOverlay.classList.add('hidden');
-    winOverlay.style.display = 'none';
-    gameState = 'GAME_OVER';
-    document.body.classList.add('GAME_OVER');
-    updateUI();
-    renderInventories();
-};
+        winOverlay.classList.add('hidden');
+        winOverlay.style.display = 'none';
+        gameState = 'GAME_OVER';
+        document.body.classList.add('GAME_OVER');
+        updateUI();
+        renderInventories();
+    };
 
     function drawBoard(playerNum) {
         const data = playerNum === 1 ? p1Data : p2Data;
@@ -367,7 +451,6 @@ updateBattleshipWinText();
         });
     }
 
-    // --- DIE WICHTIGE UPDATE-FUNKTION ---
     updateUI = function() {
         const currentLang = localStorage.getItem('selectedLanguage') || 'de';
         const langData = (window.cachedData && window.cachedData.languages) ? window.cachedData.languages[currentLang] : null;
@@ -388,11 +471,11 @@ updateBattleshipWinText();
 
         if (gameState === 'SETUP_P1') {
             gridP1.style.opacity = "1"; gridP2.style.opacity = "0.3";
-            gridP1.style.pointerEvents = "auto"; gridP2.style.pointerEvents = "none"; // ← NEU
+            gridP1.style.pointerEvents = "auto"; gridP2.style.pointerEvents = "none";
             actionBtn.textContent = langData ? langData.btn_next_player : "NEXT PLAYER";
         } else if (gameState === 'SETUP_P2') {
             gridP1.style.opacity = "0.3"; gridP2.style.opacity = "1";
-            gridP1.style.pointerEvents = "none"; gridP2.style.pointerEvents = "auto"; // ← NEU
+            gridP1.style.pointerEvents = "none"; gridP2.style.pointerEvents = "auto";
             actionBtn.textContent = langData ? langData.btn_start_battle : "START BATTLE";
         } else if (gameState === 'BATTLE') {
             actionBtn.disabled = true;
@@ -424,22 +507,24 @@ updateBattleshipWinText();
         actionBtn.onclick = handleActionBtnClick;
         updateUI();
         renderInventories();
+        // Snapshot löschen beim echten Reset
+        sessionStorage.removeItem('t_game_snapshot');
     }
 
     actionBtn.onclick = handleActionBtnClick;
     resetBtn.onclick = resetGame;
 
     const closeBtn = document.getElementById('modal-close');
-        if (closeBtn) closeBtn.onclick = () => {
-            winOverlay.classList.add('hidden');
-            winOverlay.style.display = 'none';
-            gameState = 'GAME_OVER';
-            document.body.classList.add('GAME_OVER');
-            updateUI();
-            renderInventories();
-        };
+    if (closeBtn) closeBtn.onclick = () => {
+        winOverlay.classList.add('hidden');
+        winOverlay.style.display = 'none';
+        gameState = 'GAME_OVER';
+        document.body.classList.add('GAME_OVER');
+        updateUI();
+        renderInventories();
+    };
 
-        showBtn.onclick = () => {
+    showBtn.onclick = () => {
         resetGame();
     };
 

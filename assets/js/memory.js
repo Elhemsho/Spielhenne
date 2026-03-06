@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const gameField = document.querySelector('.game-field');
     const playAgainBtn = document.getElementById('playAgainBtn');
 
-    // Config: Mapping der Buchstaben zu deinen Bilddateien
     const fruitImages = {
         'A': 'apfel.png',
         'B': 'banane.png',
@@ -33,7 +32,58 @@ document.addEventListener('DOMContentLoaded', () => {
     updateScoreDisplay();
     document.querySelector('.main').insertBefore(scoreBoard, gameField);
 
-    function initGame() {
+    function tSaveMemoryState() {
+        if (!new URLSearchParams(window.location.search).get('tournament')) return;
+        const order = [...document.querySelectorAll('.memory-card')].map(c => c.dataset.symbol);
+        const matchedIndices = [];
+        document.querySelectorAll('.memory-card').forEach((c, idx) => {
+            if (c.classList.contains('matched')) matchedIndices.push(idx);
+        });
+        sessionStorage.setItem('t_game_snapshot', JSON.stringify({
+            order, matchedIndices, scores, currentPlayer, matchedPairs
+        }));
+    }
+
+    function initGame(skipRestore) {
+        // Turnier-Snapshot wiederherstellen (nur beim ersten Aufruf, nicht nach Play Again)
+        if (!skipRestore && new URLSearchParams(window.location.search).get('tournament')) {
+            const raw = sessionStorage.getItem('t_game_snapshot');
+            if (raw) {
+                try {
+                    const s = JSON.parse(raw);
+                    scores = s.scores;
+                    currentPlayer = s.currentPlayer;
+                    matchedPairs = s.matchedPairs;
+                    lockBoard = false;
+                    flippedCards = [];
+                    gameField.innerHTML = '';
+                    updateScoreDisplay();
+
+                    s.order.forEach((symbol, idx) => {
+                        const card = document.createElement('div');
+                        card.classList.add('memory-card');
+                        card.dataset.symbol = symbol;
+                        card.innerHTML = `
+                            <div class="card-inner">
+                                <div class="card-front">
+                                    <img src="../assets/images/favicon.png" alt="Logo" class="card-logo">
+                                </div>
+                                <div class="card-back">
+                                    <img src="../assets/images/${fruitImages[symbol]}" alt="${symbol}" class="fruit-img">
+                                </div>
+                            </div>`;
+                        if (s.matchedIndices.includes(idx)) {
+                            card.classList.add('flipped', 'matched');
+                        }
+                        card.addEventListener('click', flipCard);
+                        gameField.appendChild(card);
+                    });
+                    return; // Restore erfolgreich – normales initGame überspringen
+                } catch(e) { console.warn('Memory restore error:', e); }
+            }
+        }
+
+        // Normales Init
         gameField.innerHTML = '';
         flippedCards = [];
         matchedPairs = 0;
@@ -42,7 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
         lockBoard = false;
 
         updateScoreDisplay();
-        // Karten mischen
         cards.sort(() => Math.random() - 0.5);
 
         cards.forEach((symbol) => {
@@ -50,7 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
             card.classList.add('memory-card');
             card.dataset.symbol = symbol;
 
-            // Hier nutzen wir fruitImages[symbol], um den Dateinamen zu bekommen
             card.innerHTML = `
                 <div class="card-inner">
                     <div class="card-front">
@@ -65,18 +113,19 @@ document.addEventListener('DOMContentLoaded', () => {
             card.addEventListener('click', flipCard);
             gameField.appendChild(card);
         });
+
+        // Snapshot löschen beim echten Reset
+        sessionStorage.removeItem('t_game_snapshot');
     }
 
     function flipCard() {
-        
-         
         if (lockBoard || this.classList.contains('flipped') || this.classList.contains('matched')) return;
 
         this.classList.add('flipped');
         flippedCards.push(this);
 
         window.cardSound.volume = 0.05;
-    playSound(window.cardSound);
+        playSound(window.cardSound);
 
         if (flippedCards.length === 2) {
             checkMatch();
@@ -89,7 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const isMatch = card1.dataset.symbol === card2.dataset.symbol;
 
         if (isMatch) {
-            
             scores[`player${currentPlayer}`]++;
             matchedPairs++;
 
@@ -97,8 +145,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 card1.classList.add('matched');
                 card2.classList.add('matched');
                 window.correctSound.volume = 0.1;
-    playSound(window.correctSound);
+                playSound(window.correctSound);
                 resetTurn(true);
+
+                tSaveMemoryState();
 
                 if (matchedPairs === symbols.length) {
                     setTimeout(showWinPopup, 500);
@@ -113,6 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 card2.classList.remove('flipped');
                 currentPlayer = currentPlayer === 1 ? 2 : 1;
                 resetTurn(false);
+                tSaveMemoryState();
             }, 1000);
         }
     }
@@ -135,37 +186,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showWinPopup() {
-    playSound(window.winSound);
-    window.winSound.volume = 0.07;
+        playSound(window.winSound);
+        window.winSound.volume = 0.07;
 
-    const overlay = document.getElementById("overlay");
-    if (scores.player1 > scores.player2) {
-        overlay.dataset.winner = "1";
-    } else if (scores.player2 > scores.player1) {
-        overlay.dataset.winner = "2";
-    } else {
-        overlay.dataset.winner = "draw";
+        const overlay = document.getElementById("overlay");
+        if (scores.player1 > scores.player2) {
+            overlay.dataset.winner = "1";
+        } else if (scores.player2 > scores.player1) {
+            overlay.dataset.winner = "2";
+        } else {
+            overlay.dataset.winner = "draw";
+        }
+
+        overlay.id = 'winOverlay';
+        overlay.className = 'win-overlay';
+        overlay.style.display = "flex";
+        overlay.style.minWidth = "300px";
+        winOverlayVisible = true;
+
+        renderWinPopupContent(overlay);
+        document.querySelector('.main').appendChild(overlay);
+
+        overlay.querySelector('#modal-close').onclick = () => {
+            overlay.style.display = "none";
+            winOverlayVisible = false;
+        };
+        overlay.querySelector('#playAgainPopupBtn').onclick = () => {
+            overlay.style.display = "none";
+            winOverlayVisible = false;
+            initGame(true); // true = skipRestore, echtes Neu-Spiel
+        };
     }
-
-    overlay.id = 'winOverlay';
-    overlay.className = 'win-overlay';
-    overlay.style.display = "flex";
-    overlay.style.minWidth = "300px";
-    winOverlayVisible = true;  // ← NEU
-
-    renderWinPopupContent(overlay);
-    document.querySelector('.main').appendChild(overlay);
-
-    overlay.querySelector('#modal-close').onclick = () => {
-        overlay.style.display = "none";
-        winOverlayVisible = false;  // ← NEU
-    };
-    overlay.querySelector('#playAgainPopupBtn').onclick = () => {
-        overlay.style.display = "none";
-        winOverlayVisible = false;  // ← NEU
-        initGame();
-    };
-}
 
     function renderWinPopupContent(overlay) {
         const currentLang = localStorage.getItem('selectedLanguage') || 'de';
@@ -194,22 +245,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.refreshChampionText = () => {
-    if (!winOverlayVisible) return;
-    const overlay = document.getElementById('winOverlay');
-    if (!overlay) return;
+        if (!winOverlayVisible) return;
+        const overlay = document.getElementById('winOverlay');
+        if (!overlay) return;
 
-    renderWinPopupContent(overlay);
-    overlay.querySelector('#modal-close').onclick = () => {
-        overlay.style.display = "none";
-        winOverlayVisible = false;
+        renderWinPopupContent(overlay);
+        overlay.querySelector('#modal-close').onclick = () => {
+            overlay.style.display = "none";
+            winOverlayVisible = false;
+        };
+        overlay.querySelector('#playAgainPopupBtn').onclick = () => {
+            overlay.style.display = "none";
+            winOverlayVisible = false;
+            initGame(true);
+        };
     };
-    overlay.querySelector('#playAgainPopupBtn').onclick = () => {
-        overlay.style.display = "none";
-        winOverlayVisible = false;
-        initGame();
-    };
-};
 
-    playAgainBtn.addEventListener('click', initGame);
+    playAgainBtn.addEventListener('click', () => initGame(true));
     initGame();
 });

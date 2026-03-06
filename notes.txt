@@ -1,8 +1,10 @@
 To-Dos/Fixes:
-- oly Design
-- oly Mathquiz
-- oly winoverlay anstatt play again weiter und kein kreuz 
-- oly emojis austauschen
+
+Tiurnement:
+- Design
+- Mathquiz
+- winoverlay anstatt play again weiter und kein kreuz 
+- emojis austauschen
 
 Weitere Ideen
 - Dark Mode

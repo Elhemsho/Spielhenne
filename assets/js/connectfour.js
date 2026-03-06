@@ -27,6 +27,47 @@ if (board) {
         }
     }
     updateTurnIndicator();
+
+    
+// Turnier-Snapshot wiederherstellen
+// Turnier-Snapshot wiederherstellen
+(function tRestoreGameState() {
+  if (!new URLSearchParams(window.location.search).get('tournament')) return;
+  const raw = sessionStorage.getItem('t_game_snapshot');
+  if (!raw) {
+    // Kein Snapshot → frisches Spiel, alles gut
+    return;
+  }
+  try {
+    const s = JSON.parse(raw);
+    // Nur wiederherstellen wenn das Spiel noch nicht vorbei war
+    // UND wenn der Snapshot wirklich für Connect Four ist
+    if (s.gameOver) {
+      // Spiel war schon beendet → Snapshot ignorieren, frisch starten
+      sessionStorage.removeItem('t_game_snapshot');
+      return;
+    }
+    grid = s.grid;
+    currentPlayer = s.currentPlayer;
+    gameOver = s.gameOver;
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        if (grid[r][c]) {
+          const stone = document.createElement('div');
+          stone.classList.add('stone');
+          stone.style.backgroundImage = grid[r][c] === 'red'
+            ? "url('../assets/images/chip_rot2.png')"
+            : "url('../assets/images/chip_blau2.png')";
+          stone.style.backgroundSize = 'cover';
+          stone.style.top = '5px';
+          const cell = document.querySelector(`.cell[data-row='${r}'][data-col='${c}']`);
+          if (cell) cell.appendChild(stone);
+        }
+      }
+    }
+    updateTurnIndicator();
+  } catch(e) { console.warn('Restore-Fehler:', e); }
+})();
 }
 
 function handleClick(col) {
@@ -38,7 +79,7 @@ function handleClick(col) {
             
             // Stein erstellen
             window.cardSound.volume = 0.05;
-    playSound(window.cardSound);
+            playSound(window.cardSound);
             const stone = document.createElement('div');
             stone.classList.add('stone');
             stone.style.backgroundImage = currentPlayer === 'red'
@@ -71,6 +112,7 @@ function handleClick(col) {
             // Spieler wechseln (Korrektur: blue statt yellow)
             currentPlayer = currentPlayer === 'red' ? 'blue' : 'red';
             updateTurnIndicator();
+            tSaveGameState();
             break;
         }
     }
@@ -201,3 +243,10 @@ function isBoardFull() {
 document.getElementById("modal-close").addEventListener("click", () => {
     winPopup.classList.add("hidden");
 });
+
+function tSaveGameState() {
+  if (!new URLSearchParams(window.location.search).get('tournament')) return;
+  sessionStorage.setItem('t_game_snapshot', JSON.stringify({
+    grid, currentPlayer, gameOver
+  }));
+}

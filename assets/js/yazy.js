@@ -18,7 +18,7 @@ function rollDice() {
             diceElements.forEach((die, index) => {
                 if (!die.classList.contains('held')) {
                     die.classList.remove('shaking');
-                    die.classList.remove('is-question'); // <-- Diese Zeile hinzufügen
+                    die.classList.remove('is-question');
                     const newValue = Math.floor(Math.random() * 6) + 1;
                     die.innerText = newValue;
                     currentDice[index] = newValue;
@@ -75,8 +75,22 @@ function resetTurn() {
     if (field) field.classList.remove('can-score');
 }
 
+function tSaveYazyState() {
+    if (!new URLSearchParams(window.location.search).get('tournament')) return;
+    const fields = {};
+    document.querySelectorAll('.score-val').forEach(el => {
+        fields[el.id] = { text: el.innerText, filled: el.classList.contains('filled') };
+    });
+    sessionStorage.setItem('t_game_snapshot', JSON.stringify({
+        fields,
+        currentDice,
+        rollsLeft,
+        currentPlayer,
+        rollCount: document.getElementById('rollCount')?.innerText
+    }));
+}
+
 function writeScore(id, value) {
-    // Dynamische Prüfung: p1 für Spieler 1, p2 für Spieler 2
     if (!id.startsWith('p' + currentPlayer)) {
         alert("Spieler " + (currentPlayer === 1 ? "1" : "2") + " ist gerade dran! Du hast in das falsche Feld geklickt.");
         return;
@@ -98,13 +112,13 @@ function writeScore(id, value) {
         playSound(window.click2Sound);
 
         updateTotalScore();
+        tSaveYazyState();
         checkGameOver();
-        nextPlayer(); // Hier wird currentPlayer von 1 auf 2 (oder umgekehrt) gewechselt
+        nextPlayer();
     }
 }
 
 function writeSpecial(id, type) {
-    // Dynamische Prüfung
     if (!id.startsWith('p' + currentPlayer)) {
         alert("Spieler " + (currentPlayer === 1 ? "1" : "2") + " ist gerade dran!");
         return;
@@ -143,16 +157,15 @@ function writeSpecial(id, type) {
 
     window.click2Sound.volume = 0.1;
     playSound(window.click2Sound);
-    //fadeOutAudio(window.bingSound, 2000);
 
     updateTotalScore();
+    tSaveYazyState();
     checkGameOver();
     nextPlayer();
 }
 
 function updateTotalScore() {
     const p = currentPlayer;
-    // Oben: 1er bis 6er
     const upperFields = ['ones', 'twos', 'threes', 'fours', 'fives', 'sixs'];
     let upperSum = 0;
 
@@ -163,7 +176,6 @@ function updateTotalScore() {
         }
     });
 
-    // Bonus Logik (63 Punkte Regel)
     const bonusField = document.getElementById('p' + p + '-bonus');
     let bonus = 0;
     if (upperSum >= 63) {
@@ -173,7 +185,6 @@ function updateTotalScore() {
         bonusField.innerText = "0";
     }
 
-    // Bonus-Label verblassen wenn alle oberen Felder gefüllt sind
     const allUpperFilled = upperFields.every(field => {
         const el = document.getElementById('p' + p + '-' + field);
         return el && el.classList.contains('filled');
@@ -186,7 +197,6 @@ function updateTotalScore() {
         bonusRow.querySelector('span:first-child').style.opacity = '1';
     }
 
-    // Gesamt berechnen
     const allFilled = document.querySelectorAll('.player' + p + ' .score-val.filled');
     let total = 0;
     allFilled.forEach(s => {
@@ -200,7 +210,6 @@ function updateTotalScore() {
 function nextPlayer() {
     checkGameOver();
 
-    // Wechsel: 1 -> 2 oder 2 -> 1
     currentPlayer = (currentPlayer === 1) ? 2 : 1;
 
     const p1Table = document.querySelector('.player1');
@@ -214,71 +223,63 @@ function nextPlayer() {
         p1Table.classList.remove('active-player');
     }
 
-    resetTurn(); // Setzt rollsLeft auf 3 und entfernt 'can-score'
+    resetTurn();
 }
 
 function resetGame() {
-    // 1. Alle Score-Felder leeren
     const allScores = document.querySelectorAll('.score-val');
     allScores.forEach(field => {
-        field.innerText = "-"; // Setzt alles auf den Strich zurück
-        field.classList.remove('filled'); // Entfernt die Sperre
+        field.innerText = "-";
+        field.classList.remove('filled');
     });
 
-    // 2. Bonus und Total auf 0 setzen
     document.getElementById('p1-bonus').innerText = "0";
     document.getElementById('p2-bonus').innerText = "0";
     document.getElementById('p1-total').innerText = "0";
     document.getElementById('p2-total').innerText = "0";
 
-    // 3. Würfel zurücksetzen
     currentDice = [0, 0, 0, 0, 0];
     const diceElements = document.querySelectorAll('.die');
     diceElements.forEach(die => {
         die.innerText = "?";
-        die.classList.remove('held'); // Falls Würfel gehalten wurden
+        die.classList.remove('held');
         die.classList.add('is-question');
     });
 
-    // Bonus-Labels zurücksetzen
     [1, 2].forEach(p => {
         const bonusRow = document.querySelector('.player' + p + ' .score-row:has(#p' + p + '-bonus)');
         if (bonusRow) bonusRow.querySelector('span:first-child').style.opacity = '1';
     });
-    // 4. Wurf-Zähler zurücksetzen
+
     rollsLeft = 3;
     document.getElementById('rollCount').innerText = "0";
     document.getElementById('rollBtn').disabled = false;
 
-    // 5. Spieler auf 1 zurücksetzen
     currentPlayer = 1;
     document.querySelector('.player1').classList.add('active-player');
     document.querySelector('.player2').classList.remove('active-player');
 
-    // 6. can-score vom game-field entfernen (Sperrt das Klicken in die Tabelle)
     document.querySelector('.game-field').classList.remove('can-score');
+
+    // Snapshot löschen beim Reset
+    sessionStorage.removeItem('t_game_snapshot');
 
     console.log("Spiel wurde zurückgesetzt!");
 }
 
-// Den Button mit der Funktion verknüpfen
 document.getElementById('playAgainBtn').addEventListener('click', resetGame);
 
 function checkGameOver() {
-    // Wir holen uns alle Felder, in denen Punkte stehen können
     const allScoreFields = document.querySelectorAll('.score-val');
 
-    // Wir filtern die Bonus-Felder heraus, da dort ja nie ein "-" steht (sondern 0 oder 35)
-    // Und wir schauen, ob es noch IRGENDEIN Feld gibt, das noch ein "-" hat
     let emptyFields = 0;
     allScoreFields.forEach(field => {
-        // Wenn das Feld nicht das Bonus-Feld ist UND noch ein "-" hat
         if (!field.id.includes('bonus') && field.innerText === "-") {
             emptyFields++;
         }
     });
 
-    console.log("Noch offene Felder:", emptyFields); // Zum Testen in der Konsole
+    console.log("Noch offene Felder:", emptyFields);
 
     if (emptyFields === 0) {
         showWinner();
@@ -286,7 +287,6 @@ function checkGameOver() {
 }
 
 function showWinner() {
-    
     window.winSound.volume = 0.1;
     playSound(window.winSound);
 
@@ -335,4 +335,44 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('winner-popup').classList.remove('show');
         resetGame();
     });
+
+    // Turnier-Snapshot wiederherstellen
+    (function tRestoreYazyState() {
+        if (!new URLSearchParams(window.location.search).get('tournament')) return;
+        const raw = sessionStorage.getItem('t_game_snapshot');
+        if (!raw) return;
+        try {
+            const s = JSON.parse(raw);
+            // Score-Felder wiederherstellen
+            Object.entries(s.fields).forEach(([id, val]) => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.innerText = val.text;
+                    if (val.filled) el.classList.add('filled');
+                    else el.classList.remove('filled');
+                }
+            });
+            // Würfel wiederherstellen
+            currentDice = s.currentDice;
+            rollsLeft = s.rollsLeft;
+            currentPlayer = s.currentPlayer;
+            document.querySelectorAll('.die').forEach((die, i) => {
+                if (currentDice[i] && currentDice[i] !== 0) {
+                    die.innerText = currentDice[i];
+                    die.classList.remove('is-question');
+                }
+            });
+            if (document.getElementById('rollCount')) {
+                document.getElementById('rollCount').innerText = s.rollCount;
+            }
+            if (rollsLeft === 0) document.getElementById('rollBtn').disabled = true;
+            // Aktiven Spieler setzen
+            document.querySelector('.player1')?.classList.toggle('active-player', currentPlayer === 1);
+            document.querySelector('.player2')?.classList.toggle('active-player', currentPlayer === 2);
+            // can-score wiederherstellen falls Würfel geworfen wurden
+            if (rollsLeft < 3) {
+                document.querySelector('.game-field')?.classList.add('can-score');
+            }
+        } catch(e) { console.warn('Yazy restore error:', e); }
+    })();
 });
