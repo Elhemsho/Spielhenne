@@ -140,6 +140,18 @@
   font-family: 'Comic Neue2', cursive;
 }
 
+.t-game-chip-img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  vertical-align: middle;
+  border-radius: 4px;
+}
+
+.t-game-chip-img--large {
+  width: 32px;
+  height: 32px;
+}
 /* ----------------------------------------------------------------
    PRIMARY BUTTON  (matches .playAgainBtn style)
    ---------------------------------------------------------------- */
@@ -152,7 +164,7 @@
   cursor: pointer;
   background: var(--blue);
   color: #333;
-  transition: ease-in-out 0.2s;
+  transition: ease-in-out 0.1s;
   font-weight: bold;
   margin-top: 20px;
 }

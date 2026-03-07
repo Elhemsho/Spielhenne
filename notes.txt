@@ -1,16 +1,16 @@
 To-Dos/Fixes:
 
-Tiurnement:
-- Design
-- Mathquiz
+Tournement:
+- von games die nichts mit tournement zu tun haben auch zurück kommen können über score board
+- beschriftungen fix / tournement-oly einheitlich
 - winoverlay anstatt play again weiter und kein kreuz 
 - emojis austauschen
 
-Weitere Ideen
+Weitere Ideen:
 - Dark Mode
 - Responsive Design (footer unten auch bei handy ansicht)
+
+Games:
 - Snake
 - Schach
-
-
-<a href="https://www.vecteezy.com/free-vector/chess-pieces">Chess Pieces Vectors by Vecteezy</a> -PITIPORN AUNGPRAPHAPORNCHAI
+    -> <a href="https://www.vecteezy.com/free-vector/chess-pieces">Chess Pieces Vectors by Vecteezy</a> -PITIPORN AUNGPRAPHAPORNCHAI

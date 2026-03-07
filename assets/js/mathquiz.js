@@ -27,6 +27,21 @@ window.onload = () => {
     });
 };
 
+window.addEventListener('DOMContentLoaded', () => {
+    if (new URLSearchParams(window.location.search).get('tournament')) {
+        const phase = parseInt(sessionStorage.getItem('mq_phase') || '0');
+        const currentLang = localStorage.getItem('selectedLanguage') || 'de';
+        // Kleiner Hinweis wer gerade dran ist
+        const langData = window.cachedData; // noch nicht geladen, daher verzögert
+        setTimeout(() => {
+            const lang = window.cachedData?.languages?.[localStorage.getItem('selectedLanguage') || 'de'];
+            const pName = phase === 0 ? (lang?.player1 || 'Player 1') : (lang?.player2 || 'Player 2');
+            const header = document.querySelector('.header');
+            if (header) header.textContent = `Math Quiz – ${pName}`;
+        }, 500);
+    }
+});
+
 function loadHighscore() {
     const hs = localStorage.getItem(`mathHS_${currentMode}`) || 0;
     document.getElementById('highscore-val').innerText = hs;
@@ -211,6 +226,71 @@ function endGame() {
 
     if (finalScoreDisplay) finalScoreDisplay.innerText = score;
     if (modal) modal.classList.add('active');
+
+    // NEU: Turniermodus
+if (new URLSearchParams(window.location.search).get('tournament')) {
+    const phase = parseInt(sessionStorage.getItem('mq_phase') || '0');
+    sessionStorage.setItem(`mq_score_${phase}`, score);
+
+    const modal = document.getElementById('result-modal');
+    const retryBtn = modal.querySelector('.retry-btn');
+    const currentLang = localStorage.getItem('selectedLanguage') || 'de';
+    const langData = window.cachedData?.languages?.[currentLang];
+
+    // Alle evtl. alten Turnier-Buttons entfernen
+    modal.querySelectorAll('.t-tournament-btn').forEach(b => b.remove());
+    retryBtn.style.display = 'none';
+
+    if (phase === 0) {
+        // P1 fertig → Button für P2
+        sessionStorage.setItem('mq_phase', '1');
+        const handoverBtn = document.createElement('button');
+        handoverBtn.className = 'retry-btn t-tournament-btn';
+        handoverBtn.style.marginTop = '10px';
+        handoverBtn.style.background = 'var(--player2-color, #4d7cff)';
+        handoverBtn.textContent = `▶ ${langData?.player2 || 'Player 2'}`;
+        handoverBtn.onclick = () => {
+            // Turnier-Button entfernen, normalen wieder zeigen
+            modal.querySelectorAll('.t-tournament-btn').forEach(b => b.remove());
+            retryBtn.style.display = '';
+            resetGame();
+        };
+        retryBtn.parentElement.appendChild(handoverBtn);
+
+    } else {
+        // P2 fertig → Vergleich + Olympiade-Button
+        const s1 = parseInt(sessionStorage.getItem('mq_score_0') || '0');
+        const s2 = score;
+        sessionStorage.removeItem('mq_phase');
+        sessionStorage.removeItem('mq_score_0');
+
+        const winner = s1 > s2 ? 1 : s2 > s1 ? 2 : 0;
+
+        const resultTitle = document.getElementById('result-title');
+        const finalScore = document.getElementById('final-score-display');
+        const label = modal.querySelector('.result-item .label');
+
+        if (resultTitle) resultTitle.textContent = s1 > s2
+            ? `${langData?.player1 || 'Player 1'} 🎉`
+            : s2 > s1
+            ? `${langData?.player2 || 'Player 2'} 🎉`
+            : (langData?.draw_result || 'Draw!');
+
+        if (label) label.textContent = `P1: ${s1}  |  P2: ${s2}`;
+        if (finalScore) finalScore.textContent = `${s1} : ${s2}`;
+
+        const olympiaBtn = document.createElement('button');
+        olympiaBtn.className = 'retry-btn t-tournament-btn';
+        olympiaBtn.style.marginTop = '10px';
+        olympiaBtn.innerHTML = `<img src="../assets/images/trophae.png" style="width:18px;height:18px;vertical-align:middle;object-fit:contain;"> → Olympiade`;
+        olympiaBtn.onclick = () => {
+            Tournament.applyResult(winner);
+            const ov = document.getElementById('t-overlay');
+            if (ov) { ov.style.display = 'flex'; ov.classList.add('t-open'); }
+        };
+        retryBtn.parentElement.appendChild(olympiaBtn);
+    }
+}
 }
 
 function resetGame() {

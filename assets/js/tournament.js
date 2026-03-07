@@ -49,7 +49,7 @@ function tImgSrc(filename) {
 }
 
 function tGameImg(g) {
-  return `<img src="${tImgSrc(g.img)}" style="width:26px;height:26px;object-fit:contain;vertical-align:middle;border-radius:4px;">`;
+  return `<img src="${tImgSrc(g.img)}" class="t-game-chip-img">`;
 }
 
 // ----------------------------------------------------------------
@@ -280,7 +280,7 @@ function tBuildIntro() {
   panel.innerHTML = `
     <button class="t-close-btn" onclick="tCloseOverlay()">✕</button>
     <div class="t-trophy-icon">
-      <img src="${tImgSrc('trophae.png')}" style="width:58px;height:58px;object-fit:contain;">
+      <img src="${tImgSrc('trophae.png')}" style="width:58px;height:58px;object-fit:contain; margin-top:12px;">
     </div>
     <h2 class="t-title">${tx.intro_title}</h2>
     <p class="t-sub">${tx.intro_sub}</p>
@@ -336,15 +336,25 @@ function tRunSpin(targetGame, onDone) {
       <div class="t-slot-strip" id="t-slot-strip"></div>
     </div>
     <div id="t-spin-result" style="display:none">
-      <div class="t-spin-winner">${tGameImg(targetGame)} ${tGameName(targetGame)}</div>
+      <div class="t-spin-winner">
+        <img src="${tImgSrc(targetGame.img)}" class="t-game-chip-img t-game-chip-img--large">
+        ${tGameName(targetGame)}
+      </div>
       <button class="t-btn-primary" id="t-btn-play" onclick="Tournament.launchGame()" style="display:none">▶ ${tx.btn_play}</button>
     </div>
   `;
 
   const strip = tEl('t-slot-strip');
-  const items = [...T_GAMES,...T_GAMES,...T_GAMES,...T_GAMES,...T_GAMES, targetGame];
+  const loopItems = [...T_GAMES,...T_GAMES,...T_GAMES,...T_GAMES,...T_GAMES];
+  if (loopItems[loopItems.length - 1].id === targetGame.id) {
+    [loopItems[loopItems.length - 1], loopItems[loopItems.length - 2]] = [loopItems[loopItems.length - 2], loopItems[loopItems.length - 1]];
+  }
+  const items = [...loopItems, targetGame];
   strip.innerHTML = items.map(g => `
-    <div class="t-slot-item">${tGameImg(g)} ${tGameName(g)}</div>
+    <div class="t-slot-item">
+      <img src="${tImgSrc(g.img)}" class="t-game-chip-img">
+      ${tGameName(g)}
+    </div>
   `).join('');
 
   const itemH = 44;
@@ -353,7 +363,7 @@ function tRunSpin(targetGame, onDone) {
   const endY = centerOff - targetIdx * itemH;
   const startY = centerOff;
   strip.style.transform = `translateY(${startY}px)`;
-  strip.getBoundingClientRect(); // force reflow
+  strip.getBoundingClientRect();
 
   const duration = 3200;
   let startTime = null;
@@ -484,10 +494,28 @@ const TMQ = {
     const ops = ['+', '-', '×'];
     const op = ops[Math.floor(Math.random() * ops.length)];
     let a, b, ans;
-    if (op === '+') { a = Math.floor(Math.random() * 20) + 1; b = Math.floor(Math.random() * 20) + 1; ans = a + b; }
-    else if (op === '-') { a = Math.floor(Math.random() * 20) + 5; b = Math.floor(Math.random() * a); ans = a - b; }
-    else { a = Math.floor(Math.random() * 10) + 1; b = Math.floor(Math.random() * 10) + 1; ans = a * b; }
+    if (op === '+')      { a = Math.floor(Math.random()*20)+1; b = Math.floor(Math.random()*20)+1; ans = a+b; }
+    else if (op === '-') { a = Math.floor(Math.random()*20)+5; b = Math.floor(Math.random()*a);    ans = a-b; }
+    else                 { a = Math.floor(Math.random()*10)+1; b = Math.floor(Math.random()*10)+1; ans = a*b; }
     return { q: `${a} ${op} ${b} = ?`, ans };
+  },
+
+  // Zeigt den "Spieler X ist dran" Übergabe-Screen
+  showHandover(playerIdx) {
+    const tx = tLang();
+    const pName = playerIdx === 0 ? tx.p1 : tx.p2;
+    const pColor = playerIdx === 0 ? 'var(--player1-color)' : 'var(--player2-color)';
+    const panel = tEl('t-panel-mathquiz');
+    panel.innerHTML = `
+      <div class="t-mq-title">${tx.mq_title}</div>
+      <div style="font-size:3rem; margin:8px 0;">🧮</div>
+      <div style="font-size:1.3rem; font-weight:bold; color:${pColor}; margin-bottom:6px;">${pName}</div>
+      <div class="t-mq-player" style="margin-bottom:16px;">${tx.mq_p_label}</div>
+      <button class="t-btn-primary" onclick="TMQ.build(${playerIdx})">▶ ${tx.btn_play}</button>
+    `;
+    tShowPanel('t-panel-mathquiz');
+    const ov = tEl('t-overlay');
+    if (ov) { ov.style.display = 'flex'; ov.classList.add('t-open'); }
   },
 
   build(playerIdx) {
@@ -496,10 +524,11 @@ const TMQ = {
     this.timeLeft = 30;
     const tx = tLang();
     const pName = playerIdx === 0 ? tx.p1 : tx.p2;
+    const pColor = playerIdx === 0 ? 'var(--player1-color)' : 'var(--player2-color)';
     const panel = tEl('t-panel-mathquiz');
     panel.innerHTML = `
       <div class="t-mq-title">${tx.mq_title}</div>
-      <div class="t-mq-player">${pName} ${tx.mq_p_label}</div>
+      <div class="t-mq-player" style="color:${pColor}; font-weight:bold;">${pName}</div>
       <div class="t-mq-timer" id="t-mq-timer">30</div>
       <div class="t-mq-stats">
         <div class="t-mq-stat"><span id="t-mq-score">0</span><small>${tx.mq_pts}</small></div>
@@ -512,6 +541,9 @@ const TMQ = {
       <div class="t-mq-fb" id="t-mq-fb"></div>
     `;
     tShowPanel('t-panel-mathquiz');
+    const ov = tEl('t-overlay');
+    if (ov) { ov.style.display = 'flex'; ov.classList.add('t-open'); }
+
     this.newQ();
     clearInterval(this.timer);
     this.timer = setInterval(() => {
@@ -520,6 +552,7 @@ const TMQ = {
       if (el) { el.textContent = this.timeLeft; el.classList.toggle('t-mq-timer--urgent', this.timeLeft <= 5); }
       if (this.timeLeft <= 0) { clearInterval(this.timer); this.end(); }
     }, 1000);
+
     const inp = tEl('t-mq-input');
     if (inp) {
       inp.focus();
@@ -562,21 +595,70 @@ const TMQ = {
   end() {
     clearInterval(this.timer);
     TournamentState.mathScores[this.player] = this.score;
-    const tx = tLang();
-    const fb = tEl('t-mq-fb');
-    if (fb) { fb.textContent = `${tx.mq_done} ${this.score}`; fb.className = 't-mq-fb t-mq-fb--correct'; }
-    const inp = tEl('t-mq-input');
-    if (inp) inp.disabled = true;
-    const btn = tEl('t-panel-mathquiz')?.querySelector('.t-btn-primary');
-    if (btn) btn.disabled = true;
+    saveTS();
 
     if (this.player === 0) {
-      setTimeout(() => { TMQ.build(1); }, 2000);
+      // P1 fertig → Ergebnis-Screen mit Übergabe zu P2
+      this.showP1Result();
     } else {
-      const [s1, s2] = TournamentState.mathScores;
-      const winner = s1 > s2 ? 1 : s2 > s1 ? 2 : 0;
-      setTimeout(() => { Tournament.applyResult(winner); }, 1500);
+      // P2 fertig → Vergleich zeigen
+      this.showComparison();
     }
+  },
+
+  showP1Result() {
+    const tx = tLang();
+    const s1 = TournamentState.mathScores[0];
+    const panel = tEl('t-panel-mathquiz');
+    panel.innerHTML = `
+      <div class="t-mq-title">${tx.mq_title}</div>
+      <div style="font-size:2.5rem; margin:8px 0;">✅</div>
+      <div style="font-size:1rem; color:#666; margin-bottom:4px;">${tx.p1}</div>
+      <div style="font-size:2.5rem; font-weight:bold; color:var(--player1-color);">${s1}</div>
+      <div style="font-size:0.85rem; color:#888; margin-bottom:16px;">${tx.mq_pts}</div>
+      <button class="t-btn-primary" onclick="TMQ.showHandover(1)">▶ ${tx.p2} ${tx.mq_p_label.replace('(30 Sekunden)','').replace('(30 seconds)','')}</button>
+    `;
+    tShowPanel('t-panel-mathquiz');
+  },
+
+  showComparison() {
+    const tx = tLang();
+    const [s1, s2] = TournamentState.mathScores;
+    const winner = s1 > s2 ? 1 : s2 > s1 ? 2 : 0;
+
+    let resultEmoji, resultText, resultColor;
+    if (winner === 1)      { resultEmoji = '🎉'; resultText = `${tx.p1} ${tx.wins}`; resultColor = 'var(--player1-color)'; }
+    else if (winner === 2) { resultEmoji = '🎉'; resultText = `${tx.p2} ${tx.wins}`; resultColor = 'var(--player2-color)'; }
+    else                   { resultEmoji = '🤝'; resultText = tx.draw;               resultColor = '#888'; }
+
+    const panel = tEl('t-panel-mathquiz');
+    panel.innerHTML = `
+      <div class="t-mq-title">${tx.mq_title}</div>
+      <div style="font-size:2.5rem; margin:6px 0;">${resultEmoji}</div>
+      <div style="font-size:1.2rem; font-weight:bold; color:${resultColor}; margin-bottom:14px;">${resultText}</div>
+      <div class="t-score-row">
+        <div class="t-score-block">
+          <span class="t-score-name">${tx.p1}</span>
+          <span class="t-score-val t-col-p1">${s1}</span>
+          <span style="font-size:0.75rem; color:#888;">${tx.mq_pts}</span>
+        </div>
+        <span class="t-score-divider">:</span>
+        <div class="t-score-block">
+          <span class="t-score-name">${tx.p2}</span>
+          <span class="t-score-val t-col-p2">${s2}</span>
+          <span style="font-size:0.75rem; color:#888;">${tx.mq_pts}</span>
+        </div>
+      </div>
+      <button class="t-btn-primary" onclick="TMQ.finish()" style="margin-top:8px;">▶ ${tx.btn_next}</button>
+    `;
+    tShowPanel('t-panel-mathquiz');
+    if (winner !== 0) tCelebrate();
+  },
+
+  finish() {
+    const [s1, s2] = TournamentState.mathScores;
+    const winner = s1 > s2 ? 1 : s2 > s1 ? 2 : 0;
+    Tournament.applyResult(winner);
   }
 };
 
@@ -592,6 +674,15 @@ function tCelebrate() {
 // ----------------------------------------------------------------
 // 16. TOURNAMENT CONTROLLER
 // ----------------------------------------------------------------
+function tShuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 const Tournament = {
 
   open() {
@@ -604,7 +695,7 @@ const Tournament = {
     TournamentState.scores = [0, 0];
     TournamentState.roundHistory = [];
     TournamentState.currentRound = 0;
-    TournamentState.gameOrder = [...T_GAMES].sort(() => Math.random() - 0.5);
+    TournamentState.gameOrder = tShuffle(T_GAMES);
     saveTS();
     tUpdateScoreboard();
     this._spin();
@@ -618,23 +709,25 @@ const Tournament = {
   },
 
   launchGame() {
+  const game = TournamentState.currentGame;
+  sessionStorage.removeItem('t_game_snapshot');
+  if (game.id === 'mathquiz') {
+  TournamentState.mathScores = [0, 0];
+  TournamentState.mathPhase = 0;
+  saveTS();
+  tCloseOverlay();
+  const isSubpage = window.location.pathname.includes('/pages/');
+  const prefix = isSubpage ? '' : 'pages/';
+  window.location.href = `${prefix}${game.url}?tournament=1&round=${TournamentState.currentRound + 1}`;
+}
+  else {
     tCloseOverlay();
-    const game = TournamentState.currentGame;
-    if (game.id === 'mathquiz') {
-      TournamentState.mathScores = [0, 0];
-      TournamentState.mathPhase = 0;
-      saveTS();
-      TMQ.build(0);
-      tShowPanel('t-panel-mathquiz');
-      const ov = tEl('t-overlay');
-      if (ov) { ov.style.display = 'flex'; ov.classList.add('t-open'); }
-    } else {
-      const isSubpage = window.location.pathname.includes('/pages/');
-      const prefix = isSubpage ? '' : 'pages/';
-      const url = `${prefix}${game.url}?tournament=1&round=${TournamentState.currentRound + 1}`;
-      window.location.href = url;
-    }
-  },
+    const isSubpage = window.location.pathname.includes('/pages/');
+    const prefix = isSubpage ? '' : 'pages/';
+    const url = `${prefix}${game.url}?tournament=1&round=${TournamentState.currentRound + 1}`;
+    window.location.href = url;
+  }
+},
 
   reportResult(winner) {
     this.applyResult(winner);
