@@ -27,20 +27,23 @@ window.onload = () => {
     });
 };
 
-window.addEventListener('DOMContentLoaded', () => {
-    if (new URLSearchParams(window.location.search).get('tournament')) {
-        const phase = parseInt(sessionStorage.getItem('mq_phase') || '0');
-        const currentLang = localStorage.getItem('selectedLanguage') || 'de';
-        // Kleiner Hinweis wer gerade dran ist
-        const langData = window.cachedData; // noch nicht geladen, daher verzögert
-        setTimeout(() => {
-            const lang = window.cachedData?.languages?.[localStorage.getItem('selectedLanguage') || 'de'];
-            const pName = phase === 0 ? (lang?.player1 || 'Player 1') : (lang?.player2 || 'Player 2');
-            const header = document.querySelector('.header');
-            if (header) header.textContent = `Math Quiz – ${pName}`;
-        }, 500);
+function tUpdateMQHeader() {
+  const isTournament = new URLSearchParams(window.location.search).get('tournament');
+  const header = document.querySelector('.header');
+  if (!header) return;
+  if (!isTournament) return;
+
+  setTimeout(() => {
+    const phase = sessionStorage.getItem('mq_phase');
+    const lang = window.cachedData?.languages?.[localStorage.getItem('selectedLanguage') || 'de'];
+    if (phase !== null) {
+      const pName = parseInt(phase) === 0
+        ? (lang?.player1 || 'Player 1')
+        : (lang?.player2 || 'Player 2');
+      header.textContent = `Math Quiz – ${pName}`;
     }
-});
+  }, 600);
+}
 
 function loadHighscore() {
     const hs = localStorage.getItem(`mathHS_${currentMode}`) || 0;
@@ -76,6 +79,10 @@ window.addEventListener('click', function (event) {
             dropdown.classList.remove('show');
         }
     }
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    tUpdateMQHeader();
 });
 
 function changeMode(mode) {
@@ -247,9 +254,11 @@ if (new URLSearchParams(window.location.search).get('tournament')) {
         const handoverBtn = document.createElement('button');
         handoverBtn.className = 'retry-btn t-tournament-btn';
         handoverBtn.style.marginTop = '10px';
-        handoverBtn.style.background = 'var(--player2-color, #4d7cff)';
+        handoverBtn.style.background = 'var(--blue)';
+        handoverBtn.style.color = '#333';
         handoverBtn.textContent = `▶ ${langData?.player2 || 'Player 2'}`;
         handoverBtn.onclick = () => {
+            tUpdateMQHeader();
             // Turnier-Button entfernen, normalen wieder zeigen
             modal.querySelectorAll('.t-tournament-btn').forEach(b => b.remove());
             retryBtn.style.display = '';

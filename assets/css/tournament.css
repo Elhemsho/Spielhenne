@@ -72,6 +72,10 @@
 }
 .t-close-btn:hover { background: rgba(0,0,0,0.13); }
 
+.t-abort-btn:hover {
+  background: #ffcccc !important;
+}
+
 /* ----------------------------------------------------------------
    TYPOGRAPHY
    ---------------------------------------------------------------- */
@@ -173,6 +177,10 @@
 }
 .t-btn-primary:disabled {
   opacity: 0.5; cursor: not-allowed; transform: none;
+}
+
+.t-tournament-btn:hover {
+    background: var(--bluel) !important;
 }
 
 /* ----------------------------------------------------------------
@@ -457,22 +465,34 @@
    REPORT RESULT BUTTON (injected into game win overlays)
    ---------------------------------------------------------------- */
 .t-report-btn {
-  display:block;
-  margin:14px auto 0;
-  font-family:'Comic Neue2',cursive;
-  font-size:0.95rem;
-  padding:9px 22px;
-  border:2px solid var(--blue);
-  border-radius:10px;
-  background:#f5fdfe;
-  color:#333;
-  cursor:pointer;
-  font-weight:bold;
-  transition:all 0.15s;
+  margin-top: 15px;
+  padding: 8px 20px;
+  font-size: 17px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  transition: all 0.1s;
+  background: #e8e8e8;
+  border: none;
+  color: #333;
+  border: #444 1px solid;
 }
+
 .t-report-btn:hover {
-  background:var(--blue);
-  transform:translateY(-2px);
+  background-color: #e1e1e1;
+  transform: none;
+}
+
+.win-popup .t-report-btn,
+.winner-content .t-report-btn {
+  border:2px solid var(--blue);
+  background-color: #fff;
+  color: #333;
+}
+
+.win-popup .t-report-btn:hover,
+.winner-content .t-report-btn:hover {
+  background: var(--bluel);
 }
 
 /* ----------------------------------------------------------------

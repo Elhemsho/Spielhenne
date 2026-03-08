@@ -1,9 +1,4 @@
 To-Dos/Fixes:
-
-Tournement:
-- von games die nichts mit tournement zu tun haben auch zurück kommen können über score board
-- beschriftungen fix / tournement-oly einheitlich
-- winoverlay anstatt play again weiter und kein kreuz 
 - emojis austauschen
 
 Weitere Ideen:

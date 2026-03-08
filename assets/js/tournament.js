@@ -92,7 +92,6 @@ const T_LANG = {
     champion_draw:    'Unentschieden!',
     draw_both:        'Beide haben gleich viele Punkte!',
     btn_restart:      'Neue Runde',
-    mq_title:         '🧮 Mathe Quiz – Turniermodus',
     mq_p_label:       'ist dran! (30 Sekunden)',
     mq_pts:           'Punkte',
     mq_ok:            'OK',
@@ -101,10 +100,12 @@ const T_LANG = {
     mq_done:          'Zeit! Punkte:',
     history_draw:     'Unentschieden',
     scoreboard_round: 'Runde',
-    abort_title:      'Turnier beenden?',
-    abort_sub:        'Wenn du abbrichst, wird das aktuelle Turnier beendet und der Spielstand gelöscht.',
-    abort_confirm:    '🗑️ Turnier abbrechen',
     abort_cancel:     '↩ Weiterspielen',
+    mq_title:      'Mathe Quiz – Olympiade',
+    abort_title:   'Olympiade beenden?',
+    abort_sub:     'Wenn du abbrichst, wird die aktuelle Olympiade beendet und der Spielstand gelöscht.',
+    abort_confirm: '🗑️ Olympiade abbrechen',
+    btn_to_olympics: '→ Olympiade',
   },
   en: {
     intro_title:      'Spielhenne Olympics',
@@ -131,7 +132,6 @@ const T_LANG = {
     champion_draw:    'Draw!',
     draw_both:        'Both players are tied!',
     btn_restart:      'New Round',
-    mq_title:         '🧮 Math Quiz – Tournament',
     mq_p_label:       'is up! (30 seconds)',
     mq_pts:           'Points',
     mq_ok:            'OK',
@@ -140,10 +140,12 @@ const T_LANG = {
     mq_done:          'Time! Points:',
     history_draw:     'Draw',
     scoreboard_round: 'Round',
-    abort_title:      'End tournament?',
-    abort_sub:        'If you quit, the current tournament will end and all progress will be lost.',
-    abort_confirm:    '🗑️ Quit tournament',
     abort_cancel:     '↩ Keep playing',
+    mq_title:      'Math Quiz – Olympics',
+    abort_title:   'End Olympics?',
+    abort_sub:     'If you quit, the current Olympics will end and all progress will be lost.',
+    abort_confirm: '🗑️ Quit Olympics',
+    btn_to_olympics: '→ Olympics',
   },
 };
 
@@ -306,8 +308,8 @@ function tShowAbortPanel() {
     <div class="t-trophy-icon">⚠️</div>
     <h2 class="t-title">${tx.abort_title}</h2>
     <p class="t-sub">${tx.abort_sub}</p>
-    <div style="display:flex; gap:12px; justify-content:center; margin-top:8px; flex-wrap:wrap;">
-      <button class="t-btn-primary" style="background:#ffb3b3;" onclick="Tournament.abort()">
+    <div style="display:flex; gap:12px; justify-content:center; margin-top:8px; flex-wrap:nowrap;min-width:410px;">
+      <button class="t-btn-primary t-abort-btn" style="background:#ffb3b3;" onclick="Tournament.abort()">
         ${tx.abort_confirm}
       </button>
       <button class="t-btn-primary" onclick="tCloseOverlay()">
@@ -714,6 +716,7 @@ const Tournament = {
   if (game.id === 'mathquiz') {
   TournamentState.mathScores = [0, 0];
   TournamentState.mathPhase = 0;
+  sessionStorage.setItem('mq_phase', '0'); // ← neu, vor Navigation setzen
   saveTS();
   tCloseOverlay();
   const isSubpage = window.location.pathname.includes('/pages/');
@@ -754,20 +757,35 @@ const Tournament = {
   },
 
   abort() {
-    TournamentState.active = false;
-    clearTS();
-    sessionStorage.removeItem('t_game_snapshot');
-    tUpdateScoreboard();
-    tCloseOverlay();
-  },
+  TournamentState.active = false;
+  clearTS();
+  sessionStorage.removeItem('t_game_snapshot');
+  sessionStorage.removeItem('mq_phase');
+  sessionStorage.removeItem('mq_score_0');
+  tUpdateScoreboard();
+  // MQ Header zurücksetzen falls auf MQ-Seite
+  const header = document.querySelector('.header');
+  if (header && window.location.pathname.includes('mathquiz')) {
+    const lang = window.cachedData?.languages?.[localStorage.getItem('selectedLanguage') || 'de'];
+    header.textContent = lang?.mq || 'Math Quiz';
+  }
+  tCloseOverlay();
+},
 
-  restart() {
-    TournamentState.active = false;
-    clearTS();
-    sessionStorage.removeItem('t_game_snapshot');
-    tUpdateScoreboard();
-    this.open();
-  },
+restart() {
+  TournamentState.active = false;
+  clearTS();
+  sessionStorage.removeItem('t_game_snapshot');
+  sessionStorage.removeItem('mq_phase');
+  sessionStorage.removeItem('mq_score_0');
+  tUpdateScoreboard();
+  const header = document.querySelector('.header');
+  if (header && window.location.pathname.includes('mathquiz')) {
+    const lang = window.cachedData?.languages?.[localStorage.getItem('selectedLanguage') || 'de'];
+    header.textContent = lang?.mq || 'Math Quiz';
+  }
+  this.open();
+},
 };
 
 // ----------------------------------------------------------------
@@ -868,10 +886,33 @@ function tCheckGamePage() {
 function tInjectGameResultBtn(container, winner) {
   if (container.querySelector('.t-report-btn')) return;
 
+  const hideSelectors = [
+  '.retry-btn', '.play-again-btn', '.reset-btn',
+  '.close-btn', '.modal-close', '.modal-close2', '.win-close',
+  '.overlay-close', '.btn-close', 'button.close',
+  '.playAgainBtn', '.pABtn',
+  '#playAgainBtnChampion', '#modal-close', '#winner-close',
+  '#winner-play-again', '#playAgainPopupBtn',
+  '[onclick*="resetGame"]', '[onclick*="playAgain"]',
+  '[onclick*="newGame"]', '[onclick*="restart"]',
+  '[onclick*="reset"]',
+];
+
+  // Layout-Elemente nur unsichtbar machen (visibility), nicht aus dem Layout entfernen
+  const layoutSelectors = ['#playAgainBtn', '.reset'];
+
+  hideSelectors.forEach(sel => {
+    document.querySelectorAll(sel).forEach(el => el.style.display = 'none');
+  });
+
+  layoutSelectors.forEach(sel => {
+    document.querySelectorAll(sel).forEach(el => el.style.visibility = 'hidden');
+  });
+
   const tx = tLang();
   const btn = document.createElement('button');
   btn.className = 't-report-btn';
-  btn.innerHTML = `<img src="${tImgSrc('trophae.png')}" style="width:18px;height:18px;vertical-align:middle;object-fit:contain;"> ${tx.btn_next} → Olympiade`;
+  btn.innerHTML = `<img src="${tImgSrc('trophae.png')}" style="width:18px;height:18px;vertical-align:middle;object-fit:contain;"> ${tx.btn_next} ${tx.btn_to_olympics}`;
   btn.onclick = () => {
     const w = parseInt(winner);
     Tournament.applyResult(isNaN(w) ? 0 : w);
@@ -905,5 +946,12 @@ if (typeof _origSetLayout === 'function') {
     await _origSetLayout.apply(this, arguments);
     tHookTrophyBtn();
     tUpdateScoreboard();
+    if (typeof tUpdateMQHeader === 'function') tUpdateMQHeader();
+
+    // t-report-btn Sprache aktualisieren
+    const tx = tLang();
+    document.querySelectorAll('.t-report-btn').forEach(btn => {
+      btn.innerHTML = `<img src="${tImgSrc('trophae.png')}" style="width:18px;height:18px;vertical-align:middle;object-fit:contain;"> ${tx.btn_next} ${tx.btn_to_olympics}`;
+    });
   };
 }
