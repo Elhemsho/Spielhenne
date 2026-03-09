@@ -1,5 +1,6 @@
 To-Dos/Fixes:
 - emojis austauschen
+- olympiade win sound hinzufügen win
 
 Weitere Ideen:
 - Dark Mode
@@ -9,3 +10,15 @@ Games:
 - Snake
 - Schach
     -> <a href="https://www.vecteezy.com/free-vector/chess-pieces">Chess Pieces Vectors by Vecteezy</a> -PITIPORN AUNGPRAPHAPORNCHAI
+
+handshake - https://www.flaticon.com/free-icon/handshake_10729192?related_id=10729192 - zero_wing
+
+playbtn - https://www.flaticon.com/free-icon/play-buttton_5577228?term=play&page=1&position=30&origin=search&related_id=5577228 - IYAHICON
+
+warnung - https://www.flaticon.com/free-icon/crisis_8213126?term=warning&page=1&position=6&origin=search&related_id=8213126 - Hilmy Abiyyu A.
+
+trashcan - https://www.flaticon.com/free-icon/bin_13727122?term=trashcan&page=1&position=9&origin=search&related_id=13727122 - Circlon Tech
+
+spinSound - Sound Effect by <a href="https://pixabay.com/users/victorabdo-24752366/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=232536">victor abdo</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=232536">Pixabay</a>
+
+auswahl sound suchen
