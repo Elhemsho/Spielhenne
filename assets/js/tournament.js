@@ -363,6 +363,9 @@ function tRunSpin(targetGame, onDone) {
   strip.style.transform = `translateY(${startY}px)`;
   strip.getBoundingClientRect();
 
+  window.spinSound.volume = 0.15;
+  playSound(window.spinSound);
+
   const duration = 3200;
   let startTime = null;
   function ease(t) { return 1 - Math.pow(1 - t, 4); }
@@ -406,6 +409,7 @@ function tShowResult(winner) {
   }
 
   panel.innerHTML = `
+  <button class="t-close-btn" onclick="tCloseOverlay()">✕</button>
     <div class="t-result-emoji">${emoji}</div>
     <h2 class="t-result-title">${titleHtml}</h2>
     <p class="t-result-sub">${tGameName(game)} – ${tx.round_done} ${TournamentState.currentRound}</p>
@@ -430,6 +434,8 @@ function tShowResult(winner) {
 // 13. FINAL PODIUM
 // ----------------------------------------------------------------
 function tShowFinal() {
+  window.winSound.volume = 0.05;
+  playSound(window.winSound);
   const tx = tLang();
   const [s1, s2] = TournamentState.scores;
   const panel = tEl('t-panel-final');

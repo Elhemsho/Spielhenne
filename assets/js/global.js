@@ -640,6 +640,7 @@ function updateSounds(enabled) {
 
 function updateMusic(isMuted) {
     if (audio) audio.muted = isMuted;
+     if (audio) audio.volume = 0.5;
     
     // Icon: aus wenn Musik ODER Sounds aus ist
     const soundsOff = !window.soundsEnabled;
@@ -777,7 +778,7 @@ window.goodSound = new Audio('../assets/audio/sfx/end.mp3');
 window.waterSound = new Audio('../assets/audio/sfx/water.mp3');
 window.bingSound = new Audio('../assets/audio/sfx/bing.mp3');
 window.click2Sound = new Audio('../assets/audio/sfx/click2.mp3');
-
+window.spinSound = new Audio('../assets/audio/sfx/spin4.mp3');
 
 function fadeOutAudio(audioObject, duration = 500) {
     const startVolume = audioObject.volume;

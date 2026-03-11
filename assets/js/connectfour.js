@@ -119,7 +119,7 @@ function handleClick(col) {
 }
 
 function showWinPopup(player) {
-    window.winSound.volume = 0.07;
+    window.winSound.volume = 0.05;
     playSound(window.winSound);
     const content = winPopup.querySelector(".winnerBox");
     if (content) content.classList.replace("draw", "win");

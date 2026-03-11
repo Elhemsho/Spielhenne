@@ -406,7 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             setTimeout(() => {
                 if (winOverlay) {
-                    window.winSound.volume = 0.07;
+                    window.winSound.volume = 0.05;
                     playSound(window.winSound);
                     winOverlay.classList.remove('hidden');
                     winOverlay.style.display = 'flex';

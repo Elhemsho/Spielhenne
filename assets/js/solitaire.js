@@ -663,7 +663,7 @@ function checkWinCondition() {
 }
 
 function showVictoryPopup() {
-    window.winSound.volume = 0.07;
+    window.winSound.volume = 0.05;
     playSound(window.winSound);
 
     const popup = document.getElementById("game-modal");

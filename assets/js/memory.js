@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showWinPopup() {
         playSound(window.winSound);
-        window.winSound.volume = 0.07;
+        window.winSound.volume = 0.05;
 
         const overlay = document.getElementById("overlay");
         if (scores.player1 > scores.player2) {

@@ -287,7 +287,7 @@ function checkGameOver() {
 }
 
 function showWinner() {
-    window.winSound.volume = 0.1;
+    window.winSound.volume = 0.05;
     playSound(window.winSound);
 
     const currentLang = localStorage.getItem('selectedLanguage') || 'de';

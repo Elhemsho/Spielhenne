@@ -191,7 +191,7 @@ function showModal() {
     const playAgainLabel = langData?.show_result || "Play Again";
 
     if (isNewHighscore) {
-        window.winSound.volume = 0.07;
+        window.winSound.volume = 0.05;
         playSound(window.winSound);
         if (resultStatsBox) { resultStatsBox.style.backgroundColor = "#fff9e6"; resultStatsBox.style.borderColor = "#ffcc00"; resultStatsBox.style.boxShadow = "0 0 15px 10px rgba(255, 204, 0, 0.4)"; }
         if (labelText) { labelText.innerText = newHsLabel; labelText.style.color = "#b8860b"; }

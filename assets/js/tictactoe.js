@@ -153,7 +153,7 @@ function resetGame() {
 }
 
 function showChampion() {
-    window.winSound.volume = 0.07;
+    window.winSound.volume = 0.05;
     playSound(window.winSound);
     if (overlay) overlay.classList.add("hidden"); 
     championOverlay.classList.remove("hidden");
